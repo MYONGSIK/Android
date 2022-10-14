@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myongsik_nav_graph"
+    app:startDestination="@id/fragment_splash">
+
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.myongsik.myongsikandroid.ui.view.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/fragment_splash"
+        android:name="com.myongsik.myongsikandroid.ui.view.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_fragment_splash_to_fragment_home"
+            app:destination="@id/fragment_home" />
+    </fragment>
+</navigation>

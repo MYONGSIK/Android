@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="44dp">
+
+    <View
+        android:id="@+id/home_food_v"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@drawable/food_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/home_day"
+        android:text="10/5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="@color/home_text_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="30dp"
+        />
+
+    <TextView
+        android:id="@+id/home_week_day"
+        android:text="화요일"
+        android:textSize="20sp"
+        android:textColor="@color/home_text_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/home_day"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:id="@+id/dash_line"
+        android:src="@drawable/dash_line"
+        android:layerType="software"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        app:layout_constraintTop_toBottomOf="@id/home_food_v"
+        />
+
+    <View
+        android:id="@+id/home_food_bottom_v"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/food_background"
+        app:layout_constraintTop_toBottomOf="@id/dash_line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/today_food"
+        android:text="오늘의 식단"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/dash_line"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
