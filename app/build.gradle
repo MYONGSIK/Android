@@ -1,6 +1,11 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
+
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -29,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures{
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -40,4 +48,32 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
+    //Moshi
+    implementation 'com.squareup.moshi:moshi:1.13.0'
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.13.0'
+
+    //OkHttp
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
+
+    // Navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+
+    // Recyclerview
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+
+    // Room
+    implementation 'androidx.room:room-runtime:2.4.2'
+    implementation 'androidx.room:room-ktx:2.4.2'
+    kapt 'androidx.room:room-compiler:2.4.2'
+
+    // Coroutine
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1'
 }
