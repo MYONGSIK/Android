@@ -7,10 +7,23 @@
     <View
         android:id="@+id/week_food_top_v"
         android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:background="@color/main_color"
+        android:layout_height="96dp"
+        android:background="@drawable/home_background_top"
         app:layout_constraintTop_toTopOf="parent"
         />
+
+    <TextView
+        android:id="@+id/week_food_top_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/week_today_tv"
+        android:textSize="18sp"
+        android:layout_marginTop="37dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/notosans_regular"
+        app:layout_constraintTop_toBottomOf="@id/week_food_top_v"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_search_result"
@@ -20,9 +33,9 @@
         app:layout_constraintBottom_toTopOf="@id/week_food_bottom_v"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/week_food_top_v"
-        android:layout_marginTop="-25dp"
-        android:layout_marginBottom="20dp"/>
+        app:layout_constraintTop_toBottomOf="@id/week_food_top_tv"
+        android:layout_marginTop="38dp"
+        />
 
     <View
         android:id="@+id/week_food_bottom_v"

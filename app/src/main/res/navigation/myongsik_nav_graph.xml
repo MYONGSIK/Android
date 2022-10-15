@@ -24,5 +24,9 @@
         android:id="@+id/fragment_home"
         android:name="com.myongsik.myongsikandroid.ui.view.HomeFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_week_food"
+            app:destination="@id/fragment_week_food" />
+    </fragment>
 </navigation>
