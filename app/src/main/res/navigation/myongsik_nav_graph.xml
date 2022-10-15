@@ -7,10 +7,10 @@
 
 
     <fragment
-        android:id="@+id/fragment_home"
-        android:name="com.myongsik.myongsikandroid.ui.view.HomeFragment"
+        android:id="@+id/fragment_week_food"
+        android:name="com.myongsik.myongsikandroid.ui.view.WeekFoodFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_week_food"/>
     <fragment
         android:id="@+id/fragment_splash"
         android:name="com.myongsik.myongsikandroid.ui.view.SplashFragment"
@@ -20,4 +20,9 @@
             android:id="@+id/action_fragment_splash_to_fragment_home"
             app:destination="@id/fragment_home" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.myongsik.myongsikandroid.ui.view.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
 </navigation>
