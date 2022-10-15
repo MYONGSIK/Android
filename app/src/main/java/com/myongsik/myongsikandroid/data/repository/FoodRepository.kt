@@ -1,14 +1,11 @@
 package com.myongsik.myongsikandroid.data.repository
 
-import com.myongsik.myongsikandroid.data.model.SearchResponse
+import com.myongsik.myongsikandroid.data.model.TodayFoodResponse
 import retrofit2.Response
 
 interface FoodRepository {
 
-    suspend fun searchBooks(
-        query : String,
-        sort : String,
-        page : Int,
-        size : Int,
-    ) : Response<SearchResponse>
+    suspend fun todayGetFood() : Response<TodayFoodResponse>
+
+    suspend fun weekGetFood() : Response<TodayFoodResponse>
 }

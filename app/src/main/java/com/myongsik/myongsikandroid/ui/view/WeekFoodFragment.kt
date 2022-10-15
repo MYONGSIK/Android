@@ -36,10 +36,11 @@ class WeekFoodFragment : Fragment() {
         mainViewModel = (activity as MainActivity).mainViewModel
         setUpRecyclerView()
 
-        mainViewModel.searchBooks("android")
-        mainViewModel.resultSearch.observe(viewLifecycleOwner){ response ->
-            val books = response.documents
-            homeFoodAdapter.submitList(books)
+        mainViewModel.weekGetFoodFun()
+
+        mainViewModel.weekGetFood.observe(viewLifecycleOwner) {
+            val food = it.data
+            homeFoodAdapter.submitList(food)
         }
     }
 

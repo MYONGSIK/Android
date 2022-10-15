@@ -1,18 +1,20 @@
 package com.myongsik.myongsikandroid.data.repository
 
+
 import com.myongsik.myongsikandroid.data.api.RetrofitInstance.api
-import com.myongsik.myongsikandroid.data.model.SearchResponse
+import com.myongsik.myongsikandroid.data.model.TodayFoodResponse
 import retrofit2.Response
+import retrofit2.Retrofit
 
 class FoodRepositoryImpl(
 
 ) : FoodRepository {
-    override suspend fun searchBooks(
-        query: String,
-        sort: String,
-        page: Int,
-        size: Int
-    ): Response<SearchResponse> {
-        return api.searchBooks(query, sort, page, size)
+
+    override suspend fun todayGetFood(): Response<TodayFoodResponse> {
+        return api.todayGetFood()
+    }
+
+    override suspend fun weekGetFood(): Response<TodayFoodResponse> {
+        return api.weekGetFood()
     }
 }
