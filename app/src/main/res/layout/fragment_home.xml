@@ -7,9 +7,20 @@
     <View
         android:id="@+id/home_top_v"
         android:layout_width="match_parent"
-        android:layout_height="96dp"
+        android:layout_height="110dp"
         android:background="@drawable/home_background_top"
         app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/home_logo"
+        android:layout_width="103dp"
+        android:layout_height="78dp"
+        android:src="@drawable/ic_white_logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/home_top_v"
+        android:layout_marginVertical="10dp"
         />
 
     <TextView
@@ -24,6 +35,72 @@
         app:layout_constraintTop_toBottomOf="@id/home_top_v"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/today_not_food_cl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/home_food_stroke"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBaseline_toBottomOf="parent"
+        android:layout_marginHorizontal="22dp"
+        android:paddingBottom="30dp">
+
+        <TextView
+            android:id="@+id/today_day_not_food_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2022년 10월 4일 화요일"
+            android:textSize="14sp"
+            android:fontFamily="@font/notosans_regular"
+            android:textColor="@color/home_not_food"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="15dp"/>
+
+        <TextView
+            android:id="@+id/today_day_not_notice_tv"
+            android:text="오늘은"
+            android:fontFamily="@font/notosans_regular"
+            app:layout_constraintTop_toBottomOf="@+id/today_day_not_food_tv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:id="@+id/today_day_not_notice_tv2"
+            android:text="학생 식당을"
+            android:fontFamily="@font/notosans_regular"
+            app:layout_constraintTop_toBottomOf="@+id/today_day_not_notice_tv"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"/>
+
+        <TextView
+            android:id="@+id/today_day_not_notice_tv3"
+            android:text="열지 않습니다."
+            android:fontFamily="@font/notosans_regular"
+            app:layout_constraintTop_toBottomOf="@+id/today_day_not_notice_tv2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/today_afternoon_food"
@@ -448,11 +525,11 @@
         android:textSize="14sp"
         android:background="@drawable/home_food_button"
         android:paddingVertical="6dp"
-        app:layout_constraintTop_toBottomOf="@id/today_evening_food"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginHorizontal="69dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginBottom="60dp"
         />
 
 

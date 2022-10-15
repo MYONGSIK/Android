@@ -11,4 +11,5 @@
     <color name="main_color">#274984</color>
     <color name="home_text_color">#112F64</color>
     <color name="home_gray_color">#A6A6A6</color>
+    <color name="home_not_food">#E31F1F</color>
 </resources>

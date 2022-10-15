@@ -1,7 +1,8 @@
 package com.myongsik.myongsikandroid.ui.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import com.myongsik.myongsikandroid.data.model.Book
+import com.myongsik.myongsikandroid.data.model.FoodResult
+import com.myongsik.myongsikandroid.data.model.TodayFoodResponse
 import com.myongsik.myongsikandroid.databinding.ItemHomeFoodBinding
 
 class HomeFoodViewHolder(
@@ -9,15 +10,17 @@ class HomeFoodViewHolder(
 ) : RecyclerView.ViewHolder(binding.root){
 
 
-    fun bind(book : Book){
-        val author = book.authors.toString().removeSurrounding("[", "]")
-        val publisher = book.publisher
-        val date = if(book.datetime.isNotEmpty()) book.datetime.substring(0, 10) else ""
-//        val price = dec.format(book.price.toLong())
+    fun bind(foodResult: FoodResult){
+        val date = foodResult.toDay.substring(0, 10)
 
         itemView.apply{
-//            binding.weekAfternoonFoodCl1.text = book.title
-//            binding.tvPrice.text = "$price 원"
+            binding.weekFoodDayOfWeekTv.text = date
+            binding.weekFood1.text = foodResult.food1
+            binding.weekFood2.text = foodResult.food1
+            binding.weekFood3.text = foodResult.food1
+            binding.weekFood4.text = foodResult.food1
+            binding.weekFood5.text = foodResult.food1
+            binding.weekFood6.text = foodResult.food1
         }
     }
 }
