@@ -16,7 +16,7 @@ class HomeFoodViewHolder(
 //        val price = dec.format(book.price.toLong())
 
         itemView.apply{
-            binding.todayFood.text = book.title
+//            binding.weekAfternoonFoodCl1.text = book.title
 //            binding.tvPrice.text = "$price 원"
         }
     }
