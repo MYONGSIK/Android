@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
 import com.myongsik.myongsikandroid.databinding.FragmentSplashBinding
 
 class SplashFragment : Fragment() {
