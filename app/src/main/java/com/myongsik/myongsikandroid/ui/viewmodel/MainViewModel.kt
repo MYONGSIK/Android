@@ -21,6 +21,7 @@ class MainViewModel(
     val weekGetFood : LiveData<TodayFoodResponse>
         get() = _weekGetFood
 
+    //오늘 음식 가져오기
     fun todayGetFoodFun() = viewModelScope.launch(Dispatchers.IO){
         val response = foodRepository.todayGetFood()
 
@@ -31,7 +32,8 @@ class MainViewModel(
         }
     }
 
-    fun weekGetFoodFun() = viewModelScope.launch {
+    //이번 주 음식 가져오기
+    fun weekGetFoodFun() = viewModelScope.launch(Dispatchers.IO) {
         val response = foodRepository.weekGetFood()
 
         if(response.code() == 200){
