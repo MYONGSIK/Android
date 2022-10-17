@@ -19,7 +19,6 @@ object RetrofitInstance {
         .client(client)
         .build()
 
-
     val api : HomeFoodApi by lazy{
         retrofit.create(HomeFoodApi::class.java)
     }

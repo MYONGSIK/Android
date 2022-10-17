@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.myongsik.myongsikandroid.data.model.FoodResult
+import com.myongsik.myongsikandroid.data.model.WeekFoodResult
 
 import com.myongsik.myongsikandroid.databinding.ItemHomeFoodBinding
 
-class HomeFoodAdapter : ListAdapter<FoodResult, HomeFoodViewHolder>(BookDiffCallback) {
+class HomeFoodAdapter : ListAdapter<WeekFoodResult, HomeFoodViewHolder>(BookDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFoodViewHolder {
         return HomeFoodViewHolder(
@@ -17,17 +18,17 @@ class HomeFoodAdapter : ListAdapter<FoodResult, HomeFoodViewHolder>(BookDiffCall
     }
 
     override fun onBindViewHolder(holder: HomeFoodViewHolder, position: Int) {
-        val foodResult = currentList[position]
-        holder.bind(foodResult)
+        val weekFoodResult = currentList[position]
+        holder.bind(weekFoodResult)
     }
 
     companion object{
-        private val BookDiffCallback = object : DiffUtil.ItemCallback<FoodResult>(){
-            override fun areItemsTheSame(oldItem: FoodResult, newItem: FoodResult): Boolean {
+        private val BookDiffCallback = object : DiffUtil.ItemCallback<WeekFoodResult>(){
+            override fun areItemsTheSame(oldItem: WeekFoodResult, newItem: WeekFoodResult): Boolean {
                 return oldItem.toDay == newItem.toDay
             }
 
-            override fun areContentsTheSame(oldItem: FoodResult, newItem: FoodResult): Boolean {
+            override fun areContentsTheSame(oldItem: WeekFoodResult, newItem: WeekFoodResult): Boolean {
                 return oldItem == newItem
             }
 

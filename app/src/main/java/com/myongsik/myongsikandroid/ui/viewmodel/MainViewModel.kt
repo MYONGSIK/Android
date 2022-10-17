@@ -5,9 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myongsik.myongsikandroid.data.model.TodayFoodResponse
+import com.myongsik.myongsikandroid.data.model.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.repository.FoodRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainViewModel(
     private val foodRepository: FoodRepository
@@ -17,8 +20,8 @@ class MainViewModel(
     val todayGetFood : LiveData<TodayFoodResponse>
         get() = _todayGetFood
 
-    private val _weekGetFood = MutableLiveData<TodayFoodResponse>()
-    val weekGetFood : LiveData<TodayFoodResponse>
+    private val _weekGetFood = MutableLiveData<WeekFoodResponse>()
+    val weekGetFood : LiveData<WeekFoodResponse>
         get() = _weekGetFood
 
     //오늘 음식 가져오기
@@ -39,6 +42,15 @@ class MainViewModel(
         if(response.code() == 200){
             _weekGetFood.postValue(response.body())
         }
+    }
+
+    //DataStore
+    fun saveEvaluation(value : String) = viewModelScope.launch(Dispatchers.IO) {
+        foodRepository.saveEvaluation(value)
+    }
+
+    suspend fun getEvaluation() = withContext(Dispatchers.IO) {
+        foodRepository.getEvaluation().first()
     }
 
 }

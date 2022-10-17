@@ -10,7 +10,7 @@ import com.myongsik.myongsikandroid.data.model.FoodResult
     entities = [FoodResult::class],
     version = 1,
     exportSchema = false
-) //사용하고 싶을 때 알아서 사용함
+)
 abstract class TodayFoodDatabase : RoomDatabase(){
 
     abstract fun todayFoodDao() : TodayFoodDao
