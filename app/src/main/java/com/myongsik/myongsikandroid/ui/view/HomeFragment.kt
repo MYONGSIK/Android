@@ -58,13 +58,13 @@ class HomeFragment : Fragment() {
             val day2 = it.data[0].dayOfTheWeek //평일날
 
             if(it.errorCode == "F0000") {
-                //주말 실패했을 때
+                //주말이라 식단 조회 실패했을 때
                 binding.todayAfternoonFood.visibility = View.INVISIBLE
                 binding.todayEveningFood.visibility = View.INVISIBLE
                 binding.todayNotFoodCl.visibility = View.VISIBLE
                 binding.todayDayNotFoodTv.text = "${dayDate}년 ${dayMonth}월 ${dayDay}일 $day"
             }else{
-                //평일 성공했을 때
+                //평일 식단 조회 성공했을 때
                 binding.todayEveningDay.text = "${dayDate}년 ${dayMonth}월 ${dayDay}일 $day2"
                 binding.todayDay.text = "${dayDate}년 ${dayMonth}월 ${dayDay}일 $day2"
 
@@ -88,44 +88,99 @@ class HomeFragment : Fragment() {
             }
         }
 
+        //처음 실행했을 때 평가 값 불러오기
         getLaunchEvaluation()
+        getDinnerEvaluation()
 
         //중식 맛있어요 버튼
         binding.todayAfternoonGoodCl.setOnClickListener {
-            mainViewModel.saveEvaluation("good")
+            mainViewModel.saveLunchEvaluation("good")
             Snackbar.make(view, "다른 학우분들께도 추천해주세요!", Snackbar.LENGTH_SHORT).show()
+//            mainViewModel.saveEvaluation("good")
             getLaunchEvaluation()
         }
 
         //중식 맛없어요 버튼
         binding.todayAfternoonHateCl.setOnClickListener {
-            mainViewModel.saveEvaluation("hate")
+            mainViewModel.saveLunchEvaluation("hate")
             Snackbar.make(view, "다음 음식을 기대해 주세요!", Snackbar.LENGTH_SHORT).show()
+//            mainViewModel.saveEvaluation("hate")
+            /*
+            이것을 왜 여기다가 적으면 다음 조회에서 왜 기존걸로 들어가는지?
+            시간이 걸리는 작업이라? ;;
+             */
             getLaunchEvaluation()
+        }
+
+        //석식 맛있어요 버튼
+        binding.todayEveningGoodCl.setOnClickListener {
+            mainViewModel.saveDinnerEvaluation("good")
+            Snackbar.make(view, "다른 학우분들께도 추천해주세요!", Snackbar.LENGTH_SHORT).show()
+            getDinnerEvaluation()
+        }
+
+        //석식 맛없어요 버튼
+        binding.todayEveningHateCl.setOnClickListener {
+            mainViewModel.saveDinnerEvaluation("hate")
+            Snackbar.make(view, "다음 음식을 기대해 주세요!", Snackbar.LENGTH_SHORT).show()
+            getDinnerEvaluation()
         }
     }
 
     //중식 맛 평가 불러오기
     //test 성공하면 바로 석식도, 근데 다른 날짜에도 똑같이 나오는게 아닌지?
+    // -> WorkManager 를 통해서 하루에 한 번 초기화 할 수 있음 -> 그 전에 서버에 통신하여 맛있어요, 맛없어요 수를 셀 수 있음
+    // 특정 시간에 서버에 전송 후, 초기화를 진행해주어야할듯.
     private fun getLaunchEvaluation() {
         lifecycleScope.launch{
-            when(mainViewModel.getEvaluation()){
+            when(mainViewModel.getLunchEvaluation()){
                 FoodEvaluation.GOOD.value -> {
-                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#274984"))
-                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#274984")) //회색
+                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#274984"))
+                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171")) //파란색
+                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
                 }
                 FoodEvaluation.HATE.value -> {
                     binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#274984"))
+                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#274984"))
                     binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
                 }
                 else -> {
                     binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
                     binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
+                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
                 }
             }
         }
     }
 
+    //석식 평가 불러오기
+    private fun getDinnerEvaluation() {
+        lifecycleScope.launch{
+            when(mainViewModel.getDinnerEvaluation()){
+                FoodEvaluation.GOOD.value -> {
+                    binding.todayEveningGoodTv.setTextColor(Color.parseColor("#274984")) //회색
+                    binding.todayEveningGoodIv.setColorFilter(Color.parseColor("#274984"))
+                    binding.todayEveningHateTv.setTextColor(Color.parseColor("#717171")) //파란색
+                    binding.todayEveningHateIv.setColorFilter(Color.parseColor("#717171"))
+                }
+                FoodEvaluation.HATE.value -> {
+                    binding.todayEveningHateTv.setTextColor(Color.parseColor("#274984"))
+                    binding.todayEveningHateIv.setColorFilter(Color.parseColor("#274984"))
+                    binding.todayEveningGoodTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayEveningGoodIv.setColorFilter(Color.parseColor("#717171"))
+                }
+                else -> {
+                    binding.todayEveningGoodTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayEveningHateTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayEveningGoodIv.setColorFilter(Color.parseColor("#717171"))
+                    binding.todayEveningHateIv.setColorFilter(Color.parseColor("#717171"))
+                }
+            }
+        }
+    }
 
     override fun onDestroyView() {
         _binding = null
