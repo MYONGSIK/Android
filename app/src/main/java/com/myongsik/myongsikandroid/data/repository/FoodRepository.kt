@@ -12,7 +12,16 @@ interface FoodRepository {
     suspend fun weekGetFood() : Response<WeekFoodResponse>
 
     //DataStore
-    suspend fun saveEvaluation(evaluation : String)
+    //중식평가 DataStore 저장
+    suspend fun saveLunchEvaluation(evaluation : String)
 
-    suspend fun getEvaluation() : Flow<String>
+    //중식평가 DataStore 불러오기
+    suspend fun getLunchEvaluation() : Flow<String>
+
+    //석식평가 DataStore 저장
+    suspend fun saveDinnerEvaluation(evaluation : String)
+
+    suspend fun getDinnerEvaluation() : Flow<String>
+
+
 }

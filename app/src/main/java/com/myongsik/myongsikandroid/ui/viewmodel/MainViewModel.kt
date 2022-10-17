@@ -45,12 +45,23 @@ class MainViewModel(
     }
 
     //DataStore
-    fun saveEvaluation(value : String) = viewModelScope.launch(Dispatchers.IO) {
-        foodRepository.saveEvaluation(value)
+    //중식 평가 저장
+    fun saveLunchEvaluation(value : String) = viewModelScope.launch(Dispatchers.IO) {
+        foodRepository.saveLunchEvaluation(value)
     }
 
-    suspend fun getEvaluation() = withContext(Dispatchers.IO) {
-        foodRepository.getEvaluation().first()
+    //중식 평가 불러오기
+    suspend fun getLunchEvaluation() = withContext(Dispatchers.IO) {
+        foodRepository.getLunchEvaluation().first()
     }
 
+    //석식 평가 저장
+    fun saveDinnerEvaluation(value: String) = viewModelScope.launch(Dispatchers.IO) {
+        foodRepository.saveDinnerEvaluation(value)
+    }
+
+    //석식 평가 불러오기
+    suspend fun getDinnerEvaluation() = withContext(Dispatchers.IO) {
+        foodRepository.getDinnerEvaluation().first()
+    }
 }
