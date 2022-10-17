@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.myongsik.myongsikandroid.data.repository.FoodRepository
 import java.lang.IllegalArgumentException
 
+@Suppress("UNCHECKED_CAST")
 class MainViewModelProviderFactory(
     private val foodRepository: FoodRepository
 ) : ViewModelProvider.Factory{

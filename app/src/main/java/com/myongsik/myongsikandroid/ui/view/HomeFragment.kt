@@ -1,16 +1,21 @@
 package com.myongsik.myongsikandroid.ui.view
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
+import com.myongsik.myongsikandroid.util.FoodEvaluation
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -40,8 +45,10 @@ class HomeFragment : Fragment() {
             it.findNavController().navigate(action)
         }
 
+        //홈화면 식단 조회
         mainViewModel.todayGetFoodFun()
 
+        //홈화면 LiveData
         mainViewModel.todayGetFood.observe(viewLifecycleOwner){
             val dayDate = it.localDateTime.substring(0, 4)
             val dayMonth = it.localDateTime.substring(5, 7)
@@ -77,11 +84,48 @@ class HomeFragment : Fragment() {
                 binding.todayEveningFood5.text = it.data[1].food5
                 binding.todayEveningFood6.text = it.data[1].food6
 
-
                 binding.todayNotFoodCl.visibility = View.INVISIBLE
             }
         }
+
+        getLaunchEvaluation()
+
+        //중식 맛있어요 버튼
+        binding.todayAfternoonGoodCl.setOnClickListener {
+            mainViewModel.saveEvaluation("good")
+            Snackbar.make(view, "다른 학우분들께도 추천해주세요!", Snackbar.LENGTH_SHORT).show()
+            getLaunchEvaluation()
+        }
+
+        //중식 맛없어요 버튼
+        binding.todayAfternoonHateCl.setOnClickListener {
+            mainViewModel.saveEvaluation("hate")
+            Snackbar.make(view, "다음 음식을 기대해 주세요!", Snackbar.LENGTH_SHORT).show()
+            getLaunchEvaluation()
+        }
     }
+
+    //중식 맛 평가 불러오기
+    //test 성공하면 바로 석식도, 근데 다른 날짜에도 똑같이 나오는게 아닌지?
+    private fun getLaunchEvaluation() {
+        lifecycleScope.launch{
+            when(mainViewModel.getEvaluation()){
+                FoodEvaluation.GOOD.value -> {
+                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#274984"))
+                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+                }
+                FoodEvaluation.HATE.value -> {
+                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#274984"))
+                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
+                }
+                else -> {
+                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+                }
+            }
+        }
+    }
+
 
     override fun onDestroyView() {
         _binding = null

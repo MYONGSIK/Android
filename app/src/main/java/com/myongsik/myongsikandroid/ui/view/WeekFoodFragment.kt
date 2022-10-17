@@ -49,7 +49,6 @@ class WeekFoodFragment : Fragment() {
         binding.rvSearchResult.apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(requireContext(), 1, LinearLayoutManager.HORIZONTAL, false)
-//            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
             adapter = homeFoodAdapter
         }
 
