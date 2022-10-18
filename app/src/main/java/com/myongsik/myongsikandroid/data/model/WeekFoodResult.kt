@@ -8,21 +8,36 @@ data class WeekFoodResult(
     val dayOfTheWeek: String,
     val toDay: String,
     val status : String,
-    val food1 : String,
-    val food2 : String,
-    val food3 : String,
-    val food4 : String,
+    val lunchA : List<String>,
+    val lunchB : List<String>,
+    val dinner : List<String>
 )
 /*
-"toDay": "2022-10-18",
-      "dayOfTheWeek": "화요일",
-      "classification": "중식",
-      "type": "A",
+ "toDay": "2022-10-17",
       "status": "운영",
-      "food1": "부대찌개",
-      "food2": "쌀밥",
-      "food3": "치킨가라아게&갈릭마요소스",
-      "food4": "도시락김",
-      "food5": "무말랭이무침",
-      "food6": "배추김치"
+      "dayOfTheWeek": "월요일",
+      "lunchA": [
+        "베이컨김치볶음밥&후라이",
+        "맑은우동국물",
+        "피쉬앤칩스&케찹",
+        "단무지",
+        "배추김치",
+        " "
+      ],
+      "lunchB": [
+        "모짜렐라치즈돈가츠",
+        "맑은우동국물",
+        "추가밥",
+        "스위트콘&그린샐러드",
+        "오이피클",
+        "배추김치"
+      ],
+      "dinner": [
+        "해물볶음우동",
+        "맑은우동국물",
+        "추가밥",
+        "스위트콘&그린샐러드",
+        "단무지",
+        "배추김치"
+      ]
  */

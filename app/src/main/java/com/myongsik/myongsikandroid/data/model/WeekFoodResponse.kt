@@ -6,5 +6,5 @@ data class WeekFoodResponse(
     val localDateTime : String,
     val httpStatus : String,
     val httpCode : Int,
-    val data : List<List<WeekFoodResult>>,
+    val data : List<WeekFoodResult>,
 )
