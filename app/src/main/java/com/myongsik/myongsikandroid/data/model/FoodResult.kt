@@ -9,6 +9,7 @@ import androidx.room.Entity
 data class FoodResult(
     val classification: String,
     val dayOfTheWeek: String,
+    val type : String?,
     val food1: String,
     val food2: String,
     val food3: String,
@@ -21,3 +22,17 @@ data class FoodResult(
     //임의로 넣어논 음식평가 변수 (서버에서 받는 변수 아님)
     val condition : Boolean
 )
+
+/*
+ "toDay": "2022-10-18",
+      "dayOfTheWeek": "화요일",
+      "classification": "중식",
+      "type": "A",
+      "status": "운영",
+      "food1": "부대찌개",
+      "food2": "쌀밥",
+      "food3": "치킨가라아게&갈릭마요소스",
+      "food4": "도시락김",
+      "food5": "무말랭이무침",
+      "food6": "배추김치"
+ */

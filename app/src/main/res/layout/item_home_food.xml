@@ -30,12 +30,12 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="18dp"
         app:layout_constraintTop_toBottomOf="@id/week_food_day_of_week_tv"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="10dp"
         >
 
         <TextView
             android:id="@+id/week_food_afternoon_tv"
-            android:text="중식"
+            android:text="중식A"
             android:textColor="@color/white"
             android:paddingVertical="4dp"
             android:textSize="14sp"
@@ -56,7 +56,7 @@
         app:layout_constraintTop_toBottomOf="@+id/week_food_day_afternoon_cl"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="6dp"
         >
 
         <TextView
@@ -147,8 +147,137 @@
         android:layout_width="match_parent"
         android:layout_height="1.5dp"
         app:layout_constraintTop_toBottomOf="@+id/week_afternoon_food_cl_2"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="6dp"
         />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/week_food_day_afternoon2_cl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/week_food_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="18dp"
+        app:layout_constraintTop_toBottomOf="@+id/dash_line"
+        android:layout_marginTop="16dp"
+        >
+
+        <TextView
+            android:id="@+id/week_food_afternoon2_tv"
+            android:text="중식B"
+            android:textColor="@color/white"
+            android:paddingVertical="4dp"
+            android:textSize="14sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:paddingHorizontal="11dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/week_afternoon2_food_cl_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/week_food_day_afternoon2_cl"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="6dp"
+        >
+
+        <TextView
+            android:id="@+id/week_afternoon2_food_1"
+            android:text="순두부 찌개 "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:textColor="@color/main_color"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/week_afternoon2_food_2"
+            android:text="쌀밥 "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/week_afternoon2_food_1"
+            />
+
+        <TextView
+            android:id="@+id/week_afternoon2_food_3"
+            android:text="생선까스&amp;타르소스"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/main_color"
+            android:fontFamily="@font/notosans_regular"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/week_afternoon2_food_2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/week_afternoon2_food_cl_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/week_afternoon2_food_cl_1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="-20dp"
+        >
+
+        <TextView
+            android:id="@+id/week_afternoon2_food_4"
+            android:text="마늘쫑비엔나볶음 "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:textColor="@color/main_color"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/week_afternoon2_food_5"
+            android:text="꼬들단무지무침 "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/week_afternoon2_food_4"
+            />
+
+        <TextView
+            android:id="@+id/week_afternoon2_food_6"
+            android:text="배추김치"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:textSize="16sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/week_afternoon2_food_5" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/dash_line2"
+        android:src="@drawable/dash_line"
+        android:layerType="software"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        app:layout_constraintTop_toBottomOf="@+id/week_afternoon2_food_cl_2"
+        android:layout_marginTop="6dp"
+        />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/week_food_day_evening_cl"
@@ -157,8 +286,8 @@
         android:background="@drawable/week_food_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="18dp"
-        app:layout_constraintTop_toBottomOf="@+id/dash_line"
-        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@id/dash_line2"
+        android:layout_marginTop="16dp"
         >
 
         <TextView
@@ -184,7 +313,7 @@
         app:layout_constraintTop_toBottomOf="@+id/week_food_day_evening_cl"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="6dp"
         >
 
         <TextView
@@ -230,8 +359,6 @@
         app:layout_constraintTop_toBottomOf="@+id/week_evening_food_cl_1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="60dp"
         android:layout_marginTop="-20dp"
         >
 
@@ -269,13 +396,5 @@
             app:layout_constraintLeft_toRightOf="@id/week_evening_food_5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
