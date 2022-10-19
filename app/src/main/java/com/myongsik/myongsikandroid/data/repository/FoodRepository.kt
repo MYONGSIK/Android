@@ -1,5 +1,6 @@
 package com.myongsik.myongsikandroid.data.repository
 
+import com.myongsik.myongsikandroid.data.model.FoodResult
 import com.myongsik.myongsikandroid.data.model.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.WeekFoodResponse
 import kotlinx.coroutines.flow.Flow
