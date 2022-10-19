@@ -1,9 +1,11 @@
 package com.myongsik.myongsikandroid.ui.adapter
 
 import android.graphics.Color
+import android.os.Build
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.myongsik.myongsikandroid.data.model.FoodResult
 import com.myongsik.myongsikandroid.databinding.ItemHomeTodayFoodBinding
@@ -11,6 +13,7 @@ import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.Constant.DINNER
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_B_GOOD
+import java.time.LocalDate
 
 //홈화면 일단위 음식 조회 리스트뷰 뷰홀더
 class HomeTodayFoodViewHolder(
@@ -37,6 +40,7 @@ class HomeTodayFoodViewHolder(
         // 4-1. index=0 에 해당하는 문자열(0)에 볼드체적용
         val boldSpanWeekFood = ForegroundColorSpan(Color.parseColor("#274984"))
         builderWeekFood.setSpan(boldSpanWeekFood, 0, foodResult.food1.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
 
         itemView.apply{
 //            binding.weekFoodDayOfWeekTv.text = date

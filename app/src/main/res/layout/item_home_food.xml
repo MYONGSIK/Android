@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/home_food_stroke"
-    android:elevation="150dp"
-    android:layout_marginHorizontal="25dp">
+    android:layout_marginHorizontal="20dp">
 
 
 
@@ -58,8 +57,8 @@
         android:textAlignment="center"
         android:paddingHorizontal="10dp"
         android:fontFamily="@font/notosans_regular"
+        android:breakStrategy="high_quality"
         android:textSize="16sp"
-        android:breakStrategy="balanced"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/week_food_day_afternoon_cl"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -110,8 +109,8 @@
         android:fontFamily="@font/notosans_regular"
         android:textSize="16sp"
         android:textAlignment="center"
-        android:breakStrategy="balanced"
         android:paddingHorizontal="10dp"
+        android:breakStrategy="high_quality"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/week_food_day_afternoon2_cl"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -162,8 +161,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/notosans_regular"
         android:textAlignment="center"
-        android:breakStrategy="balanced"
         android:paddingHorizontal="10dp"
+        android:breakStrategy="high_quality"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/week_food_day_evening_cl"
         app:layout_constraintLeft_toLeftOf="parent"
