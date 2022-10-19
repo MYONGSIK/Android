@@ -25,6 +25,7 @@ class HomeTodayFoodAdapter : ListAdapter<FoodResult, HomeTodayFoodViewHolder>(Bo
         holder.bind(foodResult)
     }
 
+
     companion object{
         private val BookDiffCallback = object : DiffUtil.ItemCallback<FoodResult>(){
             override fun areItemsTheSame(oldItem: FoodResult, newItem: FoodResult): Boolean {

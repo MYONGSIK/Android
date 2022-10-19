@@ -55,6 +55,12 @@ class HomeFragment : Fragment() {
             it.findNavController().navigate(action)
         }
 
+        //상단 아이콘 주간 식단 보러가기 버튼
+        binding.homeWeekIcBt.setOnClickListener {
+            val action = HomeFragmentDirections.actionFragmentHomeToFragmentWeekFood()
+            it.findNavController().navigate(action)
+        }
+
         //홈화면 LiveData
         mainViewModel.todayGetFood.observe(viewLifecycleOwner){
 
