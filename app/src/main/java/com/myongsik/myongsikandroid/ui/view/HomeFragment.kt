@@ -18,6 +18,9 @@ import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
 import com.myongsik.myongsikandroid.ui.adapter.HomeFoodAdapter
 import com.myongsik.myongsikandroid.ui.adapter.HomeTodayFoodAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
+import com.myongsik.myongsikandroid.util.Constant.DINNER
+import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
+import com.myongsik.myongsikandroid.util.Constant.LUNCH_B_GOOD
 import com.myongsik.myongsikandroid.util.FoodEvaluation
 import kotlinx.coroutines.launch
 
@@ -63,7 +66,6 @@ class HomeFragment : Fragment() {
 
         //홈화면 LiveData
         mainViewModel.todayGetFood.observe(viewLifecycleOwner){
-
             if(it.errorCode == "F0000") {
                 //주말이라 식단 조회 실패했을 때
                 binding.todayNotFoodCl.visibility = View.VISIBLE
@@ -78,42 +80,10 @@ class HomeFragment : Fragment() {
 
         //처음 실행했을 때 평가 값 불러오기
         //홈화면 리사이클러뷰로 변경하면서 업데이틒 필요함
-//        getLaunchEvaluation()
-//        getDinnerEvaluation()
-//
-//        //중식 맛있어요 버튼
-//        binding.todayAfternoonGoodCl.setOnClickListener {
-//            mainViewModel.saveLunchEvaluation("good")
-//            Snackbar.make(view, "다른 학우분들께도 추천해주세요!", Snackbar.LENGTH_SHORT).show()
-////            mainViewModel.saveEvaluation("good")
-//            getLaunchEvaluation()
-//        }
-//
-//        //중식 맛없어요 버튼
-//        binding.todayAfternoonHateCl.setOnClickListener {
-//            mainViewModel.saveLunchEvaluation("hate")
-//            Snackbar.make(view, "다음 음식을 기대해 주세요!", Snackbar.LENGTH_SHORT).show()
-////            mainViewModel.saveEvaluation("hate")
-//            /*
-//            이것을 왜 여기다가 적으면 다음 조회에서 왜 기존걸로 들어가는지?
-//            시간이 걸리는 작업이라? ;;
-//             */
-//            getLaunchEvaluation()
-//        }
-//
-//        //석식 맛있어요 버튼
-//        binding.todayEveningGoodCl.setOnClickListener {
-//            mainViewModel.saveDinnerEvaluation("good")
-//            Snackbar.make(view, "다른 학우분들께도 추천해주세요!", Snackbar.LENGTH_SHORT).show()
-//            getDinnerEvaluation()
-//        }
-//
-//        //석식 맛없어요 버튼
-//        binding.todayEveningHateCl.setOnClickListener {
-//            mainViewModel.saveDinnerEvaluation("hate")
-//            Snackbar.make(view, "다음 음식을 기대해 주세요!", Snackbar.LENGTH_SHORT).show()
-//            getDinnerEvaluation()
-//        }
+        getLaunchEvaluation()
+        getLaunchBEvaluation()
+        getDinnerEvaluation()
+
     }
 
     //중식 맛 평가 불러오기
@@ -121,59 +91,56 @@ class HomeFragment : Fragment() {
     // -> WorkManager 를 통해서 하루에 한 번 초기화 할 수 있음 -> 그 전에 서버에 통신하여 맛있어요, 맛없어요 수를 셀 수 있음
     // 특정 시간에 서버에 전송 후, 초기화를 진행해주어야할듯.
     // 리사이클러뷰로 변경하면서 이 기능 업데이트 필요
-//    private fun getLaunchEvaluation() {
-//        lifecycleScope.launch{
-//            when(mainViewModel.getLunchEvaluation()){
-//                FoodEvaluation.GOOD.value -> {
-//                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#274984")) //회색
-//                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#274984"))
-//                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171")) //파란색
-//                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
-//                }
-//                FoodEvaluation.HATE.value -> {
-//                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#274984"))
-//                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#274984"))
-//                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
-//                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
-//                }
-//                else -> {
-//                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
-//                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
-//                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
-//                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
-//                }
-//            }
-//        }
-//    }
-//
-//    //석식 평가 불러오기
-//    private fun getDinnerEvaluation() {
-//        lifecycleScope.launch{
-//            when(mainViewModel.getDinnerEvaluation()){
-//                FoodEvaluation.GOOD.value -> {
-//                    binding.todayEveningGoodTv.setTextColor(Color.parseColor("#274984")) //회색
-//                    binding.todayEveningGoodIv.setColorFilter(Color.parseColor("#274984"))
-//                    binding.todayEveningHateTv.setTextColor(Color.parseColor("#717171")) //파란색
-//                    binding.todayEveningHateIv.setColorFilter(Color.parseColor("#717171"))
-//                }
-//                FoodEvaluation.HATE.value -> {
-//                    binding.todayEveningHateTv.setTextColor(Color.parseColor("#274984"))
-//                    binding.todayEveningHateIv.setColorFilter(Color.parseColor("#274984"))
-//                    binding.todayEveningGoodTv.setTextColor(Color.parseColor("#717171"))
-//                    binding.todayEveningGoodIv.setColorFilter(Color.parseColor("#717171"))
-//                }
-//                else -> {
-//                    binding.todayEveningGoodTv.setTextColor(Color.parseColor("#717171"))
-//                    binding.todayEveningHateTv.setTextColor(Color.parseColor("#717171"))
-//                    binding.todayEveningGoodIv.setColorFilter(Color.parseColor("#717171"))
-//                    binding.todayEveningHateIv.setColorFilter(Color.parseColor("#717171"))
-//                }
-//            }
-//        }
-//    }
+    private fun getLaunchEvaluation() {
+        lifecycleScope.launch{
+            LUNCH_A_GOOD = when(mainViewModel.getLunchEvaluation()){
+                FoodEvaluation.GOOD.value -> {
+                    "good"
+                }
+                FoodEvaluation.HATE.value -> {
+                    "hate"
+                }
+                else -> {
+                    ""
+                }
+            }
+        }
+    }
+
+    private fun getLaunchBEvaluation() {
+        lifecycleScope.launch{
+            LUNCH_B_GOOD = when(mainViewModel.getLunchBEvaluation()){
+                FoodEvaluation.GOOD.value -> {
+                    "good"
+                }
+                FoodEvaluation.HATE.value -> {
+                    "hate"
+                }
+                else -> {
+                    ""
+                }
+            }
+        }
+    }
+
+    private fun getDinnerEvaluation() {
+        lifecycleScope.launch{
+            DINNER = when(mainViewModel.getDinnerEvaluation()){
+                FoodEvaluation.GOOD.value -> {
+                    "good"
+                }
+                FoodEvaluation.HATE.value -> {
+                    "hate"
+                }
+                else -> {
+                    ""
+                }
+            }
+        }
+    }
 
     private fun setUpRecyclerView(){
-        homeTodayFoodAdapter = HomeTodayFoodAdapter()
+        homeTodayFoodAdapter = HomeTodayFoodAdapter(mainViewModel)
         binding.rvTodaySearchResult.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
