@@ -1,8 +1,13 @@
 package com.myongsik.myongsikandroid.ui.view
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -14,9 +19,10 @@ import com.myongsik.myongsikandroid.databinding.ActivityMainBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModelProviderFactory
 import com.myongsik.myongsikandroid.util.Constant.DATASTORE_NAME
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
-    private val binding : ActivityMainBinding by lazy{
+    private val binding : ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 

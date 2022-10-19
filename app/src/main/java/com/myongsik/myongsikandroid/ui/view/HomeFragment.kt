@@ -1,6 +1,9 @@
 package com.myongsik.myongsikandroid.ui.view
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
@@ -146,6 +151,7 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = homeTodayFoodAdapter
         }
+
     }
 
     override fun onDestroyView() {
