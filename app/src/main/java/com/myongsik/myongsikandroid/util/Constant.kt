@@ -6,4 +6,8 @@ object Constant {
 
     //DataStore Name
     const val DATASTORE_NAME = "food_evaluation_datastore"
+
+    //Good, Hate
+
+    var LUNCH_A_GOOD = false
 }
