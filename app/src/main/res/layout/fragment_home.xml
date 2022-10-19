@@ -13,6 +13,16 @@
         />
 
     <ImageView
+        android:id="@+id/home_week_ic_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_calendar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@id/home_logo"
+        app:layout_constraintBottom_toBottomOf="@id/home_logo"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageView
         android:id="@+id/home_logo"
         android:layout_width="103dp"
         android:layout_height="78dp"

@@ -21,9 +21,9 @@ class HomeFoodViewHolder(
 
         itemView.apply{
             binding.weekFoodDayOfWeekTv.text = date
-            binding.weekFood1.text = "${weekFoodResult.lunchA[0]} "
-            binding.weekFood2.text = "${weekFoodResult.lunchA[1]} "
-            binding.weekFood3.text = "${weekFoodResult.lunchA[2]}"
+            binding.weekFood1.text = "${weekFoodResult.lunchA[0]} ${weekFoodResult.lunchA[1]} ${weekFoodResult.lunchA[2]}"
+//            binding.weekFood2.text = "${weekFoodResult.lunchA[1]} "
+//            binding.weekFood3.text = "${weekFoodResult.lunchA[2]}"
             binding.weekFood4.text = "${weekFoodResult.lunchA[3]} "
             binding.weekFood5.text = "${weekFoodResult.lunchA[4]} "
             binding.weekFood6.text = "${weekFoodResult.lunchA[5]}"
@@ -42,9 +42,7 @@ class HomeFoodViewHolder(
             binding.weekEveningFood5.text = "${weekFoodResult.dinner[4]} "
             binding.weekEveningFood6.text = "${weekFoodResult.dinner[5]}"
         }
-//        test 완료
-//        binding.weekFoodAfternoonTv.setOnClickListener {
-//            println(weekFoodResult.dayOfTheWeek)
-//        }
+
     }
+
 }

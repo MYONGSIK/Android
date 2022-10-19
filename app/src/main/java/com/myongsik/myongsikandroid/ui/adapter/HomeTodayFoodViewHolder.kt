@@ -36,5 +36,14 @@ class HomeTodayFoodViewHolder(
             binding.todayFood5.text = "${foodResult.food5} "
             binding.todayFood6.text = "${foodResult.food6}"
         }
+
+        binding.todayGoodCl.setOnClickListener(){
+            onItemClickListener?.let{ it(foodResult) }
+        }
+    }
+
+    private var onItemClickListener : ((FoodResult) -> Unit)? = null
+    fun a(listener : (FoodResult) -> Unit) {
+        onItemClickListener = listener
     }
 }

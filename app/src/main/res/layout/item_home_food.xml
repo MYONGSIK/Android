@@ -64,6 +64,7 @@
             android:text="순두부 찌개 "
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:fontFamily="@font/notosans_regular"
             android:textColor="@color/main_color"
             android:textSize="16sp"
@@ -71,26 +72,26 @@
             app:layout_constraintLeft_toLeftOf="parent"
             />
 
-        <TextView
-            android:id="@+id/week_food_2"
-            android:text="쌀밥 "
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_regular"
-            android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/week_food_1"
-            />
+<!--        <TextView-->
+<!--            android:id="@+id/week_food_2"-->
+<!--            android:text="쌀밥 "-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/notosans_regular"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintLeft_toRightOf="@id/week_food_1"-->
+<!--            />-->
 
-        <TextView
-            android:id="@+id/week_food_3"
-            android:text="생선까스&amp;타르소스"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_regular"
-            android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/week_food_2" />
+<!--        <TextView-->
+<!--            android:id="@+id/week_food_3"-->
+<!--            android:text="생선까스&amp;타르소스"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/notosans_regular"-->
+<!--            android:textSize="16sp"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintLeft_toRightOf="@id/week_food_2" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
