@@ -9,13 +9,14 @@ import com.myongsik.myongsikandroid.data.model.WeekFoodResult
 
 import com.myongsik.myongsikandroid.databinding.ItemHomeFoodBinding
 import com.myongsik.myongsikandroid.databinding.ItemHomeTodayFoodBinding
+import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 
 //홈화면 일단위 음식 조회 리스트뷰 어댑터
 class HomeTodayFoodAdapter : ListAdapter<FoodResult, HomeTodayFoodViewHolder>(BookDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeTodayFoodViewHolder {
         return HomeTodayFoodViewHolder(
-            ItemHomeTodayFoodBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemHomeTodayFoodBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         )
     }
 
