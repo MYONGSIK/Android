@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/home_food_stroke"
-    android:layout_marginHorizontal="25dp"
-    android:layout_marginTop="20dp"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="18dp"
     >
 
     <TextView
@@ -41,6 +41,7 @@
         android:fontFamily="@font/notosans_regular"
         android:textAlignment="center"
         android:paddingHorizontal="10dp"
+        android:breakStrategy="high_quality"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@+id/today_day"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -1,6 +1,8 @@
 package com.myongsik.myongsikandroid.data.repository
 
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -18,6 +20,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import retrofit2.Response
 import java.io.IOException
+import java.time.LocalDate
 
 class FoodRepositoryImpl(
     private val dataStore: DataStore<Preferences>,
@@ -47,19 +50,21 @@ class FoodRepositoryImpl(
     }
 
     override suspend fun saveLunchEvaluation(foodResult: FoodResult, evaluation: String) {
-        if(foodResult.type == "A"){
-            dataStore.edit { prefs ->
-                prefs[LUNCH_EVALUATION] = evaluation
+        when (foodResult.type) {
+            "A" -> {
+                dataStore.edit { prefs ->
+                    prefs[LUNCH_EVALUATION] = evaluation
+                }
             }
-        }
-        else if(foodResult.type == "B"){
-            dataStore.edit { prefs ->
-                prefs[LUNCH_B_EVALUATION] = evaluation
+            "B" -> {
+                dataStore.edit { prefs ->
+                    prefs[LUNCH_B_EVALUATION] = evaluation
+                }
             }
-        }
-        else{
-            dataStore.edit { prefs ->
-                prefs[DINNER_EVALUATION] = evaluation
+            else -> {
+                dataStore.edit { prefs ->
+                    prefs[DINNER_EVALUATION] = evaluation
+                }
             }
         }
     }
