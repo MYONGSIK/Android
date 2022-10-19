@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.myongsik.myongsikandroid.data.api.RetrofitInstance.api
+import com.myongsik.myongsikandroid.data.model.FoodResult
 import com.myongsik.myongsikandroid.data.model.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.repository.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION
