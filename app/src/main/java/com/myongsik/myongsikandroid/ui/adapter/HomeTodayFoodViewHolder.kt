@@ -122,10 +122,14 @@ class HomeTodayFoodViewHolder(
                 "hate" -> {
                     binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#274984"))
                     binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
+                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#274984"))
                 }
                 else -> {
                     binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
                     binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
+                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
                 }
             }
         }
@@ -134,14 +138,20 @@ class HomeTodayFoodViewHolder(
                 "good" -> {
                     binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#274984"))
                     binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#274984"))
+                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
                 }
                 "hate" -> {
                     binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#274984"))
                     binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
+                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#274984"))
                 }
                 else -> {
                     binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
                     binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
+                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
                 }
             }
         }
@@ -150,14 +160,20 @@ class HomeTodayFoodViewHolder(
                 "good" -> {
                     binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#274984"))
                     binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#274984"))
+                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
                 }
                 "hate" -> {
                     binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#274984"))
                     binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
+                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#274984"))
                 }
                 else -> {
                     binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
                     binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
+                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
                 }
             }
         }
