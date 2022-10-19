@@ -6,4 +6,14 @@ object Constant {
 
     //DataStore Name
     const val DATASTORE_NAME = "food_evaluation_datastore"
+
+    //Good, Hate
+    //중식 A 평가
+    var LUNCH_A_GOOD = ""
+
+    //중식 A 평가
+    var LUNCH_B_GOOD = ""
+
+    //석식 평가
+    var DINNER = ""
 }

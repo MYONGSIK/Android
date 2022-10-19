@@ -11,6 +11,7 @@ import com.myongsik.myongsikandroid.data.model.FoodResult
 import com.myongsik.myongsikandroid.data.model.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.repository.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION
+import com.myongsik.myongsikandroid.data.repository.FoodRepositoryImpl.PreferencesKeys.LUNCH_B_EVALUATION
 import com.myongsik.myongsikandroid.data.repository.FoodRepositoryImpl.PreferencesKeys.LUNCH_EVALUATION
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -37,13 +38,29 @@ class FoodRepositoryImpl(
         //저장, 불러올 키를 정의, String 사용
         //중식 평가 키
         val LUNCH_EVALUATION = stringPreferencesKey("lunch_evaluation")
+
+        //중식 B 평가 키
+        val LUNCH_B_EVALUATION = stringPreferencesKey("lunch_b_evaluation")
+
         //석식 평가 키
         val DINNER_EVALUATION = stringPreferencesKey("dinner_evaluation")
     }
 
-    override suspend fun saveLunchEvaluation(evaluation: String) {
-        dataStore.edit { prefs ->
-            prefs[LUNCH_EVALUATION] = evaluation
+    override suspend fun saveLunchEvaluation(foodResult: FoodResult, evaluation: String) {
+        if(foodResult.type == "A"){
+            dataStore.edit { prefs ->
+                prefs[LUNCH_EVALUATION] = evaluation
+            }
+        }
+        else if(foodResult.type == "B"){
+            dataStore.edit { prefs ->
+                prefs[LUNCH_B_EVALUATION] = evaluation
+            }
+        }
+        else{
+            dataStore.edit { prefs ->
+                prefs[DINNER_EVALUATION] = evaluation
+            }
         }
     }
 
@@ -63,10 +80,20 @@ class FoodRepositoryImpl(
             }
     }
 
-    override suspend fun saveDinnerEvaluation(evaluation: String) {
-        dataStore.edit { prefs ->
-            prefs[DINNER_EVALUATION] = evaluation
-        }
+    override suspend fun getLunchBEvaluation(): Flow<String> {
+        return dataStore.data //data 메서드
+            //실패 했을 대비에 예외처리
+            .catch { exception ->
+                if (exception is IOException) {
+                    exception.printStackTrace()
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { prefs ->
+                prefs[LUNCH_B_EVALUATION] ?: ""
+            }
     }
 
     override suspend fun getDinnerEvaluation(): Flow<String> {
