@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.myongsik.myongsikandroid.data.model.FoodResult
 import com.myongsik.myongsikandroid.data.model.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.repository.FoodRepository
@@ -46,7 +47,7 @@ class MainViewModel(
 
     //DataStore
     //중식 평가 저장
-    fun saveLunchEvaluation(value : String) = viewModelScope.launch(Dispatchers.IO) {
+    fun saveLunchEvaluation(foodResult: FoodResult, value : String) = viewModelScope.launch(Dispatchers.IO) {
         foodRepository.saveLunchEvaluation(value)
     }
 

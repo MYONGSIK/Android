@@ -21,26 +21,26 @@ class HomeFoodViewHolder(
 
         itemView.apply{
             binding.weekFoodDayOfWeekTv.text = date
-            binding.weekFood1.text = weekFoodResult.lunchA[0]
-            binding.weekFood2.text = weekFoodResult.lunchA[1]
-            binding.weekFood3.text = weekFoodResult.lunchA[2]
-            binding.weekFood4.text = weekFoodResult.lunchA[3]
-            binding.weekFood5.text = weekFoodResult.lunchA[4]
-            binding.weekFood6.text = weekFoodResult.lunchA[5]
+            binding.weekFood1.text = "${weekFoodResult.lunchA[0]} "
+            binding.weekFood2.text = "${weekFoodResult.lunchA[1]} "
+            binding.weekFood3.text = "${weekFoodResult.lunchA[2]}"
+            binding.weekFood4.text = "${weekFoodResult.lunchA[3]} "
+            binding.weekFood5.text = "${weekFoodResult.lunchA[4]} "
+            binding.weekFood6.text = "${weekFoodResult.lunchA[5]}"
 
-            binding.weekAfternoon2Food1.text = weekFoodResult.lunchB[0]
-            binding.weekAfternoon2Food2.text = weekFoodResult.lunchB[1]
-            binding.weekAfternoon2Food3.text = weekFoodResult.lunchB[2]
-            binding.weekAfternoon2Food4.text = weekFoodResult.lunchB[3]
-            binding.weekAfternoon2Food5.text = weekFoodResult.lunchB[4]
-            binding.weekAfternoon2Food6.text = weekFoodResult.lunchB[5]
+            binding.weekAfternoon2Food1.text = "${weekFoodResult.lunchB[0]} "
+            binding.weekAfternoon2Food2.text = "${weekFoodResult.lunchB[1]} "
+            binding.weekAfternoon2Food3.text = "${weekFoodResult.lunchB[2]}"
+            binding.weekAfternoon2Food4.text = "${weekFoodResult.lunchB[3]} "
+            binding.weekAfternoon2Food5.text = "${weekFoodResult.lunchB[4]} "
+            binding.weekAfternoon2Food6.text = "${weekFoodResult.lunchB[5]}"
 
-            binding.weekEveningFood1.text = weekFoodResult.dinner[0]
-            binding.weekEveningFood2.text = weekFoodResult.dinner[1]
-            binding.weekEveningFood3.text = weekFoodResult.dinner[2]
-            binding.weekEveningFood4.text = weekFoodResult.dinner[3]
-            binding.weekEveningFood5.text = weekFoodResult.dinner[4]
-            binding.weekEveningFood6.text = weekFoodResult.dinner[5]
+            binding.weekEveningFood1.text = "${weekFoodResult.dinner[0]} "
+            binding.weekEveningFood2.text = "${weekFoodResult.dinner[1]} "
+            binding.weekEveningFood3.text = "${weekFoodResult.dinner[2]}"
+            binding.weekEveningFood4.text = "${weekFoodResult.dinner[3]} "
+            binding.weekEveningFood5.text = "${weekFoodResult.dinner[4]} "
+            binding.weekEveningFood6.text = "${weekFoodResult.dinner[5]}"
         }
 //        test 완료
 //        binding.weekFoodAfternoonTv.setOnClickListener {
