@@ -1,8 +1,6 @@
 package com.myongsik.myongsikandroid.data.repository
 
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -20,7 +18,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import retrofit2.Response
 import java.io.IOException
-import java.time.LocalDate
 
 class FoodRepositoryImpl(
     private val dataStore: DataStore<Preferences>,

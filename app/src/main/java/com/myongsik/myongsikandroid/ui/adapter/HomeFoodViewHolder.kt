@@ -4,13 +4,9 @@ import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
 import androidx.recyclerview.widget.RecyclerView
-import com.myongsik.myongsikandroid.data.model.FoodResult
-import com.myongsik.myongsikandroid.data.model.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.WeekFoodResult
 import com.myongsik.myongsikandroid.databinding.ItemHomeFoodBinding
-import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
 
 //주간 음식 조회 리스트뷰 뷰홀더
 class HomeFoodViewHolder(
