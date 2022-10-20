@@ -51,6 +51,10 @@ class MainViewModel(
         foodRepository.saveLunchEvaluation(foodResult, value)
     }
 
+    suspend fun defaultDataStore(){
+        foodRepository.defaultDataStore()
+    }
+
     //중식 평가 불러오기
     suspend fun getLunchEvaluation() = withContext(Dispatchers.IO) {
         foodRepository.getLunchEvaluation().first()

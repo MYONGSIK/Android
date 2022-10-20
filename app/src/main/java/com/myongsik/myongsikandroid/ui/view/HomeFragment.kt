@@ -1,10 +1,6 @@
 package com.myongsik.myongsikandroid.ui.view
 
 import android.annotation.SuppressLint
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,22 +8,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.snackbar.Snackbar
-import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
-import com.myongsik.myongsikandroid.ui.adapter.HomeFoodAdapter
 import com.myongsik.myongsikandroid.ui.adapter.HomeTodayFoodAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.Constant.DINNER
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_B_GOOD
 import com.myongsik.myongsikandroid.util.FoodEvaluation
+import com.myongsik.myongsikandroid.util.MyongsikApplication
 import kotlinx.coroutines.launch
+import java.util.*
 
 class HomeFragment : Fragment() {
 
@@ -44,6 +36,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -83,12 +76,26 @@ class HomeFragment : Fragment() {
             }
         }
 
+        if(MyongsikApplication.prefs.getString("key", "null") == "gg"){
+            MyongsikApplication.prefs.setString("key", "todayStart")
+            defaultDataStore()
+            println("hi")
+        }
+
+
+
         //처음 실행했을 때 평가 값 불러오기
         //홈화면 리사이클러뷰로 변경하면서 업데이틒 필요함
         getLaunchEvaluation()
         getLaunchBEvaluation()
         getDinnerEvaluation()
 
+    }
+
+    private fun defaultDataStore() {
+        lifecycleScope.launch {
+            mainViewModel.defaultDataStore()
+        }
     }
 
     //중식 맛 평가 불러오기

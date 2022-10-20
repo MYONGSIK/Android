@@ -69,6 +69,18 @@ class FoodRepositoryImpl(
         }
     }
 
+    override suspend fun defaultDataStore() {
+        dataStore.edit { prefs ->
+            prefs[LUNCH_EVALUATION] = ""
+        }
+        dataStore.edit { prefs ->
+            prefs[LUNCH_B_EVALUATION] = ""
+        }
+        dataStore.edit { prefs ->
+            prefs[DINNER_EVALUATION] = ""
+        }
+    }
+
     override suspend fun getLunchEvaluation(): Flow<String> {
         return dataStore.data //data 메서드
             //실패 했을 대비에 예외처리

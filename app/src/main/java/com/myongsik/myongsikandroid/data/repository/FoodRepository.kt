@@ -16,6 +16,8 @@ interface FoodRepository {
     //DataStore 저장
     suspend fun saveLunchEvaluation(foodResult: FoodResult, evaluation : String)
 
+    suspend fun defaultDataStore()
+
     //중식평가 DataStore 불러오기
     suspend fun getLunchEvaluation() : Flow<String>
 
@@ -23,6 +25,5 @@ interface FoodRepository {
 
 
     suspend fun getDinnerEvaluation() : Flow<String>
-
 
 }
