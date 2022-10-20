@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,6 +42,11 @@ class WeekFoodFragment : Fragment() {
         mainViewModel.weekGetFood.observe(viewLifecycleOwner) {
             val food = it.data
             homeFoodAdapter.submitList(food)
+        }
+
+        //뒤로가기 버튼
+        binding.weekBackIcBt.setOnClickListener {
+            it.findNavController().popBackStack()
         }
     }
 

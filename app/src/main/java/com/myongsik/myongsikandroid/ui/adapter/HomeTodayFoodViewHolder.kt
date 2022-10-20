@@ -1,9 +1,12 @@
 package com.myongsik.myongsikandroid.ui.adapter
 
 import android.graphics.Color
+import android.graphics.Typeface
+import android.os.Build
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.myongsik.myongsikandroid.data.model.FoodResult
 import com.myongsik.myongsikandroid.databinding.ItemHomeTodayFoodBinding
@@ -11,6 +14,7 @@ import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.Constant.DINNER
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_B_GOOD
+import java.time.LocalDate
 
 //홈화면 일단위 음식 조회 리스트뷰 뷰홀더
 class HomeTodayFoodViewHolder(
@@ -37,6 +41,7 @@ class HomeTodayFoodViewHolder(
         // 4-1. index=0 에 해당하는 문자열(0)에 볼드체적용
         val boldSpanWeekFood = ForegroundColorSpan(Color.parseColor("#274984"))
         builderWeekFood.setSpan(boldSpanWeekFood, 0, foodResult.food1.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
 
         itemView.apply{
 //            binding.weekFoodDayOfWeekTv.text = date
@@ -114,68 +119,62 @@ class HomeTodayFoodViewHolder(
         if(foodResult.type == "A"){
             when (LUNCH_A_GOOD) {
                 "good" -> {
-                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#274984"))
-                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
-                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#274984"))
-                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
+                    getGoodChange()
                 }
                 "hate" -> {
-                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#274984"))
-                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
-                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
-                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#274984"))
+                    getHateChange()
                 }
                 else -> {
-                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
-                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
-                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
-                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
+                    defaultChange()
                 }
             }
         }
         if(foodResult.type == "B"){
             when (LUNCH_B_GOOD) {
                 "good" -> {
-                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#274984"))
-                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
-                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#274984"))
-                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
+                    getGoodChange()
                 }
                 "hate" -> {
-                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#274984"))
-                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
-                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
-                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#274984"))
+                    getHateChange()
                 }
                 else -> {
-                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
-                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
-                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
-                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
+                    defaultChange()
                 }
             }
         }
         if(foodResult.type == null){
             when (DINNER) {
                 "good" -> {
-                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#274984"))
-                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
-                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#274984"))
-                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
+                    getGoodChange()
                 }
                 "hate" -> {
-                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#274984"))
-                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
-                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
-                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#274984"))
+                    getHateChange()
                 }
                 else -> {
-                    binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
-                    binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
-                    binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
-                    binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
+                    defaultChange()
                 }
             }
         }
+    }
+
+    private fun getGoodChange() {
+        binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#274984"))
+        binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+        binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#274984"))
+        binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
+    }
+
+    private fun getHateChange() {
+        binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#274984"))
+        binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
+        binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
+        binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#274984"))
+    }
+
+    private fun defaultChange(){
+        binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
+        binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+        binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
+        binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
     }
 }
