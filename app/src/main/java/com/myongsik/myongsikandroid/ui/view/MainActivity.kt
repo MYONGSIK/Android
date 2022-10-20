@@ -41,14 +41,14 @@ class MainActivity : AppCompatActivity() {
 
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
         val triggerTime = Calendar.getInstance()
-        triggerTime.set(Calendar.HOUR_OF_DAY, 0)
-        triggerTime.set(Calendar.MINUTE, 2)
+        triggerTime.set(Calendar.HOUR_OF_DAY, 23)
+        triggerTime.set(Calendar.MINUTE, 59)
         triggerTime.set(Calendar.SECOND, 0)
         triggerTime.set(Calendar.MILLISECOND, 0)
 
         val intent = Intent(this@MainActivity, AlarmBroadCastReceiver::class.java)
         val pIntent = PendingIntent.getBroadcast(this@MainActivity, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime.timeInMillis, AlarmManager.INTERVAL_FIFTEEN_MINUTES, pIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime.timeInMillis, AlarmManager.INTERVAL_DAY, pIntent)
     }
 
 

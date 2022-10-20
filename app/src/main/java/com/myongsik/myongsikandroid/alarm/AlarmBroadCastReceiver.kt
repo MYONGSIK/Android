@@ -12,6 +12,5 @@ class AlarmBroadCastReceiver : BroadcastReceiver() {
 
     override fun onReceive(p0: Context?, p1: Intent?) {
         MyongsikApplication.prefs.setString("key", "gg")
-        println("gg")
     }
 }
