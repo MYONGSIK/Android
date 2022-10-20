@@ -6,14 +6,12 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
 import com.myongsik.myongsikandroid.R
+import com.myongsik.myongsikandroid.alarm.AlarmBroadCastReceiver
 import com.myongsik.myongsikandroid.data.repository.FoodRepositoryImpl
 import com.myongsik.myongsikandroid.databinding.ActivityMainBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
@@ -40,6 +38,17 @@ class MainActivity : AppCompatActivity() {
         val foodRepository = FoodRepositoryImpl(dataStore)
         val factory = MainViewModelProviderFactory(foodRepository)
         mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
+
+        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val triggerTime = Calendar.getInstance()
+        triggerTime.set(Calendar.HOUR_OF_DAY, 0)
+        triggerTime.set(Calendar.MINUTE, 2)
+        triggerTime.set(Calendar.SECOND, 0)
+        triggerTime.set(Calendar.MILLISECOND, 0)
+
+        val intent = Intent(this@MainActivity, AlarmBroadCastReceiver::class.java)
+        val pIntent = PendingIntent.getBroadcast(this@MainActivity, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime.timeInMillis, AlarmManager.INTERVAL_FIFTEEN_MINUTES, pIntent)
     }
 
 
