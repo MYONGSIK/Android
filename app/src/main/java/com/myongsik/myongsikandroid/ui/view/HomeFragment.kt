@@ -79,7 +79,6 @@ class HomeFragment : Fragment() {
         if(MyongsikApplication.prefs.getString("key", "null") == "gg"){
             MyongsikApplication.prefs.setString("key", "todayStart")
             defaultDataStore()
-            println("hi")
         }
 
 
