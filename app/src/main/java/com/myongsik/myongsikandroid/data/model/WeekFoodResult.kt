@@ -1,8 +1,5 @@
 package com.myongsik.myongsikandroid.data.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-
 //주간 식단 조회
 data class WeekFoodResult(
     val dayOfTheWeek: String,

@@ -3,7 +3,6 @@ package com.myongsik.myongsikandroid.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.myongsik.myongsikandroid.data.repository.FoodRepository
-import java.lang.IllegalArgumentException
 
 @Suppress("UNCHECKED_CAST")
 class MainViewModelProviderFactory(

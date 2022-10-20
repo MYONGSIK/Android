@@ -77,17 +77,21 @@ class HomeFragment : Fragment() {
         }
 
         if(MyongsikApplication.prefs.getString("key", "null") == "gg"){
-            MyongsikApplication.prefs.setString("key", "todayStart")
+            LUNCH_A_GOOD = ""
+            LUNCH_B_GOOD = ""
+            DINNER = ""
             defaultDataStore()
+            MyongsikApplication.prefs.setString("key", "todayStart")
+        }else{
+            getLaunchEvaluation()
+            getLaunchBEvaluation()
+            getDinnerEvaluation()
         }
 
 
 
         //처음 실행했을 때 평가 값 불러오기
         //홈화면 리사이클러뷰로 변경하면서 업데이틒 필요함
-        getLaunchEvaluation()
-        getLaunchBEvaluation()
-        getDinnerEvaluation()
 
     }
 
