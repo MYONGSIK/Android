@@ -1,6 +1,7 @@
 package com.myongsik.myongsikandroid.ui.view
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -64,8 +65,21 @@ class HomeFragment : Fragment() {
 
         //홈화면 LiveData
         mainViewModel.todayGetFood.observe(viewLifecycleOwner){
+            val dayDate = it.localDateTime.substring(0, 4)
+            val dayMonth = it.localDateTime.substring(5, 7)
+            val dayDay = it.localDateTime.substring(8, 10)
+            val day = it.dayOfTheWeek
             if(it.errorCode == "F0000") {
                 //주말이라 식단 조회 실패했을 때
+                //토요일일 경우
+                //파란색
+                if(day =="토요일")
+                    binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#274984"))
+                //빨간색
+                else if(day == "일요일")
+                    binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#E31F1F"))
+
+                binding.todayDayNotFoodTv.text = "${dayDate}년 ${dayMonth}월 ${dayDay}일 $day"
                 binding.todayNotFoodCl.visibility = View.VISIBLE
                 binding.rvTodaySearchResult.visibility = View.INVISIBLE
             }else{
