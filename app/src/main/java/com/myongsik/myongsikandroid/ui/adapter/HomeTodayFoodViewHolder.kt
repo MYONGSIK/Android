@@ -28,7 +28,7 @@ class HomeTodayFoodViewHolder(
         val type = foodResult.type ?: ""
         val dayType = "${foodResult.classification}${type}"
 
-        val todayFood = "${foodResult.food1} ${foodResult.food2} ${foodResult.food3}\n" +
+        val todayFood = "${foodResult.food1} ${foodResult.food2} ${foodResult.food3} " +
                 "${foodResult.food4} ${foodResult.food5} ${foodResult.food6} "
 
         // 3. SpannableStringBuilder 타입으로 변환
