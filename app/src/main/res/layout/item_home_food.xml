@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/home_food_stroke"
     android:layout_marginHorizontal="20dp">
@@ -167,6 +167,7 @@
         app:layout_constraintTop_toBottomOf="@+id/week_food_day_evening_cl"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:paddingBottom="10dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

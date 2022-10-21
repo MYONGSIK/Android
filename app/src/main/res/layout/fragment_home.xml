@@ -93,34 +93,14 @@
             app:layout_constraintTop_toBottomOf="@+id/today_day_not_food_tv"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:breakStrategy="high_quality"
+            android:textAlignment="center"
+            android:paddingHorizontal="10dp"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"/>
 
-        <TextView
-            android:id="@+id/today_day_not_notice_tv2"
-            android:text="학생 식당을"
-            android:fontFamily="@font/notosans_regular"
-            app:layout_constraintTop_toBottomOf="@+id/today_day_not_notice_tv"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-20dp"/>
-
-        <TextView
-            android:id="@+id/today_day_not_notice_tv3"
-            android:text="열지 않습니다."
-            android:fontFamily="@font/notosans_regular"
-            app:layout_constraintTop_toBottomOf="@+id/today_day_not_notice_tv2"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-20dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

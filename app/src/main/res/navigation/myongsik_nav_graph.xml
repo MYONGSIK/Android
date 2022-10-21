@@ -20,7 +20,9 @@
             android:id="@+id/action_fragment_splash_to_fragment_home"
             app:destination="@id/fragment_home"
             app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out" />
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/fragment_home"
@@ -36,5 +38,18 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/fragment_home"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_fragment_home_to_weekFoodsFragment"
+            app:destination="@id/weekFoodsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/fragment_home" />
     </fragment>
+    <fragment
+        android:id="@+id/weekFoodsFragment"
+        android:name="com.myongsik.myongsikandroid.ui.view.WeekFoodsFragment"
+        android:label="WeekFoodsFragment"
+        tools:layout="@layout/fragment_week_foods"/>
 </navigation>
