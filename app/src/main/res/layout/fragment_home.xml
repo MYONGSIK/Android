@@ -64,7 +64,7 @@
         android:id="@+id/today_not_food_cl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/home_food_stroke"
+        android:background="@drawable/home_today_food_stroke"
         android:visibility="invisible"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
