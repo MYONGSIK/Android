@@ -8,6 +8,7 @@ import com.myongsik.myongsikandroid.data.model.WeekFoodResult
 import com.myongsik.myongsikandroid.databinding.ItemHomeFoodBinding
 
 //주간 음식 조회 리스트뷰 어댑터
+//ViewPager 로 변경하면서 안쓰임
 class HomeFoodAdapter : ListAdapter<WeekFoodResult, HomeFoodViewHolder>(BookDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFoodViewHolder {
