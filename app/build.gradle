@@ -15,8 +15,8 @@ android {
         applicationId "com.myongsik.myongsikandroid"
         minSdk 23
         targetSdk 32
-        versionCode 6
-        versionName "1.5"
+        versionCode 7
+        versionName "1.6"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -84,7 +84,9 @@ dependencies {
     // Background
     implementation 'androidx.work:work-runtime-ktx:2.7.1'
 
+    // ViewPager2
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
+    // Indicator
     implementation 'me.relex:circleindicator:2.1.6'
 }
