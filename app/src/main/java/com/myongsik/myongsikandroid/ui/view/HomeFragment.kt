@@ -53,13 +53,13 @@ class HomeFragment : Fragment() {
 
         //주간 식단 보러가기 버튼
         binding.bt.setOnClickListener {
-            val action = HomeFragmentDirections.actionFragmentHomeToFragmentWeekFood()
+            val action = HomeFragmentDirections.actionFragmentHomeToWeekFoodsFragment()
             it.findNavController().navigate(action)
         }
 
         //상단 아이콘 주간 식단 보러가기 버튼
         binding.homeWeekIcBt.setOnClickListener {
-            val action = HomeFragmentDirections.actionFragmentHomeToFragmentWeekFood()
+            val action = HomeFragmentDirections.actionFragmentHomeToWeekFoodsFragment()
             it.findNavController().navigate(action)
         }
 
@@ -79,6 +79,7 @@ class HomeFragment : Fragment() {
                 else if(day == "일요일")
                     binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#E31F1F"))
 
+                binding.todayDayNotNoticeTv.text = it.message
                 binding.todayDayNotFoodTv.text = "${dayDate}년 ${dayMonth}월 ${dayDay}일 $day"
                 binding.todayNotFoodCl.visibility = View.VISIBLE
                 binding.rvTodaySearchResult.visibility = View.INVISIBLE
