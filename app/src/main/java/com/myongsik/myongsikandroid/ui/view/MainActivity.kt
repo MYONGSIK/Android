@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         val factory = MainViewModelProviderFactory(foodRepository)
         mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
+        // Background
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
         val triggerTime = Calendar.getInstance()
         triggerTime.set(Calendar.HOUR_OF_DAY, 23)
