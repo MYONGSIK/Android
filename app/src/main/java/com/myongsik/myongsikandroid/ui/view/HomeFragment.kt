@@ -22,7 +22,7 @@ import com.myongsik.myongsikandroid.util.MyongsikApplication
 import kotlinx.coroutines.launch
 import java.util.*
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(){
 
     private var _binding : FragmentHomeBinding?= null
     private val binding : FragmentHomeBinding
@@ -65,25 +65,26 @@ class HomeFragment : Fragment() {
 
         //홈화면 LiveData
         mainViewModel.todayGetFood.observe(viewLifecycleOwner){
+
             val dayDate = it.localDateTime.substring(0, 4)
             val dayMonth = it.localDateTime.substring(5, 7)
             val dayDay = it.localDateTime.substring(8, 10)
             val day = it.dayOfTheWeek
-            if(it.errorCode == "F0000") {
+            if (it.errorCode == "F0000") {
                 //주말이라 식단 조회 실패했을 때
                 //토요일일 경우
                 //파란색
-                if(day =="토요일")
+                if (day == "토요일")
                     binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#274984"))
                 //빨간색
-                else if(day == "일요일")
+                else if (day == "일요일")
                     binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#E31F1F"))
 
                 binding.todayDayNotNoticeTv.text = it.message
                 binding.todayDayNotFoodTv.text = "${dayDate}년 ${dayMonth}월 ${dayDay}일 $day"
                 binding.todayNotFoodCl.visibility = View.VISIBLE
                 binding.rvTodaySearchResult.visibility = View.INVISIBLE
-            }else{
+            } else {
                 val food = it.data
                 homeTodayFoodAdapter.submitList(food)
                 binding.rvTodaySearchResult.visibility = View.VISIBLE
@@ -183,4 +184,5 @@ class HomeFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
+
 }

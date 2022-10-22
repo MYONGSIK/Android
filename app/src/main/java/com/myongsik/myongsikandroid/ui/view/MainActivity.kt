@@ -19,6 +19,9 @@ import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModelProviderFactory
 import com.myongsik.myongsikandroid.util.Constant.DATASTORE_NAME
 import java.util.*
 
+//DataStore 싱글톤으로 생성
+private val Context.dataStore by preferencesDataStore(DATASTORE_NAME)
+
 class MainActivity : AppCompatActivity() {
     private val binding : ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -26,8 +29,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     lateinit var mainViewModel : MainViewModel
-
-    private val Context.dataStore by preferencesDataStore(DATASTORE_NAME)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,4 +58,5 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.myongsik_home_fragment_view) as NavHostFragment ?: return
         navController = host.navController
     }
+
 }

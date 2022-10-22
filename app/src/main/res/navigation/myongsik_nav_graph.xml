@@ -21,6 +21,8 @@
             app:destination="@id/fragment_home"
             app:enterAnim="@android:anim/fade_in"
             app:exitAnim="@android:anim/fade_out"
+            app:popUpTo="@+id/fragment_splash"
+            app:popUpToInclusive="true"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
