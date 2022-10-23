@@ -1,7 +1,10 @@
 package com.myongsik.myongsikandroid.ui.view
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +33,7 @@ class HomeFragment : Fragment(){
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var homeTodayFoodAdapter: HomeTodayFoodAdapter
+    private lateinit var mainActivity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +45,23 @@ class HomeFragment : Fragment(){
         return binding.root
     }
 
+    //Context 를 불러오기 위해
+    override fun onAttach(context: Context) {
+
+        super.onAttach(context)
+
+        mainActivity = context as MainActivity
+    }
+
+    //네트워크 상태 확인
+    private fun getNetworkConnected(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork : NetworkInfo? = cm.activeNetworkInfo
+        val isConnected : Boolean = activeNetwork?.isConnectedOrConnecting == true
+
+        return isConnected
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,67 +69,74 @@ class HomeFragment : Fragment(){
         mainViewModel = (activity as MainActivity).mainViewModel
         setUpRecyclerView()
 
-        //홈화면 식단 조회
-        mainViewModel.todayGetFoodFun()
+        //네트워크 연결 되어있는지 확인
+        if(!getNetworkConnected(mainActivity.applicationContext)){
+            //실패했을 경우
+            binding.todayNotFoodCl.visibility = View.VISIBLE
+            binding.rvTodaySearchResult.visibility = View.INVISIBLE
+            binding.todayDayNotFoodTv.visibility = View.INVISIBLE
+            binding.todayDayNotNoticeTv.text = "네트워크 상태를 확인해주세요."
+        }else {
+            //네트워크 성공했을 때
 
-        //주간 식단 보러가기 버튼
-        binding.bt.setOnClickListener {
-            val action = HomeFragmentDirections.actionFragmentHomeToWeekFoodsFragment()
-            it.findNavController().navigate(action)
-        }
+            //홈화면 식단 조회
+            mainViewModel.todayGetFoodFun()
 
-        //상단 아이콘 주간 식단 보러가기 버튼
-        binding.homeWeekIcBt.setOnClickListener {
-            val action = HomeFragmentDirections.actionFragmentHomeToWeekFoodsFragment()
-            it.findNavController().navigate(action)
-        }
+            //주간 식단 보러가기 버튼
+            binding.bt.setOnClickListener {
+                val action = HomeFragmentDirections.actionFragmentHomeToWeekFoodsFragment()
+                it.findNavController().navigate(action)
+            }
 
-        //홈화면 LiveData
-        mainViewModel.todayGetFood.observe(viewLifecycleOwner){
+            //상단 아이콘 주간 식단 보러가기 버튼
+            binding.homeWeekIcBt.setOnClickListener {
+                val action = HomeFragmentDirections.actionFragmentHomeToWeekFoodsFragment()
+                it.findNavController().navigate(action)
+            }
 
-            val dayDate = it.localDateTime.substring(0, 4)
-            val dayMonth = it.localDateTime.substring(5, 7)
-            val dayDay = it.localDateTime.substring(8, 10)
-            val day = it.dayOfTheWeek
-            if (it.errorCode == "F0000") {
-                //주말이라 식단 조회 실패했을 때
-                //토요일일 경우
-                //파란색
-                if (day == "토요일")
-                    binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#274984"))
-                //빨간색
-                else if (day == "일요일")
-                    binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#E31F1F"))
+            //홈화면 LiveData
+            mainViewModel.todayGetFood.observe(viewLifecycleOwner) {
 
-                binding.todayDayNotNoticeTv.text = it.message
-                binding.todayDayNotFoodTv.text = "${dayDate}년 ${dayMonth}월 ${dayDay}일 $day"
-                binding.todayNotFoodCl.visibility = View.VISIBLE
-                binding.rvTodaySearchResult.visibility = View.INVISIBLE
+                val dayDate = it.localDateTime.substring(0, 4)
+                val dayMonth = it.localDateTime.substring(5, 7)
+                val dayDay = it.localDateTime.substring(8, 10)
+                val day = it.dayOfTheWeek
+                if (it.errorCode == "F0000") {
+                    //주말이라 식단 조회 실패했을 때
+                    //토요일일 경우
+                    //파란색
+                    if (day == "토요일")
+                        binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#274984"))
+                    //빨간색
+                    else if (day == "일요일")
+                        binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#E31F1F"))
+
+                    binding.todayDayNotNoticeTv.text = it.message
+                    binding.todayDayNotFoodTv.text = "${dayDate}년 ${dayMonth}월 ${dayDay}일 $day"
+                    binding.todayNotFoodCl.visibility = View.VISIBLE
+                    binding.rvTodaySearchResult.visibility = View.INVISIBLE
+                } else {
+                    val food = it.data
+                    homeTodayFoodAdapter.submitList(food)
+                    binding.rvTodaySearchResult.visibility = View.VISIBLE
+                    binding.todayNotFoodCl.visibility = View.INVISIBLE
+                }
+            }
+
+            //하루가 지났을 때 AlarmManager 가 실행되면서 DataStore 가 초기화됐을 때
+            if (MyongsikApplication.prefs.getString("key", "null") == "gg") {
+                //하루가 지나고 DataStore 초기화 후 prefs 값을 변경시켜줌으로써 다음에는 초기화 안되게 막아둠
+                LUNCH_A_GOOD = ""
+                LUNCH_B_GOOD = ""
+                DINNER = ""
+                defaultDataStore()
+                MyongsikApplication.prefs.setString("key", "todayStart")
             } else {
-                val food = it.data
-                homeTodayFoodAdapter.submitList(food)
-                binding.rvTodaySearchResult.visibility = View.VISIBLE
-                binding.todayNotFoodCl.visibility = View.INVISIBLE
+                getLaunchEvaluation()
+                getLaunchBEvaluation()
+                getDinnerEvaluation()
             }
         }
-
-        if(MyongsikApplication.prefs.getString("key", "null") == "gg"){
-            LUNCH_A_GOOD = ""
-            LUNCH_B_GOOD = ""
-            DINNER = ""
-            defaultDataStore()
-            MyongsikApplication.prefs.setString("key", "todayStart")
-        }else{
-            getLaunchEvaluation()
-            getLaunchBEvaluation()
-            getDinnerEvaluation()
-        }
-
-
-
-        //처음 실행했을 때 평가 값 불러오기
-        //홈화면 리사이클러뷰로 변경하면서 업데이틒 필요함
-
     }
 
     private fun defaultDataStore() {
