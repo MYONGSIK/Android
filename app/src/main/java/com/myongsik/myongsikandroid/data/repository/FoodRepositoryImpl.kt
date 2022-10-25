@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.myongsik.myongsikandroid.data.api.RetrofitInstance.api
+import com.myongsik.myongsikandroid.data.api.HomeFoodApi
 import com.myongsik.myongsikandroid.data.model.FoodResult
 import com.myongsik.myongsikandroid.data.model.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.WeekFoodResponse
@@ -18,9 +18,16 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import retrofit2.Response
 import java.io.IOException
-
-class FoodRepositoryImpl(
+import javax.inject.Inject
+import javax.inject.Singleton
+/*
+FoodRepository 를 구현한 FoodRepositoryImpl
+Hilt 주입 완료
+ */
+@Singleton
+class FoodRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,
+    private val api : HomeFoodApi
 ) : FoodRepository {
 
     //오늘 식단 조회
