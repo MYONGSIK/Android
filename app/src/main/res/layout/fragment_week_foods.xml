@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="@string/week_today_tv"
         android:textSize="18sp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="8dp"
         android:textColor="@color/black"
         android:fontFamily="@font/notosans_regular"
         app:layout_constraintTop_toBottomOf="@id/week_food_top_v"

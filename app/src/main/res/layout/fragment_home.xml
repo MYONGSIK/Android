@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:text="@string/home_today_tv"
         android:textSize="18sp"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="12dp"
         android:textColor="@color/black"
         android:fontFamily="@font/notosans_regular"
         app:layout_constraintTop_toBottomOf="@id/home_top_v"
@@ -55,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/home_today_food_tv"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         />
 
