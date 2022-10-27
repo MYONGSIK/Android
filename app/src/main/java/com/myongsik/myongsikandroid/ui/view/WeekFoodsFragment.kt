@@ -7,13 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import com.myongsik.myongsikandroid.data.model.WeekFoodResult
-import com.myongsik.myongsikandroid.databinding.FragmentWeekFoodBinding
 import com.myongsik.myongsikandroid.databinding.FragmentWeekFoodsBinding
-import com.myongsik.myongsikandroid.ui.adapter.HomeFoodAdapter
 import com.myongsik.myongsikandroid.ui.adapter.ViewPagerAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -57,11 +52,6 @@ class WeekFoodsFragment : Fragment() {
 
             val indicator = binding.indicator
             indicator.setViewPager(binding.viewPager2)
-        }
-
-        //뒤로가기 버튼
-        binding.weekBackIcBt.setOnClickListener {
-            it.findNavController().popBackStack()
         }
     }
 
