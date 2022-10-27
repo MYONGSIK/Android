@@ -8,12 +8,15 @@ import com.myongsik.myongsikandroid.data.model.FoodResult
 import com.myongsik.myongsikandroid.data.model.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.repository.FoodRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val foodRepository: FoodRepository
 ) : ViewModel() {
 
@@ -51,6 +54,7 @@ class MainViewModel(
         foodRepository.saveLunchEvaluation(foodResult, value)
     }
 
+    //DataStore 초기화
     suspend fun defaultDataStore(){
         foodRepository.defaultDataStore()
     }

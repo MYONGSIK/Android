@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,16 +23,21 @@ import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_B_GOOD
 import com.myongsik.myongsikandroid.util.FoodEvaluation
 import com.myongsik.myongsikandroid.util.MyongsikApplication
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.*
 
+//홈화면 일간 식단 조회 프래그먼트
+@AndroidEntryPoint
 class HomeFragment : Fragment(){
 
     private var _binding : FragmentHomeBinding?= null
     private val binding : FragmentHomeBinding
         get() = _binding!!
 
-    private lateinit var mainViewModel: MainViewModel
+//    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel by activityViewModels<MainViewModel>()
+
     private lateinit var homeTodayFoodAdapter: HomeTodayFoodAdapter
     private lateinit var mainActivity: MainActivity
 
@@ -66,7 +72,7 @@ class HomeFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainViewModel = (activity as MainActivity).mainViewModel
+//        mainViewModel = (activity as MainActivity).mainViewModel
         setUpRecyclerView()
 
         //네트워크 연결 되어있는지 확인
@@ -122,36 +128,33 @@ class HomeFragment : Fragment(){
                     binding.todayNotFoodCl.visibility = View.INVISIBLE
                 }
             }
-
-            //하루가 지났을 때 AlarmManager 가 실행되면서 DataStore 가 초기화됐을 때
-            if (MyongsikApplication.prefs.getString("key", "null") == "gg") {
-                //하루가 지나고 DataStore 초기화 후 prefs 값을 변경시켜줌으로써 다음에는 초기화 안되게 막아둠
-                LUNCH_A_GOOD = ""
-                LUNCH_B_GOOD = ""
-                DINNER = ""
-                defaultDataStore()
-                MyongsikApplication.prefs.setString("key", "todayStart")
-            } else {
-                getLaunchEvaluation()
-                getLaunchBEvaluation()
-                getDinnerEvaluation()
-            }
+        }
+        //하루가 지났을 때 AlarmManager 가 실행되면서 DataStore 가 초기화됐을 때
+        if (MyongsikApplication.prefs.getString("key", "null") == "gg") {
+            //하루가 지나고 DataStore 초기화 후 prefs 값을 변경시켜줌으로써 다음에는 초기화 안되게 막아둠
+            LUNCH_A_GOOD = ""
+            LUNCH_B_GOOD = ""
+            DINNER = ""
+            defaultDataStore()
+            MyongsikApplication.prefs.setString("key", "todayStart")
+        } else {
+            getLaunchEvaluation()
+            getLaunchBEvaluation()
+            getDinnerEvaluation()
         }
     }
 
+    //하루가 지났을 때 DataStore 를 초기화함
     private fun defaultDataStore() {
         lifecycleScope.launch {
             mainViewModel.defaultDataStore()
         }
     }
 
-    //중식 맛 평가 불러오기
-    //test 성공하면 바로 석식도, 근데 다른 날짜에도 똑같이 나오는게 아닌지?
-    // -> WorkManager 를 통해서 하루에 한 번 초기화 할 수 있음 -> 그 전에 서버에 통신하여 맛있어요, 맛없어요 수를 셀 수 있음
-    // 특정 시간에 서버에 전송 후, 초기화를 진행해주어야할듯.
-    // 리사이클러뷰로 변경하면서 이 기능 업데이트 필요
+    //중식 평가 불러오기
     private fun getLaunchEvaluation() {
         lifecycleScope.launch{
+            //현재 불러온 값에 따라 값을 저장
             LUNCH_A_GOOD = when(mainViewModel.getLunchEvaluation()){
                 FoodEvaluation.GOOD.value -> {
                     "good"
@@ -166,6 +169,7 @@ class HomeFragment : Fragment(){
         }
     }
 
+    //중식 B 평가 불러오기
     private fun getLaunchBEvaluation() {
         lifecycleScope.launch{
             LUNCH_B_GOOD = when(mainViewModel.getLunchBEvaluation()){
