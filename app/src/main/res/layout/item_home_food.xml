@@ -58,11 +58,10 @@
         android:paddingHorizontal="10dp"
         android:fontFamily="@font/notosans_regular"
         android:breakStrategy="high_quality"
-        android:textSize="16sp"
+        android:textSize="15sp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/week_food_day_afternoon_cl"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="7dp"
         />
 
     <ImageView
@@ -108,14 +107,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/notosans_regular"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:textAlignment="center"
         android:paddingHorizontal="10dp"
         android:breakStrategy="high_quality"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/week_food_day_afternoon2_cl"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="7dp"
         />
 
     <ImageView
@@ -165,13 +163,13 @@
         android:textAlignment="center"
         android:paddingHorizontal="10dp"
         android:breakStrategy="high_quality"
-        android:textSize="16sp"
+        android:textSize="15sp"
         app:layout_constraintTop_toBottomOf="@+id/week_food_day_evening_cl"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="7dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="30dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

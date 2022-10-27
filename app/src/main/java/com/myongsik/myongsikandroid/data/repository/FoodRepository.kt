@@ -6,6 +6,9 @@ import com.myongsik.myongsikandroid.data.model.WeekFoodResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
+/*
+Repository 패턴을 이용한 FoodRepository interface
+ */
 interface FoodRepository {
 
     suspend fun todayGetFood() : Response<TodayFoodResponse>

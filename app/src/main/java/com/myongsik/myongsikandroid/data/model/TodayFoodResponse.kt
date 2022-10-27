@@ -1,5 +1,8 @@
 package com.myongsik.myongsikandroid.data.model
 
+/*
+오늘 음식 조회 Response
+ */
 data class TodayFoodResponse(
     val success : Boolean,
     val message : String,
