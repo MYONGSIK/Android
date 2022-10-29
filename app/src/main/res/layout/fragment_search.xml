@@ -27,7 +27,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tl_search"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="명지맛집을 검색 하세요."
@@ -43,7 +42,7 @@
             android:id="@+id/et_search"
             android:background="@drawable/search_food_stroke"
             android:layout_width="match_parent"
-            android:layout_height="43dp"
+            android:layout_height="wrap_content"
             android:inputType="textAutoComplete"/>
 
     </com.google.android.material.textfield.TextInputLayout>
