@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.myongsik.myongsikandroid.databinding.FragmentLoveBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoveFragment : Fragment() {
 
     private var _binding : FragmentLoveBinding?= null

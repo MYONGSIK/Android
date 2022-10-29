@@ -7,9 +7,10 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
-import com.myongsik.myongsikandroid.data.model.FoodResult
-import com.myongsik.myongsikandroid.data.model.TodayFoodResponse
-import com.myongsik.myongsikandroid.data.model.WeekFoodResponse
+import com.myongsik.myongsikandroid.data.model.food.FoodResult
+import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
+import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
+import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
 import com.myongsik.myongsikandroid.data.repository.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION
 import com.myongsik.myongsikandroid.data.repository.FoodRepositoryImpl.PreferencesKeys.LUNCH_B_EVALUATION
 import com.myongsik.myongsikandroid.data.repository.FoodRepositoryImpl.PreferencesKeys.LUNCH_EVALUATION
@@ -27,7 +28,7 @@ Hilt 주입 완료
 @Singleton
 class FoodRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,
-    private val api : HomeFoodApi
+    private val api : HomeFoodApi,
 ) : FoodRepository {
 
     //오늘 식단 조회
@@ -132,4 +133,18 @@ class FoodRepositoryImpl @Inject constructor(
                 prefs[DINNER_EVALUATION] ?: ""
             }
     }
+
+    override suspend fun searchFood(
+        query: String,
+        category_group_code: String,
+        x: String,
+        y: String,
+        radius: Int,
+        page: Int,
+        size: Int
+    ): Response<SearchResponse> {
+        return api.searchFood(query, category_group_code, x, y, radius, page, size)
+    }
+
+
 }

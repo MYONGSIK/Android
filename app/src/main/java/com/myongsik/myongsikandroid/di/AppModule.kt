@@ -50,6 +50,7 @@ object AppModule {
             .build()
     }
 
+
     @Singleton
     @Provides
     fun provideApiService(retrofit: Retrofit) : HomeFoodApi {
