@@ -9,12 +9,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.myongsik.myongsikandroid.R
+import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
 import com.myongsik.myongsikandroid.databinding.FragmentSplashBinding
 
-class SplashFragment : Fragment() {
+class SearchFragment : Fragment() {
 
-    private var _binding : FragmentSplashBinding?= null
-    private val binding : FragmentSplashBinding
+    private var _binding : FragmentSearchBinding?= null
+    private val binding : FragmentSearchBinding
         get() = _binding!!
 
     override fun onCreateView(
@@ -22,16 +23,11 @@ class SplashFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentSplashBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val handler = Handler(Looper.getMainLooper())
-
-        handler.postDelayed({
-            findNavController().navigate(R.id.action_fragment_splash_to_fragment_search)
-        },1500)
 
         super.onViewCreated(view, savedInstanceState)
     }
