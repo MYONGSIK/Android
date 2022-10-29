@@ -25,27 +25,34 @@
         android:layout_marginTop="20dp"
         android:layout_marginLeft="12dp"/>
 
-    <com.google.android.material.textfield.TextInputLayout
+
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/tl_search"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:background="@drawable/search_food_stroke"
         android:hint="명지맛집을 검색 하세요."
-        android:padding="4dp"
-        app:endIconMode="clear_text"
+        android:paddingLeft="15dp"
+        android:layout_width="0dp"
+        android:layout_height="43dp"
         app:layout_constraintStart_toEndOf="@id/search_back_bt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/search_back_bt"
         app:layout_constraintBottom_toBottomOf="@id/search_back_bt"
         android:layout_marginRight="15dp"
-        >
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_search"
-            android:background="@drawable/search_food_stroke"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textAutoComplete"/>
+        android:inputType="textAutoComplete"/>
 
-    </com.google.android.material.textfield.TextInputLayout>
+    <!--    검색 리사이클러뷰 -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_myongji_rv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_top_v"
+        android:layout_marginTop="25dp"
+        />
 
     <TextView
         android:id="@+id/good_cafe_drink_tv"

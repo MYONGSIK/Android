@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.data.model
+package com.myongsik.myongsikandroid.data.model.food
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
