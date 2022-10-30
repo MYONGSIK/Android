@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
+import com.myongsik.myongsikandroid.data.api.SearchFoodApi
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.Constant.DATASTORE_NAME
 import dagger.Module
@@ -18,6 +19,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 /*
@@ -26,6 +29,8 @@ Hilt 주입으로 인해 앱 모두에서 사용하기 위한 싱글톤으로 �
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+//    private const val KAKAO_BASE_URL = "https://dapi.kakao.com/"
 
     //Retrofit
     @Singleton
@@ -56,6 +61,44 @@ object AppModule {
     fun provideApiService(retrofit: Retrofit) : HomeFoodApi {
         return retrofit.create(HomeFoodApi::class.java)
     }
+
+//    @Singleton
+//    @Provides
+//    fun provideApiService2(retrofit: Retrofit) : SearchFoodApi {
+//        return retrofit.create(SearchFoodApi::class.java)
+//    }
+
+//    @Singleton
+//    @Provides
+//    @Named("Kakao")
+//    fun provideOkHttpClient2() : OkHttpClient {
+//        val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+//        return OkHttpClient.Builder()
+//            .addInterceptor(interceptor)
+//            .connectTimeout(100, TimeUnit.SECONDS)
+//            .readTimeout(100,TimeUnit.SECONDS)
+//            .writeTimeout(100,TimeUnit.SECONDS)
+//            .build();
+//    }
+//
+//    @Singleton
+//    @Provides
+//    @Named("Kakao")
+//    fun provideRetrofit2(okHttpClient: OkHttpClient) : Retrofit {
+//        return Retrofit.Builder()
+//            .baseUrl(KAKAO_BASE_URL)
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .client(okHttpClient)
+//            .build()
+//    }
+//
+//
+//    @Singleton
+//    @Provides
+//    @Named("Kakao")
+//    fun provideApiService2(retrofit: Retrofit) : SearchFoodApi {
+//        return retrofit.create(SearchFoodApi::class.java)
+//    }
 
     //DataStore
     @Singleton

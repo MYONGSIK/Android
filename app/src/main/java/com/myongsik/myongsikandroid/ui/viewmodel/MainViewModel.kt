@@ -77,16 +77,16 @@ class MainViewModel @Inject constructor(
     private val _resultSearch = MutableLiveData<SearchResponse>()
     val resultSearch : LiveData<SearchResponse>
         get() = _resultSearch
-
-    fun searchFood(query : String) = viewModelScope.launch(Dispatchers.IO) {
-        val response = foodRepository.searchFood(
-            "서울 명지대 $query", "FD6, CE7", "126.923460283882",
-            "37.5803504797164", 5000, 1, 15)
-
-        if(response.isSuccessful){
-            response.body()?.let{ body ->
-                _resultSearch.postValue(body)
-            }
-        }
-    }
+//
+//    fun searchFood(query : String) = viewModelScope.launch(Dispatchers.IO) {
+//        val response = foodRepository.searchFood(
+//            "서울 명지대 $query", "FD6, CE7", "126.923460283882",
+//            "37.5803504797164", 5000, 1, 15)
+//
+//        if(response.isSuccessful){
+//            response.body()?.let{ body ->
+//                _resultSearch.postValue(body)
+//            }
+//        }
+//    }
 }

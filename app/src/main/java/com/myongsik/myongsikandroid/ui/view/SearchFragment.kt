@@ -1,35 +1,38 @@
 package com.myongsik.myongsikandroid.ui.view
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
-import androidx.core.widget.addTextChangedListener
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myongsik.myongsikandroid.R
+import com.myongsik.myongsikandroid.data.repository.SearchFoodRepositoryImpl
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
-import com.myongsik.myongsikandroid.databinding.FragmentSplashBinding
-import com.myongsik.myongsikandroid.ui.adapter.HomeTodayFoodAdapter
 import com.myongsik.myongsikandroid.ui.adapter.SearchFoodAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModelProviderFactory
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class SearchFragment : Fragment() {
 
     private var _binding : FragmentSearchBinding?= null
     private val binding : FragmentSearchBinding
         get() = _binding!!
 
-    private val mainViewModel by activityViewModels<MainViewModel>()
+//    private val mainViewModel by activityViewModels<MainViewModel>()
+//    private val searchViewModel by viewModels<SearchViewModel>()
+    private val searchViewModel : SearchViewModel by viewModels{
+        SearchViewModelProviderFactory()
+    }
+
+
     private lateinit var searchFoodAdapter: SearchFoodAdapter
 
     override fun onCreateView(
@@ -38,6 +41,7 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -45,12 +49,12 @@ class SearchFragment : Fragment() {
         searchBooks()
         setUpRecyclerView()
 
-            binding.searchMyongjiRv.visibility = View.VISIBLE
+        binding.searchMyongjiRv.visibility = View.VISIBLE
 
-            binding.goodCafeDrinkTv.visibility = View.INVISIBLE
-            binding.horizonSv.visibility = View.INVISIBLE
-            binding.goodPlaceMyongji.visibility = View.INVISIBLE
-            binding.searchMyongjiRecommend.visibility = View.INVISIBLE
+        binding.goodCafeDrinkTv.visibility = View.INVISIBLE
+        binding.horizonSv.visibility = View.INVISIBLE
+        binding.goodPlaceMyongji.visibility = View.INVISIBLE
+        binding.searchMyongjiRecommend.visibility = View.INVISIBLE
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -75,7 +79,7 @@ class SearchFragment : Fragment() {
                 text?.let {
                     val query = it.toString().trim()
                     if(query.isNotEmpty()){
-                        mainViewModel.searchFood(query)
+                        searchViewModel.searchFood(query)
                     }
                 }
             }

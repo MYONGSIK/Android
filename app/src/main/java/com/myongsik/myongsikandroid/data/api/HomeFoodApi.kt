@@ -21,16 +21,16 @@ interface HomeFoodApi {
     @GET("/api/v1/foods/week")
     suspend fun weekGetFood() : Response<WeekFoodResponse>
 
-    @Headers("Authorization: KakaoAK $API_KEY")
-    @GET("v2/local/search/keyword")
-    suspend fun searchFood(
-        @Query("query") query : String,
-        @Query("category_group_code") category_group_code : String,
-        @Query("x") x : String,
-        @Query("y") y : String,
-        @Query("radius") radius : Int,
-        @Query("page") page : Int,
-        @Query("size") size : Int,
-    ) : Response<SearchResponse>
+//    @Headers("Authorization: KakaoAK $API_KEY")
+//    @GET("v2/local/search/keyword")
+//    suspend fun searchFood(
+//        @Query("query") query : String,
+//        @Query("category_group_code") category_group_code : String,
+//        @Query("x") x : String,
+//        @Query("y") y : String,
+//        @Query("radius") radius : Int,
+//        @Query("page") page : Int,
+//        @Query("size") size : Int,
+//    ) : Response<SearchResponse>
 
 }
