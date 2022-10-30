@@ -30,6 +30,7 @@
         android:id="@+id/tl_search"
         android:background="@drawable/search_food_stroke"
         android:hint="명지맛집을 검색 하세요."
+        android:textSize="13sp"
         android:paddingLeft="15dp"
         android:layout_width="0dp"
         android:layout_height="43dp"

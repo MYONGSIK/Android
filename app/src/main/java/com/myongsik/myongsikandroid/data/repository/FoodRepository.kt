@@ -30,14 +30,14 @@ interface FoodRepository {
 
     suspend fun getDinnerEvaluation() : Flow<String>
 
-    suspend fun searchFood(
-        query: String,
-        category_group_code : String,
-        x : String,
-        y : String,
-        radius : Int,
-        page : Int,
-        size : Int,
-    ) : Response<SearchResponse>
+//    suspend fun searchFood(
+//        query: String,
+//        category_group_code : String,
+//        x : String,
+//        y : String,
+//        radius : Int,
+//        page : Int,
+//        size : Int,
+//    ) : Response<SearchResponse>
 
 }
