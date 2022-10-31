@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.ui.adapter
+package com.myongsik.myongsikandroid.ui.adapter.food
 
 import android.graphics.Color
 import android.text.SpannableStringBuilder
@@ -63,14 +63,14 @@ class ViewPagerAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ViewPagerAdapter.Pager2ViewHolder {
+    ): Pager2ViewHolder {
         return Pager2ViewHolder(
             ItemHomeFoodBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
 
-    override fun onBindViewHolder(holder: ViewPagerAdapter.Pager2ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: Pager2ViewHolder, position: Int) {
         holder.bind(weekFoodResult[position])
     }
 
