@@ -25,16 +25,23 @@ class SearchFoodViewHolder(
 //        val dayDay = foodResult.toDay.substring(8, 10)
 //        val day = foodResult.dayOfTheWeek
         //1120
-        val distance = "${restaurant.distance}m"
+//        var distance = "${restaurant.distance}m"
+        val distance = if(restaurant.distance.length >= 4){
+           "${restaurant.distance[0]}.${restaurant.distance[1]}km"
+        }else{
+            "${restaurant.distance}m"
+        }
+        val phone = if(restaurant.phone == "") "전화번호가 없습니다." else restaurant.phone
 
 
         itemView.apply{
 //            binding.weekFoodDayOfWeekTv.text = date
+            println(restaurant.place_name)
             binding.itemFoodName.text = restaurant.place_name
             binding.itemFoodObject.text = restaurant.category_group_name
             binding.weekFoodAfternoonTv.text = distance
             binding.itemFoodLocationTv.text = restaurant.road_address_name
-            binding.itemFoodPhoneTv.text = restaurant.phone
+            binding.itemFoodPhoneTv.text = phone
         }
 
     }

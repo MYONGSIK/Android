@@ -30,11 +30,27 @@ class SearchViewModel(
     fun searchFood(query : String) = viewModelScope.launch(Dispatchers.IO) {
         val response = searchFoodRepository.searchFood(
             "서울 명지대 $query", "FD6, CE7", "126.923460283882",
-            "37.5803504797164", 20000, 1, 15)
+            "37.5803504797164", 10000, 1, 15)
 
         if(response.isSuccessful){
             response.body()?.let{ body ->
                 _resultSearch.postValue(body)
+            }
+        }
+    }
+
+    private val _resultRecommendSearch = MutableLiveData<SearchResponse>()
+    val resultRecommendSearch : LiveData<SearchResponse>
+        get() = _resultRecommendSearch
+
+    fun searchRecommendFood(query : String) = viewModelScope.launch(Dispatchers.IO) {
+        val response = searchFoodRepository.searchFood(
+            "서울 명지대 $query", "FD6, CE7", "126.923460283882",
+            "37.5803504797164", 10000, 1, 10)
+
+        if(response.isSuccessful){
+            response.body()?.let{ body ->
+                _resultRecommendSearch.postValue(body)
             }
         }
     }
