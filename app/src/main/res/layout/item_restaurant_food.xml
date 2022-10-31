@@ -11,23 +11,25 @@
         android:text="식당이름"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/notosans_regular"
+        android:textFontWeight="700"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:textColor="#000000"
-        android:textSize="20sp"
-        android:layout_marginTop="15dp"
+        android:textSize="16sp"
         android:layout_marginLeft="20dp"
         />
 
     <TextView
         android:id="@+id/item_food_object"
         android:text="가게 종류"
+        android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/item_food_name"
         app:layout_constraintBottom_toBottomOf="@id/item_food_name"
         app:layout_constraintLeft_toRightOf="@id/item_food_name"
-        android:layout_marginLeft="13dp"/>
+        android:layout_marginLeft="5dp"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/item_food_blue_cl"
@@ -37,7 +39,7 @@
         app:layout_constraintTop_toTopOf="@id/item_food_object"
         app:layout_constraintBottom_toBottomOf="@id/item_food_object"
         app:layout_constraintLeft_toRightOf="@id/item_food_object"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="5dp"
         >
 
         <TextView
@@ -45,7 +47,7 @@
             android:text="320m"
             android:textColor="@color/white"
             android:paddingVertical="4dp"
-            android:textSize="14sp"
+            android:textSize="10sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -64,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@id/item_food_name"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="13dp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="-5dp"/>
 
     <TextView
         android:id="@+id/item_food_location_tv"
@@ -118,6 +120,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="5dp"
         android:src="@drawable/ic_food_detail_arrow"/>
 
     <TextView

@@ -52,6 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_top_v"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="25dp"
         />
 
@@ -60,45 +61,97 @@
         android:text="#모아뒀으니 골라보세요!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/notosans_regular"
+        android:textFontWeight="700"
         android:textSize="20sp"
         android:textColor="#0E0E0E"
-        app:layout_constraintTop_toBottomOf="@id/tl_search"
+        app:layout_constraintTop_toBottomOf="@+id/search_top_v"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="16dp"
         />
 
     <HorizontalScrollView
         android:id="@+id/horizon_sv"
         android:layout_width="wrap_content"
-        android:layout_height="140dp"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/good_cafe_drink_tv"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="22dp">
+        android:layout_marginLeft="10dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/good_food_iv"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/item_search_hashtag1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/test22"/>
+                android:background="@drawable/search_hashtag"
+                >
 
-            <ImageView
-                android:id="@+id/good_food_iv1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/test22"/>
+                <TextView
+                    android:id="@+id/hashtag_good_food"
+                    android:text="#명지맛집"
+                    android:textColor="#000000"
+                    android:paddingVertical="4dp"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:paddingHorizontal="11dp"
+                    />
 
-            <ImageView
-                android:id="@+id/good_food_iv2"
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/item_search_hashtag2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/test22"/>
+                android:background="@drawable/search_hashtag"
+                >
+
+                <TextView
+                    android:id="@+id/week_food_afternoon_tv1"
+                    android:text="#명지카페"
+                    android:textColor="#000000"
+                    android:paddingVertical="4dp"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:paddingHorizontal="11dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/item_search_hashtag3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/search_hashtag"
+                >
+
+                <TextView
+                    android:id="@+id/week_food_afternoon_tv2"
+                    android:text="#명지술집"
+                    android:textColor="#000000"
+                    android:paddingVertical="4dp"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:paddingHorizontal="11dp"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
@@ -112,10 +165,12 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textColor="#0E0E0E"
+        android:fontFamily="@font/notosans_regular"
+        android:textFontWeight="700"
         app:layout_constraintTop_toBottomOf="@id/horizon_sv"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -126,7 +181,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/good_place_myongji"
-        android:layout_marginTop="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         />
 
 

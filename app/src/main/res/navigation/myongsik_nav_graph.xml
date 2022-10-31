@@ -42,5 +42,19 @@
         android:id="@+id/fragment_search"
         android:name="com.myongsik.myongsikandroid.ui.view.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_fragment_search_to_tagFragment"
+            app:destination="@id/fragment_tag"
+            app:popUpTo="@id/fragment_search" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_tag"
+        android:name="com.myongsik.myongsikandroid.ui.view.TagFragment"
+        android:label="TagFragment"
+        tools:layout="@layout/fragment_tag">
+        <argument
+            android:name="tag"
+            app:argType="string" />
+    </fragment>
 </navigation>
