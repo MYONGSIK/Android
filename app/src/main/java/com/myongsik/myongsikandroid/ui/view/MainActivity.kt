@@ -4,9 +4,11 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.*
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.alarm.AlarmBroadCastReceiver
 import com.myongsik.myongsikandroid.databinding.ActivityMainBinding
@@ -25,12 +27,32 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
     lateinit var mainViewModel : MainViewModel
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        setupJetpackNavigation()
+        //네비게이션들을 담는 호스트
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.myongsik_home_fragment_view) as NavHostFragment
+
+        //네비게이션 컨트롤러
+        val navController = navHostFragment.navController
+
+        //바텀 네비게이션 뷰와 네비게이션을 묶어준다.
+        NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
+
+        //바텀 네비게이션 출력하는 부분과 그렇지 않은 부분을 나눔
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.fragment_home || destination.id == R.id.fragment_love || destination.id == R.id.fragment_search
+                || destination.id == R.id.fragment_week_foods) {
+                binding.bottomNavigationView.visibility = View.VISIBLE
+                binding.myongsikHomeFragmentView.setPadding(0,0,0,0)}
+            else {
+                binding.bottomNavigationView.visibility= View.GONE
+                binding.myongsikHomeFragmentView.setPadding(0,0,0,0)
+            }
+        }
 
 //        val foodRepository = FoodRepositoryImpl(dataStore)
 //        val factory = MainViewModelProviderFactory(foodRepository)
@@ -48,12 +70,6 @@ class MainActivity : AppCompatActivity() {
         val pIntent = PendingIntent.getBroadcast(this@MainActivity, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime.timeInMillis, AlarmManager.INTERVAL_DAY, pIntent)
 
-    }
-
-    private fun setupJetpackNavigation(){
-        val host = supportFragmentManager
-            .findFragmentById(R.id.myongsik_home_fragment_view) as NavHostFragment ?: return
-        navController = host.navController
     }
 
 }

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/home_food_stroke"
+    android:layout_marginHorizontal="17dp">
+
+    <TextView
+        android:id="@+id/item_food_name"
+        android:text="식당이름"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/notosans_regular"
+        android:textFontWeight="700"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_marginLeft="20dp"
+        />
+
+    <TextView
+        android:id="@+id/item_food_object"
+        android:text="가게 종류"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/item_food_name"
+        app:layout_constraintBottom_toBottomOf="@id/item_food_name"
+        app:layout_constraintLeft_toRightOf="@id/item_food_name"
+        android:layout_marginLeft="5dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_food_blue_cl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/week_food_layout"
+        app:layout_constraintTop_toTopOf="@id/item_food_object"
+        app:layout_constraintBottom_toBottomOf="@id/item_food_object"
+        app:layout_constraintLeft_toRightOf="@id/item_food_object"
+        android:layout_marginLeft="5dp"
+        >
+
+        <TextView
+            android:id="@+id/week_food_afternoon_tv"
+            android:text="320m"
+            android:textColor="@color/white"
+            android:paddingVertical="4dp"
+            android:textSize="10sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:paddingHorizontal="11dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/item_food_location_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_place"
+        app:layout_constraintTop_toBottomOf="@id/item_food_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="-5dp"/>
+
+    <TextView
+        android:id="@+id/item_food_location_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가게 위치"
+        app:layout_constraintTop_toTopOf="@id/item_food_location_iv"
+        app:layout_constraintBottom_toBottomOf="@id/item_food_location_iv"
+        app:layout_constraintLeft_toRightOf="@id/item_food_location_iv"
+        android:layout_marginLeft="5dp"
+        />
+
+    <ImageView
+        android:id="@+id/item_food_phone_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_phone"
+        app:layout_constraintTop_toBottomOf="@id/item_food_location_tv"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <TextView
+        android:id="@+id/item_food_phone_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가게 전화번호"
+        app:layout_constraintTop_toTopOf="@id/item_food_phone_iv"
+        app:layout_constraintBottom_toBottomOf="@id/item_food_phone_iv"
+        app:layout_constraintLeft_toRightOf="@id/item_food_phone_iv"
+        android:layout_marginLeft="7dp"
+        />
+
+<!--    <View-->
+<!--        android:id="@+id/item_food_line_v"-->
+<!--        android:layout_width="102dp"-->
+<!--        android:layout_height="102dp"-->
+<!--        android:background="@drawable/line_vertical"-->
+<!--        android:layerType="software"-->
+<!--        app:layout_constraintRight_toLeftOf="@id/item_food_detail_tv"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:layout_marginRight="-40dp"/>-->
+
+    <ImageView
+        android:id="@+id/item_food_detail_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/ic_food_detail_arrow"/>
+
+    <TextView
+        android:id="@+id/item_food_detail_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="바로 가기"
+        android:textColor="@color/main_color"
+        app:layout_constraintRight_toLeftOf="@id/item_food_detail_iv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/fragment_search"
+        android:title="명지맛집"
+        android:icon="@drawable/ic_search"
+        />
+
+    <item
+        android:id="@+id/fragment_home"
+        android:title="오늘의학식"
+        android:icon="@drawable/ic_home"/>
+
+    <item
+        android:id="@+id/fragment_love"
+        android:title="찜꽁리스트"
+        android:icon="@drawable/ic_food_love"/>
+</menu>

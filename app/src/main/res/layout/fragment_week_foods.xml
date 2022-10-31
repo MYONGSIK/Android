@@ -2,12 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_week_foods">
 
     <View
         android:id="@+id/week_food_top_v"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="78dp"
         android:background="@drawable/home_background_top"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -24,8 +25,8 @@
 
     <ImageView
         android:id="@+id/home_logo"
-        android:layout_width="103dp"
-        android:layout_height="78dp"
+        android:layout_width="77dp"
+        android:layout_height="59dp"
         android:src="@drawable/ic_white_logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

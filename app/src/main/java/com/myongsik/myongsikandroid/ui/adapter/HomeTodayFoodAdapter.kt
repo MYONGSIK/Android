@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.myongsik.myongsikandroid.data.model.FoodResult
+import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.databinding.ItemHomeTodayFoodBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 

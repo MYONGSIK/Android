@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.data.model
+package com.myongsik.myongsikandroid.data.model.food
 
 /*
 오늘 음식 조회 Response
