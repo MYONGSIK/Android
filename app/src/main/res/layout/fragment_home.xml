@@ -2,12 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.view.HomeFragment"
+    android:id="@+id/fragment_home">
 
     <View
         android:id="@+id/home_top_v"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="78dp"
         android:background="@drawable/home_background_top"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -16,7 +19,7 @@
         android:id="@+id/home_week_ic_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_calendar"
+        android:src="@drawable/ic_calendar__1_"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@id/home_logo"
         app:layout_constraintBottom_toBottomOf="@id/home_logo"
@@ -24,8 +27,8 @@
 
     <ImageView
         android:id="@+id/home_logo"
-        android:layout_width="103dp"
-        android:layout_height="78dp"
+        android:layout_width="77dp"
+        android:layout_height="59dp"
         android:src="@drawable/ic_white_logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

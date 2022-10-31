@@ -7,7 +7,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.myongsik.myongsikandroid.data.model.WeekFoodResult
+import com.myongsik.myongsikandroid.data.model.food.WeekFoodResult
 import com.myongsik.myongsikandroid.databinding.ItemHomeFoodBinding
 
 class ViewPagerAdapter(
