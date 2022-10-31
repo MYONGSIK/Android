@@ -4,16 +4,22 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
 import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class SearchViewModel(
     private val searchFoodRepository: SearchFoodRepository
 ) : ViewModel() {
 
-
+    //검색화면
     private val _resultSearch = MutableLiveData<SearchResponse>()
     val resultSearch : LiveData<SearchResponse>
         get() = _resultSearch
@@ -30,6 +36,7 @@ class SearchViewModel(
         }
     }
 
+    //추천화면
     private val _resultRecommendSearch = MutableLiveData<SearchResponse>()
     val resultRecommendSearch : LiveData<SearchResponse>
         get() = _resultRecommendSearch
@@ -45,4 +52,5 @@ class SearchViewModel(
             }
         }
     }
+
 }

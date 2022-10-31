@@ -6,13 +6,19 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
+import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
 import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
+import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_B_EVALUATION
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_EVALUATION
+import com.myongsik.myongsikandroid.util.Constant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -27,6 +33,7 @@ Hilt 주입 완료
  */
 @Singleton
 class FoodRepositoryImpl @Inject constructor(
+    private val db : RestaurantDatabase,
     private val dataStore: DataStore<Preferences>,
     private val api : HomeFoodApi,
 ) : FoodRepository {
@@ -134,17 +141,27 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
-//    override suspend fun searchFood(
-//        query: String,
-//        category_group_code: String,
-//        x: String,
-//        y: String,
-//        radius: Int,
-//        page: Int,
-//        size: Int
-//    ): Response<SearchResponse> {
-//        return api2.searchFood(query, category_group_code, x, y, radius, page, size)
-//    }
+    override suspend fun insertFoods(restaurant: Restaurant) {
+        db.restaurantDao().insertGoodFood(restaurant)
+    }
+
+    override suspend fun deleteFoods(restaurant: Restaurant) {
+        db.restaurantDao().deleteBook(restaurant)
+    }
+
+    //Paging
+    override fun getFoods(): Flow<PagingData<Restaurant>> {
+        val pagingSourceFactory = { db.restaurantDao().getFoods() }
+
+        return Pager(
+            config = PagingConfig(
+                pageSize = Constant.PAGING_SIZE,
+                enablePlaceholders = false,
+                maxSize = Constant.PAGING_SIZE * 3
+            ),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
+    }
 
 
 }

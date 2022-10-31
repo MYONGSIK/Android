@@ -36,7 +36,10 @@ class SearchFragment : Fragment() {
         SearchViewModelProviderFactory()
     }
 
+    //검색 어댑터
     private lateinit var searchFoodAdapter: SearchFoodAdapter
+
+    //추천 어댑터
     private lateinit var searchRecommendAdapter : SearchFoodAdapter
 
     override fun onCreateView(
