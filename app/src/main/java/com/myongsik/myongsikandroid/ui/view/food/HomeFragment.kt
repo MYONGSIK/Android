@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.ui.view
+package com.myongsik.myongsikandroid.ui.view.food
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,9 +14,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
-import com.myongsik.myongsikandroid.ui.adapter.HomeTodayFoodAdapter
+import com.myongsik.myongsikandroid.ui.adapter.food.HomeTodayFoodAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.Constant.DINNER
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
@@ -25,7 +24,6 @@ import com.myongsik.myongsikandroid.util.FoodEvaluation
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.*
 
 //홈화면 일간 식단 조회 프래그먼트
 @AndroidEntryPoint

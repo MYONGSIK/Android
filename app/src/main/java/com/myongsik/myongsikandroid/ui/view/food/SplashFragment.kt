@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.ui.view
+package com.myongsik.myongsikandroid.ui.view.food
 
 import android.os.Bundle
 import android.os.Handler

@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.ui.view
+package com.myongsik.myongsikandroid.ui.view.food
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         //바텀 네비게이션 출력하는 부분과 그렇지 않은 부분을 나눔
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.fragment_home || destination.id == R.id.fragment_love || destination.id == R.id.fragment_search
+            if(destination.id == R.id.fragment_home || destination.id == R.id.fragment_search
                 || destination.id == R.id.fragment_week_foods) {
                 binding.bottomNavigationView.visibility = View.VISIBLE
                 binding.myongsikHomeFragmentView.setPadding(0,0,0,0)}

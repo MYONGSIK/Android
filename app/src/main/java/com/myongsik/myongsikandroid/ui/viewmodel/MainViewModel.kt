@@ -8,7 +8,7 @@ import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
-import com.myongsik.myongsikandroid.data.repository.FoodRepository
+import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first

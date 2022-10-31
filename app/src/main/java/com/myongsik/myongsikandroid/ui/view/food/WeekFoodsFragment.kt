@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.ui.view
+package com.myongsik.myongsikandroid.ui.view.food
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.myongsik.myongsikandroid.databinding.FragmentWeekFoodsBinding
-import com.myongsik.myongsikandroid.ui.adapter.ViewPagerAdapter
+import com.myongsik.myongsikandroid.ui.adapter.food.ViewPagerAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
