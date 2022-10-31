@@ -1,12 +1,9 @@
-package com.myongsik.myongsikandroid.data.repository
+package com.myongsik.myongsikandroid.data.repository.search
 
 
 import com.myongsik.myongsikandroid.data.api.SearchFoodApi
 import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
 import retrofit2.Response
-import javax.inject.Inject
-import javax.inject.Named
-import javax.inject.Singleton
 
 
 class SearchFoodRepositoryImpl(

@@ -2,7 +2,7 @@
 //
 //import androidx.lifecycle.ViewModel
 //import androidx.lifecycle.ViewModelProvider
-//import com.myongsik.myongsikandroid.data.repository.FoodRepository
+//import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 //
 //@Suppress("UNCHECKED_CAST")
 //class MainViewModelProviderFactory(

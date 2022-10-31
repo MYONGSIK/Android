@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.data.repository
+package com.myongsik.myongsikandroid.data.repository.search
 
 import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse

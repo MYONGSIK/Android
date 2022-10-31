@@ -1,18 +1,8 @@
-package com.myongsik.myongsikandroid.ui.adapter
+package com.myongsik.myongsikandroid.ui.adapter.search
 
-import android.graphics.Color
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
 import androidx.recyclerview.widget.RecyclerView
-import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
-import com.myongsik.myongsikandroid.databinding.ItemHomeTodayFoodBinding
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantFoodBinding
-import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
-import com.myongsik.myongsikandroid.util.Constant.DINNER
-import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
-import com.myongsik.myongsikandroid.util.Constant.LUNCH_B_GOOD
 
 //카카오 api 불러온 리사이클러뷰 아이템 뷰홀더
 class SearchFoodViewHolder(

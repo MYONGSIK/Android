@@ -1,8 +1,6 @@
-package com.myongsik.myongsikandroid.ui.view
+package com.myongsik.myongsikandroid.ui.view.search
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.databinding.FragmentSplashBinding
 import com.myongsik.myongsikandroid.databinding.FragmentTagBinding
-import com.myongsik.myongsikandroid.ui.adapter.SearchFoodAdapter
+import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModelProviderFactory
 
@@ -65,6 +61,17 @@ class TagFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = tagFoodAdapter
+        }
+
+        //태그 화면에서의 클릭
+        tagFoodAdapter.setOnItemClickListener {
+            val action = TagFragmentDirections.actionFragmentTagToFragmentRestaurant(it)
+            findNavController().navigate(action)
+        }
+
+        //태그에서의 백버튼
+        binding.tagBackBt.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 

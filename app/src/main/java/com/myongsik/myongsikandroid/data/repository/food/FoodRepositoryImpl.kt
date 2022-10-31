@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.data.repository
+package com.myongsik.myongsikandroid.data.repository.food
 
 
 import androidx.datastore.core.DataStore
@@ -7,21 +7,18 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
-import com.myongsik.myongsikandroid.data.api.SearchFoodApi
 import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
-import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
-import com.myongsik.myongsikandroid.data.repository.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION
-import com.myongsik.myongsikandroid.data.repository.FoodRepositoryImpl.PreferencesKeys.LUNCH_B_EVALUATION
-import com.myongsik.myongsikandroid.data.repository.FoodRepositoryImpl.PreferencesKeys.LUNCH_EVALUATION
+import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION
+import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_B_EVALUATION
+import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_EVALUATION
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
-import javax.inject.Named
 import javax.inject.Singleton
 
 /*

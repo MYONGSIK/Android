@@ -12,14 +12,14 @@ import com.myongsik.myongsikandroid.data.model.food.FoodResult
 interface RestaurantDao {
 
     //좋아요
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertGoodFood(foodResult: FoodResult)
-
-    @Query("SELECT * FROM food WHERE classification = :classification AND today = :today")
-    fun getFood(classification : String, today : String) : LiveData<FoodResult>
-
-    @Update
-    suspend fun deleteBook(foodResult: FoodResult)
+//    @Insert(onConflict = OnConflictStrategy.REPLACE)
+//    suspend fun insertGoodFood(foodResult: FoodResult)
+//
+//    @Query("SELECT * FROM food WHERE classification = :classification AND today = :today")
+//    fun getFood(classification : String, today : String) : LiveData<FoodResult>
+//
+//    @Update
+//    suspend fun deleteBook(foodResult: FoodResult)
 
 
 }

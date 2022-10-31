@@ -3,7 +3,52 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.view.LoveFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.view.search.LoveFragment"
     android:id="@+id/fragment_love">
+
+    <View
+        android:id="@+id/love_top_v"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:background="@drawable/home_background_top"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/love_back_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_ep_arrow_left"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12dp"/>
+
+    <TextView
+        android:id="@+id/tag_top_tv"
+        android:text="나만의 찜꽁리스트"
+        android:textColor="@color/white"
+        android:fontFamily="@font/notosans_regular"
+        android:textFontWeight="700"
+        android:textSize="24sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/love_back_bt"
+        app:layout_constraintBottom_toBottomOf="@id/love_back_bt"
+        app:layout_constraintLeft_toRightOf="@id/love_back_bt"
+        android:layout_marginLeft="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/love_myongji_rv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/love_top_v"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="25dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

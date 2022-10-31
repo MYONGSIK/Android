@@ -1,7 +1,7 @@
 package com.myongsik.myongsikandroid.di
 
-import com.myongsik.myongsikandroid.data.repository.FoodRepository
-import com.myongsik.myongsikandroid.data.repository.FoodRepositoryImpl
+import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
+import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
