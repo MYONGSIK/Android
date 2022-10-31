@@ -4,14 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
+import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -74,19 +80,20 @@ class MainViewModel @Inject constructor(
         foodRepository.getDinnerEvaluation().first()
     }
 
-    private val _resultSearch = MutableLiveData<SearchResponse>()
-    val resultSearch : LiveData<SearchResponse>
-        get() = _resultSearch
-//
-//    fun searchFood(query : String) = viewModelScope.launch(Dispatchers.IO) {
-//        val response = foodRepository.searchFood(
-//            "서울 명지대 $query", "FD6, CE7", "126.923460283882",
-//            "37.5803504797164", 5000, 1, 15)
-//
-//        if(response.isSuccessful){
-//            response.body()?.let{ body ->
-//                _resultSearch.postValue(body)
-//            }
-//        }
-//    }
+    //Room
+    fun saveFoods(restaurant: Restaurant) = viewModelScope.launch(Dispatchers.IO) {
+        foodRepository.insertFoods(restaurant)
+    }
+
+    fun deleteFoods(restaurant: Restaurant) = viewModelScope.launch(Dispatchers.IO) {
+        foodRepository.deleteFoods(restaurant)
+    }
+
+    //Room Paging
+    //관심목록 PagingData
+    val loveFoods : StateFlow<PagingData<Restaurant>> =
+        foodRepository.getFoods()
+            .cachedIn(viewModelScope) //코루틴이 데이터 스트림을 캐시 가능하게함
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PagingData.empty())
+
 }

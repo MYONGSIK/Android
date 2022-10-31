@@ -5,8 +5,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
+import androidx.room.Room
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
 import com.myongsik.myongsikandroid.data.api.SearchFoodApi
+import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.Constant.DATASTORE_NAME
 import dagger.Module
@@ -62,43 +64,15 @@ object AppModule {
         return retrofit.create(HomeFoodApi::class.java)
     }
 
-//    @Singleton
-//    @Provides
-//    fun provideApiService2(retrofit: Retrofit) : SearchFoodApi {
-//        return retrofit.create(SearchFoodApi::class.java)
-//    }
-
-//    @Singleton
-//    @Provides
-//    @Named("Kakao")
-//    fun provideOkHttpClient2() : OkHttpClient {
-//        val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-//        return OkHttpClient.Builder()
-//            .addInterceptor(interceptor)
-//            .connectTimeout(100, TimeUnit.SECONDS)
-//            .readTimeout(100,TimeUnit.SECONDS)
-//            .writeTimeout(100,TimeUnit.SECONDS)
-//            .build();
-//    }
-//
-//    @Singleton
-//    @Provides
-//    @Named("Kakao")
-//    fun provideRetrofit2(okHttpClient: OkHttpClient) : Retrofit {
-//        return Retrofit.Builder()
-//            .baseUrl(KAKAO_BASE_URL)
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .client(okHttpClient)
-//            .build()
-//    }
-//
-//
-//    @Singleton
-//    @Provides
-//    @Named("Kakao")
-//    fun provideApiService2(retrofit: Retrofit) : SearchFoodApi {
-//        return retrofit.create(SearchFoodApi::class.java)
-//    }
+    //Room
+    @Singleton
+    @Provides
+    fun provideBookSearchDatabase(@ApplicationContext context: Context) : RestaurantDatabase =
+        Room.databaseBuilder(
+            context.applicationContext,
+            RestaurantDatabase::class.java,
+            "love_list"
+        ).build()
 
     //DataStore
     @Singleton
