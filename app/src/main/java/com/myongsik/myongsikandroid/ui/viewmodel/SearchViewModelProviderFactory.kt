@@ -3,9 +3,7 @@ package com.myongsik.myongsikandroid.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.myongsik.myongsikandroid.data.api.SearchFoodApi
-import com.myongsik.myongsikandroid.data.repository.FoodRepository
-import com.myongsik.myongsikandroid.data.repository.SearchFoodRepository
-import com.myongsik.myongsikandroid.data.repository.SearchFoodRepositoryImpl
+import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepositoryImpl
 
 @Suppress("UNCHECKED_CAST")
 class SearchViewModelProviderFactory: ViewModelProvider.Factory{

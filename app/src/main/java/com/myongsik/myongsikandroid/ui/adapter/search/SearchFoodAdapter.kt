@@ -1,14 +1,11 @@
-package com.myongsik.myongsikandroid.ui.adapter
+package com.myongsik.myongsikandroid.ui.adapter.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
-import com.myongsik.myongsikandroid.databinding.ItemHomeTodayFoodBinding
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantFoodBinding
-import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 
 //카카오 api 불러온 리사이클러뷰 아이템 어댑터
 class SearchFoodAdapter : ListAdapter<Restaurant, SearchFoodViewHolder>(BookDiffCallback) {
@@ -22,6 +19,14 @@ class SearchFoodAdapter : ListAdapter<Restaurant, SearchFoodViewHolder>(BookDiff
     override fun onBindViewHolder(holder: SearchFoodViewHolder, position: Int) {
         val foodResult = currentList[position]
         holder.bind(foodResult)
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.let{ it(foodResult) }
+        }
+    }
+
+    private var onItemClickListener : ((Restaurant) -> Unit)? = null
+    fun setOnItemClickListener(listener : (Restaurant) -> Unit){
+        onItemClickListener = listener
     }
 
     companion object{

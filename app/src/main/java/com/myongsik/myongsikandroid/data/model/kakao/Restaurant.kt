@@ -2,12 +2,15 @@ package com.myongsik.myongsikandroid.data.model.kakao
 
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @JsonClass(generateAdapter = true)
+@Entity(tableName="love_list")
 data class Restaurant(
     @field:Json(name = "address_name")
     val address_name: String,
@@ -20,6 +23,7 @@ data class Restaurant(
     @field:Json(name = "distance")
     val distance: String,
     @field:Json(name = "id")
+    @PrimaryKey(autoGenerate = false)
     val id: String,
     @field:Json(name = "phone")
     val phone: String,

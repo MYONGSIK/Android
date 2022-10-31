@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.ui.view
+package com.myongsik.myongsikandroid.ui.view.search
 
 import android.os.Bundle
 import android.text.Editable
@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
-import com.myongsik.myongsikandroid.ui.adapter.SearchFoodAdapter
+import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModelProviderFactory
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
@@ -126,6 +126,7 @@ class SearchFragment : Fragment() {
             val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("술집")
             findNavController().navigate(action)
         }
+
     }
 
     private fun searchBooks(){
@@ -154,6 +155,12 @@ class SearchFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = searchFoodAdapter
         }
+
+        //검색 리사이클러뷰 아이템 클릭
+        searchFoodAdapter.setOnItemClickListener {
+            val action  = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
+            findNavController().navigate(action)
+        }
     }
 
     //추천 리사이클러뷰
@@ -163,6 +170,12 @@ class SearchFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = searchRecommendAdapter
+        }
+
+        //추천 리사이클러뷰 아이템 클릭
+        searchRecommendAdapter.setOnItemClickListener {
+            val action  = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
+            findNavController().navigate(action)
         }
     }
 
