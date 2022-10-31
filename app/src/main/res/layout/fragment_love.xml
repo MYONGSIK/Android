@@ -39,6 +39,18 @@
         app:layout_constraintLeft_toRightOf="@id/love_back_bt"
         android:layout_marginLeft="10dp"/>
 
+    <TextView
+        android:id="@+id/favorite_empty_love"
+        android:text="관심목록이 비어있습니다."
+        android:textSize="20sp"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/love_myongji_rv"
         android:layout_width="0dp"

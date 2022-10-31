@@ -4,8 +4,6 @@ object Constant {
     //Retrofit Base Url
     const val MYONG_SIK_BASE_URL = "http://54.180.152.115:8085"
 
-//    const val KAKAO_BASE_URL = "https://dapi.kakao.com/"
-
     //DataStore Name
     const val DATASTORE_NAME = "food_evaluation_datastore"
 
@@ -23,4 +21,7 @@ object Constant {
 
     //석식 평가
     var DINNER = ""
+
+    //Paging
+    const val PAGING_SIZE = 15
 }

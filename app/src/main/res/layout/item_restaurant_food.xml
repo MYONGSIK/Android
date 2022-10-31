@@ -103,15 +103,15 @@
         android:layout_marginLeft="7dp"
         />
 
-<!--    <View-->
-<!--        android:id="@+id/item_food_line_v"-->
-<!--        android:layout_width="102dp"-->
-<!--        android:layout_height="102dp"-->
-<!--        android:background="@drawable/line_vertical"-->
-<!--        android:layerType="software"-->
-<!--        app:layout_constraintRight_toLeftOf="@id/item_food_detail_tv"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        android:layout_marginRight="-40dp"/>-->
+    <!--    <View-->
+    <!--        android:id="@+id/item_food_line_v"-->
+    <!--        android:layout_width="102dp"-->
+    <!--        android:layout_height="102dp"-->
+    <!--        android:background="@drawable/line_vertical"-->
+    <!--        android:layerType="software"-->
+    <!--        app:layout_constraintRight_toLeftOf="@id/item_food_detail_tv"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        android:layout_marginRight="-40dp"/>-->
 
     <ImageView
         android:id="@+id/item_food_detail_iv"

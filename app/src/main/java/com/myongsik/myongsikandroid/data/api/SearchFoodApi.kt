@@ -17,7 +17,7 @@ import retrofit2.http.Query
 import java.util.logging.Level
 
 /*
-API 호출하는 interface
+Kakao API 호출하는 interface
  */
 interface SearchFoodApi {
 
