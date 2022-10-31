@@ -15,21 +15,21 @@ abstract class RestaurantDatabase : RoomDatabase(){
 
     abstract fun restaurantDao() : RestaurantDao
 
-    companion object{
-        @Volatile
-        private var INSTANCE : RestaurantDatabase?= null
-
-        private fun buildDatabase(context : Context) : RestaurantDatabase =
-            Room.databaseBuilder(
-                context.applicationContext,
-                RestaurantDatabase::class.java,
-                "love_list"
-            ).build()
-
-        fun getInstance(context : Context) : RestaurantDatabase =
-            INSTANCE ?: synchronized(this) {
-                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
-            }
-
-    }
+//    companion object{
+//        @Volatile
+//        private var INSTANCE : RestaurantDatabase?= null
+//
+//        private fun buildDatabase(context : Context) : RestaurantDatabase =
+//            Room.databaseBuilder(
+//                context.applicationContext,
+//                RestaurantDatabase::class.java,
+//                "love_list"
+//            ).build()
+//
+//        fun getInstance(context : Context) : RestaurantDatabase =
+//            INSTANCE ?: synchronized(this) {
+//                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
+//            }
+//
+//    }
 }

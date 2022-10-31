@@ -37,7 +37,11 @@
         android:id="@+id/fragment_love"
         android:name="com.myongsik.myongsikandroid.ui.view.search.LoveFragment"
         android:label="fragment_love"
-        tools:layout="@layout/fragment_love" />
+        tools:layout="@layout/fragment_love" >
+        <action
+            android:id="@+id/action_fragment_love_to_fragment_restaurant"
+            app:destination="@id/fragment_restaurant" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_search"
         android:name="com.myongsik.myongsikandroid.ui.view.search.SearchFragment"
