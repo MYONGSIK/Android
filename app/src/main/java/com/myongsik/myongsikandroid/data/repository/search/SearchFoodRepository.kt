@@ -19,6 +19,7 @@ interface SearchFoodRepository {
         radius : Int,
         page : Int,
         size : Int,
+        sort : String,
     ) : Response<SearchResponse>
 
     fun searchPagingFood(query : String) : Flow<PagingData<Restaurant>>
