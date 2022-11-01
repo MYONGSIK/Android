@@ -2,26 +2,27 @@ package com.myongsik.myongsikandroid.ui.adapter.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantFoodBinding
 
-//카카오 api 불러온 리사이클러뷰 아이템 어댑터
-//검색화면 추천에서 쓰일 것 (10개 까지만 보여주기 때문에)
-class SearchFoodAdapter : ListAdapter<Restaurant, SearchFoodViewHolder>(BookDiffCallback) {
+//검색 화면 페이징 어댑터, GridLayout 으로 설정하여 따로 어댑터를 만들어서 활용했음
+class SearchFoodPagingAdapter : PagingDataAdapter<Restaurant, SearchFoodViewHolder>(BookDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchFoodViewHolder {
         return SearchFoodViewHolder(
-            ItemRestaurantFoodBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            ItemRestaurantFoodBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: SearchFoodViewHolder, position: Int) {
-        val foodResult = currentList[position]
-        holder.bind(foodResult)
-        holder.itemView.setOnClickListener {
-            onItemClickListener?.let{ it(foodResult) }
+        val pagedFood = getItem(position)
+        pagedFood?.let { restaurant ->
+            holder.bind(restaurant)
+            holder.itemView.setOnClickListener {
+                onItemClickListener?.let{ it(restaurant) }
+            }
         }
     }
 
@@ -39,6 +40,7 @@ class SearchFoodAdapter : ListAdapter<Restaurant, SearchFoodViewHolder>(BookDiff
             override fun areContentsTheSame(oldItem: Restaurant, newItem: Restaurant): Boolean {
                 return oldItem == newItem
             }
+
         }
     }
 

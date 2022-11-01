@@ -149,6 +149,10 @@ class FoodRepositoryImpl @Inject constructor(
         db.restaurantDao().deleteBook(restaurant)
     }
 
+    override fun loveIs(id: String): Restaurant {
+        return db.restaurantDao().loveIs(id)
+    }
+
     //Paging
     override fun getFoods(): Flow<PagingData<Restaurant>> {
         val pagingSourceFactory = { db.restaurantDao().getFoods() }
