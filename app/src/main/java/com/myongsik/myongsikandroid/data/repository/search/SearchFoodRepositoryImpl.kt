@@ -24,9 +24,10 @@ class SearchFoodRepositoryImpl(
         y: String,
         radius: Int,
         page: Int,
-        size: Int
+        size: Int,
+        sort : String
     ): Response<SearchResponse> {
-        return api.searchFood(query, category_group_code, x, y, radius, page, size)
+        return api.searchFood(query, category_group_code, x, y, radius, page, size, sort)
     }
 
     override fun searchPagingFood(query: String): Flow<PagingData<Restaurant>> {
@@ -34,6 +35,7 @@ class SearchFoodRepositoryImpl(
 
         return Pager(
             config = PagingConfig(
+                initialLoadSize = PAGING_SIZE, //첫 페이지는 pageSize 의 3배 따라서 이와 같이 설정해줌
                 pageSize = PAGING_SIZE, //15
                 enablePlaceholders = false,
                 maxSize = PAGING_SIZE * 3 //15 * 3

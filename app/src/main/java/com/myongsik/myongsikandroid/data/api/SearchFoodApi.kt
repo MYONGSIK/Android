@@ -32,6 +32,7 @@ interface SearchFoodApi {
         @Query("radius") radius : Int,
         @Query("page") page : Int,
         @Query("size") size : Int,
+        @Query("sort") sort : String,
     ) : Response<SearchResponse>
 
     companion object{

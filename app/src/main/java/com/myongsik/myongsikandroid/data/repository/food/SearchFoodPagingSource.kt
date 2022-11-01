@@ -25,9 +25,11 @@ class SearchFoodPagingSource(
             val pageNumber = params.key ?: STARTING_PAGE_INDEX
             val response = SearchFoodApi.create().searchFood(
                 "서울 명지대 $query", "FD6, CE7", "126.923460283882",
-                "37.5803504797164", 1500, pageNumber, params.loadSize
+                "37.5803504797164", 1500, pageNumber, params.loadSize, "distance"
             )
             val endOfPaginationReached = response.body()?.meta?.is_end!!
+
+//            val lastPage = response.body()?.meta?.total_count?.div(15)
 
             val data = response.body()?.documents!!
 
@@ -37,6 +39,13 @@ class SearchFoodPagingSource(
             }else{
                 pageNumber + (params.loadSize / PAGING_SIZE)
             }
+
+//            val prevKey = if(pageNumber == STARTING_PAGE_INDEX) null else pageNumber - 1
+//            val nextKey = if(lastPage == pageNumber) {
+//                null
+//            }else{
+//                pageNumber + (params.loadSize / PAGING_SIZE)
+//            }
 
             LoadResult.Page(
                 data = data,
