@@ -8,9 +8,7 @@ import com.myongsik.myongsikandroid.databinding.ItemLoadStateBinding
 
 //책 검색에서 현재 상황을 LoadStateAdapter 를 통해 파악함
 //이를 BookSearchGridPagingAdapter 하고 연결
-class SearchFoodLoadStateAdapter(
-    private val retry: () -> Unit
-) : LoadStateAdapter<SearchFoodLoadStateViewHolder>(){
+class SearchFoodLoadStateAdapter() : LoadStateAdapter<SearchFoodLoadStateViewHolder>(){
 
     override fun onBindViewHolder(holder: SearchFoodLoadStateViewHolder, loadState: LoadState) {
         holder.bind(loadState)

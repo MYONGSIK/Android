@@ -6,15 +6,18 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
+import com.myongsik.myongsikandroid.ui.adapter.state.SearchFoodLoadStateAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModelProviderFactory
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
@@ -71,6 +74,8 @@ class SearchFragment : Fragment() {
         //추천 리사이클러뷰 10개씩 나오게끔
         setUpRecommendRecyclerView()
 
+        setupLoadState()
+
         //뷰가 생성될 때 마다 위의 배열에서의 랜덤값
         searchViewModel.searchRecommendFood(foodList[intRandom])
 
@@ -89,6 +94,8 @@ class SearchFragment : Fragment() {
             //검색 백버튼, 검색 et 안보이게
             binding.searchBackBt.visibility = View.INVISIBLE
             binding.tlSearch.visibility = View.INVISIBLE
+
+            binding.tvEmptylist.visibility = View.INVISIBLE
 
             //검색 아이콘, 명지 맛집 보이게
             binding.searchTopTv.visibility = View.VISIBLE
@@ -113,6 +120,9 @@ class SearchFragment : Fragment() {
                 binding.horizonSv.visibility = View.VISIBLE
                 binding.goodPlaceMyongji.visibility = View.VISIBLE
                 binding.searchMyongjiRecommend.visibility = View.VISIBLE
+
+                //검색결과가 없습니다 안보이게
+                binding.tvEmptylist.visibility = View.INVISIBLE
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -194,7 +204,10 @@ class SearchFragment : Fragment() {
         binding.searchMyongjiRv.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = searchFoodAdapter
+
+            adapter = searchFoodAdapter.withLoadStateFooter(
+                footer = SearchFoodLoadStateAdapter()
+            )
         }
 
         //검색 리사이클러뷰 아이템 클릭
@@ -203,6 +216,25 @@ class SearchFragment : Fragment() {
             findNavController().navigate(action)
         }
     }
+
+    private fun setupLoadState(){
+        //load State 값을 받아옴
+        searchFoodAdapter.addLoadStateListener { combinedLoadStates ->
+            val loadState = combinedLoadStates.source //source 의 값을 받아옴
+
+            //리스트가 비어있는지 판단을 함
+            val isListEmpty = searchFoodAdapter.itemCount < 1
+                    && loadState.refresh is LoadState.NotLoading && binding.tlSearch.text.toString().isNotEmpty()
+
+            //검색결과가 없으면 noResult 를 보여줌
+            binding.tvEmptylist.isVisible = isListEmpty
+
+            //로딩중일떄는 프로그레스바를 보이게함
+            binding.progressBar.isVisible = loadState.refresh is LoadState.Loading
+
+        }
+    }
+
 
     //추천 리사이클러뷰
     private fun setUpRecommendRecyclerView(){
@@ -219,8 +251,6 @@ class SearchFragment : Fragment() {
             findNavController().navigate(action)
         }
     }
-
-
 
     override fun onDestroyView() {
         _binding = null
