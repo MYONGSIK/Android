@@ -9,13 +9,17 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
+import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModelProviderFactory
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.util.*
 
 class SearchFragment : Fragment() {
@@ -37,7 +41,9 @@ class SearchFragment : Fragment() {
     }
 
     //검색 어댑터
-    private lateinit var searchFoodAdapter: SearchFoodAdapter
+//    private lateinit var searchFoodAdapter: SearchFoodAdapter
+
+    private lateinit var searchFoodAdapter : SearchFoodPagingAdapter
 
     //추천 어댑터
     private lateinit var searchRecommendAdapter : SearchFoodAdapter
@@ -49,7 +55,7 @@ class SearchFragment : Fragment() {
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
-        println("랜덤 값 : $intRandom")
+//        println("랜덤 값 : $intRandom")
 
         return binding.root
     }
@@ -67,6 +73,30 @@ class SearchFragment : Fragment() {
 
         //뷰가 생성될 때 마다 위의 배열에서의 랜덤값
         searchViewModel.searchRecommendFood(foodList[intRandom])
+
+        //검색 아이콘 클릭했을 때
+        binding.searchIcIv.setOnClickListener {
+            //검색 백버튼, 검색 et 보이게
+            binding.searchBackBt.visibility = View.VISIBLE
+            binding.tlSearch.visibility = View.VISIBLE
+
+            //검색 아이콘, 명지 맛집 안보이게
+            binding.searchTopTv.visibility = View.INVISIBLE
+            binding.searchIcIv.visibility = View.INVISIBLE
+        }
+
+        binding.searchBackBt.setOnClickListener {
+            //검색 백버튼, 검색 et 안보이게
+            binding.searchBackBt.visibility = View.INVISIBLE
+            binding.tlSearch.visibility = View.INVISIBLE
+
+            //검색 아이콘, 명지 맛집 보이게
+            binding.searchTopTv.visibility = View.VISIBLE
+            binding.searchIcIv.visibility = View.VISIBLE
+
+            //검색 하던거 null 로 변환
+            binding.tlSearch.text = null
+        }
 
         //추천 viewModel
         searchViewModel.resultRecommendSearch.observe(viewLifecycleOwner){ response ->
@@ -107,9 +137,16 @@ class SearchFragment : Fragment() {
         })
 
         //검색 viewmodel
-        searchViewModel.resultSearch.observe(viewLifecycleOwner){ response ->
-            val foods = response.documents
-            searchFoodAdapter.submitList(foods)
+//        searchViewModel.resultSearch.observe(viewLifecycleOwner){ response ->
+//            val foods = response.documents
+//            searchFoodAdapter.submitList(foods)
+//        }
+
+        //검색 페이징
+        viewLifecycleOwner.lifecycleScope.launch {
+            searchViewModel.searchPagingResult.collectLatest {
+                searchFoodAdapter.submitData(it)
+            }
         }
 
         //명지 맛집 클릭했을 때
@@ -142,7 +179,7 @@ class SearchFragment : Fragment() {
                 text?.let {
                     val query = it.toString().trim()
                     if(query.isNotEmpty()){
-                        searchViewModel.searchFood(query)
+                        searchViewModel.searchPagingFood(query)
                     }
                 }
             }
@@ -152,7 +189,8 @@ class SearchFragment : Fragment() {
 
     //검색 리사이클러뷰
     private fun setUpRecyclerView(){
-        searchFoodAdapter = SearchFoodAdapter()
+//        searchFoodAdapter = SearchFoodAdapter()
+        searchFoodAdapter = SearchFoodPagingAdapter()
         binding.searchMyongjiRv.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

@@ -4,7 +4,7 @@
     <item
         android:id="@+id/fragment_search"
         android:title="명지맛집"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/ic_search1"
         />
 
     <item

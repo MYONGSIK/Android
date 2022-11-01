@@ -10,7 +10,6 @@ import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
-import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -87,6 +86,15 @@ class MainViewModel @Inject constructor(
 
     fun deleteFoods(restaurant: Restaurant) = viewModelScope.launch(Dispatchers.IO) {
         foodRepository.deleteFoods(restaurant)
+    }
+
+    //식당 웹뷰 들어왔을 때 이미 존재하는지 안하는지 판단하기 위한 메서드
+    private val _loveIs = MutableLiveData<Restaurant>()
+    val loveIs : LiveData<Restaurant>
+        get() = _loveIs
+    fun loveIs(restaurant: Restaurant) = viewModelScope.launch(Dispatchers.IO){
+        val restaurantLove = foodRepository.loveIs(restaurant.id)
+        _loveIs.postValue(restaurantLove)
     }
 
     //Room Paging
