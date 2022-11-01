@@ -6,13 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myongsik.myongsikandroid.databinding.FragmentTagBinding
-import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
+import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModelProviderFactory
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class TagFragment : Fragment() {
 
@@ -26,7 +29,8 @@ class TagFragment : Fragment() {
         SearchViewModelProviderFactory()
     }
 
-    private lateinit var tagFoodAdapter: SearchFoodAdapter
+//    private lateinit var tagFoodAdapter: SearchFoodAdapter
+    private lateinit var tagFoodAdapter: SearchFoodPagingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,22 +45,28 @@ class TagFragment : Fragment() {
         val keyWord = args.tag
 
         println(keyWord)
-
-        searchViewModel.searchFood(keyWord)
-
-        searchViewModel.resultSearch.observe(viewLifecycleOwner){ response ->
-            val foods = response.documents
-            tagFoodAdapter.submitList(foods)
-        }
-
         setUpRecyclerView()
+
+        searchViewModel.searchPagingFood(keyWord)
+
+//        searchViewModel.resultSearch.observe(viewLifecycleOwner){ response ->
+//            val foods = response.documents
+//            tagFoodAdapter.submitList(foods)
+//        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            searchViewModel.searchPagingResult.collectLatest {
+                tagFoodAdapter.submitData(it)
+            }
+        }
 
         super.onViewCreated(view, savedInstanceState)
     }
 
     //해시태그 모아보기 리사이클러뷰
     private fun setUpRecyclerView(){
-        tagFoodAdapter = SearchFoodAdapter()
+//        tagFoodAdapter = SearchFoodAdapter()
+        tagFoodAdapter = SearchFoodPagingAdapter()
         binding.moaMyongjiRv.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
