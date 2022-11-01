@@ -14,6 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
+import java.lang.Character.FORMAT
 import java.util.logging.Level
 
 /*
@@ -22,7 +23,7 @@ Kakao API 호출하는 interface
 interface SearchFoodApi {
 
     @Headers("Authorization: KakaoAK $API_KEY")
-    @GET("v2/local/search/keyword")
+    @GET("/v2/local/search/keyword")
     suspend fun searchFood(
         @Query("query") query : String,
         @Query("category_group_code") category_group_code : String,
@@ -50,7 +51,6 @@ interface SearchFoodApi {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(SearchFoodApi::class.java)
-
         }
     }
 

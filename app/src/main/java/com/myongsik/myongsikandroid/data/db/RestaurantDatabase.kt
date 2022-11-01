@@ -15,6 +15,7 @@ abstract class RestaurantDatabase : RoomDatabase(){
 
     abstract fun restaurantDao() : RestaurantDao
 
+    //-> 의존성 주입
 //    companion object{
 //        @Volatile
 //        private var INSTANCE : RestaurantDatabase?= null

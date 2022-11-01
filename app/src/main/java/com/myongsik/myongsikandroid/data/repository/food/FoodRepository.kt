@@ -39,4 +39,6 @@ interface FoodRepository {
     suspend fun deleteFoods(restaurant: Restaurant)
 
     fun getFoods() : Flow<PagingData<Restaurant>>
+
+    fun loveIs(id : String) : Restaurant
 }

@@ -23,5 +23,5 @@ object Constant {
     var DINNER = ""
 
     //Paging
-    const val PAGING_SIZE = 15
+    const val PAGING_SIZE = 5
 }

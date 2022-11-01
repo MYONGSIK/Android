@@ -25,14 +25,23 @@ class SearchFoodViewHolder(
 
 
         itemView.apply{
-//            binding.weekFoodDayOfWeekTv.text = date
-            println(restaurant.place_name)
             binding.itemFoodName.text = restaurant.place_name
             binding.itemFoodObject.text = restaurant.category_group_name
             binding.weekFoodAfternoonTv.text = distance
             binding.itemFoodLocationTv.text = restaurant.road_address_name
             binding.itemFoodPhoneTv.text = phone
         }
+
+//        binding.itemFoodPhoneTv.setOnClickListener {
+//            // 어디에 전화를 걸건지 text 정보 받기
+//            val input = binding.itemFoodPhoneTv.text.toString()
+//            // Uri를 이용해서 정보 저장
+//            val myUri = Uri.parse("tel:${input}")
+//            // 전환할 정보 설정 - ACTION_DIAL
+//            val myIntent = Intent(Intent.ACTION_DIAL, myUri)
+//            // 이동
+//            startActivity(myIntent)
+//        }
 
     }
 
