@@ -1,8 +1,5 @@
 package com.myongsik.myongsikandroid.data.model.food
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-
 //오늘 식단 조회
 //맛있어요 맛없어요를 로컬디비에 저장하기 위해 설정
 data class FoodResult(

@@ -17,6 +17,7 @@ import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModelProviderFactory
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+//모아뒀으기 골라보세요 화면
 class TagFragment : Fragment() {
 
     private var _binding : FragmentTagBinding?= null
@@ -25,11 +26,12 @@ class TagFragment : Fragment() {
 
     private val args : TagFragmentArgs by navArgs<TagFragmentArgs>()
 
+    //검색 뷰모델
     private val searchViewModel : SearchViewModel by viewModels{
         SearchViewModelProviderFactory()
     }
 
-//    private lateinit var tagFoodAdapter: SearchFoodAdapter
+    //태그화면도 PagingAdapter 사용
     private lateinit var tagFoodAdapter: SearchFoodPagingAdapter
 
     override fun onCreateView(
@@ -44,7 +46,6 @@ class TagFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val keyWord = args.tag
 
-        println(keyWord)
         setUpRecyclerView()
 
         searchViewModel.searchPagingFood(keyWord)

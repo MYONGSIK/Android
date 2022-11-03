@@ -44,13 +44,12 @@ class SearchFragment : Fragment() {
         "회", "곱창", "냉면", "닭발" //4  -> 총 20개
     )
 
+    //검색 뷰모델, 현재 의존성 주입 안함
     private val searchViewModel : SearchViewModel by viewModels{
         SearchViewModelProviderFactory()
     }
 
-    //검색 어댑터
-//    private lateinit var searchFoodAdapter: SearchFoodAdapter
-
+    //검색 어댑터 -> PagingAdapter
     private lateinit var searchFoodAdapter : SearchFoodPagingAdapter
 
     //추천 어댑터
@@ -62,8 +61,6 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-
-//        println("랜덤 값 : $intRandom")
 
         return binding.root
     }
@@ -79,6 +76,7 @@ class SearchFragment : Fragment() {
         //추천 리사이클러뷰 10개씩 나오게끔
         setUpRecommendRecyclerView()
 
+        //검색 어댑터와 LoadState Adapter 를 연결
         setupLoadState()
 
         //뷰가 생성될 때 마다 위의 배열에서의 랜덤값
@@ -151,12 +149,6 @@ class SearchFragment : Fragment() {
             }
         })
 
-        //검색 viewmodel
-//        searchViewModel.resultSearch.observe(viewLifecycleOwner){ response ->
-//            val foods = response.documents
-//            searchFoodAdapter.submitList(foods)
-//        }
-
         //검색 페이징
         viewLifecycleOwner.lifecycleScope.launch {
             searchViewModel.searchPagingResult.collectLatest {
@@ -184,6 +176,7 @@ class SearchFragment : Fragment() {
 
     }
 
+    //검색 기능
     private fun searchBooks(){
         var startTime = System.currentTimeMillis()
         var endTime : Long

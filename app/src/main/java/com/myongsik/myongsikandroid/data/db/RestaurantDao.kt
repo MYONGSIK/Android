@@ -1,15 +1,12 @@
 package com.myongsik.myongsikandroid.data.db
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
-import kotlinx.coroutines.flow.Flow
 
 /*
-10/17일 현재 사용되지 않음
-맛있어요, 맛없어요를 Room 을 이용할지, DataStore 를 이용해야할지 고민.
+장소를 찜해두는 DataBase
+ROOM 사용
  */
 @Dao
 interface RestaurantDao {
@@ -26,6 +23,7 @@ interface RestaurantDao {
     @Query("SELECT * FROM love_list WHERE id = :id")
     fun loveIs(id : String) : Restaurant
 
+    //찜꽁 리스트에서 삭제하는 쿼리
     @Delete
     suspend fun deleteBook(restaurant: Restaurant)
 

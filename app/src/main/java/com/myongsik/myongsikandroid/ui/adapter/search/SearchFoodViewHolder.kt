@@ -10,12 +10,6 @@ class SearchFoodViewHolder(
 ) : RecyclerView.ViewHolder(binding.root){
 
     fun bind(restaurant: Restaurant){
-//        val dayDate = foodResult.toDay.substring(0, 4)
-//        val dayMonth = foodResult.toDay.substring(5, 7)
-//        val dayDay = foodResult.toDay.substring(8, 10)
-//        val day = foodResult.dayOfTheWeek
-        //1120
-//        var distance = "${restaurant.distance}m"
         val distance = if(restaurant.distance.length >= 4){
            "${restaurant.distance[0]}.${restaurant.distance[1]}km"
         }else{
@@ -31,18 +25,6 @@ class SearchFoodViewHolder(
             binding.itemFoodLocationTv.text = restaurant.road_address_name
             binding.itemFoodPhoneTv.text = phone
         }
-
-//        binding.itemFoodPhoneTv.setOnClickListener {
-//            // 어디에 전화를 걸건지 text 정보 받기
-//            val input = binding.itemFoodPhoneTv.text.toString()
-//            // Uri를 이용해서 정보 저장
-//            val myUri = Uri.parse("tel:${input}")
-//            // 전환할 정보 설정 - ACTION_DIAL
-//            val myIntent = Intent(Intent.ACTION_DIAL, myUri)
-//            // 이동
-//            startActivity(myIntent)
-//        }
-
     }
 
 }

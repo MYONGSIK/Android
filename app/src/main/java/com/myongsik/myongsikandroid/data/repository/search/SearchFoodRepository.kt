@@ -7,10 +7,11 @@ import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
 /*
-Repository 패턴을 이용한 FoodRepository interface
+Repository 패턴을 이용한 SearchFoodRepository interface
  */
 interface SearchFoodRepository {
 
+    //카카오 오픈 API 장소 검색
     suspend fun searchFood(
         query: String,
         category_group_code : String,
@@ -22,6 +23,7 @@ interface SearchFoodRepository {
         sort : String,
     ) : Response<SearchResponse>
 
+    //장소 검색 -> 페이징
     fun searchPagingFood(query : String) : Flow<PagingData<Restaurant>>
 
 }

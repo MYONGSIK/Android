@@ -19,6 +19,7 @@ import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
+//찜꽁 리스트 화면
 class LoveFragment : Fragment(){
 
     private var _binding : FragmentLoveBinding?= null

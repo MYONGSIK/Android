@@ -61,6 +61,7 @@ class FoodRepositoryImpl @Inject constructor(
         val DINNER_EVALUATION = stringPreferencesKey("dinner_evaluation")
     }
 
+    //중식 A, B 석식 평가 저장
     override suspend fun saveLunchEvaluation(foodResult: FoodResult, evaluation: String) {
         when (foodResult.type) {
             "A" -> {
@@ -81,6 +82,7 @@ class FoodRepositoryImpl @Inject constructor(
         }
     }
 
+    //DataStore 초기화
     override suspend fun defaultDataStore() {
         dataStore.edit { prefs ->
             prefs[LUNCH_EVALUATION] = ""
@@ -93,6 +95,7 @@ class FoodRepositoryImpl @Inject constructor(
         }
     }
 
+    //중식 A 조회
     override suspend fun getLunchEvaluation(): Flow<String> {
         return dataStore.data //data 메서드
             //실패 했을 대비에 예외처리
@@ -109,6 +112,7 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
+    //중식 B 조회
     override suspend fun getLunchBEvaluation(): Flow<String> {
         return dataStore.data //data 메서드
             //실패 했을 대비에 예외처리
@@ -125,6 +129,7 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
+    //석식 조회
     override suspend fun getDinnerEvaluation(): Flow<String> {
         return dataStore.data //data 메서드
             //실패 했을 대비에 예외처리
@@ -141,19 +146,22 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
+    //장소 찜꽁리스트에 저장
     override suspend fun insertFoods(restaurant: Restaurant) {
         db.restaurantDao().insertGoodFood(restaurant)
     }
 
+    //장소 찜콩리스트에서 삭제
     override suspend fun deleteFoods(restaurant: Restaurant) {
         db.restaurantDao().deleteBook(restaurant)
     }
 
+    //장소 현재 찜해두었는지 판단
     override fun loveIs(id: String): Restaurant {
         return db.restaurantDao().loveIs(id)
     }
 
-    //Paging
+    //음식 조회 페이징 처리
     override fun getFoods(): Flow<PagingData<Restaurant>> {
         val pagingSourceFactory = { db.restaurantDao().getFoods() }
 

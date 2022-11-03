@@ -14,6 +14,7 @@ import com.myongsik.myongsikandroid.databinding.FragmentRestaurantBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
+//장소 상세화면
 @AndroidEntryPoint
 class RestaurantFragment : Fragment() {
 
@@ -45,8 +46,10 @@ class RestaurantFragment : Fragment() {
             loadUrl(restaurant.place_url)
         }
 
+        //찜 되어있는지, 안되어있는지 판단
         mainViewModel.loveIs(restaurant)
 
+        //그 결과
         mainViewModel.loveIs.observe(viewLifecycleOwner){
             /*
             null 이 나왔다는 것은 현재 관심목록에 없다는 뜻
