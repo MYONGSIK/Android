@@ -31,10 +31,9 @@ class HomeTodayFoodViewHolder(
         val todayFood = "${foodResult.food1} ${foodResult.food2} ${foodResult.food3} " +
                 "${foodResult.food4} ${foodResult.food5} ${foodResult.food6} "
 
-        // 3. SpannableStringBuilder 타입으로 변환
+        //첫번째 음식은 파란색으로
         val builderWeekFood = SpannableStringBuilder(todayFood)
 
-        // 4-1. index=0 에 해당하는 문자열(0)에 볼드체적용
         val boldSpanWeekFood = ForegroundColorSpan(Color.parseColor("#274984"))
         builderWeekFood.setSpan(boldSpanWeekFood, 0, foodResult.food1.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
@@ -46,8 +45,10 @@ class HomeTodayFoodViewHolder(
             binding.todayFood1.text = builderWeekFood
         }
 
+        //오늘 음식 조회했을 때 현재의 DataStore 를 판단하여 색을 다르게 저장
         getEvaluation(foodResult)
 
+        //맛있어요 버튼 클릭했을 때
         binding.todayGoodCl.setOnClickListener {
             if(foodResult.type=="A"){
                 if(LUNCH_A_GOOD == "good"){
@@ -79,6 +80,7 @@ class HomeTodayFoodViewHolder(
             getEvaluation(foodResult)
         }
 
+        //맛없어요 버튼 클릭했을 때
         binding.todayHateCl.setOnClickListener {
             if(foodResult.type=="A"){
                 if(LUNCH_A_GOOD == "hate"){
@@ -111,6 +113,7 @@ class HomeTodayFoodViewHolder(
         }
     }
 
+    //현재 맛있어요, 맛없어요 상태를 판단하여 색을 다르게
     private fun getEvaluation(foodResult: FoodResult){
         if(foodResult.type == "A"){
             when (LUNCH_A_GOOD) {

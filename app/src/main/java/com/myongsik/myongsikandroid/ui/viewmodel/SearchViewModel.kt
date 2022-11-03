@@ -19,7 +19,7 @@ class SearchViewModel(
     private val searchFoodRepository: SearchFoodRepository
 ) : ViewModel() {
 
-    //검색화면
+    //검색화면 -> Paging 으로 변환
 //    private val _resultSearch = MutableLiveData<SearchResponse>()
 //    val resultSearch : LiveData<SearchResponse>
 //        get() = _resultSearch
@@ -50,7 +50,7 @@ class SearchViewModel(
         }
     }
 
-    //추천화면
+    //추천화면, size 10으로 설정함(최대 10까지만 출력되게끔)
     private val _resultRecommendSearch = MutableLiveData<SearchResponse>()
     val resultRecommendSearch : LiveData<SearchResponse>
         get() = _resultRecommendSearch

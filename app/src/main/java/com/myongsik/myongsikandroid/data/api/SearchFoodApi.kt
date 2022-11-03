@@ -1,11 +1,8 @@
 package com.myongsik.myongsikandroid.data.api
 
 
-import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
-import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
 import com.myongsik.myongsikandroid.util.Constant.API_KEY
-import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -14,11 +11,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
-import java.lang.Character.FORMAT
-import java.util.logging.Level
+import java.util.concurrent.TimeUnit
 
 /*
 Kakao API 호출하는 interface
+카카오 장소 조회 오픈 API
+
+query : 검색어
+category_group_code : 음식점, 카페
+x, y : 위도, 경도 -> 명지대 위치로 설정
+radius : 명지대를 기준으로 원을 그림, 1.5km 로 설정
+page : 전체 페이지
+size : 한 페이지당 몇 개까지 나올 것인지
+sort : 정렬 -> 우리는 거리 기준으로 설정
  */
 interface SearchFoodApi {
 
@@ -44,6 +49,9 @@ interface SearchFoodApi {
 
             val client = OkHttpClient.Builder()
                     .addInterceptor(logger)
+                    .connectTimeout(100, TimeUnit.SECONDS)
+                    .readTimeout(100, TimeUnit.SECONDS)
+                    .writeTimeout(100, TimeUnit.SECONDS)
                     .build()
 
             return Retrofit.Builder()

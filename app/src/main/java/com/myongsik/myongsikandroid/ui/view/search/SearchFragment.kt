@@ -1,11 +1,13 @@
 package com.myongsik.myongsikandroid.ui.view.search
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -33,19 +35,21 @@ class SearchFragment : Fragment() {
 
     private val intRandom = Random().nextInt(19)
 
+    //back button
+    private lateinit var callback: OnBackPressedCallback
+
     private val foodList = arrayOf(
         "부대찌개", "국밥", "마라탕", "중식", "한식", "카페", "족발", "술집", // 8
         "파스타", "커피", "삼겹살", "치킨", "떡볶이", "햄버거", "피자", "초밥", // 8
         "회", "곱창", "냉면", "닭발" //4  -> 총 20개
     )
 
+    //검색 뷰모델, 현재 의존성 주입 안함
     private val searchViewModel : SearchViewModel by viewModels{
         SearchViewModelProviderFactory()
     }
 
-    //검색 어댑터
-//    private lateinit var searchFoodAdapter: SearchFoodAdapter
-
+    //검색 어댑터 -> PagingAdapter
     private lateinit var searchFoodAdapter : SearchFoodPagingAdapter
 
     //추천 어댑터
@@ -57,8 +61,6 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-
-//        println("랜덤 값 : $intRandom")
 
         return binding.root
     }
@@ -74,6 +76,7 @@ class SearchFragment : Fragment() {
         //추천 리사이클러뷰 10개씩 나오게끔
         setUpRecommendRecyclerView()
 
+        //검색 어댑터와 LoadState Adapter 를 연결
         setupLoadState()
 
         //뷰가 생성될 때 마다 위의 배열에서의 랜덤값
@@ -146,12 +149,6 @@ class SearchFragment : Fragment() {
             }
         })
 
-        //검색 viewmodel
-//        searchViewModel.resultSearch.observe(viewLifecycleOwner){ response ->
-//            val foods = response.documents
-//            searchFoodAdapter.submitList(foods)
-//        }
-
         //검색 페이징
         viewLifecycleOwner.lifecycleScope.launch {
             searchViewModel.searchPagingResult.collectLatest {
@@ -177,8 +174,15 @@ class SearchFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        //명지 빵집 클릭했을 때
+        binding.itemSearchHashtag4.setOnClickListener {
+            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("빵집")
+            findNavController().navigate(action)
+        }
+
     }
 
+    //검색 기능
     private fun searchBooks(){
         var startTime = System.currentTimeMillis()
         var endTime : Long
@@ -250,6 +254,18 @@ class SearchFragment : Fragment() {
             val action  = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
             findNavController().navigate(action)
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        //뒤로가기 버튼 시 앱 종료
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onDestroyView() {
