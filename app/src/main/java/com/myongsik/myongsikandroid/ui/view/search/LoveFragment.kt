@@ -1,9 +1,11 @@
 package com.myongsik.myongsikandroid.ui.view.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -17,11 +19,14 @@ import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-class LoveFragment : Fragment() {
+class LoveFragment : Fragment(){
 
     private var _binding : FragmentLoveBinding?= null
     private val binding : FragmentLoveBinding
         get() = _binding!!
+
+    //back button
+    private lateinit var callback: OnBackPressedCallback
 
     //viewModel 생성
     private val mainViewModel by activityViewModels<MainViewModel>()
@@ -53,7 +58,18 @@ class LoveFragment : Fragment() {
                 }
             }
         }
+    }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val action = LoveFragmentDirections.actionFragmentLoveToFragmentSearch()
+                findNavController().navigate(action)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     //리사이클러뷰 어댑터를 페이징어댑터로 변경
@@ -75,4 +91,5 @@ class LoveFragment : Fragment() {
         _binding = null
         super.onDestroyView()
     }
+
 }

@@ -45,11 +45,6 @@ class RestaurantFragment : Fragment() {
             loadUrl(restaurant.place_url)
         }
 
-        //뒤로가기
-        binding.restaurantBackBt.setOnClickListener {
-            it.findNavController().popBackStack()
-        }
-
         mainViewModel.loveIs(restaurant)
 
         mainViewModel.loveIs.observe(viewLifecycleOwner){
