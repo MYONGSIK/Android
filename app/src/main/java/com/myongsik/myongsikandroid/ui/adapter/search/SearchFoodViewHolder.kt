@@ -17,9 +17,15 @@ class SearchFoodViewHolder(
         }
         val phone = if(restaurant.phone == "") "전화번호가 없습니다." else restaurant.phone
 
+        val placeName =
+            if(restaurant.place_name.length >= 13)
+                "${restaurant.place_name.substring(0, 12)}..."
+            else
+                restaurant.place_name
+
 
         itemView.apply{
-            binding.itemFoodName.text = restaurant.place_name
+            binding.itemFoodName.text = placeName
             binding.itemFoodObject.text = restaurant.category_group_name
             binding.weekFoodAfternoonTv.text = distance
             binding.itemFoodLocationTv.text = restaurant.road_address_name

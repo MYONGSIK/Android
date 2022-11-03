@@ -174,6 +174,12 @@ class SearchFragment : Fragment() {
             findNavController().navigate(action)
         }
 
+        //명지 빵집 클릭했을 때
+        binding.itemSearchHashtag4.setOnClickListener {
+            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("빵집")
+            findNavController().navigate(action)
+        }
+
     }
 
     //검색 기능
