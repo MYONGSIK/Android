@@ -29,8 +29,6 @@ class SearchFoodPagingSource(
             )
             val endOfPaginationReached = response.body()?.meta?.is_end!!
 
-//            val lastPage = response.body()?.meta?.total_count?.div(15)
-
             val data = response.body()?.documents!!
 
             val prevKey = if(pageNumber == STARTING_PAGE_INDEX) null else pageNumber - 1
@@ -39,13 +37,6 @@ class SearchFoodPagingSource(
             }else{
                 pageNumber + (params.loadSize / PAGING_SIZE)
             }
-
-//            val prevKey = if(pageNumber == STARTING_PAGE_INDEX) null else pageNumber - 1
-//            val nextKey = if(lastPage == pageNumber) {
-//                null
-//            }else{
-//                pageNumber + (params.loadSize / PAGING_SIZE)
-//            }
 
             LoadResult.Page(
                 data = data,
