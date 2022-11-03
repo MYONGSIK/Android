@@ -21,7 +21,6 @@ class WeekFoodsFragment : Fragment() {
     private val binding : FragmentWeekFoodsBinding
         get() = _binding!!
 
-//    private lateinit var mainViewModel: MainViewModel
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun onCreateView(
@@ -36,8 +35,7 @@ class WeekFoodsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        mainViewModel = (activity as MainActivity).mainViewModel
-
+        //주간 음식 조회
         mainViewModel.weekGetFoodFun()
 
         //뒤로가기 버튼
@@ -45,6 +43,7 @@ class WeekFoodsFragment : Fragment() {
             it.findNavController().popBackStack()
         }
 
+        //주간 음식 조회한 결과
         mainViewModel.weekGetFood.observe(viewLifecycleOwner) {
             val food = it.data
             binding.viewPager2.adapter = ViewPagerAdapter(food)

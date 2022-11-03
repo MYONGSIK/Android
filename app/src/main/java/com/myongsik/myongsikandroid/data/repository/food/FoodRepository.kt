@@ -5,7 +5,6 @@ import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
-import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
@@ -23,13 +22,13 @@ interface FoodRepository {
     //DataStore 저장
     suspend fun saveLunchEvaluation(foodResult: FoodResult, evaluation : String)
 
+    //하루가 지나면 DataStore 초기화
     suspend fun defaultDataStore()
 
     //중식평가 DataStore 불러오기
     suspend fun getLunchEvaluation() : Flow<String>
 
     suspend fun getLunchBEvaluation() : Flow<String>
-
 
     suspend fun getDinnerEvaluation() : Flow<String>
 
@@ -38,7 +37,9 @@ interface FoodRepository {
 
     suspend fun deleteFoods(restaurant: Restaurant)
 
+    //식당 조회 -> PagingData
     fun getFoods() : Flow<PagingData<Restaurant>>
 
+    //들어간 장소가 현재 찜해뒀는지 판단하는 메서드
     fun loveIs(id : String) : Restaurant
 }

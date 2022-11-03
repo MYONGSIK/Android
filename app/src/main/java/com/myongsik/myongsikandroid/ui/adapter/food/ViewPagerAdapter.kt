@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResult
 import com.myongsik.myongsikandroid.databinding.ItemHomeFoodBinding
 
+//뷰페이저 어댑터
+//주간 음식 조회에서 사용
 class ViewPagerAdapter(
     private var weekFoodResult: List<WeekFoodResult>
 ) : RecyclerView.Adapter<ViewPagerAdapter.Pager2ViewHolder>() {

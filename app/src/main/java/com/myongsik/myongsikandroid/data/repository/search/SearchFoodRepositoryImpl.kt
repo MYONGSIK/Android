@@ -35,6 +35,8 @@ class SearchFoodRepositoryImpl(
 
         return Pager(
             config = PagingConfig(
+                //첫 로딩 페이지는 pageSize * 3이므로, 첫 로딩 페이지를 15로 설정함.
+                //size 의 최댓값이 15이기 때문에
                 initialLoadSize = PAGING_SIZE, //첫 페이지는 pageSize 의 3배 따라서 이와 같이 설정해줌
                 pageSize = PAGING_SIZE, //15
                 enablePlaceholders = false,

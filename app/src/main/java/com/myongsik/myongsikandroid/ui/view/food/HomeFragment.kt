@@ -36,7 +36,6 @@ class HomeFragment : Fragment(){
     private val binding : FragmentHomeBinding
         get() = _binding!!
 
-//    private lateinit var mainViewModel: MainViewModel
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     //back button
@@ -64,6 +63,7 @@ class HomeFragment : Fragment(){
 
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                //뒤로가기 버튼시 검색화면으로
                 val action = HomeFragmentDirections.actionFragmentHomeToFragmentSearch()
                 findNavController().navigate(action)
             }
