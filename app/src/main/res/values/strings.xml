@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">명식이</string>
 
+    <!--  식단 화면  -->
     <string name="home_today_tv">오늘의 식단</string>
     <string name="week_today_tv">주간 식단표</string>
 </resources>
