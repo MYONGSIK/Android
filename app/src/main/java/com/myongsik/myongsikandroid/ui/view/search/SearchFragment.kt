@@ -1,11 +1,13 @@
 package com.myongsik.myongsikandroid.ui.view.search
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -32,6 +34,9 @@ class SearchFragment : Fragment() {
         get() = _binding!!
 
     private val intRandom = Random().nextInt(19)
+
+    //back button
+    private lateinit var callback: OnBackPressedCallback
 
     private val foodList = arrayOf(
         "부대찌개", "국밥", "마라탕", "중식", "한식", "카페", "족발", "술집", // 8
@@ -250,6 +255,18 @@ class SearchFragment : Fragment() {
             val action  = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
             findNavController().navigate(action)
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        //뒤로가기 버튼 시 앱 종료
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun onDestroyView() {

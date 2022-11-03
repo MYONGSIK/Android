@@ -27,6 +27,9 @@
             android:id="@+id/action_fragment_home_to_weekFoodsFragment"
             app:destination="@id/fragment_week_foods"
             app:popUpTo="@id/fragment_home" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_search"
+            app:destination="@id/fragment_search" />
     </fragment>
     <fragment
         android:id="@+id/fragment_week_foods"
@@ -41,6 +44,9 @@
         <action
             android:id="@+id/action_fragment_love_to_fragment_restaurant"
             app:destination="@id/fragment_restaurant" />
+        <action
+            android:id="@+id/action_fragment_love_to_fragment_search"
+            app:destination="@id/fragment_search" />
     </fragment>
     <fragment
         android:id="@+id/fragment_search"
