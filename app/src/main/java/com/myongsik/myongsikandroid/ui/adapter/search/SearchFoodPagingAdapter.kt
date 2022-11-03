@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantFoodBinding
 
-//검색 화면 페이징 어댑터, GridLayout 으로 설정하여 따로 어댑터를 만들어서 활용했음
+//검색 화면 페이징 어댑터
 class SearchFoodPagingAdapter : PagingDataAdapter<Restaurant, SearchFoodViewHolder>(BookDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchFoodViewHolder {

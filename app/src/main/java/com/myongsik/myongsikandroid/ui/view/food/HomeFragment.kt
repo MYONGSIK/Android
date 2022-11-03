@@ -9,13 +9,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.HomeTodayFoodAdapter
+import com.myongsik.myongsikandroid.ui.view.search.LoveFragmentDirections
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.Constant.DINNER
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
@@ -33,8 +36,10 @@ class HomeFragment : Fragment(){
     private val binding : FragmentHomeBinding
         get() = _binding!!
 
-//    private lateinit var mainViewModel: MainViewModel
     private val mainViewModel by activityViewModels<MainViewModel>()
+
+    //back button
+    private lateinit var callback: OnBackPressedCallback
 
     private lateinit var homeTodayFoodAdapter: HomeTodayFoodAdapter
     private lateinit var mainActivity: MainActivity
@@ -55,6 +60,15 @@ class HomeFragment : Fragment(){
         super.onAttach(context)
 
         mainActivity = context as MainActivity
+
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //뒤로가기 버튼시 검색화면으로
+                val action = HomeFragmentDirections.actionFragmentHomeToFragmentSearch()
+                findNavController().navigate(action)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     //네트워크 상태 확인
@@ -71,6 +85,20 @@ class HomeFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
 //        mainViewModel = (activity as MainActivity).mainViewModel
+        //하루가 지났을 때 AlarmManager 가 실행되면서 DataStore 가 초기화됐을 때
+        if (MyongsikApplication.prefs.getString("key", "null") == "gg") {
+            //하루가 지나고 DataStore 초기화 후 prefs 값을 변경시켜줌으로써 다음에는 초기화 안되게 막아둠
+            LUNCH_A_GOOD = ""
+            LUNCH_B_GOOD = ""
+            DINNER = ""
+            defaultDataStore()
+            MyongsikApplication.prefs.setString("key", "todayStart")
+        }else{
+            getLaunchEvaluation()
+            getLaunchBEvaluation()
+            getDinnerEvaluation()
+        }
+
         setUpRecyclerView()
 
         //네트워크 연결 되어있는지 확인
@@ -126,19 +154,6 @@ class HomeFragment : Fragment(){
                     binding.todayNotFoodCl.visibility = View.INVISIBLE
                 }
             }
-        }
-        //하루가 지났을 때 AlarmManager 가 실행되면서 DataStore 가 초기화됐을 때
-        if (MyongsikApplication.prefs.getString("key", "null") == "gg") {
-            //하루가 지나고 DataStore 초기화 후 prefs 값을 변경시켜줌으로써 다음에는 초기화 안되게 막아둠
-            LUNCH_A_GOOD = ""
-            LUNCH_B_GOOD = ""
-            DINNER = ""
-            defaultDataStore()
-            MyongsikApplication.prefs.setString("key", "todayStart")
-        } else {
-            getLaunchEvaluation()
-            getLaunchBEvaluation()
-            getDinnerEvaluation()
         }
     }
 
