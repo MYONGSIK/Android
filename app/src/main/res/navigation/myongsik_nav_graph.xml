@@ -17,6 +17,9 @@
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:popUpTo="@id/fragment_splash"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_fragment_splash_to_fragment_home"
+            app:destination="@id/fragment_home" />
     </fragment>
     <fragment
         android:id="@+id/fragment_home"
