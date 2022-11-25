@@ -46,7 +46,7 @@
 | ------------------------------------------------------------ | ------------------------------------------------------- |
 | **Architecture**| MVVM        |
 | **Android Jetpack**|  ViewModel, LiveData, Navigation, Room, Paging, View Binding, ViewPager2 |
-| **Dependency Injection**| Dagger Hilt       |
+| **Dependency Injection**| Hilt       |
 | **Networking** | Retrofit2, OkHttp3           |
 | **Asynchronous**                 | Coroutine |
 | **Local DB**                 | Room, DataStore |
