@@ -31,16 +31,7 @@
 ✔️ <b>11월 7일 2차 배포</b><br>
 ✔️ <b>기능 추가 및 유지보수 예정</b><br>
 
-## 📌 Architecture
-<details>
-  <summary>Server</summary>
-  CICD
-  <img width="100%" height="45%" src="https://user-images.githubusercontent.com/53048655/201082000-34ff9e03-28ab-4b1f-bfc0-171c15e1133f.png">
-</details>
-
-<details>
-  <summary>Android</summary>
-  
+## 📌 기술 스택(Tech Skill)
 ## 기술 스택(Tech Skill)
  | Category                                                   | Stack                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------- |
@@ -51,9 +42,5 @@
 | **Asynchronous**                 | Coroutine |
 | **Local DB**                 | Room, DataStore |
 | **Background**                 | AlarmManager |
-</details>
 
-<details>
-  <summary>IOS</summary>
- </details>
 
