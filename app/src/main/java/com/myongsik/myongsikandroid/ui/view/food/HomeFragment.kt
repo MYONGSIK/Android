@@ -16,6 +16,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.HomeTodayFoodAdapter
 import com.myongsik.myongsikandroid.ui.view.search.LoveFragmentDirections
@@ -115,10 +116,10 @@ class HomeFragment : Fragment(){
             mainViewModel.todayGetFoodFun()
 
             //주간 식단 보러가기 버튼
-            binding.bt.setOnClickListener {
-                val action = HomeFragmentDirections.actionFragmentHomeToWeekFoodsFragment()
-                it.findNavController().navigate(action)
-            }
+//            binding.bt.setOnClickListener {
+//                val action = HomeFragmentDirections.actionFragmentHomeToWeekFoodsFragment()
+//                it.findNavController().navigate(action)
+//            }
 
             //상단 아이콘 주간 식단 보러가기 버튼
             binding.homeWeekIcBt.setOnClickListener {
@@ -217,12 +218,12 @@ class HomeFragment : Fragment(){
 
     private fun setUpRecyclerView(){
         homeTodayFoodAdapter = HomeTodayFoodAdapter(mainViewModel)
+
         binding.rvTodaySearchResult.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = homeTodayFoodAdapter
         }
-
     }
 
     override fun onDestroyView() {
