@@ -12,6 +12,10 @@ object Constant {
     //kakao key
     const val API_KEY = BuildConfig.kakaoApiKey
 
+    //naver key
+    const val CLIENT_KEY = BuildConfig.naverKey
+
+
     const val SEARCH_FOODS_TIME_DELAY = 50L
 
     //Good, Hate
