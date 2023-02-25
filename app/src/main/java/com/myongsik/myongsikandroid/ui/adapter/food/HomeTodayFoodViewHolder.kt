@@ -39,9 +39,9 @@ class HomeTodayFoodViewHolder(
 
 
         itemView.apply{
-//            binding.weekFoodDayOfWeekTv.text = date
-            binding.todayDay.text = date //날짜+요일
-            binding.todayTv.text = dayType //중식A, 중식B, 석식
+            binding.todayFoodLunchB.text = date
+//            binding.weekFoodAfternoonTv.text = date //날짜+요일
+            binding.weekFoodAfternoonTv.text = dayType //중식A, 중식B, 석식
             binding.todayFood1.text = builderWeekFood
         }
 

@@ -20,6 +20,23 @@
         <action
             android:id="@+id/action_fragment_splash_to_fragment_home"
             app:destination="@id/fragment_home" />
+        <action
+            android:id="@+id/action_fragment_splash_to_fragment_select"
+            app:destination="@id/fragment_select" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_select"
+        android:name="com.myongsik.myongsikandroid.ui.view.food.SelectFragment"
+        android:label="SelectFragment"
+        tools:layout="@layout/fragment_select">
+        <action
+            android:id="@+id/action_fragment_select_to_fragment_home"
+            app:destination="@id/fragment_home" />
+        <action
+            android:id="@+id/action_fragment_select_to_fragment_search"
+            app:destination="@id/fragment_search" />
+
     </fragment>
     <fragment
         android:id="@+id/fragment_home"

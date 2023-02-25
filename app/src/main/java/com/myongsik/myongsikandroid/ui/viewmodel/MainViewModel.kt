@@ -11,6 +11,7 @@ import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
+import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.reflect.Array.get
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,6 +38,8 @@ class MainViewModel @Inject constructor(
 
     //오늘 음식 가져오기
     fun todayGetFoodFun() = viewModelScope.launch(Dispatchers.IO){
+        //
+//        MyongsikApplication.prefs.getUserCampus()
         val response = foodRepository.todayGetFood()
 
         if(response.code() == 200) {
@@ -104,4 +108,13 @@ class MainViewModel @Inject constructor(
             .cachedIn(viewModelScope) //코루틴이 데이터 스트림을 캐시 가능하게함
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PagingData.empty())
 
+
+    // 하트 시도 - food repository 에 id 있는지 조회하는 메소드
+    private val _isUpdate = MutableLiveData<Boolean>(false)
+    val isUpdate: LiveData<Boolean>
+        get() = _isUpdate
+    fun loveUpdate(string: String)= viewModelScope.launch(Dispatchers.IO){
+        val restaurantLove = foodRepository.updateLove(string)
+        _isUpdate.postValue(restaurantLove)
+    }
 }

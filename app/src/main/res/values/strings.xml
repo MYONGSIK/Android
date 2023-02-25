@@ -2,6 +2,8 @@
     <string name="app_name">명식이</string>
 
     <!--  식단 화면  -->
-    <string name="home_today_tv">오늘의 식단</string>
+    <string name="home_today_tv">오늘의 학식 │  hv</string>
+    <string name="home_time_tv">운영시간 │ 중식 11:30~17:30 │ 석식 18:00~21:00</string>
     <string name="week_today_tv">주간 식단표</string>
+    <string name="splash_help_select">캠퍼스 설정을 통해 \n 접속 시 선택한 캠퍼스 \n 학식 메뉴를 확인할 수 있습니다.</string>
 </resources>

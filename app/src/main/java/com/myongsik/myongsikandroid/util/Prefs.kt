@@ -16,4 +16,13 @@ class Prefs(context: Context) {
         editor.putString(key, str).apply()
     }
 
+    fun setUserCampus(input: String){
+        editor.putString("MY_CAMPUS", input)
+        editor.commit()
+    }
+
+    fun getUserCampus():String{
+        return prefs.getString("MY_CAMPUS", "").toString()
+    }
+
 }

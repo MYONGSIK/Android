@@ -19,4 +19,7 @@ interface HomeFoodApi {
     @GET("/api/v1/foods/week")
     suspend fun weekGetFood() : Response<WeekFoodResponse>
 
+    @GET("/api/v2/meals/week/{area}")
+    suspend fun weekGetFoodArea() : Response<WeekFoodResponse>
+
 }

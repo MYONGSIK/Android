@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.myongsik.myongsikandroid.data.api.SearchFoodApi
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.util.Constant.PAGING_SIZE
+import com.myongsik.myongsikandroid.util.MyongsikApplication
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -23,9 +24,21 @@ class SearchFoodPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Restaurant> {
         return try{
             val pageNumber = params.key ?: STARTING_PAGE_INDEX
+            var c: String = ""
+            var x: Double = 0.0
+            var y: Double = 0.0
+            if (MyongsikApplication.prefs.getUserCampus() == "S"){
+                c = "서울"
+                x= 126.923460283882
+                y= 37.5803504797164
+            }else if(MyongsikApplication.prefs.getUserCampus() == "Y"){
+                c = "용인"
+                x = 127.18758354347
+                y = 37.224650469991
+            }
             val response = SearchFoodApi.create().searchFood(
-                "서울 명지대 $query", "FD6, CE7", "126.923460283882",
-                "37.5803504797164", 1500, pageNumber, params.loadSize, "distance"
+                "$c 명지대 $query", "FD6, CE7", "$x",
+                "$y", 1500, pageNumber, params.loadSize, "distance"
             )
             val endOfPaginationReached = response.body()?.meta?.is_end!!
 
@@ -49,6 +62,7 @@ class SearchFoodPagingSource(
             LoadResult.Error(exception)
         }
     }
+
 
     companion object {
         const val STARTING_PAGE_INDEX = 1

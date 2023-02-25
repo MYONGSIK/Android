@@ -9,7 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="main_color">#1E50A7</color>
+    <color name="sub_color">#0A45CA</color>
     <color name="home_text_color">#112F64</color>
     <color name="home_gray_color">#A6A6A6</color>
+    <color name="home_arrow_gray_color">#D4D4D4</color>
     <color name="home_not_food">#E31F1F</color>
 </resources>

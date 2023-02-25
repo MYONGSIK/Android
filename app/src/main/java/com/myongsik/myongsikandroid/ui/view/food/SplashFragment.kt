@@ -6,6 +6,7 @@ import android.net.NetworkInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentSplashBinding
+import com.myongsik.myongsikandroid.util.MyongsikApplication
 
 class SplashFragment : Fragment() {
 
@@ -35,6 +37,15 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val handler = Handler(Looper.getMainLooper())
 
+        // test
+        MyongsikApplication.prefs.setUserCampus("")
+
+        if(MyongsikApplication.prefs.getUserCampus() ==""){
+            handler.postDelayed({
+                findNavController().navigate(R.id.action_fragment_splash_to_fragment_select)
+            },1500)
+            return
+        }
         if(!getNetworkConnected(mainActivity.applicationContext)){
             handler.postDelayed({
                 findNavController().navigate(R.id.action_fragment_splash_to_fragment_home)
