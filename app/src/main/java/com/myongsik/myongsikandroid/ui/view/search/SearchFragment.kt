@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,23 +12,29 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
+import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.adapter.state.SearchFoodLoadStateAdapter
+import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModelProviderFactory
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import java.util.*
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), OnLoveClick {
 
     private var _binding : FragmentSearchBinding?= null
     private val binding : FragmentSearchBinding
@@ -48,6 +55,7 @@ class SearchFragment : Fragment() {
     private val searchViewModel : SearchViewModel by viewModels{
         SearchViewModelProviderFactory()
     }
+    private val mainViewModel by activityViewModels<MainViewModel>()
 
     //검색 어댑터 -> PagingAdapter
     private lateinit var searchFoodAdapter : SearchFoodPagingAdapter
@@ -67,6 +75,8 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         //검색 리사이클러뷰
         setUpRecyclerView()
 
@@ -81,6 +91,8 @@ class SearchFragment : Fragment() {
 
         //뷰가 생성될 때 마다 위의 배열에서의 랜덤값
         searchViewModel.searchRecommendFood(foodList[intRandom])
+
+
 
         //검색 아이콘 클릭했을 때
         binding.searchIcIv.setOnClickListener {
@@ -180,7 +192,8 @@ class SearchFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-    }
+
+}
 
     //검색 기능
     private fun searchBooks(){
@@ -204,7 +217,7 @@ class SearchFragment : Fragment() {
     //검색 리사이클러뷰
     private fun setUpRecyclerView(){
 //        searchFoodAdapter = SearchFoodAdapter()
-        searchFoodAdapter = SearchFoodPagingAdapter()
+        searchFoodAdapter = SearchFoodPagingAdapter(this)
         binding.searchMyongjiRv.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -242,7 +255,7 @@ class SearchFragment : Fragment() {
 
     //추천 리사이클러뷰
     private fun setUpRecommendRecyclerView(){
-        searchRecommendAdapter = SearchFoodAdapter()
+        searchRecommendAdapter = SearchFoodAdapter(this)
         binding.searchMyongjiRecommend.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -271,5 +284,24 @@ class SearchFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+
+    override fun addItem(restaurant: Restaurant) {
+        mainViewModel.saveFoods(restaurant)
+    }
+
+    override fun deleteItem(restaurant: Restaurant) {
+        mainViewModel.deleteFoods(restaurant)
+    }
+
+
+    override fun isItem(string: String){
+//        mainViewModel.isUpdate.observe(viewLifecycleOwner){
+//            return@observe it
+//        }
+
+
+
     }
 }

@@ -42,4 +42,6 @@ interface FoodRepository {
 
     //들어간 장소가 현재 찜해뒀는지 판단하는 메서드
     fun loveIs(id : String) : Restaurant
+
+    fun updateLove(id : String) : Boolean
 }
