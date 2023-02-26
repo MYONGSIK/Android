@@ -53,6 +53,7 @@ class TagFragment : Fragment(), OnLoveClick {
         val keyWord = args.tag
 
         setUpRecyclerView()
+        binding.tagTopTv.text = "#명지${keyWord}"
 
         searchViewModel.searchPagingFood(keyWord)
 
