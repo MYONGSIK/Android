@@ -25,4 +25,13 @@ class Prefs(context: Context) {
         return prefs.getString("MY_CAMPUS", "").toString()
     }
 
+    fun setUserArea(input: String){
+        editor.putString("MY_AREA", input)
+        editor.commit()
+    }
+
+    fun getUserArea():String{
+        return prefs.getString("MY_AREA", "").toString()
+    }
+
 }

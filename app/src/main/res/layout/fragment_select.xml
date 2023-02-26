@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/splash_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/ic_splash_new_logo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/splash_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-19dp"
+        android:fontFamily="@font/notosans_regular"
+        android:text="명지대 학식 식단표 제공 앱"
+        android:textColor="@color/sub_color"
+        android:textSize="11sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splash_logo" />
+
+    <Button
+
+        android:id="@+id/splash_f_bt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="65dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/notosans_regular"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="인문캠퍼스"
+        android:textColor="@color/sub_color"
+        android:textFontWeight="700"
+        android:textSize="14sp"
+        app:backgroundTint="@color/white"
+        app:cornerRadius="100dp"
+        app:iconPadding="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splash_tv"
+        app:strokeColor="@color/sub_color"
+        app:strokeWidth="2dp" />
+
+    <Button
+        android:id="@+id/splash_s_bt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="65dp"
+        android:layout_marginTop="17dp"
+        android:fontFamily="@font/notosans_regular"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="자연캠퍼스"
+        android:textFontWeight="700"
+        android:textSize="14sp"
+        app:backgroundTint="@color/sub_color"
+        app:cornerRadius="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splash_f_bt" />
+
+    <EditText
+        android:id="@+id/splash_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:focusable="false"
+        android:paddingBottom="7.5dp"
+        android:text="캠퍼스 설정"
+        android:textColor="#717171"
+        android:textSize="10sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splash_s_bt" />
+
+    <ImageView
+        android:id="@+id/splash_et_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="0dp"
+        android:paddingTop="2.5dp"
+        android:src="@drawable/ic_help"
+        app:layout_constraintBottom_toBottomOf="@id/splash_et"
+        app:layout_constraintLeft_toRightOf="@id/splash_et"
+        app:layout_constraintTop_toTopOf="@+id/splash_et"
+        app:tintMode="multiply" />
+
+    <Button
+        android:id="@+id/splash_help_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/ic_help_select_custom"
+        android:elevation="10dp"
+        android:visibility="gone"
+        android:fontFamily="@font/notosans_regular"
+        android:text="@string/splash_help_select"
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        app:backgroundTint="@color/white"
+        app:cornerRadius="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/splash_et" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

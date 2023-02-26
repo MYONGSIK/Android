@@ -5,28 +5,16 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet.Layout
 import androidx.recyclerview.widget.RecyclerView
-import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.model.food.FoodResult
-import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
-import com.myongsik.myongsikandroid.data.model.food.OnLoveFoodClick
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResult
 import com.myongsik.myongsikandroid.databinding.ItemHomeTodayFoodBinding
-import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
-import com.myongsik.myongsikandroid.util.Constant
 
 //뷰페이저 어댑터
 //주간 음식 조회에서 사용
-class ViewPagerAdapter(
+class ViewPagerAreaAdapter(
     private var weekFoodResult: List<WeekFoodResult>,
-) : RecyclerView.Adapter<ViewPagerAdapter.Pager2ViewHolder>() {
-
-    private lateinit var day: String
+) : RecyclerView.Adapter<ViewPagerAreaAdapter.Pager2ViewHolder>() {
 
     inner class Pager2ViewHolder(
         private val binding : ItemHomeTodayFoodBinding
@@ -35,10 +23,17 @@ class ViewPagerAdapter(
             val dayDate = weekFoodResult.toDay.substring(0, 4)
             val dayMonth = weekFoodResult.toDay.substring(5, 7)
             val dayDay = weekFoodResult.toDay.substring(8, 10)
-            day = weekFoodResult.dayOfTheWeek
 
             val date = "${dayDate}년 ${dayMonth}월 ${dayDay}일"
 
+//            when(weekFoodResult.toDay.substring(8, 10)){
+//                "월요일" -> binding.viewPager2.setCurrentItem(0, true)
+//                "화요일" -> binding.viewPager2.setCurrentItem(1, true)
+//                "수요일" -> binding.viewPager2.setCurrentItem(2, true)
+//                "목요일" -> binding.viewPager2.setCurrentItem(3, true)
+//                "금요일" -> binding.viewPager2.setCurrentItem(4, true)
+//
+//            }
 
             val weekFood = "${weekFoodResult.lunchA[0]} ${weekFoodResult.lunchA[1]} ${weekFoodResult.lunchA[2]} " +
                     "${weekFoodResult.lunchA[3]} ${weekFoodResult.lunchA[4]} ${weekFoodResult.lunchA[5]}"
@@ -85,32 +80,27 @@ class ViewPagerAdapter(
 
             }
 
-
-            val btn : ConstraintLayout = itemView.findViewById(R.id.today_hate_cl_lunch_a)
-
             itemView.apply{
+//                binding.weekFoodDayOfWeekTv.text = date
                 binding.todayFood1.text = builderWeekFood
                 binding.todayFoodLunchB.text = builderWeekBFood
                 binding.todayFoodAfternoon.text = builderDinnerFood
 
-                binding.todayGoodCl.setOnClickListener{
+//                binding.todayGoodCl.setOnClickListener{
 //                    if(Constant.LUNCH_A_GOOD == "good"){
 //                        Constant.LUNCH_A_GOOD = ""
-//                        var foodResult : FoodResult? = null
-//                        foodResult?.
-//                        foodResult?.food1
 //                        mainViewModel.saveLunchEvaluation(weekFoodResult, "")
 //                    }else{
 //                        Constant.LUNCH_A_GOOD = "good"
 //                        mainViewModel.saveLunchEvaluation(weekFoodResult, "good")
 //                    }
-                }
-                binding.todayGoodClLunchB.setOnClickListener{
-
-                }
-                binding.todayGoodClAfternoon.setOnClickListener{
-
-                }
+//                }
+//                binding.todayGoodClLunchB.setOnClickListener{
+//
+//                }
+//                binding.todayGoodClAfternoon.setOnClickListener{
+//
+//                }
 
 
 
@@ -137,18 +127,7 @@ class ViewPagerAdapter(
 
     override fun onBindViewHolder(holder: Pager2ViewHolder, position: Int) {
         holder.bind(weekFoodResult[position])
-        // 요일마다 버튼 숨기기
-        when(day){
-            "월요일" -> {
-                if(position == 0){
-//                    holder.binding
-                }
-            }
-        }
     }
-
-
-
 
     override fun getItemCount(): Int {
         return weekFoodResult.size

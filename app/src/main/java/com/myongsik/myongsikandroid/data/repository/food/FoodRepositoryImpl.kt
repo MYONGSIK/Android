@@ -13,6 +13,7 @@ import com.myongsik.myongsikandroid.data.api.HomeFoodApi
 import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
 import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
+import com.myongsik.myongsikandroid.data.model.food.WeekFoodAreaResponse
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION
@@ -46,6 +47,10 @@ class FoodRepositoryImpl @Inject constructor(
     //주간 식단 조회
     override suspend fun weekGetFood(): Response<WeekFoodResponse> {
         return api.weekGetFood()
+    }
+
+    override suspend fun weekGetFoodArea(s:String): Response<WeekFoodAreaResponse> {
+        return api.weekGetFoodArea(s)
     }
 
     //DataStore

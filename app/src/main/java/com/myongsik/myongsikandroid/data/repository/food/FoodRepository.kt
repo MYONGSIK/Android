@@ -3,6 +3,7 @@ package com.myongsik.myongsikandroid.data.repository.food
 import androidx.paging.PagingData
 import com.myongsik.myongsikandroid.data.model.food.FoodResult
 import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
+import com.myongsik.myongsikandroid.data.model.food.WeekFoodAreaResponse
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import kotlinx.coroutines.flow.Flow
@@ -17,6 +18,9 @@ interface FoodRepository {
     suspend fun todayGetFood() : Response<TodayFoodResponse>
 
     suspend fun weekGetFood() : Response<WeekFoodResponse>
+
+    suspend fun weekGetFoodArea(s:String) : Response<WeekFoodAreaResponse>
+
 
     //DataStore
     //DataStore 저장
