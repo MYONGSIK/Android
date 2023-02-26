@@ -8,7 +8,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +22,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.ViewPagerAdapter
+import com.myongsik.myongsikandroid.ui.adapter.food.ViewPagerAreaAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.Constant.DINNER
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
@@ -100,30 +100,36 @@ class HomeFragment : Fragment()  {
             if (MyongsikApplication.prefs.getUserCampus() == "S") {
                 val food = it.data
                 binding.viewPager2.adapter = ViewPagerAdapter(food)
-                binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                val indicator = binding.indicator
-                indicator.setViewPager(binding.viewPager2)
             } else if (MyongsikApplication.prefs.getUserCampus() == "Y") {
                 when (MyongsikApplication.prefs.getUserArea()) {
                     "S" -> {
-                        mainViewModel.weekGetFoodAreaFun("생활관식당")
+                        mainViewModel.weekGetFoodAreaFun("교직원식당")
                         mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
-//                            val food = it.
-//                            binding.viewPager2.adapter = ViewPagerAreaAdapter(food)
-
+                            val food = it.meals
+                            binding.viewPager2.adapter = ViewPagerAreaAdapter(food)
                         }
-
-
                     }
 
                     "L" -> {
-
+                        mainViewModel.weekGetFoodAreaFun("생활관식당")
+                        mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
+                            val food = it.meals
+                            binding.viewPager2.adapter = ViewPagerAreaAdapter(food)
+                        }
                     }
                     "H" -> {
-
+                        mainViewModel.weekGetFoodAreaFun("MCC식당")
+                        mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
+                            val food = it.meals
+                            binding.viewPager2.adapter = ViewPagerAreaAdapter(food)
+                        }
                     }
 
                 }
+
+                binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                val indicator = binding.indicator
+                indicator.setViewPager(binding.viewPager2)
             }
 
             // 뷰 페이저 페이지 설정
