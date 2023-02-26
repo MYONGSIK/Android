@@ -93,10 +93,9 @@ class HomeFragment : Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 인캠 갖고오기
+        // viewpager
         mainViewModel.weekGetFoodFun()
         mainViewModel.weekGetFood.observe(viewLifecycleOwner) {
-
             if (MyongsikApplication.prefs.getUserCampus() == "S") {
                 val food = it.data
                 binding.viewPager2.adapter = ViewPagerAdapter(food)
@@ -186,10 +185,10 @@ class HomeFragment : Fragment()  {
                     }
 
                 }
-                if (position == binding.viewPager2.currentItem){
-//                    val cF = binding.viewPager2.adapter?.getItem(position)
-//                    cF.view?.
-                }
+//                if (position == binding.viewPager2.currentItem){
+////                    val cF = binding.viewPager2.adapter?.getItem(position)
+////                    cF.view?.
+//                }
 
             }
         })
