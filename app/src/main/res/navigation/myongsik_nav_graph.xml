@@ -44,22 +44,9 @@
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_fragment_home_to_weekFoodsFragment"
-            app:destination="@id/fragment_week_foods"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/fragment_home" />
-        <action
             android:id="@+id/action_fragment_home_to_fragment_search"
             app:destination="@id/fragment_search" />
     </fragment>
-    <fragment
-        android:id="@+id/fragment_week_foods"
-        android:name="com.myongsik.myongsikandroid.ui.view.food.WeekFoodsFragment"
-        android:label="WeekFoodsFragment"
-        tools:layout="@layout/fragment_week_foods"/>
     <fragment
         android:id="@+id/fragment_love"
         android:name="com.myongsik.myongsikandroid.ui.view.search.LoveFragment"
@@ -121,5 +108,15 @@
         <argument
             android:name="restaurant"
             app:argType="com.myongsik.myongsikandroid.data.model.kakao.Restaurant" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_select_home"
+        android:name="com.myongsik.myongsikandroid.ui.view.food.SelectHomeFragment"
+        android:label="SelectHomeFragment"
+        tools:layout="@layout/fragment_select_home">
+        <action
+            android:id="@+id/action_fragment_select_home_to_fragment_home"
+            app:destination="@id/fragment_home" />
     </fragment>
 </navigation>

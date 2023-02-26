@@ -10,11 +10,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantFoodBinding
+import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 
 //카카오 api 불러온 리사이클러뷰 아이템 뷰홀더
 class SearchFoodViewHolder(
     private val binding: ItemRestaurantFoodBinding,
-    private val mCallback: OnLoveClick
+    private val mCallback: OnLoveClick,
 ) : RecyclerView.ViewHolder(binding.root){
 
 

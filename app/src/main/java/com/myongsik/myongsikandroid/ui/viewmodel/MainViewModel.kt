@@ -6,12 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.myongsik.myongsikandroid.data.model.food.FoodResult
-import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
-import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
+import com.myongsik.myongsikandroid.data.model.food.*
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
-import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,7 +17,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.reflect.Array.get
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,6 +31,12 @@ class MainViewModel @Inject constructor(
     private val _weekGetFood = MutableLiveData<WeekFoodResponse>()
     val weekGetFood : LiveData<WeekFoodResponse>
         get() = _weekGetFood
+
+
+    private val _weekGetFoodArea = MutableLiveData<WeekFoodAreaResponse>()
+    val weekGetFoodArea : LiveData<WeekFoodAreaResponse>
+        get() = weekGetFoodArea
+
 
     //오늘 음식 가져오기
     fun todayGetFoodFun() = viewModelScope.launch(Dispatchers.IO){
@@ -55,6 +57,15 @@ class MainViewModel @Inject constructor(
 
         if(response.code() == 200){
             _weekGetFood.postValue(response.body())
+        }
+    }
+
+    //이번 주 자캠 음식 가져오기
+    fun weekGetFoodAreaFun(s: String) = viewModelScope.launch(Dispatchers.IO) {
+        val response = foodRepository.weekGetFoodArea(s)
+
+        if(response.code() == 200){
+            _weekGetFoodArea.postValue(response.body())
         }
     }
 
@@ -91,6 +102,10 @@ class MainViewModel @Inject constructor(
     fun deleteFoods(restaurant: Restaurant) = viewModelScope.launch(Dispatchers.IO) {
         foodRepository.deleteFoods(restaurant)
     }
+
+//    fun addWeekFoodItem(weekFood : WeekFoodResult) = viewModelScope.launch(Dispatchers.IO) {
+//        saveLunchEvaluation(,"")
+//    }
 
     //식당 웹뷰 들어왔을 때 이미 존재하는지 안하는지 판단하기 위한 메서드
     private val _loveIs = MutableLiveData<Restaurant>()
