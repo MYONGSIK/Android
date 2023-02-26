@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,10 @@ class ViewPagerAdapter(
 ) : RecyclerView.Adapter<ViewPagerAdapter.Pager2ViewHolder>() {
 
     private lateinit var day: String
+    private var builderWeekFood = SpannableStringBuilder()
+    private var builderWeekBFood = SpannableStringBuilder()
+    private var builderDinnerFood = SpannableStringBuilder()
+
 
     inner class Pager2ViewHolder(
         private val binding : ItemHomeTodayFoodBinding
@@ -35,55 +40,37 @@ class ViewPagerAdapter(
             val dayDate = weekFoodResult.toDay.substring(0, 4)
             val dayMonth = weekFoodResult.toDay.substring(5, 7)
             val dayDay = weekFoodResult.toDay.substring(8, 10)
-            day = weekFoodResult.dayOfTheWeek
+//            day = weekFoodResult.dayOfTheWeek
 
             val date = "${dayDate}년 ${dayMonth}월 ${dayDay}일"
 
-
-            val weekFood = "${weekFoodResult.lunchA[0]} ${weekFoodResult.lunchA[1]} ${weekFoodResult.lunchA[2]} " +
-                    "${weekFoodResult.lunchA[3]} ${weekFoodResult.lunchA[4]} ${weekFoodResult.lunchA[5]}"
-
-            val weekBFood = "${weekFoodResult.lunchB[0]} ${weekFoodResult.lunchB[1]} ${weekFoodResult.lunchB[2]} " +
-                    "${weekFoodResult.lunchB[3]}  ${weekFoodResult.lunchB[4]}  ${weekFoodResult.lunchB[5]} "
-
-            val dinner = "${weekFoodResult.dinner[0]} ${weekFoodResult.dinner[1]} ${weekFoodResult.dinner[2]} " +
-                    "${weekFoodResult.dinner[3]} ${weekFoodResult.dinner[4]} ${weekFoodResult.dinner[5]} "
-
-            val builderWeekFood = SpannableStringBuilder(weekFood)
-
-            val boldSpanWeekFood = ForegroundColorSpan(Color.parseColor("#274984"))
-            builderWeekFood.setSpan(boldSpanWeekFood, 0, weekFoodResult.lunchA[0].length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-            val builderWeekBFood = SpannableStringBuilder(weekBFood)
-
-            val boldSpanWeekBFood = ForegroundColorSpan(Color.parseColor("#274984"))
-            builderWeekBFood.setSpan(boldSpanWeekBFood, 0, weekFoodResult.lunchB[0].length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-            val builderDinnerFood = SpannableStringBuilder(dinner)
-
-            val boldSpanDinner = ForegroundColorSpan(Color.parseColor("#274984"))
-            builderDinnerFood.setSpan(boldSpanDinner, 0, weekFoodResult.dinner[0].length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-            fun getGoodChange() {
-                binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#274984"))
-                binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
-                binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#274984"))
-                binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
+            when(weekFoodResult.mealType){
+                "LUNCH_A" ->{
+                    val weekFood = "${weekFoodResult.meals[0]} ${weekFoodResult.meals[1]} ${weekFoodResult.meals[2]} " +
+                            "${weekFoodResult.meals[3]} ${weekFoodResult.meals[4]} ${weekFoodResult.meals[5]}"
+                    builderWeekFood = SpannableStringBuilder(weekFood)
+                    val boldSpanWeekFood = ForegroundColorSpan(Color.parseColor("#274984"))
+                    builderWeekFood.setSpan(boldSpanWeekFood, 0, weekFoodResult.meals[0].length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                }
+                "LUNCH_B" ->{
+                    val weekBFood = "${weekFoodResult.meals[0]} ${weekFoodResult.meals[1]} ${weekFoodResult.meals[2]} " +
+                            "${weekFoodResult.meals[3]} ${weekFoodResult.meals[4]} ${weekFoodResult.meals[5]}"
+                    builderWeekBFood = SpannableStringBuilder(weekBFood)
+                    val boldSpanWeekBFood = ForegroundColorSpan(Color.parseColor("#274984"))
+                    builderWeekBFood.setSpan(boldSpanWeekBFood, 0, weekFoodResult.meals[0].length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                }
+                "DINNER" ->{
+                    val dinner = "${weekFoodResult.meals[0]} ${weekFoodResult.meals[1]} ${weekFoodResult.meals[2]} " +
+                            "${weekFoodResult.meals[3]} ${weekFoodResult.meals[4]} ${weekFoodResult.meals[5]}"
+                    builderDinnerFood = SpannableStringBuilder(dinner)
+                    val boldSpanDinner = ForegroundColorSpan(Color.parseColor("#274984"))
+                    builderDinnerFood.setSpan(boldSpanDinner, 0, weekFoodResult.meals[0].length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                }
             }
 
-            fun getHateChange() {
-                binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#274984"))
-                binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
-                binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
-                binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#274984"))            }
 
-            fun defaultChange() {
-                binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
-                binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
-                binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
-                binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
 
-            }
+//
 
 
             val btn : ConstraintLayout = itemView.findViewById(R.id.today_hate_cl_lunch_a)
@@ -125,6 +112,8 @@ class ViewPagerAdapter(
     }
 
 
+
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -138,14 +127,35 @@ class ViewPagerAdapter(
     override fun onBindViewHolder(holder: Pager2ViewHolder, position: Int) {
         holder.bind(weekFoodResult[position])
         // 요일마다 버튼 숨기기
-        when(day){
-            "월요일" -> {
-                if(position == 0){
-//                    holder.binding
-                }
-            }
-        }
+//        when(day){
+//            "월요일" -> {
+//                if(position == 0){
+////                    holder.binding
+//                }
+//            }
+//        }
     }
+
+//    fun getGoodChange() {
+//                binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#274984"))
+//                binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+//                binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#274984"))
+//                binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
+//            }
+//
+//            fun getHateChange() {
+//                binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#274984"))
+//                binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
+//                binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
+//                binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#274984"))            }
+//
+//            fun defaultChange() {
+//                binding.todayAfternoonGoodTv.setTextColor(Color.parseColor("#717171"))
+//                binding.todayAfternoonHateTv.setTextColor(Color.parseColor("#717171"))
+//                binding.todayAfternoonGoodIv.setColorFilter(Color.parseColor("#717171"))
+//                binding.todayAfternoonHateIv.setColorFilter(Color.parseColor("#717171"))
+//
+//            }
 
 
 

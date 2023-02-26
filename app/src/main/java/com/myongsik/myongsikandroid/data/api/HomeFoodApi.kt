@@ -24,6 +24,6 @@ interface HomeFoodApi {
     @GET("/api/v2/meals/week/{area}")
     suspend fun weekGetFoodArea(
         @Path("area") area: String
-    ) : Response<WeekFoodAreaResponse>
+    ) : Response<WeekFoodResponse>
 
 }

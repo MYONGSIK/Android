@@ -2,8 +2,10 @@ package com.myongsik.myongsikandroid.ui.adapter.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantFoodBinding
@@ -22,7 +24,8 @@ class SearchFoodPagingAdapter(listener : OnLoveClick) : PagingDataAdapter<Restau
         val pagedFood = getItem(position)
         pagedFood?.let { restaurant ->
             holder.bind(restaurant)
-            holder.itemView.setOnClickListener {
+            val cl = holder.itemView.findViewById<ConstraintLayout>(R.id.item_food_detail_cl)
+            cl.setOnClickListener {
                 onItemClickListener?.let{ it(restaurant) }
             }
         }

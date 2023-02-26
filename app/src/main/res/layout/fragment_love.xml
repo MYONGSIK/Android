@@ -62,7 +62,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/love_top_v"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="25dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

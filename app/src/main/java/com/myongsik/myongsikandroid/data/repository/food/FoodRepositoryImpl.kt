@@ -49,7 +49,7 @@ class FoodRepositoryImpl @Inject constructor(
         return api.weekGetFood()
     }
 
-    override suspend fun weekGetFoodArea(s:String): Response<WeekFoodAreaResponse> {
+    override suspend fun weekGetFoodArea(s:String): Response<WeekFoodResponse> {
         return api.weekGetFoodArea(s)
     }
 

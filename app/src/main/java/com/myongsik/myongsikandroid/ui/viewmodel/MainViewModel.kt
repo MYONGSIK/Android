@@ -33,9 +33,9 @@ class MainViewModel @Inject constructor(
         get() = _weekGetFood
 
 
-    private val _weekGetFoodArea = MutableLiveData<WeekFoodAreaResponse>()
-    val weekGetFoodArea : LiveData<WeekFoodAreaResponse>
-        get() = weekGetFoodArea
+    private val _weekGetFoodArea = MutableLiveData<WeekFoodResponse>()
+    val weekGetFoodArea : LiveData<WeekFoodResponse>
+        get() = _weekGetFoodArea
 
 
     //오늘 음식 가져오기
