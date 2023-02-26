@@ -47,9 +47,9 @@ class LoveFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         //화살표 클릭 시 그 전 화면으로 뒤로가기
-        binding.loveBackBt.setOnClickListener {
-            findNavController().popBackStack()
-        }
+//        binding.loveBackBt.setOnClickListener {
+//            findNavController().popBackStack()
+//        }
 
         setUpRecyclerView()
 

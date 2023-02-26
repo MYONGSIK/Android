@@ -28,15 +28,15 @@ class SelectHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.selectHomeHakIv.setOnClickListener {
+        binding.selectHomeHakV.setOnClickListener {
             MyongsikApplication.prefs.setUserArea("H")
             findNavController().navigate(R.id.action_fragment_select_home_to_fragment_home)
         }
-        binding.selectHomeLifeIv.setOnClickListener {
+        binding.selectHomeLifeV.setOnClickListener {
             MyongsikApplication.prefs.setUserArea("L")
             findNavController().navigate(R.id.action_fragment_select_home_to_fragment_home)
         }
-        binding.selectHomeStaffIv.setOnClickListener {
+        binding.selectHomeStaffV.setOnClickListener {
             MyongsikApplication.prefs.setUserArea("S")
             findNavController().navigate(R.id.action_fragment_select_home_to_fragment_home)
 
