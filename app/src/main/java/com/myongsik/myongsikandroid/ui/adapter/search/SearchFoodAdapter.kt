@@ -2,8 +2,10 @@ package com.myongsik.myongsikandroid.ui.adapter.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantFoodBinding
@@ -22,7 +24,8 @@ class SearchFoodAdapter(listener : OnLoveClick) : ListAdapter<Restaurant, Search
     override fun onBindViewHolder(holder: SearchFoodViewHolder, position: Int) {
         val foodResult = currentList[position]
         holder.bind(foodResult)
-        holder.itemView.setOnClickListener {
+        val cl = holder.itemView.findViewById<ConstraintLayout>(R.id.item_food_detail_cl)
+        cl.setOnClickListener {
             onItemClickListener?.let{ it(foodResult) }
         }
 

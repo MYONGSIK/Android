@@ -19,7 +19,7 @@ interface FoodRepository {
 
     suspend fun weekGetFood() : Response<WeekFoodResponse>
 
-    suspend fun weekGetFoodArea(s:String) : Response<WeekFoodAreaResponse>
+    suspend fun weekGetFoodArea(s:String) : Response<WeekFoodResponse>
 
 
     //DataStore

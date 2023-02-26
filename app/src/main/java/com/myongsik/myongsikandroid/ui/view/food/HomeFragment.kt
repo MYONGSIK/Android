@@ -8,6 +8,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,6 +32,8 @@ import com.myongsik.myongsikandroid.util.FoodEvaluation
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 //홈화면 일간 식단 조회 프래그먼트
 @AndroidEntryPoint
@@ -92,54 +95,50 @@ class HomeFragment : Fragment()  {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // viewpager
-        mainViewModel.weekGetFoodFun()
-        mainViewModel.weekGetFood.observe(viewLifecycleOwner) {
-            if (MyongsikApplication.prefs.getUserCampus() == "S") {
+        if (MyongsikApplication.prefs.getUserCampus() == "S") {
+            mainViewModel.weekGetFoodAreaFun("MCC식당")
+            mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
                 val food = it.data
                 binding.viewPager2.adapter = ViewPagerAdapter(food)
-            } else if (MyongsikApplication.prefs.getUserCampus() == "Y") {
-                when (MyongsikApplication.prefs.getUserArea()) {
-                    "S" -> {
-                        mainViewModel.weekGetFoodAreaFun("교직원식당")
-                        mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
-                            val food = it.meals
-                            binding.viewPager2.adapter = ViewPagerAreaAdapter(food)
-                        }
-                    }
-
-                    "L" -> {
-                        mainViewModel.weekGetFoodAreaFun("생활관식당")
-                        mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
-                            val food = it.meals
-                            binding.viewPager2.adapter = ViewPagerAreaAdapter(food)
-                        }
-                    }
-                    "H" -> {
-                        mainViewModel.weekGetFoodAreaFun("MCC식당")
-                        mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
-                            val food = it.meals
-                            binding.viewPager2.adapter = ViewPagerAreaAdapter(food)
-                        }
-                    }
-
-                }
-
+                setCurrentPage(LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value)
+                binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${it.localDateTime.substring(8,10)}일"
                 binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                 val indicator = binding.indicator
                 indicator.setViewPager(binding.viewPager2)
             }
-
-            // 뷰 페이저 페이지 설정
-            when (day) {
-                "월요일" -> binding.viewPager2.setCurrentItem(0, false)
-                "화요일" -> binding.viewPager2.setCurrentItem(1, false)
-                "수요일" -> binding.viewPager2.setCurrentItem(2, false)
-                "목요일" -> binding.viewPager2.setCurrentItem(3, false)
-                "금요일" -> binding.viewPager2.setCurrentItem(4, false)
+        }else if (MyongsikApplication.prefs.getUserCampus() == "Y") {
+            when (MyongsikApplication.prefs.getUserArea()) {
+                "S" -> {
+                    mainViewModel.weekGetFoodAreaFun("교직원식당")
+                    mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
+                        val food = it.data
+                        binding.viewPager2.adapter = ViewPagerAdapter(food)
+                        binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${
+                            it.localDateTime.substring(
+                                8,
+                                10
+                            )
+                        }일"
+                    }
+                }
+                "L" -> {
+                    mainViewModel.weekGetFoodAreaFun("생활관식당")
+                    mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
+                        val food = it.data
+                        binding.viewPager2.adapter = ViewPagerAdapter(food)
+                        binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${
+                            it.localDateTime.substring(
+                                8,
+                                10
+                            )
+                        }일"
+                    }
+                }
+                "H" -> {
+                }
             }
         }
+
 
 
 
@@ -165,7 +164,7 @@ class HomeFragment : Fragment()  {
                         }
                         binding.homeTodayArrowLeft.setImageDrawable(drawable)
                     }
-                    1 -> {
+                    4 -> {
                         val drawable = context?.let { it1 ->
                             ContextCompat.getDrawable(
                                 it1,
@@ -182,6 +181,16 @@ class HomeFragment : Fragment()  {
                             drawable?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
                         }
                         binding.homeTodayArrowRight.setImageDrawable(drawable)
+                    }
+                    else -> {
+                        binding.homeTodayArrowLeft.setImageDrawable(context?.let {
+                            ContextCompat.getDrawable(
+                                it, R.drawable.home_arrow_left)
+                        })
+                        binding.homeTodayArrowRight.setImageDrawable(context?.let {
+                            ContextCompat.getDrawable(
+                                it, R.drawable.home_arrow_right)
+                        })
                     }
 
                 }
@@ -230,22 +239,22 @@ class HomeFragment : Fragment()  {
             binding.todayDayNotNoticeTv.text = "네트워크 상태를 확인해주세요."
         }
         else {
-            mainViewModel.todayGetFoodFun()
+            binding.viewPager2.visibility = View.VISIBLE
+            binding.todayNotFoodCl.visibility = View.INVISIBLE
+            binding.indicator.visibility = View.VISIBLE
 
-            mainViewModel.todayGetFood.observe(viewLifecycleOwner) {
+            mainViewModel.weekGetFoodAreaFun("MCC식당")
+            mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
                 val dayDate = it.localDateTime.substring(0, 4)
                 val dayMonth = it.localDateTime.substring(5, 7)
                 val dayDay = it.localDateTime.substring(8, 10)
-                val day = it.dayOfTheWeek
+                val value = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
 
 
                 binding.homeTodayDateTv.text = "${dayMonth}월 ${dayDay}일"
-                if (it.errorCode == "F0000") {
-                    //주말이라 식단 조회 실패했을 때
-                    if (day == "토요일")
-                        binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#274984"))
-                    else if (day == "일요일")
-                        binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#E31F1F"))
+                //주말이라 식단 조회 실패했을 때
+                if (value == 6) {
+                    binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#274984"))
 
                     binding.todayDayNotNoticeTv.text = it.message
                     binding.todayDayNotFoodTv.text = "${dayDate}년 ${dayMonth}월 ${dayDay}일 $day"
@@ -255,15 +264,58 @@ class HomeFragment : Fragment()  {
                     binding.bt.visibility = View.GONE
                     binding.homeTodayArrowRight.visibility = View.GONE
                     binding.homeTodayArrowLeft.visibility = View.GONE
-                } else {
-                    binding.viewPager2.visibility = View.VISIBLE
-                    binding.todayNotFoodCl.visibility = View.INVISIBLE
                 }
+                else if (value == 7) {
+                    binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#E31F1F"))
 
-        }
+                    binding.todayDayNotNoticeTv.text = it.message
+                    binding.todayDayNotFoodTv.text = "${dayDate}년 ${dayMonth}월 ${dayDay}일 $day"
+                    binding.todayNotFoodCl.visibility = View.VISIBLE
+                    binding.viewPager2.visibility = View.GONE
+                    binding.indicator.visibility = View.GONE
+                    binding.bt.visibility = View.GONE
+                    binding.homeTodayArrowRight.visibility = View.GONE
+                    binding.homeTodayArrowLeft.visibility = View.GONE
+
+                }
+            }
+//            mainViewModel.todayGetFoodFun()
+//
+//            mainViewModel.todayGetFood.observe(viewLifecycleOwner) {
+//                val dayDate = it.localDateTime.substring(0, 4)
+//                val dayMonth = it.localDateTime.substring(5, 7)
+//                val dayDay = it.localDateTime.substring(8, 10)
+//                day = it.dayOfTheWeek
+//
+//
+//                binding.homeTodayDateTv.text = "${dayMonth}월 ${dayDay}일"
+//                if (it.errorCode == "F0000") {
+//                    //주말이라 식단 조회 실패했을 때
+//                    if (day == "토요일")
+//                        binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#274984"))
+//                    else if (day == "일요일")
+//                        binding.todayDayNotFoodTv.setTextColor(Color.parseColor("#E31F1F"))
+//
+//                    binding.todayDayNotNoticeTv.text = it.message
+//                    binding.todayDayNotFoodTv.text = "${dayDate}년 ${dayMonth}월 ${dayDay}일 $day"
+//                    binding.todayNotFoodCl.visibility = View.VISIBLE
+//                    binding.viewPager2.visibility = View.GONE
+//                    binding.indicator.visibility = View.GONE
+//                    binding.bt.visibility = View.GONE
+//                    binding.homeTodayArrowRight.visibility = View.GONE
+//                    binding.homeTodayArrowLeft.visibility = View.GONE
+//                } else {
+//                    binding.viewPager2.visibility = View.VISIBLE
+//                    binding.todayNotFoodCl.visibility = View.INVISIBLE
+//                }
+//
+//        }
          }
     }
 
+    private fun setCurrentPage(value: Int) {
+        binding.viewPager2.setCurrentItem(value-1, false)
+    }
 
 
     //하루가 지났을 때 DataStore 를 초기화함

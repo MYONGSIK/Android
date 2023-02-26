@@ -13,6 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
+import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentLoveBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.LoveFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
@@ -20,7 +22,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 //찜꽁 리스트 화면
-class LoveFragment : Fragment(){
+class LoveFragment : Fragment(), OnLoveClick {
 
     private var _binding : FragmentLoveBinding?= null
     private val binding : FragmentLoveBinding
@@ -65,34 +67,46 @@ class LoveFragment : Fragment(){
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        //뒤로가기 버튼 클릭 시 검색화면으로
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val action = LoveFragmentDirections.actionFragmentLoveToFragmentSearch()
-                findNavController().navigate(action)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+//        //뒤로가기 버튼 클릭 시 검색화면으로
+//        callback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                val action = LoveFragmentDirections.actionFragmentLoveToFragmentSearch()
+//                findNavController().navigate(action)
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+//
     }
 
     //리사이클러뷰 어댑터를 페이징어댑터로 변경
     private fun setUpRecyclerView(){
 //        bookSearchAdapter = BookSearchAdapter()
-        loveFoodAdapter = LoveFoodPagingAdapter()
+        loveFoodAdapter = LoveFoodPagingAdapter(this)
         binding.loveMyongjiRv.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = loveFoodAdapter
         }
-        loveFoodAdapter.setOnItemClickListener {
-            val action  = LoveFragmentDirections.actionFragmentLoveToFragmentRestaurant(it)
-            findNavController().navigate(action)
-        }
+//        loveFoodAdapter.setOnItemClickListener {
+//            val action  = LoveFragmentDirections.actionFragmentLoveToFragmentRestaurant(it)
+//            findNavController().navigate(action)
+//        }
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    override fun addItem(restaurant: Restaurant) {
+        mainViewModel.saveFoods(restaurant)
+    }
+
+    override fun deleteItem(restaurant: Restaurant) {
+        mainViewModel.deleteFoods(restaurant)
+    }
+
+    override fun isItem(string: String) {
     }
 
 }

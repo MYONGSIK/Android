@@ -2,13 +2,12 @@ package com.myongsik.myongsikandroid.data.model.food
 
 //주간 식단 조회
 data class WeekFoodResult(
-    val dayOfTheWeek: String,
     val toDay: String,
-    val status : String,
-    val lunchA : List<String>,
-    val lunchB : List<String>,
-    val dinner : List<String>
-)
+    val mealType : String,
+    val statusType : String,
+    val meals : List<String>
+    )
+
 /*
  "toDay": "2022-10-17",
       "status": "운영",
