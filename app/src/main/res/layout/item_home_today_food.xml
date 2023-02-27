@@ -47,6 +47,7 @@
         android:id="@+id/today_food_1"
         android:textColor="#717171"
         android:text="베이컨김치볶음밥 후라이 맑은우동국물 피쉬앤칩스 케찹 단무지 배추김치"
+        android:maxLines="2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/notosans_regular"
@@ -182,6 +183,7 @@
     <TextView
         android:id="@+id/today_food_lunch_b"
         android:text="베이컨김치볶음밥 후라이 맑은우동국물 피쉬앤칩스 케찹 단무지 배추김치"
+        android:maxLines="2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/notosans_regular"
@@ -322,6 +324,7 @@
     <TextView
         android:id="@+id/today_food_afternoon"
         android:text="베이컨김치볶음밥 후라이 맑은우동국물 피쉬앤칩스 케찹 단무지 배추김치"
+        android:maxLines="2"
         android:layout_width="wrap_content"
         android:textColor="#717171"
         android:layout_height="wrap_content"

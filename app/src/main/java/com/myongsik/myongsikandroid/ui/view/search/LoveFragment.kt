@@ -87,10 +87,10 @@ class LoveFragment : Fragment(), OnLoveClick {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = loveFoodAdapter
         }
-//        loveFoodAdapter.setOnItemClickListener {
-//            val action  = LoveFragmentDirections.actionFragmentLoveToFragmentRestaurant(it)
-//            findNavController().navigate(action)
-//        }
+        loveFoodAdapter.setOnItemClickListener {
+            val action  = LoveFragmentDirections.actionFragmentLoveToFragmentRestaurant(it)
+            findNavController().navigate(action)
+        }
     }
 
     override fun onDestroyView() {

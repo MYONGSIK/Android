@@ -91,7 +91,7 @@
                     android:id="@+id/home_today_date_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="11월 19일"
+                    android:text="00월 00일"
                     android:textSize="20sp"
                     android:textFontWeight="700"
                     android:textColor="#033DAB"
