@@ -24,12 +24,14 @@ class LoveFoodPagingAdapter(listener : OnLoveClick)  : PagingDataAdapter<Restaur
             holder.itemView.setOnClickListener {
                 if(holder.itemView.findViewById<ImageView>(R.id.item_love_location_iv).visibility == View.VISIBLE){
                     holder.itemView.findViewById<ImageView>(R.id.item_love_location_iv).visibility = View.GONE
+                    holder.itemView.findViewById<TextView>(R.id.item_love_distance_tv).visibility = View.GONE
                     holder.itemView.findViewById<TextView>(R.id.item_love_location_tv).visibility = View.GONE
                     holder.itemView.findViewById<ImageView>(R.id.item_love_phone_iv).visibility = View.GONE
                     holder.itemView.findViewById<TextView>(R.id.item_love_phone_tv).visibility = View.GONE
                     holder.itemView.findViewById<ConstraintLayout>(R.id.item_love_detail_iv).visibility = View.GONE
                 }else{
                     holder.itemView.findViewById<ImageView>(R.id.item_love_location_iv).visibility = View.VISIBLE
+                    holder.itemView.findViewById<TextView>(R.id.item_love_distance_tv).visibility = View.VISIBLE
                     holder.itemView.findViewById<TextView>(R.id.item_love_location_tv).visibility = View.VISIBLE
                     holder.itemView.findViewById<ImageView>(R.id.item_love_phone_iv).visibility = View.VISIBLE
                     holder.itemView.findViewById<TextView>(R.id.item_love_phone_tv).visibility = View.VISIBLE

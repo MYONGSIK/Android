@@ -1,16 +1,20 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentSelectHomeBinding
+import com.myongsik.myongsikandroid.ui.view.search.LoveFragmentDirections
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 
 class SelectHomeFragment : Fragment() {
+    private lateinit var callback: OnBackPressedCallback
 
     private var _binding : FragmentSelectHomeBinding?= null
     private val binding : FragmentSelectHomeBinding
@@ -24,6 +28,20 @@ class SelectHomeFragment : Fragment() {
     ): View? {
         _binding = FragmentSelectHomeBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        //뒤로가기 버튼 클릭 시 검색화면으로
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val action = SelectHomeFragmentDirections.actionFragmentSelectHomeToFragmentHome()
+                findNavController().navigate(action)
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+//
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

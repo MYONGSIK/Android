@@ -38,7 +38,7 @@ class SplashFragment : Fragment() {
         val handler = Handler(Looper.getMainLooper())
 
         // test
-        MyongsikApplication.prefs.setUserCampus("")
+//        MyongsikApplication.prefs.setUserCampus("")
 
         if(MyongsikApplication.prefs.getUserCampus() ==""){
             handler.postDelayed({

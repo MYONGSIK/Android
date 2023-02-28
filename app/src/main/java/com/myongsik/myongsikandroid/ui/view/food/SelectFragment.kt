@@ -1,24 +1,23 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
-import android.app.AlertDialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.ads.identifier.AdvertisingIdClient
 import com.myongsik.myongsikandroid.R
+import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.databinding.FragmentSelectBinding
+import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.DialogUtils
+import com.myongsik.myongsikandroid.util.GetAdvertisingIdTask
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 
 class SelectFragment : Fragment() {
@@ -28,6 +27,7 @@ class SelectFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var mainActivity : MainActivity
+    private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,14 +41,29 @@ class SelectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dialogUtils = DialogUtils(requireContext())
+        dialogUtils.showConfirmDialog("", "",
+        yesClickListener = {
+        }, noClickListener = {})
         binding.splashFBt.setOnClickListener {
             dialogUtils.showCampusSettingDialog("인문캠퍼스로\n캠퍼스 설정을 하시겠어요?", 4,
                 yesClickListener = {
-                    MyongsikApplication.prefs.setUserCampus("S")
-                    if (!getNetworkConnected(requireContext())) {
-                        findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
-                    } else {
-                        findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
+                    // 회원 등록
+                    context?.let { it1 -> GetAdvertisingIdTask(it1).execute() }
+                    val deviceId = it.id
+
+
+                    val requestUser = RequestUserData(deviceId.toString())
+                    mainViewModel.postUser(requestUser)
+                    mainViewModel.postUserData.observe(viewLifecycleOwner){
+                        if (it.success){
+                            MyongsikApplication.prefs.setUserId(deviceId.toString())
+                            MyongsikApplication.prefs.setUserCampus("S")
+                            if (!getNetworkConnected(requireContext())) {
+                                findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
+                            } else {
+                                findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
+                            }
+                        }
                     }
                 },
                 noClickListener = {
@@ -65,6 +80,8 @@ class SelectFragment : Fragment() {
                     } else {
                         findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
                     }
+                    // 회원 등록
+
                 },
                 noClickListener = {
                 })

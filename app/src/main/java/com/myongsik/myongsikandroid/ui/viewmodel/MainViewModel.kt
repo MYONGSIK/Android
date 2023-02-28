@@ -8,6 +8,10 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.myongsik.myongsikandroid.data.model.food.*
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
+import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
+import com.myongsik.myongsikandroid.data.model.user.RequestUserData
+import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,43 +28,21 @@ class MainViewModel @Inject constructor(
     private val foodRepository: FoodRepository
 ) : ViewModel() {
 
-    private val _todayGetFood = MutableLiveData<TodayFoodResponse>()
-    val todayGetFood : LiveData<TodayFoodResponse>
-        get() = _todayGetFood
-
-    private val _weekGetFood = MutableLiveData<WeekFoodResponse>()
-    val weekGetFood : LiveData<WeekFoodResponse>
-        get() = _weekGetFood
-
 
     private val _weekGetFoodArea = MutableLiveData<WeekFoodResponse>()
     val weekGetFoodArea : LiveData<WeekFoodResponse>
         get() = _weekGetFoodArea
 
+    private val _postReviewData = MutableLiveData<ResponseReviewData>()
+    val postReviewData : LiveData<ResponseReviewData>
+        get() = _postReviewData
 
-    //오늘 음식 가져오기
-    fun todayGetFoodFun() = viewModelScope.launch(Dispatchers.IO){
-        //
-//        MyongsikApplication.prefs.getUserCampus()
-        val response = foodRepository.todayGetFood()
+    private val _postUserData = MutableLiveData<ResponseUserData>()
+    val postUserData : LiveData<ResponseUserData>
+        get() = _postUserData
 
-        if(response.code() == 200) {
-            _todayGetFood.postValue(response.body())
-        }else{
-            _todayGetFood.postValue(response.body())
-        }
-    }
 
     //이번 주 음식 가져오기
-    fun weekGetFoodFun() = viewModelScope.launch(Dispatchers.IO) {
-        val response = foodRepository.weekGetFood()
-
-        if(response.code() == 200){
-            _weekGetFood.postValue(response.body())
-        }
-    }
-
-    //이번 주 자캠 음식 가져오기
     fun weekGetFoodAreaFun(s: String) = viewModelScope.launch(Dispatchers.IO) {
         val response = foodRepository.weekGetFoodArea(s)
 
@@ -69,6 +51,23 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    // 리뷰 작성하기
+    fun postReview(requestReviewData: RequestReviewData) = viewModelScope.launch(Dispatchers.IO) {
+        val response = foodRepository.postReview(requestReviewData)
+
+        if(response.code() == 200){
+            _postReviewData.postValue(response.body())
+        }
+    }
+
+    // 회원등록
+    fun postUser(requestUserData: RequestUserData) = viewModelScope.launch(Dispatchers.IO) {
+        val response = foodRepository.postUser(requestUserData)
+
+        if(response.code() == 200){
+            _postUserData.postValue(response.body())
+        }
+    }
     //DataStore
     //중식 평가 저장
     fun saveLunchEvaluation(foodResult: FoodResult, value : String) = viewModelScope.launch(Dispatchers.IO) {
