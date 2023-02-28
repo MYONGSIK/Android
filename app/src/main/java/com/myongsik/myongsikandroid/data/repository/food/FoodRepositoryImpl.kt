@@ -12,10 +12,12 @@ import androidx.paging.PagingData
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
 import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
 import com.myongsik.myongsikandroid.data.model.food.FoodResult
-import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
-import com.myongsik.myongsikandroid.data.model.food.WeekFoodAreaResponse
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
+import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
+import com.myongsik.myongsikandroid.data.model.user.RequestUserData
+import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_B_EVALUATION
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_EVALUATION
@@ -39,19 +41,18 @@ class FoodRepositoryImpl @Inject constructor(
     private val api : HomeFoodApi,
 ) : FoodRepository {
 
-    //오늘 식단 조회
-    override suspend fun todayGetFood(): Response<TodayFoodResponse> {
-        return api.todayGetFood()
-    }
-
-    //주간 식단 조회
-    override suspend fun weekGetFood(): Response<WeekFoodResponse> {
-        return api.weekGetFood()
-    }
-
     override suspend fun weekGetFoodArea(s:String): Response<WeekFoodResponse> {
         return api.weekGetFoodArea(s)
     }
+
+    override suspend fun postReview(requestReviewData: RequestReviewData): Response<ResponseReviewData> {
+        return api.postReview(requestReviewData)
+    }
+
+    override suspend fun postUser(requestUserData: RequestUserData): Response<ResponseUserData> {
+        return api.postUser(requestUserData)
+    }
+
 
     //DataStore
     private object PreferencesKeys {

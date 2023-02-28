@@ -2,10 +2,12 @@ package com.myongsik.myongsikandroid.data.repository.food
 
 import androidx.paging.PagingData
 import com.myongsik.myongsikandroid.data.model.food.FoodResult
-import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
-import com.myongsik.myongsikandroid.data.model.food.WeekFoodAreaResponse
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
+import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
+import com.myongsik.myongsikandroid.data.model.user.RequestUserData
+import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
@@ -15,12 +17,12 @@ Repository 패턴을 이용한 FoodRepository interface
 interface FoodRepository {
 
     //오늘 식단, 주간식단 불러오기
-    suspend fun todayGetFood() : Response<TodayFoodResponse>
-
-    suspend fun weekGetFood() : Response<WeekFoodResponse>
 
     suspend fun weekGetFoodArea(s:String) : Response<WeekFoodResponse>
 
+    suspend fun postReview(requestReviewData: RequestReviewData) : Response<ResponseReviewData>
+
+    suspend fun postUser(requestUserData: RequestUserData) : Response<ResponseUserData>
 
     //DataStore
     //DataStore 저장

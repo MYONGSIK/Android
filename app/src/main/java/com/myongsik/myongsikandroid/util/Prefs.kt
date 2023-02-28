@@ -34,4 +34,14 @@ class Prefs(context: Context) {
         return prefs.getString("MY_AREA", "").toString()
     }
 
+    fun setUserId(input: String){
+        editor.putString("MY_ID", input)
+        editor.commit()
+    }
+
+    fun getUserID():String{
+        return prefs.getString("MY_ID", "").toString()
+    }
+
+
 }

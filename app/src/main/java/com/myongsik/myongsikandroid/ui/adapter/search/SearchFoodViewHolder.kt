@@ -49,6 +49,10 @@ class SearchFoodViewHolder(
 //                binding.itemFoodLoveFillIv.visibility = View.INVISIBLE
 //
 //            }
+            // 찜콩 리스트
+            binding.itemFoodLoveIv.visibility = View.INVISIBLE
+            binding.itemFoodLoveFillIv.visibility = View.INVISIBLE
+
             binding.itemFoodLoveIv.setOnClickListener(){
 //                if(mCallback.isItem(restaurant)){
 //                    Snackbar.make(this, "이미 찜하셨습니다.", Snackbar.LENGTH_SHORT).show()

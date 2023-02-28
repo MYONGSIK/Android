@@ -1,11 +1,15 @@
 package com.myongsik.myongsikandroid.data.api
 
 
-import com.myongsik.myongsikandroid.data.model.food.TodayFoodResponse
-import com.myongsik.myongsikandroid.data.model.food.WeekFoodAreaResponse
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
+import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
+import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
+import com.myongsik.myongsikandroid.data.model.user.RequestUserData
+import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 
 /*
@@ -15,15 +19,19 @@ weekGetFood : 주간 음식 조회
  */
 interface HomeFoodApi {
 
-    @GET("/api/v1/foods")
-    suspend fun todayGetFood() : Response<TodayFoodResponse>
-
-    @GET("/api/v1/foods/week")
-    suspend fun weekGetFood() : Response<WeekFoodResponse>
-
     @GET("/api/v2/meals/week/{area}")
     suspend fun weekGetFoodArea(
         @Path("area") area: String
     ) : Response<WeekFoodResponse>
+
+    @POST("/api/v2/reviews")
+    suspend fun postReview(
+        @Body body : RequestReviewData
+    ) : Response<ResponseReviewData>
+
+    @POST("/api/v2/users")
+    suspend fun postUser(
+        @Body body : RequestUserData
+    ) : Response<ResponseUserData>
 
 }
