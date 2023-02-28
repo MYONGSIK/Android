@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
@@ -289,16 +290,19 @@ class HomeFragment : Fragment()  {
         }
 
         // 리뷰 이벤트
+
+
         binding.bt.setOnClickListener{
             val dialogUtils = DialogUtils(requireContext())
-            dialogUtils.showWriteReviewDialog(
-                yesClickListener = {
-
+            dialogUtils.showWriteReviewDialog { editText ->
+                if (editText.text.toString().trim() == "") {
+                    dialogUtils.showConfirmDialog("의견 작성", "의견을 작성해주세요!",
+                        yesClickListener = {
+                        },
+                        noClickListener = {
+                        })
+                } else {
                     // 리뷰 작성
-                    val dialogView = LayoutInflater.from(context).inflate(R.layout.item_review, null)
-
-                    val editText = dialogView.findViewById<EditText>(R.id.review_et)
-
                     val currentDate = LocalDate.now()
                     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     val formattedDate = currentDate.format(formatter)
@@ -315,18 +319,18 @@ class HomeFragment : Fragment()  {
                             val anotherBuilder = AlertDialog.Builder(context)
                             anotherBuilder.setView(anotherDialogView)
                             val anotherDialog = anotherBuilder.create()
+                            anotherDialog.setCancelable(false)
+                            anotherDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
                             anotherDialog.show()
 
                             Handler().postDelayed({
                                 anotherDialog.dismiss()
-                            }, 1500L)
+                            }, 1000L)
                         }
-                    }
-
-
-                    }, noClickListener = {
                 }
-            )
+            }
+                    }
         }
 
 

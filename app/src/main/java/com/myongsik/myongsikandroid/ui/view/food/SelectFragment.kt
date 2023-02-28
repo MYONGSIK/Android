@@ -22,11 +22,11 @@ import com.myongsik.myongsikandroid.util.MyongsikApplication
 
 class SelectFragment : Fragment() {
 
-    private var _binding : FragmentSelectBinding?= null
-    private val binding : FragmentSelectBinding
+    private var _binding: FragmentSelectBinding? = null
+    private val binding: FragmentSelectBinding
         get() = _binding!!
 
-    private lateinit var mainActivity : MainActivity
+    private lateinit var mainActivity: MainActivity
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun onCreateView(
@@ -41,47 +41,61 @@ class SelectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dialogUtils = DialogUtils(requireContext())
+
+        // 첫 경고창
         dialogUtils.showConfirmDialog("", "",
-        yesClickListener = {
-        }, noClickListener = {})
+            yesClickListener = {
+            }, noClickListener = {})
+
+        // 서울
         binding.splashFBt.setOnClickListener {
             dialogUtils.showCampusSettingDialog("인문캠퍼스로\n캠퍼스 설정을 하시겠어요?", 4,
                 yesClickListener = {
                     // 회원 등록
+
                     context?.let { it1 -> GetAdvertisingIdTask(it1).execute() }
                     val deviceId = it.id
 
-
                     val requestUser = RequestUserData(deviceId.toString())
                     mainViewModel.postUser(requestUser)
-                    mainViewModel.postUserData.observe(viewLifecycleOwner){
-                        if (it.success){
-                            MyongsikApplication.prefs.setUserId(deviceId.toString())
-                            MyongsikApplication.prefs.setUserCampus("S")
-                            if (!getNetworkConnected(requireContext())) {
-                                findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
-                            } else {
-                                findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
-                            }
+                    mainViewModel.postUserData.observe(viewLifecycleOwner) {
+
+                        MyongsikApplication.prefs.setUserId(deviceId.toString())
+                        MyongsikApplication.prefs.setUserCampus("S")
+                        if (!getNetworkConnected(requireContext())) {
+                            findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
+                        } else {
+                            findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
                         }
+
                     }
                 },
                 noClickListener = {
                 })
         }
 
-
+        // 용인
         binding.splashSBt.setOnClickListener {
             dialogUtils.showCampusSettingDialog("자연캠퍼스로\n캠퍼스 설정을 하시겠어요?", 4,
                 yesClickListener = {
-                    MyongsikApplication.prefs.setUserCampus("Y")
-                    if (!getNetworkConnected(requireContext())) {
-                        findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
-                    } else {
-                        findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
-                    }
                     // 회원 등록
 
+                    context?.let { it1 -> GetAdvertisingIdTask(it1).execute() }
+                    val deviceId = it.id
+
+                    val requestUser = RequestUserData(deviceId.toString())
+                    mainViewModel.postUser(requestUser)
+                    mainViewModel.postUserData.observe(viewLifecycleOwner) {
+
+                        MyongsikApplication.prefs.setUserId(deviceId.toString())
+                        MyongsikApplication.prefs.setUserCampus("Y")
+                        if (!getNetworkConnected(requireContext())) {
+                            findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
+                        } else {
+                            findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
+                        }
+
+                    }
                 },
                 noClickListener = {
                 })
@@ -89,10 +103,9 @@ class SelectFragment : Fragment() {
 
 
         binding.splashEt.setOnClickListener {
-            if(binding.splashHelpIv.visibility == View.VISIBLE)
-                binding.splashHelpIv.visibility = View.INVISIBLE
-            else
-                binding.splashHelpIv.visibility = View.VISIBLE
+            dialogUtils.showConfirmDialog("캠퍼스 설정",
+                "캠퍼스 설정을 통해 접속 시 선택한 캠퍼스 학식 메뉴를 확인할 수 있습니다.", yesClickListener = {},
+                noClickListener = {})
         }
     }
 
@@ -107,8 +120,8 @@ class SelectFragment : Fragment() {
     //네트워크 상태 확인
     private fun getNetworkConnected(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork : NetworkInfo? = cm.activeNetworkInfo
-        val isConnected : Boolean = activeNetwork?.isConnectedOrConnecting == true
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
 
         return isConnected
     }
