@@ -260,9 +260,14 @@ class MyPagerAdapter(
                 // lunch B - 자캠 불가능
                 val dialogUtils = DialogUtils(holder.itemView.context)
                 if (LUNCH_B_GOOD == "good") {
-                    defaultChangeB()
-                    mainViewModel.saveLunchEvaluation("B", "")
-                    return@setOnClickListener
+                    if (itemViewHolder.binding.todayLunchBGoodTv.currentTextColor == Color.parseColor(
+                            "#274984"
+                        )
+                    ) {
+                        defaultChangeB()
+                        mainViewModel.saveLunchEvaluation("B", "")
+                        return@setOnClickListener
+                    }
                 }
 
                 dialogUtils.showAlertDialog(
@@ -283,6 +288,7 @@ class MyPagerAdapter(
 
                     }
                 )
+                notifyDataSetChanged()
 
             }
 
@@ -292,9 +298,14 @@ class MyPagerAdapter(
                 // lunch B - 자캠 불가능
                 val dialogUtils = DialogUtils(holder.itemView.context)
                 if (LUNCH_B_GOOD == "hate") {
-                    defaultChangeB()
-                    mainViewModel.saveLunchEvaluation("B", "")
-                    return@setOnClickListener
+                    if (itemViewHolder.binding.todayLunchBHateTv.currentTextColor == Color.parseColor(
+                            "#274984"
+                        )
+                    ) {
+                        defaultChangeB()
+                        mainViewModel.saveLunchEvaluation("B", "")
+                        return@setOnClickListener
+                    }
                 }
 
                 dialogUtils.showAlertDialog(
@@ -319,21 +330,31 @@ class MyPagerAdapter(
             }
 
 
-        //
+            //
             itemViewHolder.binding.todayGoodCl.setOnClickListener {
                 val dialogUtils = DialogUtils(holder.itemView.context)
                 if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
                     if (LUNCH_A_GOOD == "good") {
-                        defaultChangeA()
-                        mainViewModel.saveLunchEvaluation("A", "")
-                        return@setOnClickListener
-
-                    }} else {
+                        if (itemViewHolder.binding.todayLunchAGoodTv.currentTextColor == Color.parseColor(
+                                "#274984"
+                            )
+                        ) {
+                            defaultChangeA()
+                            mainViewModel.saveLunchEvaluation("A", "")
+                            return@setOnClickListener
+                        }
+                    }
+                } else {
                     if (LUNCH_A_GOOD_S == "good") {
                         if (MyongsikApplication.prefs.getUserArea() == "L") {
-                            defaultChangeA()
-                            mainViewModel.saveLunchEvaluation("AS", "")
-                            return@setOnClickListener
+                            if (itemViewHolder.binding.todayLunchAGoodTv.currentTextColor == Color.parseColor(
+                                    "#274984"
+                                )
+                            ) {
+                                defaultChangeA()
+                                mainViewModel.saveLunchEvaluation("AS", "")
+                                return@setOnClickListener
+                            }
                         }
                     }
                 }
@@ -360,7 +381,8 @@ class MyPagerAdapter(
                                 mainViewModel.saveLunchEvaluation("AS", "good")
 
                             }
-                        }},
+                        }
+                    },
                     noClickListener = {
 
                     })
@@ -372,16 +394,28 @@ class MyPagerAdapter(
                 val dialogUtils = DialogUtils(holder.itemView.context)
                 if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
                     if (LUNCH_A_GOOD == "hate") {
-                        defaultChangeA()
-                        mainViewModel.saveLunchEvaluation("A", "")
-                        return@setOnClickListener
+                        if (itemViewHolder.binding.todayLunchAHateTv.currentTextColor == Color.parseColor(
+                                "#274984"
+                            )
+                        ) {
+
+                            defaultChangeA()
+                            mainViewModel.saveLunchEvaluation("A", "")
+                            return@setOnClickListener
+                        }
                     }
                 }
                 if (MyongsikApplication.prefs.getUserArea() == "L") {
                     if (LUNCH_A_GOOD_S == "hate") {
-                        defaultChangeA()
-                        mainViewModel.saveLunchEvaluation("AS", "")
-                        return@setOnClickListener
+                        if (itemViewHolder.binding.todayLunchAHateTv.currentTextColor == Color.parseColor(
+                                "#274984"
+                            )
+                        ) {
+
+                            defaultChangeA()
+                            mainViewModel.saveLunchEvaluation("AS", "")
+                            return@setOnClickListener
+                        }
                     }
                 }
 
@@ -420,16 +454,28 @@ class MyPagerAdapter(
                 val dialogUtils = DialogUtils(holder.itemView.context)
                 if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
                     if (DINNER == "good") {
-                    defaultChange()
-                        mainViewModel.saveLunchEvaluation("D", "")
-                        return@setOnClickListener
+                        if (itemViewHolder.binding.todayAfternoonGoodTv.currentTextColor == Color.parseColor(
+                                "#274984"
+                            )
+                        ) {
+
+                            defaultChange()
+                            mainViewModel.saveLunchEvaluation("D", "")
+                            return@setOnClickListener
+                        }
                     }
                 }
                 if (DINNER_S == "good") {
                     if (MyongsikApplication.prefs.getUserArea() == "L") {
-                        defaultChange()
-                        mainViewModel.saveLunchEvaluation("DS", "")
-                        return@setOnClickListener
+                        if (itemViewHolder.binding.todayAfternoonGoodTv.currentTextColor == Color.parseColor(
+                                "#274984"
+                            )
+                        ) {
+
+                            defaultChange()
+                            mainViewModel.saveLunchEvaluation("DS", "")
+                            return@setOnClickListener
+                        }
                     }
                 }
 
@@ -467,17 +513,27 @@ class MyPagerAdapter(
             itemViewHolder.binding.todayHateCl.setOnClickListener {
                 if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
                     if (DINNER == "hate") {
-                        defaultChange()
-                        mainViewModel.saveLunchEvaluation("D", "")
-                        return@setOnClickListener
+                        if (itemViewHolder.binding.todayAfternoonHateTv.currentTextColor == Color.parseColor(
+                                "#274984"
+                            )
+                        ) {
+
+                            defaultChange()
+                            mainViewModel.saveLunchEvaluation("D", "")
+                            return@setOnClickListener
+                        }
                     }
                 }
                 if (DINNER_S == "hate") {
-                    defaultChange()
                     if (MyongsikApplication.prefs.getUserArea() == "L") {
-                        defaultChange()
-                        mainViewModel.saveLunchEvaluation("DS", "")
-                        return@setOnClickListener
+                        if (itemViewHolder.binding.todayAfternoonHateTv.currentTextColor == Color.parseColor(
+                                "#274984"
+                            )
+                        ) {
+                            defaultChange()
+                            mainViewModel.saveLunchEvaluation("DS", "")
+                            return@setOnClickListener
+                        }
                     }
                 }
 
