@@ -11,17 +11,13 @@ import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.telephony.TelephonyManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.ImageView
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -29,24 +25,23 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.api.HomeFoodApi
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
-import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.MyPagerAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.Constant.DINNER
+import com.myongsik.myongsikandroid.util.Constant.DINNER_S
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
+import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD_S
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_B_GOOD
 import com.myongsik.myongsikandroid.util.DialogUtils
 import com.myongsik.myongsikandroid.util.FoodEvaluation
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
-import retrofit2.Call
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 import java.util.*
 
 //홈화면 일간 식단 조회 프래그먼트
@@ -64,17 +59,9 @@ class HomeFragment : Fragment()  {
 
     private lateinit var mainActivity: MainActivity
 
+    private lateinit var localDate : LocalDate
 
-    // 버튼
-    private var button1: ImageView? = null
-    private var button2: ImageView? = null
-    private var button3: ImageView? = null
-    private var button4: ConstraintLayout? = null
-    private var button5: ConstraintLayout? = null
-    private var button6: ConstraintLayout? = null
-    private var button7: ConstraintLayout? = null
-    private var button8: ConstraintLayout? = null
-    private var button9: ConstraintLayout? = null
+    private var initDate : Int = 0
 
 
     override fun onCreateView(
@@ -118,18 +105,6 @@ class HomeFragment : Fragment()  {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // 참조 - 지울수도
-        button1 = binding.viewPager2.findViewById<ImageView>(R.id.today_line_iv)
-        button2 =binding.viewPager2.findViewById<ImageView>(R.id.today_lunch_b_line_iv)
-        button3 = binding.viewPager2.findViewById<ImageView>(R.id.today_line_iv_afternoon)
-        button4 = binding.viewPager2.findViewById<ConstraintLayout>(R.id.today_good_cl)
-        button5 = binding.viewPager2.findViewById<ConstraintLayout>(R.id.today_good_cl_lunch_b)
-        button6 = binding.viewPager2.findViewById<ConstraintLayout>(R.id.today_good_cl_afternoon)
-        button7 = binding.viewPager2.findViewById<ConstraintLayout>(R.id.today_hate_cl_lunch_a)
-        button8 = binding.viewPager2.findViewById<ConstraintLayout>(R.id.today_hate_cl_lunch_b)
-        button9 = binding.viewPager2.findViewById<ConstraintLayout>(R.id.today_hate_cl)
-
-
         if (MyongsikApplication.prefs.getUserCampus() == "S") {
             mainViewModel.weekGetFoodAreaFun("MCC식당")
             mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
@@ -143,9 +118,13 @@ class HomeFragment : Fragment()  {
                 val subLists = originalList.chunked(3)
                 val finalList = subLists.chunked(5)
 
-                binding.viewPager2.adapter = MyPagerAdapter(finalList[0])
+                // 오늘 날짜
+                localDate = LocalDate.parse(it.localDateTime.substring(0,10))
+                initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
+
+                binding.viewPager2.adapter = MyPagerAdapter(finalList[0], it.data[0].mealId, mainViewModel)
                 setCurrentPage(LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value)
-                binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${it.localDateTime.substring(8,10)}일"
+
                 binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                 val indicator = binding.indicator
                 indicator.setViewPager(binding.viewPager2)
@@ -157,6 +136,9 @@ class HomeFragment : Fragment()  {
                     mainViewModel.weekGetFoodAreaFun("교직원식당")
                     mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
                         val list =  mutableListOf<List<String>>()
+                        binding.homeTimeTv.text = String.format(
+                            getString(R.string.home_time_staff_tv)
+                        )
 
                         for (i in 0 until 10){
                             list.add(it.data[i].meals)
@@ -165,8 +147,15 @@ class HomeFragment : Fragment()  {
 
                         val subLists = originalList.chunked(2)
                         val finalList = subLists.chunked(5)
+                        // 오늘 날짜
+                        localDate = LocalDate.parse(it.localDateTime.substring(0,10))
+                        initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
 
-                        binding.viewPager2.adapter = MyPagerAdapter(finalList[0])
+                        binding.viewPager2.adapter = MyPagerAdapter(
+                            finalList[0],
+                            it.data[0].mealId,
+                            mainViewModel
+                        )
                         setCurrentPage(LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value)
                         binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${it.localDateTime.substring(8,10)}일"
                         binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -176,22 +165,39 @@ class HomeFragment : Fragment()  {
 
                 }
                 "L" -> {
-//                    mainViewModel.weekGetFoodAreaFun("생활관식당")
-//                    mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
-//                        val food = it.data
-//                        binding.viewPager2.adapter = ViewPagerAdapter(food)
-//                        binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${
-//                            it.localDateTime.substring(
-//                                8,
-//                                10
-//                            )
-//                        }일"
-//                    }
-//                    MyongsikApplication.prefs.setUserArea("")
+                    mainViewModel.weekGetFoodAreaFun("생활관식당")
+                    mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
+                        val list =  mutableListOf<List<String>>()
+
+                        binding.homeTimeTv.text = String.format(
+                            getString(R.string.home_time_life_tv)
+                        )
+
+                        for (i in 0 until 10){
+                            list.add(it.data[i].meals)
+                        }
+                        val originalList: List<List<String>> = list
+
+                        val subLists = originalList.chunked(2)
+                        val finalList = subLists.chunked(5)
+                        // 오늘 날짜
+                        localDate = LocalDate.parse(it.localDateTime.substring(0,10))
+                        initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
+
+                        binding.viewPager2.adapter = MyPagerAdapter(
+                            finalList[0],
+                            it.data[0].mealId,
+                            mainViewModel
+                        )
+                        setCurrentPage(LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value)
+                        binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${it.localDateTime.substring(8,10)}일"
+                        binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                        val indicator = binding.indicator
+                        indicator.setViewPager(binding.viewPager2)
+                    }
 
                 }
                 "H" -> {
-//                    MyongsikApplication.prefs.setUserArea("")
 
                 }
             }
@@ -199,10 +205,19 @@ class HomeFragment : Fragment()  {
 
 
 
-
+        // 색상
         binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+                // 월요일
+
+
+                val monday = localDate.minusDays(((initDate-1).toLong()))
+                val tues = monday.plus(1, ChronoUnit.DAYS)
+                val wed = tues.plus(1, ChronoUnit.DAYS)
+                val thurs = wed.plus(1, ChronoUnit.DAYS)
+                val fid = thurs.plus(1, ChronoUnit.DAYS)
+
                 when (position) {
                     0 -> {
                         val drawable = context?.let { it1 ->
@@ -221,7 +236,6 @@ class HomeFragment : Fragment()  {
                             drawable?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
                         }
                         binding.homeTodayArrowLeft.setImageDrawable(drawable)
-
                     }
                     4 -> {
                         val drawable = context?.let { it1 ->
@@ -240,6 +254,7 @@ class HomeFragment : Fragment()  {
                             drawable?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
                         }
                         binding.homeTodayArrowRight.setImageDrawable(drawable)
+                        binding.homeTodayDateTv.text = "${fid.toString().substring(5,7)}월 ${fid.toString().substring(8,10)}일"
                     }
                     else -> {
                         binding.homeTodayArrowLeft.setImageDrawable(context?.let {
@@ -255,27 +270,19 @@ class HomeFragment : Fragment()  {
                     }
 
                 }
-                val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
-                val buttonList = listOf(
-                    button1,
-                    button2,
-                    button3,
-                    button4,
-                    button5,
-                    button6,
-                    button7,
-                    button8,
-                    button9
-                )
-                when (position){
-                today - 2 -> {
-                    buttonList.forEach { it?.visibility = View.VISIBLE }
+                when(position) {
+                    0 -> {
+                        binding.homeTodayDateTv.text = "${monday.toString().substring(5, 7)}월 ${
+                            monday.toString().substring(8, 10)
+                        }일"
+
+                    }
+                        1 -> binding.homeTodayDateTv.text = "${tues.toString().substring(5,7)}월 ${tues.toString().substring(8,10)}일"
+                    2 -> binding.homeTodayDateTv.text = "${wed.toString().substring(5,7)}월 ${wed.toString().substring(8,10)}일"
+                    3 -> binding.homeTodayDateTv.text = "${thurs.toString().substring(5,7)}월 ${thurs.toString().substring(8,10)}일"
+                    4 -> binding.homeTodayDateTv.text = "${fid.toString().substring(5,7)}월 ${fid.toString().substring(8,10)}일"
 
                 }
-                else -> {
-                    buttonList.forEach { it?.visibility = View.INVISIBLE }
-                }
-            }
             }
         })
 
@@ -290,16 +297,12 @@ class HomeFragment : Fragment()  {
         }
 
         // 리뷰 이벤트
-
-
         binding.bt.setOnClickListener{
             val dialogUtils = DialogUtils(requireContext())
             dialogUtils.showWriteReviewDialog { editText ->
                 if (editText.text.toString().trim() == "") {
                     dialogUtils.showConfirmDialog("의견 작성", "의견을 작성해주세요!",
                         yesClickListener = {
-                        },
-                        noClickListener = {
                         })
                 } else {
                     // 리뷰 작성
@@ -348,6 +351,8 @@ class HomeFragment : Fragment()  {
             getLaunchEvaluation()
             getLaunchBEvaluation()
             getDinnerEvaluation()
+            getDinnerSEvaluation()
+            getLunchSEvaluation()
         }
 
 
@@ -374,6 +379,8 @@ class HomeFragment : Fragment()  {
                     binding.indicator.visibility = View.VISIBLE
                 }
             }
+            // 들어왔을 때 position 값 = today -2 ==2
+            // localdate값 여기서 왼쪽으로가면 -1 오른쪽 +1
          }
     }
 
@@ -398,7 +405,6 @@ class HomeFragment : Fragment()  {
 
     private fun setCurrentPage(value: Int) {
         binding.viewPager2.setCurrentItem(value-1, false)
-
     }
 
 
@@ -459,24 +465,37 @@ class HomeFragment : Fragment()  {
             }
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-        val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
-        val buttonList = listOf(button1, button2, button3, button4, button5, button6, button7, button8, button9)
-        when (arguments?.getInt("position")) {
-            today - 2 -> {
-                Log.e("uu",today.toString())
-
-                buttonList.forEach { it?.visibility = View.VISIBLE }
-
-            }
-            else -> {
-                Log.e("d",today.toString())
-                buttonList.forEach { it?.visibility = View.INVISIBLE }
+    private fun getDinnerSEvaluation() {
+        lifecycleScope.launch{
+            DINNER_S= when(mainViewModel.getDinnerSEvaluation()){
+                FoodEvaluation.GOOD.value -> {
+                    "good"
+                }
+                FoodEvaluation.HATE.value -> {
+                    "hate"
+                }
+                else -> {
+                    ""
+                }
             }
         }
     }
+    private fun getLunchSEvaluation() {
+        lifecycleScope.launch{
+            LUNCH_A_GOOD_S= when(mainViewModel.getLunchSEvaluation()){
+                FoodEvaluation.GOOD.value -> {
+                    "good"
+                }
+                FoodEvaluation.HATE.value -> {
+                    "hate"
+                }
+                else -> {
+                    ""
+                }
+            }
+        }
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()

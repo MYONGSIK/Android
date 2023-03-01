@@ -1,6 +1,8 @@
 package com.myongsik.myongsikandroid.data.api
 
 
+import com.myongsik.myongsikandroid.data.model.food.RequestMealData
+import com.myongsik.myongsikandroid.data.model.food.ResponseMealData
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
@@ -33,5 +35,12 @@ interface HomeFoodApi {
     suspend fun postUser(
         @Body body : RequestUserData
     ) : Response<ResponseUserData>
+
+    @POST("/api/v2/meals/evaluate")
+    suspend fun postMeal(
+        @Body body : RequestMealData
+    ) : Response<ResponseMealData>
+
+
 
 }
