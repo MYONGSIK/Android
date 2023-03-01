@@ -285,11 +285,9 @@ class MyPagerAdapter(
                 )
 
             }
-        } else {
-            holder.itemView.setOnClickListener(null)
-        }
 
-        if (isItemSelected) {
+
+
             itemViewHolder.binding.todayHateClLunchB.setOnClickListener {
                 // lunch B - 자캠 불가능
                 val dialogUtils = DialogUtils(holder.itemView.context)
@@ -319,12 +317,9 @@ class MyPagerAdapter(
                 )
 
             }
-        } else {
-            holder.itemView.setOnClickListener(null)
-        }
+
 
         //
-        if (isItemSelected) {
             itemViewHolder.binding.todayGoodCl.setOnClickListener {
                 val dialogUtils = DialogUtils(holder.itemView.context)
                 if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
@@ -371,11 +366,8 @@ class MyPagerAdapter(
                     })
 
             }
-        } else {
-            holder.itemView.setOnClickListener(null)
-        }
 
-        if (isItemSelected) {
+
             itemViewHolder.binding.todayHateClLunchA.setOnClickListener {
                 val dialogUtils = DialogUtils(holder.itemView.context)
                 if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
@@ -422,13 +414,8 @@ class MyPagerAdapter(
                 )
 
             }
-        } else {
-            holder.itemView.setOnClickListener(null)
-        }
 
 
-
-        if (isItemSelected) {
             itemViewHolder.binding.todayGoodClAfternoon.setOnClickListener {
                 val dialogUtils = DialogUtils(holder.itemView.context)
                 if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
@@ -475,11 +462,8 @@ class MyPagerAdapter(
                 )
 
             }
-        } else {
-            holder.itemView.setOnClickListener(null)
-        }
 
-        if (isItemSelected) {
+
             itemViewHolder.binding.todayHateCl.setOnClickListener {
                 if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
                     if (DINNER == "hate") {
