@@ -37,7 +37,8 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val handler = Handler(Looper.getMainLooper())
 
-        // test
+//        // test
+//        MyongsikApplication.prefs.setString("key", "gg")
 //        MyongsikApplication.prefs.setUserCampus("")
 
         if(MyongsikApplication.prefs.getUserCampus() ==""){

@@ -104,7 +104,6 @@ class HomeFragment : Fragment()  {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         if (MyongsikApplication.prefs.getUserCampus() == "S") {
             mainViewModel.weekGetFoodAreaFun("MCC식당")
             mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
