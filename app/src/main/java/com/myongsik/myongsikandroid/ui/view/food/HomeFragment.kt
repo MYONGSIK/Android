@@ -157,7 +157,6 @@ class HomeFragment : Fragment()  {
                             mainViewModel
                         )
                         setCurrentPage(LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value)
-                        binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${it.localDateTime.substring(8,10)}일"
                         binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                         val indicator = binding.indicator
                         indicator.setViewPager(binding.viewPager2)
