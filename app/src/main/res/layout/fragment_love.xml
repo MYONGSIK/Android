@@ -27,19 +27,15 @@
         android:layout_marginLeft="12dp"/>
 
     <TextView
-        android:id="@+id/tag_top_tv"
+        android:id="@+id/love_top_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/notosans_regular"
-        android:text="찜콩 리스트"
-        android:textColor="@color/white"
-        android:textFontWeight="700"
-        android:textSize="16sp"
+        android:background="@drawable/new_logo_top"
         android:layout_marginTop="27dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    />
+
 
     <TextView
         android:id="@+id/favorite_empty_love"

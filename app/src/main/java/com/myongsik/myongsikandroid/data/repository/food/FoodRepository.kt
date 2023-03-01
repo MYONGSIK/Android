@@ -26,13 +26,17 @@ interface FoodRepository {
 
     //DataStore
     //DataStore 저장
-    suspend fun saveLunchEvaluation(foodResult: FoodResult, evaluation : String)
+    suspend fun saveLunchEvaluation(type: String, evaluation : String)
 
     //하루가 지나면 DataStore 초기화
     suspend fun defaultDataStore()
 
     //중식평가 DataStore 불러오기
     suspend fun getLunchEvaluation() : Flow<String>
+
+    suspend fun getLunchSEvaluation() : Flow<String>
+
+    suspend fun getDinnerSEvaluation() : Flow<String>
 
     suspend fun getLunchBEvaluation() : Flow<String>
 

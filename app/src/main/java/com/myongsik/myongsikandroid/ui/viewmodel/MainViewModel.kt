@@ -41,6 +41,10 @@ class MainViewModel @Inject constructor(
     val postUserData : LiveData<ResponseUserData>
         get() = _postUserData
 
+    private val _postMealData = MutableLiveData<ResponseMealData>()
+    val postMealData : LiveData<ResponseMealData>
+        get() = _postMealData
+
 
     //이번 주 음식 가져오기
     fun weekGetFoodAreaFun(s: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -70,8 +74,8 @@ class MainViewModel @Inject constructor(
     }
     //DataStore
     //중식 평가 저장
-    fun saveLunchEvaluation(foodResult: FoodResult, value : String) = viewModelScope.launch(Dispatchers.IO) {
-        foodRepository.saveLunchEvaluation(foodResult, value)
+    fun saveLunchEvaluation(type: String, value : String) = viewModelScope.launch(Dispatchers.IO) {
+        foodRepository.saveLunchEvaluation(type, value)
     }
 
     //DataStore 초기화
@@ -84,6 +88,12 @@ class MainViewModel @Inject constructor(
         foodRepository.getLunchEvaluation().first()
     }
 
+    suspend fun getLunchSEvaluation() = withContext(Dispatchers.IO) {
+        foodRepository.getLunchSEvaluation().first()
+    }
+    suspend fun getDinnerSEvaluation() = withContext(Dispatchers.IO) {
+        foodRepository.getDinnerSEvaluation().first()
+    }
     suspend fun getLunchBEvaluation() = withContext(Dispatchers.IO) {
         foodRepository.getLunchBEvaluation().first()
     }

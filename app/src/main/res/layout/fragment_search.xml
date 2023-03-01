@@ -51,15 +51,12 @@
         android:id="@+id/search_top_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/notosans_regular"
-        android:text="명지 맛집"
-        android:textColor="@color/white"
-        android:textFontWeight="700"
-        android:textSize="17sp"
+        android:background="@drawable/new_logo_top"
         android:layout_marginTop="27dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
     <ProgressBar

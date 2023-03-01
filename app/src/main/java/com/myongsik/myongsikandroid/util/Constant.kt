@@ -21,12 +21,16 @@ object Constant {
     //Good, Hate
     //중식 A 평가
     var LUNCH_A_GOOD = ""
+    var LUNCH_A_GOOD_S = ""
 
     //중식 A 평가
     var LUNCH_B_GOOD = ""
 
     //석식 평가
     var DINNER = ""
+
+    var DINNER_S = ""
+
 
     //Paging
     const val PAGING_SIZE = 15

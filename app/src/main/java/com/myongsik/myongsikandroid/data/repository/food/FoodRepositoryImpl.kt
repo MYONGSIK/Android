@@ -19,6 +19,8 @@ import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION
+import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION_S
+import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_A_EVALUATION_S
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_B_EVALUATION
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_EVALUATION
 import com.myongsik.myongsikandroid.util.Constant
@@ -65,11 +67,18 @@ class FoodRepositoryImpl @Inject constructor(
 
         //석식 평가 키
         val DINNER_EVALUATION = stringPreferencesKey("dinner_evaluation")
+
+        //석식 평가 키
+        val DINNER_EVALUATION_S = stringPreferencesKey("dinner_s_evaluation")
+
+        // 중식 평가 키
+        val LUNCH_A_EVALUATION_S = stringPreferencesKey("lunch_s_evaluation")
+
     }
 
     //중식 A, B 석식 평가 저장
-    override suspend fun saveLunchEvaluation(foodResult: FoodResult, evaluation: String) {
-        when (foodResult.type) {
+    override suspend fun saveLunchEvaluation(type: String, evaluation: String) {
+        when (type) {
             "A" -> {
                 dataStore.edit { prefs ->
                     prefs[LUNCH_EVALUATION] = evaluation
@@ -80,9 +89,19 @@ class FoodRepositoryImpl @Inject constructor(
                     prefs[LUNCH_B_EVALUATION] = evaluation
                 }
             }
-            else -> {
+            "D" -> {
                 dataStore.edit { prefs ->
                     prefs[DINNER_EVALUATION] = evaluation
+                }
+            }
+            "DS" -> {
+                dataStore.edit { prefs ->
+                    prefs[DINNER_EVALUATION_S] = evaluation
+                }
+            }
+            "AS" -> {
+                dataStore.edit { prefs ->
+                    prefs[LUNCH_A_EVALUATION_S] = evaluation
                 }
             }
         }
@@ -98,6 +117,12 @@ class FoodRepositoryImpl @Inject constructor(
         }
         dataStore.edit { prefs ->
             prefs[DINNER_EVALUATION] = ""
+        }
+        dataStore.edit { prefs ->
+            prefs[LUNCH_A_EVALUATION_S] = ""
+        }
+        dataStore.edit { prefs ->
+            prefs[DINNER_EVALUATION_S] = ""
         }
     }
 
@@ -149,6 +174,41 @@ class FoodRepositoryImpl @Inject constructor(
             }
             .map { prefs ->
                 prefs[DINNER_EVALUATION] ?: ""
+            }
+    }
+
+
+    //석식 조회
+    override suspend fun getLunchSEvaluation(): Flow<String> {
+        return dataStore.data //data 메서드
+            //실패 했을 대비에 예외처리
+            .catch { exception ->
+                if (exception is IOException) {
+                    exception.printStackTrace()
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { prefs ->
+                prefs[LUNCH_A_EVALUATION_S] ?: ""
+            }
+    }
+
+    //석식 조회
+    override suspend fun getDinnerSEvaluation(): Flow<String> {
+        return dataStore.data //data 메서드
+            //실패 했을 대비에 예외처리
+            .catch { exception ->
+                if (exception is IOException) {
+                    exception.printStackTrace()
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { prefs ->
+                prefs[DINNER_EVALUATION_S] ?: ""
             }
     }
 

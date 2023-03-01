@@ -9,7 +9,7 @@
         android:id="@+id/splash_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="170dp"
         android:src="@drawable/ic_splash_new_logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -30,7 +30,6 @@
         app:layout_constraintTop_toBottomOf="@id/splash_logo" />
 
     <Button
-
         android:id="@+id/splash_f_bt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,10 +39,11 @@
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="인문캠퍼스"
-        android:textColor="@color/sub_color"
+        android:stateListAnimator="@null"
+         android:textColor="@color/white"
         android:textFontWeight="700"
         android:textSize="14sp"
-        app:backgroundTint="@color/white"
+        app:backgroundTint="@color/sub_color"
         app:cornerRadius="100dp"
         app:iconPadding="0dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -62,8 +62,11 @@
         android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="자연캠퍼스"
+        android:stateListAnimator="@null"
         android:textFontWeight="700"
         android:textSize="14sp"
+        app:strokeColor="@color/sub_color"
+        app:strokeWidth="2dp"
         app:backgroundTint="@color/sub_color"
         app:cornerRadius="100dp"
         app:layout_constraintLeft_toLeftOf="parent"
