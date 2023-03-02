@@ -37,7 +37,7 @@ class SelectHomeFragment : Fragment() {
         //뒤로가기 버튼 클릭 시 검색화면으로
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val action = SelectHomeFragmentDirections.actionFragmentSelectHomeToFragmentHome()
+                val action = SelectHomeFragmentDirections.actionFragmentSelectHomeToFragmentSearch()
                 findNavController().navigate(action)
             }
         }
