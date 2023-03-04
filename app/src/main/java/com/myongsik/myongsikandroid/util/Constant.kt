@@ -18,6 +18,7 @@ object Constant {
     //중식 A 평가
     var LUNCH_A_GOOD = ""
     var LUNCH_A_GOOD_S = ""
+    var LUNCH_A_GOOD_H = ""
 
     //중식 A 평가
     var LUNCH_B_GOOD = ""
@@ -26,6 +27,7 @@ object Constant {
     var DINNER = ""
 
     var DINNER_S = ""
+    var DINNER_H = ""
 
 
     //Paging
