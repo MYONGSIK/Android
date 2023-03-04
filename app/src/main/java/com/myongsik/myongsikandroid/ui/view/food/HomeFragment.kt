@@ -446,6 +446,7 @@ class HomeFragment : Fragment()  {
         val calendar = Calendar.getInstance()
         binding.todayDayNotFoodTv.setTextColor(Color.parseColor(color))
         binding.todayDayNotNoticeTv.text = "금일 학생식당은 운영하지 않습니다."
+        binding.homeTodayDateTv.text = "${calendar.get(Calendar.MONTH) + 1 }월 ${calendar.get(Calendar.DAY_OF_MONTH)}일"
         binding.todayDayNotFoodTv.text = "${calendar.get(Calendar.YEAR)}년 ${calendar.get(Calendar.MONTH) + 1 }월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 $dayOfWeekString"
         binding.todayNotFoodCl.visibility = View.VISIBLE
         binding.viewPager2.visibility = View.GONE
