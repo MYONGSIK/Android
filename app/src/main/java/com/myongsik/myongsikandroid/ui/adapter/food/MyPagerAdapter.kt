@@ -242,7 +242,6 @@ class MyPagerAdapter(
                 if (DINNER_H == "hate") getHateChangeDinner()
             }
 
-
         }
 
 
@@ -281,7 +280,6 @@ class MyPagerAdapter(
 
                     }
                 )
-                notifyDataSetChanged()
 
             }
 
@@ -338,14 +336,26 @@ class MyPagerAdapter(
                         }
                     }
                 } else {
-                    if (LUNCH_A_GOOD_S == "good") {
                         if (MyongsikApplication.prefs.getUserArea() == "L") {
-                            if (itemViewHolder.binding.todayLunchAGoodTv.currentTextColor == Color.parseColor(
+                            if (LUNCH_A_GOOD_S == "good") {
+                                if (itemViewHolder.binding.todayLunchAGoodTv.currentTextColor == Color.parseColor(
                                     "#274984"
                                 )
                             ) {
                                 defaultChangeA()
                                 mainViewModel.saveLunchEvaluation("AS", "")
+                                return@setOnClickListener
+                            }
+                        }
+                    }
+                    if (MyongsikApplication.prefs.getUserArea() == "H") {
+                        if (LUNCH_A_GOOD_H == "good") {
+                            if (itemViewHolder.binding.todayLunchAGoodTv.currentTextColor == Color.parseColor(
+                                    "#274984"
+                                )
+                            ) {
+                                defaultChangeA()
+                                mainViewModel.saveLunchEvaluation("AH", "")
                                 return@setOnClickListener
                             }
                         }
@@ -372,6 +382,12 @@ class MyPagerAdapter(
                                 LUNCH_A_GOOD_S = "good"
                                 getGoodChangeLunchA()
                                 mainViewModel.saveLunchEvaluation("AS", "good")
+
+                            }
+                            if (MyongsikApplication.prefs.getUserArea() == "H") {
+                                LUNCH_A_GOOD_H = "good"
+                                getGoodChangeLunchA()
+                                mainViewModel.saveLunchEvaluation("AH", "good")
 
                             }
                         }
@@ -411,6 +427,18 @@ class MyPagerAdapter(
                         }
                     }
                 }
+                if (MyongsikApplication.prefs.getUserArea() == "H") {
+                    if (LUNCH_A_GOOD_H == "hate") {
+                        if (itemViewHolder.binding.todayLunchAGoodTv.currentTextColor == Color.parseColor(
+                                "#274984"
+                            )
+                        ) {
+                            defaultChangeA()
+                            mainViewModel.saveLunchEvaluation("AH", "")
+                            return@setOnClickListener
+                        }
+                    }
+                }
 
                 dialogUtils.showAlertDialog(
                     "‘맛없어요’로\n" +
@@ -432,6 +460,11 @@ class MyPagerAdapter(
                                 LUNCH_A_GOOD_S = "hate"
                                 getHateChangeLunchA()
                                 mainViewModel.saveLunchEvaluation("AS", "hate")
+                            }
+                            if (MyongsikApplication.prefs.getUserArea() == "H") {
+                                LUNCH_A_GOOD_H = "hate"
+                                getHateChangeLunchA()
+                                mainViewModel.saveLunchEvaluation("AH", "hate")
                             }
                         }
                     },
@@ -458,15 +491,28 @@ class MyPagerAdapter(
                         }
                     }
                 }
-                if (DINNER_S == "good") {
                     if (MyongsikApplication.prefs.getUserArea() == "L") {
-                        if (itemViewHolder.binding.todayAfternoonGoodTv.currentTextColor == Color.parseColor(
+                        if (DINNER_S == "good") {
+                            if (itemViewHolder.binding.todayAfternoonGoodTv.currentTextColor == Color.parseColor(
                                 "#274984"
                             )
                         ) {
 
                             defaultChange()
                             mainViewModel.saveLunchEvaluation("DS", "")
+                            return@setOnClickListener
+                        }
+                    }
+                }
+                if (MyongsikApplication.prefs.getUserArea() == "H") {
+                    if (DINNER_H == "good") {
+                        if (itemViewHolder.binding.todayAfternoonGoodTv.currentTextColor == Color.parseColor(
+                                "#274984"
+                            )
+                        ) {
+
+                            defaultChange()
+                            mainViewModel.saveLunchEvaluation("DH", "")
                             return@setOnClickListener
                         }
                     }
@@ -488,11 +534,20 @@ class MyPagerAdapter(
                         }
                         // 자캠의 경우
                         else {
-                            DINNER_S = "good"
-                            getGoodChangeDinner()
+                            if (MyongsikApplication.prefs.getUserArea() == "S") {
 
-                            mainViewModel.saveLunchEvaluation("DS", "good")
+                                DINNER_S = "good"
+                                getGoodChangeDinner()
 
+                                mainViewModel.saveLunchEvaluation("DS", "good")
+                            }
+                            if (MyongsikApplication.prefs.getUserArea() == "H") {
+
+                                DINNER_H = "good"
+                                getGoodChangeDinner()
+
+                                mainViewModel.saveLunchEvaluation("DH", "good")
+                            }
                         }
                     },
                     noClickListener = {
@@ -517,9 +572,9 @@ class MyPagerAdapter(
                         }
                     }
                 }
-                if (DINNER_S == "hate") {
                     if (MyongsikApplication.prefs.getUserArea() == "L") {
-                        if (itemViewHolder.binding.todayAfternoonHateTv.currentTextColor == Color.parseColor(
+                        if (DINNER_S == "hate") {
+                            if (itemViewHolder.binding.todayAfternoonHateTv.currentTextColor == Color.parseColor(
                                 "#274984"
                             )
                         ) {
@@ -529,6 +584,21 @@ class MyPagerAdapter(
                         }
                     }
                 }
+                if (MyongsikApplication.prefs.getUserArea() == "H") {
+                    if (DINNER_H == "hate") {
+                        if (itemViewHolder.binding.todayAfternoonGoodTv.currentTextColor == Color.parseColor(
+                                "#274984"
+                            )
+                        ) {
+
+                            defaultChange()
+                            mainViewModel.saveLunchEvaluation("DH", "")
+                            return@setOnClickListener
+
+                        }
+                    }
+                }
+
 
                 val dialogUtils = DialogUtils(holder.itemView.context)
                 dialogUtils.showAlertDialog(
@@ -548,10 +618,20 @@ class MyPagerAdapter(
                         }
                         // 자캠 생활관
                         else {
-                            DINNER_S = "hate"
-                            getHateChangeDinner()
+                            if (MyongsikApplication.prefs.getUserArea() == "S") {
 
-                            mainViewModel.saveLunchEvaluation("DS", "hate")
+                                DINNER_S = "hate"
+                                getHateChangeDinner()
+
+                                mainViewModel.saveLunchEvaluation("DS", "hate")
+                            }
+                            if (MyongsikApplication.prefs.getUserArea() == "H") {
+
+                                DINNER_H = "hate"
+                                getHateChangeDinner()
+
+                                mainViewModel.saveLunchEvaluation("DH", "hate")
+                            }
 
                         }
                     },
