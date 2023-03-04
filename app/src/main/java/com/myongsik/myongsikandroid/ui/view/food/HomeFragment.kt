@@ -111,7 +111,13 @@ class HomeFragment : Fragment()  {
             mainViewModel.weekGetFoodAreaFun("MCC식당")
             mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
                 val list =  mutableListOf<List<String>>()
+                // 오늘 날짜
+                localDate = LocalDate.parse(it.localDateTime.substring(0,10))
+                initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
 
+                if(it.data.size <2){
+                    return@observe
+                }
                 for (i in 0 until 15){
                     list.add(it.data[i].meals)
                 }
@@ -119,10 +125,6 @@ class HomeFragment : Fragment()  {
 
                 val subLists = originalList.chunked(3)
                 val finalList = subLists.chunked(5)
-
-                // 오늘 날짜
-                localDate = LocalDate.parse(it.localDateTime.substring(0,10))
-                initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
 
                 binding.viewPager2.adapter = MyPagerAdapter(finalList[0], it.data[0].mealId, mainViewModel)
                 setCurrentPage(LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value)
@@ -141,7 +143,13 @@ class HomeFragment : Fragment()  {
                         binding.homeTimeTv.text = String.format(
                             getString(R.string.home_time_staff_tv)
                         )
+                        // 오늘 날짜
+                        localDate = LocalDate.parse(it.localDateTime.substring(0,10))
+                        initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
 
+                        if(it.data.size <2){
+                            return@observe
+                        }
                         for (i in 0 until 10){
                             list.add(it.data[i].meals)
                         }
@@ -149,9 +157,6 @@ class HomeFragment : Fragment()  {
 
                         val subLists = originalList.chunked(2)
                         val finalList = subLists.chunked(5)
-                        // 오늘 날짜
-                        localDate = LocalDate.parse(it.localDateTime.substring(0,10))
-                        initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
 
                         binding.viewPager2.adapter = MyPagerAdapter(
                             finalList[0],
@@ -173,6 +178,13 @@ class HomeFragment : Fragment()  {
                         binding.homeTimeTv.text = String.format(
                             getString(R.string.home_time_life_tv)
                         )
+                        // 오늘 날짜
+                        localDate = LocalDate.parse(it.localDateTime.substring(0,10))
+                        initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
+
+                        if(it.data.size <2){
+                            return@observe
+                        }
 
                         for (i in 0 until 10){
                             list.add(it.data[i].meals)
@@ -181,9 +193,6 @@ class HomeFragment : Fragment()  {
 
                         val subLists = originalList.chunked(2)
                         val finalList = subLists.chunked(5)
-                        // 오늘 날짜
-                        localDate = LocalDate.parse(it.localDateTime.substring(0,10))
-                        initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
 
                         binding.viewPager2.adapter = MyPagerAdapter(
                             finalList[0],
@@ -207,6 +216,14 @@ class HomeFragment : Fragment()  {
                             getString(R.string.home_time_life_tv)
                         )
 
+                        // 오늘 날짜
+                        localDate = LocalDate.parse(it.localDateTime.substring(0,10))
+                        initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
+
+                        if(it.data.size <2){
+                            return@observe
+                        }
+
                         for (i in 0 until 10){
                             list.add(it.data[i].meals)
                         }
@@ -214,9 +231,6 @@ class HomeFragment : Fragment()  {
 
                         val subLists = originalList.chunked(2)
                         val finalList = subLists.chunked(5)
-                        // 오늘 날짜
-                        localDate = LocalDate.parse(it.localDateTime.substring(0,10))
-                        initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
 
                         binding.viewPager2.adapter = MyPagerAdapter(
                             finalList[0],
