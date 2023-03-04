@@ -31,8 +31,10 @@ import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.MyPagerAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.Constant.DINNER
+import com.myongsik.myongsikandroid.util.Constant.DINNER_H
 import com.myongsik.myongsikandroid.util.Constant.DINNER_S
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
+import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD_H
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD_S
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_B_GOOD
 import com.myongsik.myongsikandroid.util.DialogUtils
@@ -197,7 +199,36 @@ class HomeFragment : Fragment()  {
 
                 }
                 "H" -> {
+                    mainViewModel.weekGetFoodAreaFun("학관식당")
+                    mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
+                        val list =  mutableListOf<List<String>>()
 
+                        binding.homeTimeTv.text = String.format(
+                            getString(R.string.home_time_life_tv)
+                        )
+
+                        for (i in 0 until 10){
+                            list.add(it.data[i].meals)
+                        }
+                        val originalList: List<List<String>> = list
+
+                        val subLists = originalList.chunked(2)
+                        val finalList = subLists.chunked(5)
+                        // 오늘 날짜
+                        localDate = LocalDate.parse(it.localDateTime.substring(0,10))
+                        initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
+
+                        binding.viewPager2.adapter = MyPagerAdapter(
+                            finalList[0],
+                            it.data[0].mealId,
+                            mainViewModel
+                        )
+                        setCurrentPage(LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value)
+                        binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${it.localDateTime.substring(8,10)}일"
+                        binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                        val indicator = binding.indicator
+                        indicator.setViewPager(binding.viewPager2)
+                    }
                 }
             }
         }
@@ -348,7 +379,8 @@ class HomeFragment : Fragment()  {
             DINNER = ""
             LUNCH_A_GOOD_S = ""
             DINNER_S = ""
-
+            LUNCH_A_GOOD_H = ""
+            DINNER_H = ""
             defaultDataStore()
             MyongsikApplication.prefs.setString("key", "todayStart")
         } else {
@@ -357,6 +389,8 @@ class HomeFragment : Fragment()  {
             getDinnerEvaluation()
             getDinnerSEvaluation()
             getLunchSEvaluation()
+            getDinnerHEvaluation()
+            getLunchHEvaluation()
         }
 
 
@@ -487,6 +521,37 @@ class HomeFragment : Fragment()  {
     private fun getLunchSEvaluation() {
         lifecycleScope.launch{
             LUNCH_A_GOOD_S= when(mainViewModel.getLunchSEvaluation()){
+                FoodEvaluation.GOOD.value -> {
+                    "good"
+                }
+                FoodEvaluation.HATE.value -> {
+                    "hate"
+                }
+                else -> {
+                    ""
+                }
+            }
+        }
+    }
+
+    private fun getDinnerHEvaluation() {
+        lifecycleScope.launch{
+            DINNER_H= when(mainViewModel.getDinnerHEvaluation()){
+                FoodEvaluation.GOOD.value -> {
+                    "good"
+                }
+                FoodEvaluation.HATE.value -> {
+                    "hate"
+                }
+                else -> {
+                    ""
+                }
+            }
+        }
+    }
+    private fun getLunchHEvaluation() {
+        lifecycleScope.launch{
+            LUNCH_A_GOOD_H= when(mainViewModel.getLunchHEvaluation()){
                 FoodEvaluation.GOOD.value -> {
                     "good"
                 }
