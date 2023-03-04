@@ -88,20 +88,28 @@ class MainViewModel @Inject constructor(
         foodRepository.getLunchEvaluation().first()
     }
 
+    suspend fun getLunchBEvaluation() = withContext(Dispatchers.IO) {
+        foodRepository.getLunchBEvaluation().first()
+    }
+
+    suspend fun getDinnerEvaluation() = withContext(Dispatchers.IO) {
+        foodRepository.getDinnerEvaluation().first()
+    }
+
+    suspend fun getLunchHEvaluation() = withContext(Dispatchers.IO) {
+        foodRepository.getLunchHEvaluation().first()
+    }
+    suspend fun getDinnerHEvaluation() = withContext(Dispatchers.IO) {
+        foodRepository.getDinnerHEvaluation().first()
+    }
+
     suspend fun getLunchSEvaluation() = withContext(Dispatchers.IO) {
         foodRepository.getLunchSEvaluation().first()
     }
     suspend fun getDinnerSEvaluation() = withContext(Dispatchers.IO) {
         foodRepository.getDinnerSEvaluation().first()
     }
-    suspend fun getLunchBEvaluation() = withContext(Dispatchers.IO) {
-        foodRepository.getLunchBEvaluation().first()
-    }
 
-    //석식 평가 불러오기
-    suspend fun getDinnerEvaluation() = withContext(Dispatchers.IO) {
-        foodRepository.getDinnerEvaluation().first()
-    }
 
     //Room
     fun saveFoods(restaurant: Restaurant) = viewModelScope.launch(Dispatchers.IO) {

@@ -33,15 +33,15 @@ interface FoodRepository {
 
     //중식평가 DataStore 불러오기
     suspend fun getLunchEvaluation() : Flow<String>
-
-    suspend fun getLunchSEvaluation() : Flow<String>
-
-    suspend fun getDinnerSEvaluation() : Flow<String>
-
     suspend fun getLunchBEvaluation() : Flow<String>
 
     suspend fun getDinnerEvaluation() : Flow<String>
+    suspend fun getLunchSEvaluation() : Flow<String>
 
+    suspend fun getDinnerSEvaluation() : Flow<String>
+    suspend fun getLunchHEvaluation() : Flow<String>
+
+    suspend fun getDinnerHEvaluation() : Flow<String>
     //Room
     suspend fun insertFoods(restaurant: Restaurant)
 
