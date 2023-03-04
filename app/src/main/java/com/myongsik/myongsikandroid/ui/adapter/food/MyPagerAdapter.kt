@@ -16,8 +16,10 @@ import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.ItemHomeTodayFoodBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.Constant.DINNER
+import com.myongsik.myongsikandroid.util.Constant.DINNER_H
 import com.myongsik.myongsikandroid.util.Constant.DINNER_S
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
+import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD_H
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD_S
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_B_GOOD
 import com.myongsik.myongsikandroid.util.DialogUtils
@@ -219,34 +221,25 @@ class MyPagerAdapter(
 
         // 버튼 색 판단
         if (isItemSelected) {
-            if (LUNCH_A_GOOD == "good") {
-                if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S")
-                    getGoodChangeLunchA()
+            if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S"){
+                if (LUNCH_A_GOOD == "good") getGoodChangeLunchA()
+                if (LUNCH_A_GOOD == "hate") getHateChangeLunchA()
+                if (LUNCH_B_GOOD == "good") getGoodChangeLunchB()
+                if (LUNCH_B_GOOD == "hate") getHateChangeLunchB()
+                if (DINNER == "good") getGoodChangeDinner()
+                if (DINNER == "hate") getHateChangeDinner()
             }
-            if (LUNCH_B_GOOD == "good") getGoodChangeLunchB()
-            if (LUNCH_A_GOOD == "hate") {
-                if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") getHateChangeLunchA()
-            }
-            if (LUNCH_B_GOOD == "hate") getHateChangeLunchB()
-
-            if (LUNCH_A_GOOD_S == "good") {
-                if (MyongsikApplication.prefs.getUserArea() == "L") getGoodChangeLunchA()
-            }
-            if (LUNCH_A_GOOD_S == "hate") {
-                if (MyongsikApplication.prefs.getUserArea() == "L") getHateChangeLunchA()
-            }
-
-            if (DINNER == "good") {
-                if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") getGoodChangeDinner()
-            }
-            if (DINNER == "hate") {
-                if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") getHateChangeDinner()
-            }
-            if (DINNER_S == "hate") {
-                if (MyongsikApplication.prefs.getUserArea() == "L") getHateChangeDinner()
-            }
-            if (DINNER_S == "good") {
-                if (MyongsikApplication.prefs.getUserArea() == "L") getGoodChangeDinner()
+            if (MyongsikApplication.prefs.getUserArea() == "L"){
+                if (LUNCH_A_GOOD_S == "good") getGoodChangeLunchA()
+                if (LUNCH_A_GOOD_S == "hate") getHateChangeLunchA()
+                if (DINNER_S == "good") getGoodChangeDinner()
+                if (DINNER_S == "hate") getHateChangeDinner()
+                }
+            if (MyongsikApplication.prefs.getUserArea() == "H"){
+                if (LUNCH_A_GOOD_H == "good") getGoodChangeLunchA()
+                if (LUNCH_A_GOOD_H == "hate") getHateChangeLunchA()
+                if (DINNER_H == "good") getGoodChangeDinner()
+                if (DINNER_H == "hate") getHateChangeDinner()
             }
 
 
