@@ -346,6 +346,9 @@ class HomeFragment : Fragment()  {
             LUNCH_A_GOOD = ""
             LUNCH_B_GOOD = ""
             DINNER = ""
+            LUNCH_A_GOOD_S = ""
+            DINNER_S = ""
+
             defaultDataStore()
             MyongsikApplication.prefs.setString("key", "todayStart")
         } else {
