@@ -619,10 +619,8 @@ class MyPagerAdapter(
                         // 자캠 생활관
                         else {
                             if (MyongsikApplication.prefs.getUserArea() == "L") {
-
                                 DINNER_S = "hate"
                                 getHateChangeDinner()
-
                                 mainViewModel.saveLunchEvaluation("DS", "hate")
                             }
                             if (MyongsikApplication.prefs.getUserArea() == "H") {
