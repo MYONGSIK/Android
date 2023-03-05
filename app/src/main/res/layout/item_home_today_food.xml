@@ -151,7 +151,7 @@
         android:background="@drawable/home_today_food_stroke"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/today_lunch_b_line_iv"
-        app:layout_constraintTop_toBottomOf="@id/home_lunch_a_v"
+        app:layout_constraintTop_toBottomOf="@id/home_afternoon_v"
         android:layout_marginTop="20dp"
 
          />
@@ -172,7 +172,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="11dp"
             android:paddingVertical="4dp"
-            android:text="중식B"
+            android:text="석식"
             android:textColor="@color/sub_color"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -290,7 +290,7 @@
         android:background="@drawable/home_today_food_stroke"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/today_line_iv_afternoon"
-        app:layout_constraintTop_toBottomOf="@id/home_lunch_b_v"
+        app:layout_constraintTop_toBottomOf="@id/home_lunch_a_v"
         android:layout_marginTop="20dp"
         />
 
@@ -311,7 +311,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="15dp"
             android:paddingVertical="4dp"
-            android:text="석식"
+            android:text="중식B"
             android:includeFontPadding="false"
             android:fontFamily="@font/notosans_regular"
             android:textFontWeight="500"
