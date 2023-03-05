@@ -164,6 +164,7 @@ class HomeFragment : Fragment()  {
                             mainViewModel
                         )
                         setCurrentPage(LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value)
+                        binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${it.localDateTime.substring(8,10)}일"
                         binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                         val indicator = binding.indicator
                         indicator.setViewPager(binding.viewPager2)
@@ -430,8 +431,6 @@ class HomeFragment : Fragment()  {
                     binding.indicator.visibility = View.VISIBLE
                 }
             }
-            // 들어왔을 때 position 값 = today -2 ==2
-            // localdate값 여기서 왼쪽으로가면 -1 오른쪽 +1
          }
     }
 
@@ -445,7 +444,6 @@ class HomeFragment : Fragment()  {
         val calendar = Calendar.getInstance()
         binding.todayDayNotFoodTv.setTextColor(Color.parseColor(color))
         binding.todayDayNotNoticeTv.text = "금일 학생식당은 운영하지 않습니다."
-        binding.homeTodayDateTv.text = "${calendar.get(Calendar.MONTH) + 1 }월 ${calendar.get(Calendar.DAY_OF_MONTH)}일"
         binding.todayDayNotFoodTv.text = "${calendar.get(Calendar.YEAR)}년 ${calendar.get(Calendar.MONTH) + 1 }월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 $dayOfWeekString"
         binding.todayNotFoodCl.visibility = View.VISIBLE
         binding.viewPager2.visibility = View.GONE
