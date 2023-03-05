@@ -208,7 +208,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
-        android:text="운영시간"
+        android:text="운영시간\n중식 11:30~14:00"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:paddingBottom="35dp"
