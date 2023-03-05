@@ -47,17 +47,10 @@ class SelectHomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.selectHomeHakV.visibility = View.GONE
-        binding.selectHomeHakIv.visibility = View.GONE
-        binding.selectHomeHakTime.visibility = View.GONE
-        binding.selectHomeHakTv.visibility = View.GONE
 
         binding.selectHomeHakV.setOnClickListener {
             MyongsikApplication.prefs.setUserArea("H")
-            val dialogUtils = DialogUtils(requireContext())
-            dialogUtils.showConfirmDialog("학관 식당","아직 준비중입니다!", yesClickListener = {})
-
-//            findNavController().navigate(R.id.action_fragment_select_home_to_fragment_home)
+            findNavController().navigate(R.id.action_fragment_select_home_to_fragment_home)
         }
         binding.selectHomeLifeV.setOnClickListener {
             MyongsikApplication.prefs.setUserArea("L")

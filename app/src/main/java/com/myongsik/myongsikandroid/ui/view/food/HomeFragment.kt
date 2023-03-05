@@ -208,13 +208,12 @@ class HomeFragment : Fragment()  {
 
                 }
                 "H" -> {
-                    mainViewModel.weekGetFoodAreaFun("학관식당")
+                    mainViewModel.weekGetFoodAreaFun("학생식당")
+                    binding.homeTimeTv.text = String.format(
+                        getString(R.string.home_time_student_tv)
+                    )
                     mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
                         val list =  mutableListOf<List<String>>()
-
-                        binding.homeTimeTv.text = String.format(
-                            getString(R.string.home_time_life_tv)
-                        )
 
                         // 오늘 날짜
                         localDate = LocalDate.parse(it.localDateTime.substring(0,10))
