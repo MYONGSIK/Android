@@ -429,7 +429,7 @@ class MyPagerAdapter(
                 }
                 if (MyongsikApplication.prefs.getUserArea() == "H") {
                     if (LUNCH_A_GOOD_H == "hate") {
-                        if (itemViewHolder.binding.todayLunchAGoodTv.currentTextColor == Color.parseColor(
+                        if (itemViewHolder.binding.todayLunchAHateTv.currentTextColor == Color.parseColor(
                                 "#274984"
                             )
                         ) {
@@ -586,7 +586,7 @@ class MyPagerAdapter(
                 }
                 if (MyongsikApplication.prefs.getUserArea() == "H") {
                     if (DINNER_H == "hate") {
-                        if (itemViewHolder.binding.todayAfternoonGoodTv.currentTextColor == Color.parseColor(
+                        if (itemViewHolder.binding.todayAfternoonHateTv.currentTextColor == Color.parseColor(
                                 "#274984"
                             )
                         ) {
