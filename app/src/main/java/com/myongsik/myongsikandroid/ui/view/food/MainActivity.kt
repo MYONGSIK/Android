@@ -6,13 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.alarm.AlarmBroadCastReceiver
 import com.myongsik.myongsikandroid.databinding.ActivityMainBinding
-import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -25,8 +23,6 @@ class MainActivity : AppCompatActivity() {
     private val binding : ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-
-    lateinit var mainViewModel : MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,13 +82,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
-
-
-
-//        val foodRepository = FoodRepositoryImpl(dataStore)
-//        val factory = MainViewModelProviderFactory(foodRepository)
-//        mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
         // Background
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
