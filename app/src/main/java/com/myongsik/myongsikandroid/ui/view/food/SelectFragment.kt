@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -35,7 +35,7 @@ class SelectFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSelectBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -46,32 +46,32 @@ class SelectFragment : Fragment() {
         val dialogUtils = DialogUtils(requireContext())
 
 
-        binding.splashFBt.setOnTouchListener { view, motionEvent ->
+        binding.splashFBt.setOnTouchListener { _, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    binding.splashFBt.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white));
-                    binding.splashFBt.setTextColor(ContextCompat.getColor(context!!, R.color.sub_color));
+                    binding.splashFBt.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
+                    binding.splashFBt.setTextColor(ContextCompat.getColor(context!!, R.color.sub_color))
                 }
                 MotionEvent.ACTION_UP -> {
-                    binding.splashFBt.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.sub_color));
-                    binding.splashFBt.setTextColor(ContextCompat.getColor(context!!, R.color.white));
-//                    view.performClick()
+                    binding.splashFBt.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.sub_color))
+                    binding.splashFBt.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    //                    view.performClick()
                 }
 
             }
             false
         }
 
-        binding.splashSBt.setOnTouchListener { view, motionEvent ->
+        binding.splashSBt.setOnTouchListener { _, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
-                    binding.splashSBt.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white));
-                    binding.splashSBt.setTextColor(ContextCompat.getColor(context!!, R.color.sub_color));
+                    binding.splashSBt.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.white))
+                    binding.splashSBt.setTextColor(ContextCompat.getColor(context!!, R.color.sub_color))
                 }
                 MotionEvent.ACTION_UP -> {
-                    binding.splashSBt.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.sub_color));
-                    binding.splashSBt.setTextColor(ContextCompat.getColor(context!!, R.color.white));
-//                    view.performClick()
+                    binding.splashSBt.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.sub_color))
+                    binding.splashSBt.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    //                    view.performClick()
                 }
 
             }
@@ -86,9 +86,10 @@ class SelectFragment : Fragment() {
 
         // 서울
         binding.splashFBt.setOnClickListener {
-            binding.splashFBt.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white));
-            binding.splashFBt.setTextColor(ContextCompat.getColor(context!!, R.color.sub_color));
-
+            context?.let {
+                binding.splashFBt.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(it, R.color.white))
+                binding.splashFBt.setTextColor(ContextCompat.getColor(it, R.color.sub_color));
+            }
             dialogUtils.showAlertDialog("인문캠퍼스로\n캠퍼스 설정을 하시겠어요?", 4,
                 yesClickListener = {
                     // 회원 등록
@@ -112,16 +113,19 @@ class SelectFragment : Fragment() {
                     }
                 },
                 noClickListener = {
-                    binding.splashFBt.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.sub_color));
-                    binding.splashFBt.setTextColor(ContextCompat.getColor(context!!, R.color.white));
-
+                    context?.let {
+                        binding.splashFBt.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(it, R.color.sub_color))
+                        binding.splashFBt.setTextColor(ContextCompat.getColor(it, R.color.white))
+                    }
                 })
         }
 
         // 용인
         binding.splashSBt.setOnClickListener {
-            binding.splashSBt.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.white));
-            binding.splashSBt.setTextColor(ContextCompat.getColor(context!!, R.color.sub_color));
+            context?.let {
+                binding.splashSBt.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(it, R.color.white))
+                binding.splashSBt.setTextColor(ContextCompat.getColor(it, R.color.sub_color))
+            }
 
             dialogUtils.showAlertDialog("자연캠퍼스로\n캠퍼스 설정을 하시겠어요?", 4,
                 yesClickListener = {
@@ -145,9 +149,10 @@ class SelectFragment : Fragment() {
                     }
                 },
                 noClickListener = {
-                    binding.splashSBt.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.sub_color));
-                    binding.splashSBt.setTextColor(ContextCompat.getColor(context!!, R.color.white));
-
+                    context?.let {
+                        binding.splashSBt.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(it, R.color.sub_color))
+                        binding.splashSBt.setTextColor(ContextCompat.getColor(it, R.color.white))
+                    }
                 })
         }
 
@@ -169,10 +174,9 @@ class SelectFragment : Fragment() {
     //네트워크 상태 확인
     private fun getNetworkConnected(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
-        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-
-        return isConnected
+        val network = cm.activeNetwork
+        val networkCapabilities: NetworkCapabilities = (cm.getNetworkCapabilities(network) ?: false) as NetworkCapabilities
+        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
 
 
