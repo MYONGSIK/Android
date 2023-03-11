@@ -61,6 +61,11 @@ class SelectHomeFragment : Fragment() {
             findNavController().navigate(R.id.action_fragment_select_home_to_fragment_home)
 
         }
+        binding.selectHomeMyongV.setOnClickListener {
+            MyongsikApplication.prefs.setUserArea("M")
+            findNavController().navigate(R.id.action_fragment_select_home_to_fragment_home)
+
+        }
     }
 
 
