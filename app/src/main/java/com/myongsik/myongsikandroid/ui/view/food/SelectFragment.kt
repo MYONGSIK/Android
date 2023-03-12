@@ -175,8 +175,8 @@ class SelectFragment : Fragment() {
     private fun getNetworkConnected(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = cm.activeNetwork
-        val networkCapabilities: NetworkCapabilities = (cm.getNetworkCapabilities(network) ?: false) as NetworkCapabilities
-        return networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        val networkCapabilities: NetworkCapabilities? = cm.getNetworkCapabilities(network)
+        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?:false
     }
 
 
