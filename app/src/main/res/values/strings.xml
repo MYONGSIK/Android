@@ -10,4 +10,8 @@
     <string name="home_time_myonog_tv">운영시간 │ 미정</string>
     <string name="week_today_tv">주간 식단표</string>
     <string name="splash_help_select">캠퍼스 설정을 통해 \n 접속 시 선택한 캠퍼스 \n 학식 메뉴를 확인할 수 있습니다.</string>
+    <string name="seoul_campus">인문캠퍼스</string>
+    <string name="yongin_campus">자연캠퍼스</string>
+    <string name="campus_setting">캠퍼스 설정</string>
+    <string name="app_sub_title">명지대 학식 식단표 제공 앱</string>
 </resources>
