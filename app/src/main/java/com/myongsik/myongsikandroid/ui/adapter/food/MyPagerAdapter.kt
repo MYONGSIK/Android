@@ -35,7 +35,6 @@ class MyPagerAdapter(
 
     private var builderDinnerFood = SpannableStringBuilder()
 
-
     inner class ItemViewHolder(
         val binding: ItemHomeTodayFoodBinding
     ) : RecyclerView.ViewHolder(binding.root) {
