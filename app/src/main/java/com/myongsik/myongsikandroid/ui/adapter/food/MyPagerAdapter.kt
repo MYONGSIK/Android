@@ -28,7 +28,6 @@ import java.util.*
 
 class MyPagerAdapter(
     private val itemList: List<List<List<String>>>,
-    private val mealId: Int,
     private val mainViewModel: MainViewModel
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
