@@ -13,13 +13,12 @@
 
 ## 📌 Screen Shot
 <p align="center">
-<img src="https://user-images.githubusercontent.com/83231344/200797384-f4c5b57f-06e7-4c8b-95e7-3725db07f48c.png" width="18%" height="30%">
-<img src="https://user-images.githubusercontent.com/83231344/200797690-a4277918-8f4f-4061-92a8-0bf5383b2433.png" width="18%" height="30%">
-<img src="https://user-images.githubusercontent.com/83231344/200797713-c26f45df-8944-4de3-b174-8fa09e16f2e6.png" width="18%" height="30%">
-<img src="https://user-images.githubusercontent.com/83231344/200797734-93456f9c-7331-40d0-9684-6540123c56f2.png" width="18%" height="30%">
-<img src="https://user-images.githubusercontent.com/83231344/200797788-a01b6b77-0125-41de-98b0-64dfe9f95c4f.png" width="18%" height="30%">
+<img src="https://user-images.githubusercontent.com/83231344/224467941-e221991d-b2f4-47a1-a78b-9de11878a8ac.png" width="18%" height="30%">
+<img src="https://user-images.githubusercontent.com/83231344/224467946-90a93ae6-9e9b-48c0-abb2-998e73cd257b.png" width="18%" height="30%">
+<img src="https://user-images.githubusercontent.com/83231344/224467948-fd4ad661-f7e0-434e-9f9b-20b9ba8bd25b.png" width="18%" height="30%">
+<img src="https://user-images.githubusercontent.com/83231344/224467953-62daf11d-cb3c-484d-8411-e67c3bf8951d.png" width="18%" height="30%">
+<img src="https://user-images.githubusercontent.com/83231344/224467960-f747fb78-9b05-4c82-b831-3a2c15297a1e.png" width="18%" height="30%">
 </p>
-
 
 
 ## 📌 History
@@ -29,6 +28,10 @@
 ✔️ <b>10월 24일 1차 배포</b><br>
 ✔️ <b>10월 25일 ~ 11월 6일 식당, 카페 검색 및 추천, 찜꽁리스트 기능 개발</b><br>
 ✔️ <b>11월 7일 2차 배포</b><br>
+✔️ <b>2023년 2월 28일 ~ 3월 5일 자연캠퍼스 식당 3곳 추가 개발</b><br>
+✔️ <b>전체 뷰 재작업, 자세한 리뷰 달기 기능 개발</b><br>
+✔️ <b>3월 6일 3차 배포</b><br>
+✔️ <b>3월 12일 자연캠퍼스 식당 1곳 추가 업데이트</b><br>
 ✔️ <b>기능 추가 및 유지보수 예정</b><br>
 
 ## 📌 기술 스택(Tech Skill)

@@ -19,7 +19,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -49,10 +48,10 @@ import java.util.*
 
 //홈화면 일간 식단 조회 프래그먼트
 @AndroidEntryPoint
-class HomeFragment : Fragment()  {
+class HomeFragment : Fragment() {
 
-    private var _binding : FragmentHomeBinding?= null
-    private val binding : FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding: FragmentHomeBinding
         get() = _binding!!
 
     private val mainViewModel by activityViewModels<MainViewModel>()
@@ -62,9 +61,9 @@ class HomeFragment : Fragment()  {
 
     private lateinit var mainActivity: MainActivity
 
-    private lateinit var localDate : LocalDate
+    private lateinit var localDate: LocalDate
 
-    private var initDate : Int = 0
+    private var initDate: Int = 0
 
 
     override fun onCreateView(
@@ -87,8 +86,15 @@ class HomeFragment : Fragment()  {
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 //뒤로가기 버튼시 검색화면으로
-                val action = HomeFragmentDirections.actionFragmentHomeToFragmentSearch()
-                findNavController().navigate(action)
+                if (MyongsikApplication.prefs.getUserCampus() == "S") {
+                    val action = HomeFragmentDirections.actionFragmentHomeToFragmentSearch()
+                    findNavController().navigate(action)
+                } else {
+                    // 자캠은 식당 선택화면
+                    val action = HomeFragmentDirections.actionFragmentHomeToFragmentSelectHome()
+                    findNavController().navigate(action)
+                }
+
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
@@ -97,8 +103,8 @@ class HomeFragment : Fragment()  {
     //네트워크 상태 확인
     private fun getNetworkConnected(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork : NetworkInfo? = cm.activeNetworkInfo
-        val isConnected : Boolean = activeNetwork?.isConnectedOrConnecting == true
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
 
         return isConnected
     }
@@ -110,15 +116,13 @@ class HomeFragment : Fragment()  {
         if (MyongsikApplication.prefs.getUserCampus() == "S") {
             mainViewModel.weekGetFoodAreaFun("MCC식당")
             mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
-                val list =  mutableListOf<List<String>>()
-                // 오늘 날짜
-                localDate = LocalDate.parse(it.localDateTime.substring(0,10))
-                initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
+                val list = mutableListOf<List<String>>()
+                binding.homeTimeTv.text = String.format(
+                    getString(R.string.home_time_tv)
+                )
+                settingDate(LocalDate.parse(it.localDateTime.substring(0, 10)))
 
-                if(it.data.size <2){
-                    return@observe
-                }
-                for (i in 0 until 15){
+                for (i in 0 until 15) {
                     list.add(it.data[i].meals)
                 }
                 val originalList: List<List<String>> = list
@@ -126,31 +130,28 @@ class HomeFragment : Fragment()  {
                 val subLists = originalList.chunked(3)
                 val finalList = subLists.chunked(5)
 
-                binding.viewPager2.adapter = MyPagerAdapter(finalList[0], it.data[0].mealId, mainViewModel)
-                setCurrentPage(LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value)
+
+                binding.viewPager2.adapter =
+                    MyPagerAdapter(finalList[0], it.data[0].mealId, mainViewModel)
+                setCurrentPage(initDate)
 
                 binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                 val indicator = binding.indicator
                 indicator.setViewPager(binding.viewPager2)
             }
-        }else if (MyongsikApplication.prefs.getUserCampus() == "Y") {
+        } else if (MyongsikApplication.prefs.getUserCampus() == "Y") {
             Log.e("campus", MyongsikApplication.prefs.getUserArea())
             when (MyongsikApplication.prefs.getUserArea()) {
                 "S" -> {
                     mainViewModel.weekGetFoodAreaFun("교직원식당")
                     mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
-                        val list =  mutableListOf<List<String>>()
+                        val list = mutableListOf<List<String>>()
                         binding.homeTimeTv.text = String.format(
                             getString(R.string.home_time_staff_tv)
                         )
-                        // 오늘 날짜
-                        localDate = LocalDate.parse(it.localDateTime.substring(0,10))
-                        initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
+                        settingDate(LocalDate.parse(it.localDateTime.substring(0, 10)))
 
-                        if(it.data.size <2){
-                            return@observe
-                        }
-                        for (i in 0 until 10){
+                        for (i in 0 until 10) {
                             list.add(it.data[i].meals)
                         }
                         val originalList: List<List<String>> = list
@@ -163,8 +164,8 @@ class HomeFragment : Fragment()  {
                             it.data[0].mealId,
                             mainViewModel
                         )
-                        setCurrentPage(LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value)
-                        binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${it.localDateTime.substring(8,10)}일"
+                        setCurrentPage(initDate)
+
                         binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                         val indicator = binding.indicator
                         indicator.setViewPager(binding.viewPager2)
@@ -174,20 +175,14 @@ class HomeFragment : Fragment()  {
                 "L" -> {
                     mainViewModel.weekGetFoodAreaFun("생활관식당")
                     mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
-                        val list =  mutableListOf<List<String>>()
+                        val list = mutableListOf<List<String>>()
 
                         binding.homeTimeTv.text = String.format(
                             getString(R.string.home_time_life_tv)
                         )
-                        // 오늘 날짜
-                        localDate = LocalDate.parse(it.localDateTime.substring(0,10))
-                        initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
+                        settingDate(LocalDate.parse(it.localDateTime.substring(0, 10)))
 
-                        if(it.data.size <2){
-                            return@observe
-                        }
-
-                        for (i in 0 until 10){
+                        for (i in 0 until 10) {
                             list.add(it.data[i].meals)
                         }
                         val originalList: List<List<String>> = list
@@ -200,8 +195,8 @@ class HomeFragment : Fragment()  {
                             it.data[0].mealId,
                             mainViewModel
                         )
-                        setCurrentPage(LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value)
-                        binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${it.localDateTime.substring(8,10)}일"
+                        setCurrentPage(initDate)
+
                         binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                         val indicator = binding.indicator
                         indicator.setViewPager(binding.viewPager2)
@@ -214,17 +209,12 @@ class HomeFragment : Fragment()  {
                         getString(R.string.home_time_student_tv)
                     )
                     mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
-                        val list =  mutableListOf<List<String>>()
+                        val list = mutableListOf<List<String>>()
 
-                        // 오늘 날짜
-                        localDate = LocalDate.parse(it.localDateTime.substring(0,10))
-                        initDate = LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value
+                        settingDate(LocalDate.parse(it.localDateTime.substring(0, 10)))
 
-                        if(it.data.size <2){
-                            return@observe
-                        }
 
-                        for (i in 0 until 10){
+                        for (i in 0 until 10) {
                             list.add(it.data[i].meals)
                         }
                         val originalList: List<List<String>> = list
@@ -237,18 +227,43 @@ class HomeFragment : Fragment()  {
                             it.data[0].mealId,
                             mainViewModel
                         )
-                        setCurrentPage(LocalDate.parse(it.localDateTime.substring(0,10)).dayOfWeek.value)
-                        binding.homeTodayDateTv.text = "${it.localDateTime.substring(5, 7)}월 ${it.localDateTime.substring(8,10)}일"
+                        setCurrentPage(initDate)
+
                         binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                         val indicator = binding.indicator
                         indicator.setViewPager(binding.viewPager2)
                     }
                 }
+                "M" -> {
+                    mainViewModel.weekGetFoodAreaFun("명진당식당")
+                    binding.homeTimeTv.text = String.format(
+                        getString(R.string.home_time_myonog_tv)
+                    )
+                    mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
+                        val list = mutableListOf<List<String>>()
+                        settingDate(LocalDate.parse(it.localDateTime.substring(0, 10)))
+                        Log.e("s", it.data.toString())
+
+                        for (i in 0 until it.data.size) {
+                            list.add(it.data[i].meals)
+                        }
+                        val originalList: List<List<String>> = list
+
+                        val subLists = originalList.chunked(3)
+                        val finalList = subLists.chunked(5)
+
+                        binding.viewPager2.adapter =
+                            MyPagerAdapter(finalList[0], it.data[0].mealId, mainViewModel)
+                        setCurrentPage(initDate)
+
+                        binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                        val indicator = binding.indicator
+                        indicator.setViewPager(binding.viewPager2)
+
+                    }
+                }
             }
         }
-
-
-
 
 
         // 색상
@@ -256,9 +271,7 @@ class HomeFragment : Fragment()  {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 // 월요일
-
-
-                val monday = localDate.minusDays(((initDate-1).toLong()))
+                val monday = localDate.minusDays(((initDate - 1).toLong()))
                 val tues = monday.plus(1, ChronoUnit.DAYS)
                 val wed = tues.plus(1, ChronoUnit.DAYS)
                 val thurs = wed.plus(1, ChronoUnit.DAYS)
@@ -300,7 +313,8 @@ class HomeFragment : Fragment()  {
                             drawable?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
                         }
                         binding.homeTodayArrowRight.setImageDrawable(drawable)
-                        binding.homeTodayDateTv.text = "${fid.toString().substring(5,7)}월 ${fid.toString().substring(8,10)}일"
+                        binding.homeTodayDateTv.text =
+                            "${fid.toString().substring(5, 7)}월 ${fid.toString().substring(8, 10)}일"
                     }
                     else -> {
                         binding.homeTodayArrowLeft.setImageDrawable(context?.let {
@@ -316,17 +330,21 @@ class HomeFragment : Fragment()  {
                     }
 
                 }
-                when(position) {
+                when (position) {
                     0 -> {
                         binding.homeTodayDateTv.text = "${monday.toString().substring(5, 7)}월 ${
                             monday.toString().substring(8, 10)
                         }일"
 
                     }
-                        1 -> binding.homeTodayDateTv.text = "${tues.toString().substring(5,7)}월 ${tues.toString().substring(8,10)}일"
-                    2 -> binding.homeTodayDateTv.text = "${wed.toString().substring(5,7)}월 ${wed.toString().substring(8,10)}일"
-                    3 -> binding.homeTodayDateTv.text = "${thurs.toString().substring(5,7)}월 ${thurs.toString().substring(8,10)}일"
-                    4 -> binding.homeTodayDateTv.text = "${fid.toString().substring(5,7)}월 ${fid.toString().substring(8,10)}일"
+                    1 -> binding.homeTodayDateTv.text =
+                        "${tues.toString().substring(5, 7)}월 ${tues.toString().substring(8, 10)}일"
+                    2 -> binding.homeTodayDateTv.text =
+                        "${wed.toString().substring(5, 7)}월 ${wed.toString().substring(8, 10)}일"
+                    3 -> binding.homeTodayDateTv.text =
+                        "${thurs.toString().substring(5, 7)}월 ${thurs.toString().substring(8, 10)}일"
+                    4 -> binding.homeTodayDateTv.text =
+                        "${fid.toString().substring(5, 7)}월 ${fid.toString().substring(8, 10)}일"
 
                 }
             }
@@ -343,7 +361,7 @@ class HomeFragment : Fragment()  {
         }
 
         // 리뷰 이벤트
-        binding.bt.setOnClickListener{
+        binding.bt.setOnClickListener {
             val dialogUtils = DialogUtils(requireContext())
             dialogUtils.showWriteReviewDialog { editText ->
                 if (editText.text.toString().trim() == "") {
@@ -359,12 +377,14 @@ class HomeFragment : Fragment()  {
                     val request = RequestReviewData(
                         editText.text.toString(),
                         formattedDate,
-                        MyongsikApplication.prefs.getUserID())
+                        MyongsikApplication.prefs.getUserID()
+                    )
 
                     mainViewModel.postReview(request)
                     mainViewModel.postReviewData.observe(viewLifecycleOwner) {
-                        if(it.success){
-                            val anotherDialogView = LayoutInflater.from(context).inflate(R.layout.item_review_dialog, null)
+                        if (it.success) {
+                            val anotherDialogView = LayoutInflater.from(context)
+                                .inflate(R.layout.item_review_dialog, null)
                             val anotherBuilder = AlertDialog.Builder(context)
                             anotherBuilder.setView(anotherDialogView)
                             val anotherDialog = anotherBuilder.create()
@@ -377,11 +397,10 @@ class HomeFragment : Fragment()  {
                                 anotherDialog.dismiss()
                             }, 1000L)
                         }
+                    }
                 }
             }
-                    }
         }
-
 
 
 //        mainViewModel = (activity as MainActivity).mainViewModel
@@ -415,46 +434,41 @@ class HomeFragment : Fragment()  {
             binding.viewPager2.visibility = View.INVISIBLE
             binding.todayDayNotFoodTv.visibility = View.INVISIBLE
             binding.todayDayNotNoticeTv.text = "네트워크 상태를 확인해주세요."
-        }
-        else {
+        } else {
             //주말
-            when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
-                Calendar.SATURDAY -> {
-                    showNotFoodDay(6)
-                }
-                Calendar.SUNDAY -> {
-                    showNotFoodDay(7)
-                }
-                else -> {
-                    binding.viewPager2.visibility = View.VISIBLE
-                    binding.todayNotFoodCl.visibility = View.INVISIBLE
-                    binding.indicator.visibility = View.VISIBLE
-                }
+            if (Calendar.getInstance()
+                    .get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || Calendar.getInstance()
+                    .get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+            ) {
+                val dialogUtils = context?.let { DialogUtils(it) }
+                dialogUtils?.showConfirmDialog(
+                    "주말 운영 안내",
+                    "주말에는 식당을 운영하지 않습니다.",
+                    yesClickListener = {
+                    })
             }
-         }
+            binding.viewPager2.visibility = View.VISIBLE
+            binding.todayNotFoodCl.visibility = View.INVISIBLE
+            binding.indicator.visibility = View.VISIBLE
+        }
+
     }
 
-    private fun showNotFoodDay(value: Int) {
-        val color = if (value == 6) "#274984" else "#E31F1F"
-        val dayOfWeekString = when (value) {
-            6 -> "토요일"
-            7 -> "일요일"
-            else -> return
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun settingDate(localDateTime: LocalDate) {
+        // 오늘 날짜
+        localDate = localDateTime
+        initDate = localDateTime.dayOfWeek.value
+        if (initDate == 7){
+            localDate = localDate.plusDays(1)
+            initDate = 1
         }
-        val calendar = Calendar.getInstance()
-        binding.todayDayNotFoodTv.setTextColor(Color.parseColor(color))
-        binding.todayDayNotNoticeTv.text = "금일 학생식당은 운영하지 않습니다."
-        binding.todayDayNotFoodTv.text = "${calendar.get(Calendar.YEAR)}년 ${calendar.get(Calendar.MONTH) + 1 }월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 $dayOfWeekString"
-        binding.todayNotFoodCl.visibility = View.VISIBLE
-        binding.viewPager2.visibility = View.GONE
-        binding.indicator.visibility = View.GONE
-        binding.bt.visibility = View.GONE
-        binding.homeTodayArrowRight.visibility = View.GONE
-        binding.homeTodayArrowLeft.visibility = View.GONE
+
     }
+
 
     private fun setCurrentPage(value: Int) {
-        binding.viewPager2.setCurrentItem(value-1, false)
+        binding.viewPager2.setCurrentItem(value - 1, false)
     }
 
 
@@ -467,9 +481,9 @@ class HomeFragment : Fragment()  {
 
     //중식 평가 불러오기
     private fun getLaunchEvaluation() {
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             //현재 불러온 값에 따라 값을 저장
-            LUNCH_A_GOOD = when(mainViewModel.getLunchEvaluation()){
+            LUNCH_A_GOOD = when (mainViewModel.getLunchEvaluation()) {
                 FoodEvaluation.GOOD.value -> {
                     "good"
                 }
@@ -485,8 +499,8 @@ class HomeFragment : Fragment()  {
 
     //중식 B 평가 불러오기
     private fun getLaunchBEvaluation() {
-        lifecycleScope.launch{
-            LUNCH_B_GOOD = when(mainViewModel.getLunchBEvaluation()){
+        lifecycleScope.launch {
+            LUNCH_B_GOOD = when (mainViewModel.getLunchBEvaluation()) {
                 FoodEvaluation.GOOD.value -> {
                     "good"
                 }
@@ -501,8 +515,8 @@ class HomeFragment : Fragment()  {
     }
 
     private fun getDinnerEvaluation() {
-        lifecycleScope.launch{
-            DINNER = when(mainViewModel.getDinnerEvaluation()){
+        lifecycleScope.launch {
+            DINNER = when (mainViewModel.getDinnerEvaluation()) {
                 FoodEvaluation.GOOD.value -> {
                     "good"
                 }
@@ -515,9 +529,10 @@ class HomeFragment : Fragment()  {
             }
         }
     }
+
     private fun getDinnerSEvaluation() {
-        lifecycleScope.launch{
-            DINNER_S= when(mainViewModel.getDinnerSEvaluation()){
+        lifecycleScope.launch {
+            DINNER_S = when (mainViewModel.getDinnerSEvaluation()) {
                 FoodEvaluation.GOOD.value -> {
                     "good"
                 }
@@ -530,9 +545,10 @@ class HomeFragment : Fragment()  {
             }
         }
     }
+
     private fun getLunchSEvaluation() {
-        lifecycleScope.launch{
-            LUNCH_A_GOOD_S= when(mainViewModel.getLunchSEvaluation()){
+        lifecycleScope.launch {
+            LUNCH_A_GOOD_S = when (mainViewModel.getLunchSEvaluation()) {
                 FoodEvaluation.GOOD.value -> {
                     "good"
                 }
@@ -547,8 +563,8 @@ class HomeFragment : Fragment()  {
     }
 
     private fun getDinnerHEvaluation() {
-        lifecycleScope.launch{
-            DINNER_H= when(mainViewModel.getDinnerHEvaluation()){
+        lifecycleScope.launch {
+            DINNER_H = when (mainViewModel.getDinnerHEvaluation()) {
                 FoodEvaluation.GOOD.value -> {
                     "good"
                 }
@@ -561,9 +577,10 @@ class HomeFragment : Fragment()  {
             }
         }
     }
+
     private fun getLunchHEvaluation() {
-        lifecycleScope.launch{
-            LUNCH_A_GOOD_H= when(mainViewModel.getLunchHEvaluation()){
+        lifecycleScope.launch {
+            LUNCH_A_GOOD_H = when (mainViewModel.getLunchHEvaluation()) {
                 FoodEvaluation.GOOD.value -> {
                     "good"
                 }

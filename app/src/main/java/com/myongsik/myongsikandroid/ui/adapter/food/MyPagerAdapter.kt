@@ -35,7 +35,6 @@ class MyPagerAdapter(
 
     private var builderDinnerFood = SpannableStringBuilder()
 
-
     inner class ItemViewHolder(
         val binding: ItemHomeTodayFoodBinding
     ) : RecyclerView.ViewHolder(binding.root) {
@@ -100,7 +99,25 @@ class MyPagerAdapter(
             itemView.apply {
 
 //                binding.todayLunchAGoodIv.nofi()
+                if (MyongsikApplication.prefs.getUserArea() == "H"){
+                    binding.weekFoodLunchAV.text = "조식"
+                    binding.weekFoodAfternoonTv.text = "중식"
+                }
+                if (MyongsikApplication.prefs.getUserArea() == "M"){
+                    binding.weekFoodLunchAV.text = "백반"
+                    binding.weekFoodLunchBTv.text = "샐러드"
+                    binding.weekFoodAfternoonTv.text = "볶음밥"
+                    binding.todayGoodClLunchB.visibility = GONE
+                    binding.todayGoodCl.visibility = GONE
+                    binding.todayGoodClAfternoon.visibility = GONE
+                    binding.todayHateClLunchB.visibility = GONE
+                    binding.todayHateCl.visibility = GONE
+                    binding.todayHateClLunchA.visibility = GONE
+                    binding.todayLunchBLineIv.visibility = GONE
+                    binding.todayLineIv.visibility = GONE
+                    binding.todayLineIvAfternoon.visibility = GONE
 
+                }
                 // text 설정, 자캠의 경우는 lunchB 지우기
                 binding.todayFood1.text = builderWeekFoodA
                 if (weekFoodResult.size.toString() == "3") {
