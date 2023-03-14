@@ -3,8 +3,6 @@ package com.myongsik.myongsikandroid.ui.view.food
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -21,6 +19,7 @@ import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.DialogUtils
 import com.myongsik.myongsikandroid.util.GetAdvertisingIdTask
 import com.myongsik.myongsikandroid.util.MyongsikApplication
+import com.myongsik.myongsikandroid.util.NetworkUtils
 
 class SelectFragment : Fragment() {
 
@@ -88,7 +87,7 @@ class SelectFragment : Fragment() {
         binding.splashFBt.setOnClickListener {
             context?.let {
                 binding.splashFBt.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(it, R.color.white))
-                binding.splashFBt.setTextColor(ContextCompat.getColor(it, R.color.sub_color));
+                binding.splashFBt.setTextColor(ContextCompat.getColor(it, R.color.sub_color))
             }
             dialogUtils.showAlertDialog("인문캠퍼스로\n캠퍼스 설정을 하시겠어요?", 4,
                 yesClickListener = {
@@ -104,7 +103,7 @@ class SelectFragment : Fragment() {
 
                         MyongsikApplication.prefs.setUserId(deviceId.toString())
                         MyongsikApplication.prefs.setUserCampus("S")
-                        if (!getNetworkConnected(requireContext())) {
+                        if (!NetworkUtils.getNetworkConnected(context)) {
                             findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
                         } else {
                             findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
@@ -140,7 +139,7 @@ class SelectFragment : Fragment() {
 
                         MyongsikApplication.prefs.setUserId(deviceId.toString())
                         MyongsikApplication.prefs.setUserCampus("Y")
-                        if (!getNetworkConnected(requireContext())) {
+                        if (!NetworkUtils.getNetworkConnected(context)) {
                             findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
                         } else {
                             findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
@@ -169,14 +168,6 @@ class SelectFragment : Fragment() {
         super.onAttach(context)
 
         mainActivity = context as MainActivity
-    }
-
-    //네트워크 상태 확인
-    private fun getNetworkConnected(context: Context): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val network = cm.activeNetwork
-        val networkCapabilities: NetworkCapabilities? = cm.getNetworkCapabilities(network)
-        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?:false
     }
 
 

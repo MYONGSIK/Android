@@ -1,21 +1,18 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
 import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentSplashBinding
 import com.myongsik.myongsikandroid.util.MyongsikApplication
+import com.myongsik.myongsikandroid.util.NetworkUtils
 
 class SplashFragment : Fragment() {
 
@@ -29,7 +26,7 @@ class SplashFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -47,7 +44,7 @@ class SplashFragment : Fragment() {
             },1500)
             return
         }
-        if(!getNetworkConnected(mainActivity.applicationContext)){
+        if(!NetworkUtils.getNetworkConnected(context)){
             handler.postDelayed({
                 findNavController().navigate(R.id.action_fragment_splash_to_fragment_home)
             },1500)
@@ -67,16 +64,6 @@ class SplashFragment : Fragment() {
 
         mainActivity = context as MainActivity
     }
-
-    //네트워크 상태 확인
-    private fun getNetworkConnected(context: Context): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork : NetworkInfo? = cm.activeNetworkInfo
-        val isConnected : Boolean = activeNetwork?.isConnectedOrConnecting == true
-
-        return isConnected
-    }
-
 
     override fun onDestroyView() {
         _binding = null

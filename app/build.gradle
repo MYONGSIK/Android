@@ -31,15 +31,19 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
     kapt {
         correctErrorTypes true
+    }
+    defaultConfig {
+        multiDexEnabled true
     }
 }
 
@@ -121,4 +125,7 @@ dependencies {
 
     // Naver map
     implementation 'com.naver.maps:map-sdk:3.14.0'
+
+    //disugaring
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
 }
