@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,13 +26,10 @@ import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.adapter.state.SearchFoodLoadStateAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
-import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModelProviderFactory
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 
@@ -72,7 +68,7 @@ class SearchFragment : Fragment(), OnLoveClick {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -223,7 +219,6 @@ class SearchFragment : Fragment(), OnLoveClick {
 
     //검색 리사이클러뷰
     private fun setUpRecyclerView(){
-//        searchFoodAdapter = SearchFoodAdapter()
         searchFoodAdapter = SearchFoodPagingAdapter(this)
         binding.searchMyongjiRv.apply {
             setHasFixedSize(true)
@@ -304,11 +299,6 @@ class SearchFragment : Fragment(), OnLoveClick {
 
 
     override fun isItem(string: String){
-//        mainViewModel.isUpdate.observe(viewLifecycleOwner){
-//            return@observe it
-//        }
-
-
 
     }
 }
