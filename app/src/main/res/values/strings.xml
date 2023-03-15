@@ -17,4 +17,5 @@
     <string name="date_format">%s월 %s일</string>
     <string name="is_null_phone_number">전화번호가 없습니다.</string>
     <string name="please_install_naver_map">네이버 지도를 설치해주세요.</string>
+    <string name="direct_go">바로 가기</string>
 </resources>
