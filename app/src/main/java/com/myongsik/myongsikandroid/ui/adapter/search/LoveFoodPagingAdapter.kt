@@ -64,7 +64,6 @@ class LoveFoodPagingAdapter(listener : OnLoveClick)  : PagingDataAdapter<Restaur
             override fun areContentsTheSame(oldItem: Restaurant, newItem: Restaurant): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 }

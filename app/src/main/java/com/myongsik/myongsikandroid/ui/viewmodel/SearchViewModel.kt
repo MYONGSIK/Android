@@ -53,8 +53,6 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    //추천화면, size 10으로 설정함(최대 10까지만 출력되게끔)
-
     private val _resultRecommendSearch = MutableLiveData<SearchResponse>()
     val resultRecommendSearch : LiveData<SearchResponse>
         get() = _resultRecommendSearch
@@ -64,8 +62,6 @@ class SearchViewModel @Inject constructor(
             "S" -> start("서울", query, 126.923460283882, 37.5803504797164)
             "Y" -> start("용인", query, 127.18758354347, 37.224650469991)
         }
-
-
     }
 
     private suspend fun start(locate: String, query: String, x:Double, y:Double) {
@@ -79,5 +75,4 @@ class SearchViewModel @Inject constructor(
             }
         }
     }
-
 }

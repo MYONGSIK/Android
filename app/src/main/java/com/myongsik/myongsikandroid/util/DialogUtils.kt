@@ -134,7 +134,4 @@ class DialogUtils(private val context: Context) {
 
         alertDialog.show()
     }
-
-
-
 }

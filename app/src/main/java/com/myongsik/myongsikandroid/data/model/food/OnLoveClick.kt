@@ -6,5 +6,4 @@ interface OnLoveClick {
     fun addItem(restaurant : Restaurant)
     fun deleteItem(restaurant : Restaurant)
     fun isItem(string: String)
-//    fun getValue(): Int?
 }

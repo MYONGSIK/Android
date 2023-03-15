@@ -17,7 +17,6 @@ class SearchFoodViewHolder(
     private val mCallback: OnLoveClick,
 ) : RecyclerView.ViewHolder(binding.root) {
 
-
     fun bind(restaurant: Restaurant) {
 
         val distance = if (restaurant.distance.length >= 4) {
@@ -31,8 +30,6 @@ class SearchFoodViewHolder(
                 "${restaurant.place_name.substring(0, 12)}..."
             else
                 restaurant.place_name
-
-
 
         itemView.apply {
             with(binding) {
@@ -74,8 +71,6 @@ class SearchFoodViewHolder(
                     }
                 }
 
-
-
                 itemFoodName.text = placeName
                 itemFoodObject.text = restaurant.category_group_name
                 weekFoodAfternoonTv.text = distance
@@ -88,22 +83,7 @@ class SearchFoodViewHolder(
                         restaurant.phone
                     }
                 }
-
             }
-
         }
     }
-
-
 }
-/*
-"address_name":"서울 서대문구 홍제동 334-107",
-"category_group_code":"CE7",
-"category_group_name":"카페",
-"category_name":"음식점 \u003e 카페 \u003e 커피전문점",
-"distance":"1380","id":"956694628",
-"phone":"010-4021-5293",
-"place_name":"런어웨이",
-"place_url":"http://place.map.kakao.com/956694628",
-"road_address_name":"서울 서대문구 홍제내4길 4-11",
- */

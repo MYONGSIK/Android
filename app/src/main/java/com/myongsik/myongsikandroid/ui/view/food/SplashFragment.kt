@@ -34,10 +34,6 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val handler = Handler(Looper.getMainLooper())
 
-        // test
-//        MyongsikApplication.prefs.setString("key", "gg")
-//        MyongsikApplication.prefs.setUserCampus("")
-
         if(MyongsikApplication.prefs.getUserCampus() ==""){
             handler.postDelayed({
                 findNavController().navigate(R.id.action_fragment_splash_to_fragment_select)
@@ -53,15 +49,11 @@ class SplashFragment : Fragment() {
                 findNavController().navigate(R.id.action_fragment_splash_to_fragment_search)
             },1500)
         }
-
         super.onViewCreated(view, savedInstanceState)
     }
 
-    //Context 를 불러오기 위해
     override fun onAttach(context: Context) {
-
         super.onAttach(context)
-
         mainActivity = context as MainActivity
     }
 

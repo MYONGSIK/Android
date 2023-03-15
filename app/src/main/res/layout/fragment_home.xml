@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.view.food.HomeFragment"
-    android:id="@+id/fragment_home">
+    android:id="@+id/fragment_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.food.HomeFragment">
 
-
-
-<!--    <ImageView-->
-<!--        android:id="@+id/home_logo"-->
-<!--        android:layout_width="77dp"-->
-<!--        android:layout_height="59dp"-->
-<!--        android:src="@drawable/ic_white_logo"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/home_top_v"-->
-<!--        android:layout_marginVertical="10dp"-->
-<!--        />-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -31,6 +19,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <View
                     android:id="@+id/home_top_v"
                     android:layout_width="match_parent"
@@ -38,65 +27,52 @@
                     android:background="@drawable/home_background_top"
                     app:layout_constraintTop_toTopOf="parent" />
 
-
-        <!--    <ImageView-->
-        <!--        android:id="@+id/home_week_ic_bt"-->
-        <!--        android:layout_width="wrap_content"-->
-        <!--        android:layout_height="wrap_content"-->
-        <!--        android:layout_marginLeft="20dp"-->
-        <!--        android:src="@drawable/ic_calendar__1_"-->
-        <!--        app:layout_constraintBottom_toBottomOf="@+id/home_top_tv"-->
-        <!--        app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--        app:layout_constraintTop_toTopOf="@+id/home_top_tv" />-->
-
                 <TextView
                     android:id="@+id/home_top_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/new_logo_top"
                     android:layout_marginTop="27dp"
+                    android:background="@drawable/new_logo_top"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <ImageView
                     android:id="@+id/home_banner_iv"
-                    android:visibility="gone"
-                    android:layout_marginTop="-10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="-10dp"
                     android:background="@drawable/ic_home_banner"
-                    app:layout_constraintTop_toBottomOf="@id/home_top_v"/>
-
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/home_top_v" />
 
 
                 <TextView
                     android:id="@+id/home_today_food_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="오늘의 학식 │  "
-                    android:textSize="20sp"
                     android:layout_marginTop="-17dp"
-                    android:textFontWeight="700"
-                    android:textColor="#033DAB"
                     android:fontFamily="@font/notosans_regular"
-                    app:layout_constraintTop_toBottomOf="@id/home_banner_iv"
+                    android:text="@string/home_today_food"
+                    android:textColor="#033DAB"
+                    android:textFontWeight="700"
+                    android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="@+id/home_banner_iv"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/home_banner_iv" />
 
                 <TextView
                     android:id="@+id/home_today_date_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="00월 00일"
                     android:layout_marginTop="-17dp"
-                    android:textSize="20sp"
-                    android:textFontWeight="700"
-                    android:textColor="#033DAB"
                     android:fontFamily="@font/notosans_regular"
-                    app:layout_constraintTop_toBottomOf="@id/home_banner_iv"
+                    tools:text="@string/home_today_day"
+                    android:textColor="#033DAB"
+                    android:textFontWeight="700"
+                    android:textSize="20sp"
                     app:layout_constraintLeft_toRightOf="@+id/home_today_food_tv"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/home_banner_iv" />
 
                 <ImageView
                     android:id="@+id/home_today_arrow_right"
@@ -123,110 +99,92 @@
                     android:id="@+id/home_time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="@string/home_time_tv"
-                    android:textSize="11sp"
                     android:layout_marginTop="-16dp"
-                    android:textFontWeight="700"
-                    android:textColor="#4E4E4E"
                     android:fontFamily="@font/notosans_regular"
-                    app:layout_constraintTop_toBottomOf="@id/home_today_food_tv"
+                    android:textColor="#4E4E4E"
+                    android:textFontWeight="700"
+                    android:textSize="11sp"
                     app:layout_constraintLeft_toLeftOf="@+id/home_banner_iv"
-                    />
+                    app:layout_constraintTop_toBottomOf="@id/home_today_food_tv"
+                    tools:text="@string/home_time_tv" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-    <!--        android:id="@+id/rv_today_search_result"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="0dp"-->
-    <!--        android:scrollbars="vertical"-->
-    <!--        app:layout_constraintBottom_toTopOf="@id/bt"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/home_time_tv"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:layout_marginBottom="10dp"-->
-    <!--        />-->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/home_time_tv" />
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_pager2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/home_time_tv"
-        android:layout_marginTop="10dp"/>
-
-
-    <me.relex.circleindicator.CircleIndicator3
-        android:id="@+id/indicator"
-        app:ci_drawable="@drawable/indicator"
-        app:ci_drawable_unselected="@drawable/indicator_un"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        app:ci_height="7dp"
-        app:ci_width="7dp"
-        app:ci_margin="8dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintTop_toBottomOf="@id/view_pager2"
-        />
+            <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/indicator"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                app:ci_drawable="@drawable/indicator"
+                app:ci_drawable_unselected="@drawable/indicator_un"
+                app:ci_height="7dp"
+                app:ci_margin="8dp"
+                app:ci_width="7dp"
+                app:layout_constraintTop_toBottomOf="@id/view_pager2" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/today_not_food_cl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/home_today_food_stroke"
-        android:visibility="invisible"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBaseline_toBottomOf="parent"
-        android:layout_marginHorizontal="22dp"
-        android:paddingBottom="30dp">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/today_not_food_cl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="22dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/home_today_food_stroke"
+                    android:paddingBottom="30dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBaseline_toBottomOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/today_day_not_food_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2022년 10월 4일 화요일"
-            android:textSize="14sp"
-            android:fontFamily="@font/notosans_regular"
-            android:textColor="@color/home_not_food"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginLeft="23dp"
-            android:layout_marginTop="15dp"/>
+                    <TextView
+                        android:id="@+id/today_day_not_food_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="23dp"
+                        android:layout_marginTop="15dp"
+                        android:fontFamily="@font/notosans_regular"
+                        android:text="@string/home_today_not_food_day"
+                        android:textColor="@color/home_not_food"
+                        android:textSize="14sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/today_day_not_notice_tv"
-            android:text="오늘은"
-            android:fontFamily="@font/notosans_regular"
-            app:layout_constraintTop_toBottomOf="@+id/today_day_not_food_tv"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:breakStrategy="high_quality"
-            android:textAlignment="center"
-            android:paddingHorizontal="10dp"
-            android:textColor="@color/black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"/>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/today_day_not_notice_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:breakStrategy="high_quality"
+                        android:fontFamily="@font/notosans_regular"
+                        android:paddingHorizontal="10dp"
+                        android:text="오늘은"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/today_day_not_food_tv" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/bt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/week_food_layout"
                     android:layout_marginHorizontal="70dp"
                     android:layout_marginTop="40dp"
+                    android:background="@drawable/week_food_layout"
                     android:paddingStart="15dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent">
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/item_food_detail_tv"
@@ -234,22 +192,20 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/notosans_regular"
                         android:paddingVertical="8dp"
-                        android:text="학식에 대한 의견 남기기"
-                        android:textFontWeight="700"
+                        android:text="@string/food_review_bt"
                         android:textColor="@color/white"
+                        android:textFontWeight="700"
+                        android:textSize="14sp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:textSize="14sp"
-                        />
-
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
                         android:id="@+id/item_food_detail_iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_group_339"
                         android:layout_marginEnd="7dp"
+                        android:src="@drawable/ic_group_339"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/item_food_detail_tv"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -258,36 +214,16 @@
                         android:id="@+id/item_food_detail_iv_line"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/home_today_review_line"
                         android:layout_marginEnd="7dp"
                         android:paddingTop="13dp"
+                        android:src="@drawable/home_today_review_line"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/item_food_detail_tv"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--        <androidx.appcompat.widget.AppCompatButton-->
-<!--            android:id="@+id/bt2"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="학식에 대한 의견 남기d기"-->
-<!--            android:fontFamily="@font/notosans_regular"-->
-<!--            android:textSize="14sp"-->
-<!--            android:background="@drawable/home_food_button"-->
-<!--            android:paddingVertical="6dp"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            android:layout_marginHorizontal="69dp"-->
-<!--            android:layout_marginBottom="20dp"-->
-<!--            />-->
-<!--                -->
-
-<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
 

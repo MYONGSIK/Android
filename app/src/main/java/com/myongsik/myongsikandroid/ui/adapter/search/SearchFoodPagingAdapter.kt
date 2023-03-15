@@ -48,6 +48,4 @@ class SearchFoodPagingAdapter(listener : OnLoveClick) : PagingDataAdapter<Restau
 
         }
     }
-
-
 }
