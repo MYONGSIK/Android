@@ -17,7 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
+import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
@@ -32,7 +32,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), OnLoveClick {
+class SearchFragment : Fragment(), OnSearchViewHolderClick {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding
@@ -221,12 +221,6 @@ class SearchFragment : Fragment(), OnLoveClick {
                 footer = SearchFoodLoadStateAdapter()
             )
         }
-
-        //검색 리사이클러뷰 아이템 클릭
-        searchFoodAdapter.setOnItemClickListener {
-            val action = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
-            findNavController().navigate(action)
-        }
     }
 
     private fun setupLoadState() {
@@ -255,12 +249,6 @@ class SearchFragment : Fragment(), OnLoveClick {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = searchRecommendAdapter
-        }
-
-        //추천 리사이클러뷰 아이템 클릭
-        searchRecommendAdapter.setOnItemClickListener {
-            val action = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
-            findNavController().navigate(action)
         }
     }
 
@@ -293,5 +281,10 @@ class SearchFragment : Fragment(), OnLoveClick {
 
     override fun isItem(string: String) {
 
+    }
+
+    override fun clickDirectButton(restaurant: Restaurant) {
+        val action = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(restaurant)
+        findNavController().navigate(action)
     }
 }

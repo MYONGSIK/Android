@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
+import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentTagBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 
 //모아뒀으기 골라보세요 화면
 @AndroidEntryPoint
-class TagFragment : Fragment(), OnLoveClick {
+class TagFragment : Fragment(), OnSearchViewHolderClick {
 
     private var _binding: FragmentTagBinding? = null
     private val binding: FragmentTagBinding
@@ -72,12 +72,6 @@ class TagFragment : Fragment(), OnLoveClick {
             adapter = tagFoodAdapter
         }
 
-        //태그 화면에서의 클릭
-        tagFoodAdapter.setOnItemClickListener {
-            val action = TagFragmentDirections.actionFragmentTagToFragmentRestaurant(it)
-            findNavController().navigate(action)
-        }
-
         //태그에서의 백버튼
         binding.tagBackBt.setOnClickListener {
             findNavController().popBackStack()
@@ -99,5 +93,10 @@ class TagFragment : Fragment(), OnLoveClick {
 
     override fun isItem(string: String) {
 
+    }
+
+    override fun clickDirectButton(restaurant: Restaurant) {
+        val action = TagFragmentDirections.actionFragmentTagToFragmentRestaurant(restaurant)
+        findNavController().navigate(action)
     }
 }

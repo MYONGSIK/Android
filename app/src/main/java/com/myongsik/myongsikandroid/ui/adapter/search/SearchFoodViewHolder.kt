@@ -7,14 +7,14 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
+import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantFoodBinding
 
 //카카오 api 불러온 리사이클러뷰 아이템 뷰홀더
 class SearchFoodViewHolder(
     private val binding: ItemRestaurantFoodBinding,
-    private val mCallback: OnLoveClick,
+    private val clickCallback: OnSearchViewHolderClick,
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(restaurant: Restaurant) {
         val context = binding.root.context
@@ -37,17 +37,19 @@ class SearchFoodViewHolder(
             itemFoodLoveFillIv.visibility = View.INVISIBLE
 
             itemFoodLoveIv.setOnClickListener {
-                mCallback.addItem(restaurant)
+                clickCallback.addItem(restaurant)
                 itemFoodLoveIv.visibility = View.INVISIBLE
                 itemFoodLoveFillIv.visibility = View.VISIBLE
                 Snackbar.make(it, "찜 완료!", Snackbar.LENGTH_SHORT).show()
             }
+
             itemFoodLoveFillIv.setOnClickListener {
-                mCallback.deleteItem(restaurant)
+                clickCallback.deleteItem(restaurant)
                 itemFoodLoveIv.visibility = View.VISIBLE
                 itemFoodLoveFillIv.visibility = View.INVISIBLE
                 Snackbar.make(it, "찜 목록에서 삭제되었습니다.", Snackbar.LENGTH_SHORT).show()
             }
+
             itemFoodPhoneTv.setOnClickListener {
                 val text = itemFoodPhoneTv.text
                 if (context.getString(R.string.is_null_phone_number) != text) {
@@ -68,6 +70,10 @@ class SearchFoodViewHolder(
                         Toast.makeText(this, getString(R.string.please_install_naver_map), Toast.LENGTH_SHORT).show()
                     }
                 }
+            }
+
+            itemFoodDetailCl.setOnClickListener {
+                clickCallback.clickDirectButton(restaurant)
             }
 
             itemFoodName.text = placeName

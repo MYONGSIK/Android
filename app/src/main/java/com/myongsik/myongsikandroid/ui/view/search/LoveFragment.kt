@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
+import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentLoveBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.LoveFoodPagingAdapter
@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 //찜꽁 리스트 화면
-class LoveFragment : Fragment(), OnLoveClick {
+class LoveFragment : Fragment(), OnSearchViewHolderClick {
 
     private var _binding : FragmentLoveBinding?= null
     private val binding : FragmentLoveBinding
@@ -47,11 +47,6 @@ class LoveFragment : Fragment(), OnLoveClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //화살표 클릭 시 그 전 화면으로 뒤로가기
-//        binding.loveBackBt.setOnClickListener {
-//            findNavController().popBackStack()
-//        }
 
         setUpRecyclerView()
 
@@ -87,10 +82,6 @@ class LoveFragment : Fragment(), OnLoveClick {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = loveFoodAdapter
         }
-        loveFoodAdapter.setOnItemClickListener {
-            val action  = LoveFragmentDirections.actionFragmentLoveToFragmentRestaurant(it)
-            findNavController().navigate(action)
-        }
     }
 
     override fun onDestroyView() {
@@ -107,6 +98,11 @@ class LoveFragment : Fragment(), OnLoveClick {
     }
 
     override fun isItem(string: String) {
+    }
+
+    override fun clickDirectButton(restaurant: Restaurant) {
+        val action  = LoveFragmentDirections.actionFragmentLoveToFragmentRestaurant(restaurant)
+        findNavController().navigate(action)
     }
 
 }

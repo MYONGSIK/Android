@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentSelectHomeBinding
-import com.myongsik.myongsikandroid.ui.view.search.LoveFragmentDirections
-import com.myongsik.myongsikandroid.util.DialogUtils
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 
 class SelectHomeFragment : Fragment() {
