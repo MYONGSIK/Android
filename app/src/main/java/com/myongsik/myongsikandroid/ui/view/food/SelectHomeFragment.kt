@@ -19,7 +19,6 @@ class SelectHomeFragment : Fragment() {
     private val binding : FragmentSelectHomeBinding
         get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,7 +31,6 @@ class SelectHomeFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        //뒤로가기 버튼 클릭 시 검색화면으로
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val action = SelectHomeFragmentDirections.actionFragmentSelectHomeToFragmentSearch()
@@ -66,11 +64,8 @@ class SelectHomeFragment : Fragment() {
         }
     }
 
-
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
-
-
 }

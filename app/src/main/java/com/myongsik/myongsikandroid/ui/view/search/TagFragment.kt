@@ -34,8 +34,6 @@ class TagFragment : Fragment(), OnSearchViewHolderClick {
     private val searchViewModel by activityViewModels<SearchViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
 
-
-    //태그화면도 PagingAdapter 사용
     private lateinit var tagFoodAdapter: SearchFoodPagingAdapter
 
     override fun onCreateView(
@@ -63,8 +61,7 @@ class TagFragment : Fragment(), OnSearchViewHolderClick {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    //해시태그 모아보기 리사이클러뷰
-    private fun setUpRecyclerView() {
+    private fun setUpRecyclerView(){
         tagFoodAdapter = SearchFoodPagingAdapter(this)
         binding.moaMyongjiRv.apply {
             setHasFixedSize(true)
@@ -72,7 +69,11 @@ class TagFragment : Fragment(), OnSearchViewHolderClick {
             adapter = tagFoodAdapter
         }
 
-        //태그에서의 백버튼
+        tagFoodAdapter.setOnItemClickListener {
+            val action = TagFragmentDirections.actionFragmentTagToFragmentRestaurant(it)
+            findNavController().navigate(action)
+        }
+
         binding.tagBackBt.setOnClickListener {
             findNavController().popBackStack()
         }

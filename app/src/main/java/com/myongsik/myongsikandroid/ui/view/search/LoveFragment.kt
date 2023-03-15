@@ -28,10 +28,8 @@ class LoveFragment : Fragment(), OnSearchViewHolderClick {
     private val binding : FragmentLoveBinding
         get() = _binding!!
 
-    //back button
     private lateinit var callback: OnBackPressedCallback
 
-    //viewModel 생성
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     private lateinit var loveFoodAdapter : LoveFoodPagingAdapter
@@ -62,7 +60,6 @@ class LoveFragment : Fragment(), OnSearchViewHolderClick {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        //뒤로가기 버튼 클릭 시 검색화면으로
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val action = LoveFragmentDirections.actionFragmentLoveToFragmentSearch()
@@ -70,12 +67,9 @@ class LoveFragment : Fragment(), OnSearchViewHolderClick {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-//
     }
 
-    //리사이클러뷰 어댑터를 페이징어댑터로 변경
     private fun setUpRecyclerView(){
-//        bookSearchAdapter = BookSearchAdapter()
         loveFoodAdapter = LoveFoodPagingAdapter(this)
         binding.loveMyongjiRv.apply {
             setHasFixedSize(true)

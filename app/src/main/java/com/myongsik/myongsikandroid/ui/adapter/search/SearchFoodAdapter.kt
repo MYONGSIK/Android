@@ -38,6 +38,4 @@ class SearchFoodAdapter(listener: OnSearchViewHolderClick) : ListAdapter<Restaur
             }
         }
     }
-
-
 }

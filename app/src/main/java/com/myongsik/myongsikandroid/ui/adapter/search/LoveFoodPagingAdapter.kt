@@ -56,7 +56,6 @@ class LoveFoodPagingAdapter(listener : OnSearchViewHolderClick)  : PagingDataAda
             override fun areContentsTheSame(oldItem: Restaurant, newItem: Restaurant): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 }

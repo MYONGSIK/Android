@@ -6,6 +6,5 @@ interface OnSearchViewHolderClick {
     fun addItem(restaurant : Restaurant)
     fun deleteItem(restaurant : Restaurant)
     fun isItem(string: String)
-
     fun clickDirectButton(restaurant : Restaurant)
 }

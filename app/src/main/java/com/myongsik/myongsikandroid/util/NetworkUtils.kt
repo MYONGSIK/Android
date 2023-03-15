@@ -11,6 +11,5 @@ object NetworkUtils {
         val network = cm.activeNetwork
         val networkCapabilities: NetworkCapabilities? = cm.getNetworkCapabilities(network)
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
-
     }
 }

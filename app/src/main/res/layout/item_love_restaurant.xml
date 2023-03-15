@@ -1,143 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="11dp"
+    android:background="@drawable/home_food_stroke"
+    android:paddingTop="1dp">
+
+    <TextView
+        android:id="@+id/item_love_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@drawable/home_food_stroke"
-        android:layout_marginHorizontal="16dp"
-        android:paddingTop="1dp"
-        android:layout_marginBottom="11dp">
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/notosans_regular"
+        android:text="@string/restaurant_name"
+        android:textColor="#000000"
+        android:textFontWeight="700"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/item_love_ellipse_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/ic_restaurant_ellipse"
+        app:layout_constraintBottom_toBottomOf="@id/item_love_name"
+        app:layout_constraintLeft_toRightOf="@id/item_love_name"
+        app:layout_constraintTop_toTopOf="@id/item_love_name" />
 
-        <TextView
-            android:id="@+id/item_love_name"
-            android:text="식당이름"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/notosans_regular"
-            android:textFontWeight="700"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            android:layout_marginStart="16dp"
-            />
+    <TextView
+        android:id="@+id/item_love_object"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/restaurant_type"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/item_love_ellipse_iv"
+        app:layout_constraintLeft_toRightOf="@id/item_love_ellipse_iv"
+        app:layout_constraintTop_toTopOf="@id/item_love_ellipse_iv" />
 
-        <ImageView
-            android:id="@+id/item_love_ellipse_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_restaurant_ellipse"
-            app:layout_constraintTop_toTopOf="@id/item_love_name"
-            app:layout_constraintBottom_toBottomOf="@id/item_love_name"
-            app:layout_constraintLeft_toRightOf="@id/item_love_name"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="0dp"/>
+    <TextView
+        android:id="@+id/item_love_distance_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:fontFamily="@font/notosans_regular"
+        android:text="@string/restaurant_distance"
+        android:textColor="@color/main_color"
+        android:textFontWeight="700"
+        android:textSize="10sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/item_love_object"
+        app:layout_constraintLeft_toRightOf="@id/item_love_object"
+        app:layout_constraintTop_toTopOf="@id/item_love_object" />
 
-        <TextView
-            android:id="@+id/item_love_object"
-            android:text="가게 종류"
-            android:textSize="12sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/item_love_ellipse_iv"
-            app:layout_constraintBottom_toBottomOf="@id/item_love_ellipse_iv"
-            app:layout_constraintLeft_toRightOf="@id/item_love_ellipse_iv"
-            android:layout_marginLeft="5dp"/>
+    <ImageView
+        android:id="@+id/item_love_love_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:paddingBottom="5dp"
+        android:src="@drawable/ic_food_love"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/item_love_distance_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/item_love_distance_tv" />
 
-        <TextView
-            android:id="@+id/item_love_distance_tv"
-            android:text="320m"
-            android:visibility="gone"
-            android:fontFamily="@font/notosans_regular"
-            android:textColor="@color/main_color"
-            android:textSize="10sp"
-            android:textFontWeight="700"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/item_love_object"
-            app:layout_constraintBottom_toBottomOf="@id/item_love_object"
-            app:layout_constraintLeft_toRightOf="@id/item_love_object"
-            android:layout_marginLeft="5dp"
-            />
+    <ImageView
+        android:id="@+id/item_love_love_fill_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:paddingBottom="5dp"
+        android:src="@drawable/ic_food_love_fill"
+        app:layout_constraintBottom_toBottomOf="@id/item_love_distance_tv"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/item_love_distance_tv" />
 
-        <ImageView
-            android:id="@+id/item_love_love_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_food_love"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@id/item_love_distance_tv"
-            app:layout_constraintBottom_toBottomOf="@id/item_love_distance_tv"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginEnd="16dp"
-            android:paddingBottom="5dp"
-            />
+    <ImageView
+        android:id="@+id/item_love_location_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="1dp"
+        android:src="@drawable/ic_place"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_love_name" />
 
-        <ImageView
-            android:id="@+id/item_love_love_fill_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_food_love_fill"
-            app:layout_constraintTop_toTopOf="@id/item_love_distance_tv"
-            app:layout_constraintBottom_toBottomOf="@id/item_love_distance_tv"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginEnd="16dp"
-            android:paddingBottom="5dp"
-            />
+    <TextView
+        android:id="@+id/item_love_location_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="@string/restaurant_location"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/item_love_location_iv"
+        app:layout_constraintLeft_toRightOf="@id/item_love_location_iv"
+        app:layout_constraintTop_toTopOf="@id/item_love_location_iv" />
 
-        <ImageView
-            android:id="@+id/item_love_location_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_place"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/item_love_name"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="1dp"/>
+    <ImageView
+        android:id="@+id/item_love_phone_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginBottom="20dp"
+        android:paddingTop="3dp"
+        android:src="@drawable/ic_phone"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_love_location_tv" />
 
-        <TextView
-            android:id="@+id/item_love_location_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="가게 위치"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@id/item_love_location_iv"
-            app:layout_constraintBottom_toBottomOf="@id/item_love_location_iv"
-            app:layout_constraintLeft_toRightOf="@id/item_love_location_iv"
-            android:layout_marginLeft="5dp"
-            />
-
-        <ImageView
-            android:id="@+id/item_love_phone_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_phone"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/item_love_location_tv"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="9dp"
-            android:paddingTop="3dp"
-            />
-
-        <TextView
-            android:id="@+id/item_love_phone_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="가게 전화번호"
-            android:visibility="gone"
-            app:layout_constraintTop_toTopOf="@id/item_love_phone_iv"
-            app:layout_constraintBottom_toBottomOf="@id/item_love_phone_iv"
-            app:layout_constraintLeft_toRightOf="@id/item_love_phone_iv"
-            android:layout_marginLeft="7dp"
-            />
-
-
+    <TextView
+        android:id="@+id/item_love_phone_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="7dp"
+        android:text="@string/restaurant_phone"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/item_love_phone_iv"
+        app:layout_constraintLeft_toRightOf="@id/item_love_phone_iv"
+        app:layout_constraintTop_toTopOf="@id/item_love_phone_iv" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_love_detail_cl"
@@ -149,39 +138,35 @@
             app:layout_constraintEnd_toEndOf="@+id/item_love_love_fill_iv"
             app:layout_constraintTop_toTopOf="@+id/item_love_phone_tv">
 
-            <TextView
-                android:id="@+id/item_love_detail_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:paddingBottom="6dp"
-                android:paddingStart="13dp"
-                android:paddingEnd="22dp"
-                android:text="바로 가기"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/item_love_detail_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="13dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="22dp"
+            android:paddingBottom="6dp"
+            android:text="@string/direct_go"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/item_love_detail_iv_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_food_detail_arrow"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
+        <ImageView
+            android:id="@+id/item_love_detail_iv_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_food_detail_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

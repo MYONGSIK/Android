@@ -42,6 +42,7 @@ class MyPagerAdapter(
             val weekFoodA =
                 "${weekFoodResult[0][0]} ${weekFoodResult[0][1]} ${weekFoodResult[0][2]} " +
                         "${weekFoodResult[0][3]} ${weekFoodResult[0][4]} ${weekFoodResult[0][5]}"
+
             val builderWeekFoodA = SpannableStringBuilder(weekFoodA).apply {
                 setSpan(
                     ForegroundColorSpan(Color.parseColor("#0A45CA")),
@@ -56,6 +57,7 @@ class MyPagerAdapter(
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
             }
+
             val weekFoodB =
                 "${weekFoodResult[1][0]} ${weekFoodResult[1][1]} ${weekFoodResult[1][2]} " +
                         "${weekFoodResult[1][3]} ${weekFoodResult[1][4]} ${weekFoodResult[1][5]}"
@@ -94,10 +96,7 @@ class MyPagerAdapter(
                 }
             }
 
-
             itemView.apply {
-
-//                binding.todayLunchAGoodIv.nofi()
                 if (MyongsikApplication.prefs.getUserArea() == "H"){
                     binding.weekFoodLunchAV.text = "조식"
                     binding.weekFoodAfternoonTv.text = "중식"
@@ -136,10 +135,7 @@ class MyPagerAdapter(
                     binding.todayLunchBHateTv.visibility = GONE
                     binding.todayFoodLunchB.visibility = GONE
                 }
-
-
             }
-
         }
     }
 
@@ -257,11 +253,7 @@ class MyPagerAdapter(
                 if (DINNER_H == "good") getGoodChangeDinner()
                 if (DINNER_H == "hate") getHateChangeDinner()
             }
-
         }
-
-
-
 
         if (isItemSelected) {
             itemViewHolder.binding.todayGoodClLunchB.setOnClickListener {
@@ -296,10 +288,7 @@ class MyPagerAdapter(
 
                     }
                 )
-
             }
-
-
 
             itemViewHolder.binding.todayHateClLunchB.setOnClickListener {
                 // lunch B - 자캠 불가능
@@ -333,11 +322,8 @@ class MyPagerAdapter(
 
                     }
                 )
-
             }
 
-
-            //
             itemViewHolder.binding.todayGoodCl.setOnClickListener {
                 val dialogUtils = DialogUtils(holder.itemView.context)
                 if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
@@ -411,9 +397,7 @@ class MyPagerAdapter(
                     noClickListener = {
 
                     })
-
             }
-
 
             itemViewHolder.binding.todayHateClLunchA.setOnClickListener {
                 val dialogUtils = DialogUtils(holder.itemView.context)
@@ -461,9 +445,6 @@ class MyPagerAdapter(
                             "학식 평가를 하시겠어요?",
                     6,
                     yesClickListener = {
-                        // api
-
-                        // local
                         // 인캠의 경우
                         if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
                             LUNCH_A_GOOD = "hate"
@@ -488,9 +469,7 @@ class MyPagerAdapter(
 
                     }
                 )
-
             }
-
 
             itemViewHolder.binding.todayGoodClAfternoon.setOnClickListener {
                 val dialogUtils = DialogUtils(holder.itemView.context)
@@ -570,7 +549,6 @@ class MyPagerAdapter(
 
                     }
                 )
-
             }
 
 
@@ -581,7 +559,6 @@ class MyPagerAdapter(
                                 "#274984"
                             )
                         ) {
-
                             defaultChange()
                             mainViewModel.saveLunchEvaluation("D", "")
                             return@setOnClickListener
@@ -615,16 +592,12 @@ class MyPagerAdapter(
                     }
                 }
 
-
                 val dialogUtils = DialogUtils(holder.itemView.context)
                 dialogUtils.showAlertDialog(
                     "‘맛없어요’로\n" +
                             "학식 평가를 하시겠어요?",
                     6,
                     yesClickListener = {
-                        // api
-
-                        // local
                         // 인캠의 경우 , 자캠 교직원
                         if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
                             DINNER = "hate"
@@ -646,14 +619,12 @@ class MyPagerAdapter(
 
                                 mainViewModel.saveLunchEvaluation("DH", "hate")
                             }
-
                         }
                     },
                     noClickListener = {
 
                     }
                 )
-
             }
         } else {
             holder.itemView.setOnClickListener(null)
@@ -663,6 +634,4 @@ class MyPagerAdapter(
     override fun getItemCount(): Int {
         return itemList.size
     }
-
-
 }

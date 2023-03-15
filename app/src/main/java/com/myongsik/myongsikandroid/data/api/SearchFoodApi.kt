@@ -31,29 +31,30 @@ interface SearchFoodApi {
     @Headers("Authorization: KakaoAK $API_KEY")
     @GET("/v2/local/search/keyword")
     suspend fun searchFood(
-        @Query("query") query : String,
-        @Query("category_group_code") category_group_code : String,
-        @Query("x") x : String,
-        @Query("y") y : String,
-        @Query("radius") radius : Int,
-        @Query("page") page : Int,
-        @Query("size") size : Int,
-        @Query("sort") sort : String,
-    ) : Response<SearchResponse>
+        @Query("query") query: String,
+        @Query("category_group_code") category_group_code: String,
+        @Query("x") x: String,
+        @Query("y") y: String,
+        @Query("radius") radius: Int,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("sort") sort: String,
+    ): Response<SearchResponse>
 
-    companion object{
+    companion object {
 
-
-        fun create() : SearchFoodApi {
-            val logger = HttpLoggingInterceptor().apply { level =
-                HttpLoggingInterceptor.Level.BODY }
+        fun create(): SearchFoodApi {
+            val logger = HttpLoggingInterceptor().apply {
+                level =
+                    HttpLoggingInterceptor.Level.BODY
+            }
 
             val client = OkHttpClient.Builder()
-                    .addInterceptor(logger)
-                    .connectTimeout(100, TimeUnit.SECONDS)
-                    .readTimeout(100, TimeUnit.SECONDS)
-                    .writeTimeout(100, TimeUnit.SECONDS)
-                    .build()
+                .addInterceptor(logger)
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
+                .writeTimeout(100, TimeUnit.SECONDS)
+                .build()
 
             return Retrofit.Builder()
                 .baseUrl(Constant.KAKAO_BASE_URL)
@@ -63,5 +64,4 @@ interface SearchFoodApi {
                 .create(SearchFoodApi::class.java)
         }
     }
-
 }

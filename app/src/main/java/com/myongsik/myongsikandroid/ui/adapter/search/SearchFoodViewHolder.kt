@@ -16,6 +16,7 @@ class SearchFoodViewHolder(
     private val binding: ItemRestaurantFoodBinding,
     private val clickCallback: OnSearchViewHolderClick,
 ) : RecyclerView.ViewHolder(binding.root) {
+
     fun bind(restaurant: Restaurant) {
         val context = binding.root.context
         val distance = if (restaurant.distance.length >= 4) {
@@ -90,6 +91,4 @@ class SearchFoodViewHolder(
             }
         }
     }
-
-
 }

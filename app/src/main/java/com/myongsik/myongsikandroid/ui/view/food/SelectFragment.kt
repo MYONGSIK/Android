@@ -44,7 +44,6 @@ class SelectFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val dialogUtils = DialogUtils(requireContext())
 
-
         binding.splashFBt.setOnTouchListener { _, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -54,9 +53,7 @@ class SelectFragment : Fragment() {
                 MotionEvent.ACTION_UP -> {
                     binding.splashFBt.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.sub_color))
                     binding.splashFBt.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-                    //                    view.performClick()
                 }
-
             }
             false
         }
@@ -70,9 +67,7 @@ class SelectFragment : Fragment() {
                 MotionEvent.ACTION_UP -> {
                     binding.splashSBt.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.sub_color))
                     binding.splashSBt.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-                    //                    view.performClick()
                 }
-
             }
             false
         }
@@ -91,9 +86,6 @@ class SelectFragment : Fragment() {
             }
             dialogUtils.showAlertDialog("인문캠퍼스로\n캠퍼스 설정을 하시겠어요?", 4,
                 yesClickListener = {
-                    // 회원 등록
-                    // 중복 회원 처리 나중에
-
                     context?.let { it1 -> GetAdvertisingIdTask(it1).execute() }
                     val deviceId = it.id
 
@@ -108,7 +100,6 @@ class SelectFragment : Fragment() {
                         } else {
                             findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
                         }
-
                     }
                 },
                 noClickListener = {
@@ -129,7 +120,6 @@ class SelectFragment : Fragment() {
             dialogUtils.showAlertDialog("자연캠퍼스로\n캠퍼스 설정을 하시겠어요?", 4,
                 yesClickListener = {
                     // 회원 등록
-
                     context?.let { it1 -> GetAdvertisingIdTask(it1).execute() }
                     val deviceId = it.id
 
@@ -144,7 +134,6 @@ class SelectFragment : Fragment() {
                         } else {
                             findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
                         }
-
                     }
                 },
                 noClickListener = {
@@ -164,17 +153,12 @@ class SelectFragment : Fragment() {
 
     //Context 를 불러오기 위해
     override fun onAttach(context: Context) {
-
         super.onAttach(context)
-
         mainActivity = context as MainActivity
     }
-
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
-
-
 }

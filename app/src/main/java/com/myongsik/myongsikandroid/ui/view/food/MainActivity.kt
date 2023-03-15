@@ -28,14 +28,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        //네비게이션들을 담는 호스트
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.myongsik_home_fragment_view) as NavHostFragment
-
-
-        //네비게이션 컨트롤러
         val navController = navHostFragment.navController
-
-        //바텀 네비게이션 뷰와 네비게이션을 묶어준다.
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener {
@@ -66,11 +60,6 @@ class MainActivity : AppCompatActivity() {
             return@setOnNavigationItemSelectedListener true
         }
 
-
-
-
-
-//        바텀 네비게이션 출력하는 부분과 그렇지 않은 부분을 나눔
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.fragment_home || destination.id == R.id.fragment_search
                 || destination.id == R.id.fragment_love || destination.id == R.id.fragment_select_home) {
@@ -80,7 +69,6 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigationView.visibility= View.GONE
                 binding.myongsikHomeFragmentView.setPadding(0,0,0,0)
             }
-
         }
 
         // Background

@@ -38,6 +38,4 @@ class SearchFoodPagingAdapter(listener : OnSearchViewHolderClick) : PagingDataAd
 
         }
     }
-
-
 }

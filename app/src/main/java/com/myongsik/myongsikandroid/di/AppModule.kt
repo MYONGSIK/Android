@@ -24,15 +24,11 @@ import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-/*
-Hilt 주입으로 인해 앱 모두에서 사용하기 위한 싱글톤으로 생성
- */
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
     //Retrofit
-
     @Provides
     @Singleton
     fun provideGsonConverterFactory(): GsonConverterFactory {
@@ -72,8 +68,7 @@ object AppModule {
             .build()
             .create()
     }
-
-
+    
     //Room
     @Singleton
     @Provides
