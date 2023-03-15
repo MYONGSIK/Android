@@ -14,7 +14,9 @@ import retrofit2.Response
 import javax.inject.Inject
 
 
-class SearchFoodRepositoryImpl @Inject constructor() : SearchFoodRepository {
+class SearchFoodRepositoryImpl @Inject constructor(
+    private val searchFoodApi: SearchFoodApi
+) : SearchFoodRepository {
 
     override suspend fun searchFood(
         query: String,
@@ -24,14 +26,14 @@ class SearchFoodRepositoryImpl @Inject constructor() : SearchFoodRepository {
         radius: Int,
         page: Int,
         size: Int,
-        sort : String
+        sort: String
     ): Response<SearchResponse> {
 
-        return SearchFoodApi.create().searchFood(query, category_group_code, x, y, radius, page, size, sort)
+        return searchFoodApi.searchFood(query, category_group_code, x, y, radius, page, size, sort)
     }
 
     override fun searchPagingFood(query: String): Flow<PagingData<Restaurant>> {
-        val pagingSourceFactory = { SearchFoodPagingSource(query)}
+        val pagingSourceFactory = { SearchFoodPagingSource(query, searchFoodApi) }
 
         return Pager(
             config = PagingConfig(
@@ -45,6 +47,4 @@ class SearchFoodRepositoryImpl @Inject constructor() : SearchFoodRepository {
             pagingSourceFactory = pagingSourceFactory
         ).flow
     }
-
-
 }

@@ -5,6 +5,7 @@ import com.myongsik.myongsikandroid.BuildConfig
 object Constant {
     //Retrofit Base Url
     const val MYONG_SIK_BASE_URL = "http://13.209.50.30"
+    const val KAKAO_BASE_URL = "https://dapi.kakao.com"
 
     //DataStore Name
     const val DATASTORE_NAME = "food_evaluation_datastore"
