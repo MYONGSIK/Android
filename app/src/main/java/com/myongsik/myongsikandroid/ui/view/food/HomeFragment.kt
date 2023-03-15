@@ -122,7 +122,7 @@ class HomeFragment : Fragment() {
                 setCurrentPage(LocalDate.parse(it.localDateTime.substring(0, 10)).dayOfWeek.value)
 
                 binding.viewPager2.adapter =
-                    MyPagerAdapter(finalList[0], it.data[0].mealId, mainViewModel)
+                    MyPagerAdapter(finalList[0], mainViewModel)
                 setCurrentPage(initDate)
 
                 binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -249,6 +249,23 @@ class HomeFragment : Fragment() {
                             list.add(it.data[i].meals)
                         }
                         val originalList: List<List<String>> = list
+
+                        val subLists = originalList.chunked(3)
+                        val finalList = subLists.chunked(5)
+
+                        binding.viewPager2.adapter =
+                            MyPagerAdapter(finalList[0], mainViewModel)
+                        setCurrentPage(initDate)
+
+                        binding.viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                        val indicator = binding.indicator
+                        indicator.setViewPager(binding.viewPager2)
+
+                    }
+                }
+            }
+        }
+
 
         // 색상
         binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -433,44 +450,21 @@ class HomeFragment : Fragment() {
     }
 
     private fun checkWeekend() {
-        when (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
-            Calendar.SATURDAY -> {
-                showNotFoodDay(6)
-            }
-            Calendar.SUNDAY -> {
-                showNotFoodDay(7)
-            }
-            else -> {
-                binding.viewPager2.visibility = View.VISIBLE
-                binding.todayNotFoodCl.visibility = View.INVISIBLE
-                binding.indicator.visibility = View.VISIBLE
-            }
+        if (Calendar.getInstance()
+                .get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || Calendar.getInstance()
+                .get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+        ) {
+            val dialogUtils = context?.let { DialogUtils(it) }
+            dialogUtils?.showConfirmDialog(
+                "주말 운영 안내",
+                "주말에는 식당을 운영하지 않습니다.",
+                yesClickListener = {
+                })
         }
+        binding.viewPager2.visibility = View.VISIBLE
+        binding.todayNotFoodCl.visibility = View.INVISIBLE
+        binding.indicator.visibility = View.VISIBLE
     }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun settingDate(localDateTime: LocalDate) {
-        // 오늘 날짜
-        localDate = localDateTime
-        initDate = localDateTime.dayOfWeek.value
-        if (initDate == 7){
-            localDate = localDate.plusDays(1)
-            initDate = 1
-        }
-        val calendar = Calendar.getInstance()
-        with(binding){
-            todayDayNotFoodTv.setTextColor(Color.parseColor(color))
-            todayDayNotNoticeTv.text = "금일 학생식당은 운영하지 않습니다."
-            todayDayNotFoodTv.text = "${calendar.get(Calendar.YEAR)}년 ${calendar.get(Calendar.MONTH) + 1}월 ${calendar.get(Calendar.DAY_OF_MONTH)}일 $dayOfWeekString"
-            todayNotFoodCl.visibility = View.VISIBLE
-            viewPager2.visibility = View.GONE
-            indicator.visibility = View.GONE
-            bt.visibility = View.GONE
-            homeTodayArrowRight.visibility = View.GONE
-            homeTodayArrowLeft.visibility = View.GONE
-        }
-    }
-
 
     private fun setCurrentPage(value: Int) {
         binding.viewPager2.setCurrentItem(value - 1, false)
@@ -481,6 +475,16 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             mainViewModel.defaultDataStore()
         }
+    }
+    private fun settingDate(localDateTime: LocalDate) {
+        // 오늘 날짜
+        localDate = localDateTime
+        initDate = localDateTime.dayOfWeek.value
+        if (initDate == 7){
+            localDate = localDate.plusDays(1)
+            initDate = 1
+        }
+
     }
 
     //중식 평가 불러오기
