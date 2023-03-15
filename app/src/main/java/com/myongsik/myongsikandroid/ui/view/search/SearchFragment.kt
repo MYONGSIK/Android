@@ -13,12 +13,11 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
+import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
@@ -31,13 +30,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), OnLoveClick {
+class SearchFragment : Fragment(), OnSearchViewHolderClick {
 
-    private var _binding : FragmentSearchBinding?= null
-    private val binding : FragmentSearchBinding
+    private var _binding: FragmentSearchBinding? = null
+    private val binding: FragmentSearchBinding
         get() = _binding!!
 
     private val intRandom = Random().nextInt(19)
@@ -50,15 +48,15 @@ class SearchFragment : Fragment(), OnLoveClick {
         "회", "곱창", "냉면", "닭발" //4  -> 총 20개
     )
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val searchViewModel : SearchViewModel by viewModels{ viewModelFactory }
+    //검색 뷰모델, 현재 의존성 주입 안함
+    private val searchViewModel by viewModels<SearchViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
 
-    private lateinit var searchFoodAdapter : SearchFoodPagingAdapter
+    //검색 어댑터 -> PagingAdapter
+    private lateinit var searchFoodAdapter: SearchFoodPagingAdapter
 
-    private lateinit var searchRecommendAdapter : SearchFoodAdapter
+    //추천 어댑터
+    private lateinit var searchRecommendAdapter: SearchFoodAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -161,14 +159,14 @@ class SearchFragment : Fragment(), OnLoveClick {
 
     private fun searchBooks(){
         var startTime = System.currentTimeMillis()
-        var endTime : Long
+        var endTime: Long
 
-        binding.tlSearch.addTextChangedListener{ text: Editable? ->
+        binding.tlSearch.addTextChangedListener { text: Editable? ->
             endTime = System.currentTimeMillis()
-            if(endTime - startTime >= SEARCH_FOODS_TIME_DELAY){
+            if (endTime - startTime >= SEARCH_FOODS_TIME_DELAY) {
                 text?.let {
                     val query = it.toString().trim()
-                    if(query.isNotEmpty()){
+                    if (query.isNotEmpty()) {
                         searchViewModel.searchPagingFood(query)
                     }
                 }
@@ -186,11 +184,6 @@ class SearchFragment : Fragment(), OnLoveClick {
             adapter = searchFoodAdapter.withLoadStateFooter(
                 footer = SearchFoodLoadStateAdapter()
             )
-        }
-
-        searchFoodAdapter.setOnItemClickListener {
-            val action  = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
-            findNavController().navigate(action)
         }
     }
 
@@ -213,11 +206,6 @@ class SearchFragment : Fragment(), OnLoveClick {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = searchRecommendAdapter
-        }
-
-        searchRecommendAdapter.setOnItemClickListener {
-            val action  = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
-            findNavController().navigate(action)
         }
     }
 
@@ -247,5 +235,10 @@ class SearchFragment : Fragment(), OnLoveClick {
 
     override fun isItem(string: String){
 
+    }
+
+    override fun clickDirectButton(restaurant: Restaurant) {
+        val action = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(restaurant)
+        findNavController().navigate(action)
     }
 }

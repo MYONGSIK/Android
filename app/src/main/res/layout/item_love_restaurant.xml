@@ -128,15 +128,15 @@
         app:layout_constraintLeft_toRightOf="@id/item_love_phone_iv"
         app:layout_constraintTop_toTopOf="@id/item_love_phone_iv" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/item_love_detail_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/week_food_layout"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/item_love_phone_tv"
-        app:layout_constraintEnd_toEndOf="@+id/item_love_love_fill_iv"
-        app:layout_constraintTop_toTopOf="@+id/item_love_phone_tv">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/item_love_detail_cl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:background="@drawable/week_food_layout"
+            app:layout_constraintBottom_toBottomOf="@+id/item_love_phone_tv"
+            app:layout_constraintEnd_toEndOf="@+id/item_love_love_fill_iv"
+            app:layout_constraintTop_toTopOf="@+id/item_love_phone_tv">
 
         <TextView
             android:id="@+id/item_love_detail_tv"

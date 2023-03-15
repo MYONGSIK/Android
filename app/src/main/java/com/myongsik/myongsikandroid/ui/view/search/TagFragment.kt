@@ -6,13 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
+import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentTagBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
@@ -21,24 +19,19 @@ import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 //모아뒀으기 골라보세요 화면
 @AndroidEntryPoint
-class TagFragment : Fragment(), OnLoveClick {
+class TagFragment : Fragment(), OnSearchViewHolderClick {
 
-    private var _binding : FragmentTagBinding?= null
-    private val binding : FragmentTagBinding
+    private var _binding: FragmentTagBinding? = null
+    private val binding: FragmentTagBinding
         get() = _binding!!
 
-    private val args : TagFragmentArgs by navArgs()
+    private val args: TagFragmentArgs by navArgs()
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val searchViewModel : SearchViewModel by viewModels{
-        viewModelFactory
-    }
+    //검색 뷰모델
+    private val searchViewModel by activityViewModels<SearchViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     private lateinit var tagFoodAdapter: SearchFoodPagingAdapter
@@ -76,11 +69,6 @@ class TagFragment : Fragment(), OnLoveClick {
             adapter = tagFoodAdapter
         }
 
-        tagFoodAdapter.setOnItemClickListener {
-            val action = TagFragmentDirections.actionFragmentTagToFragmentRestaurant(it)
-            findNavController().navigate(action)
-        }
-
         binding.tagBackBt.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -101,5 +89,10 @@ class TagFragment : Fragment(), OnLoveClick {
 
     override fun isItem(string: String) {
 
+    }
+
+    override fun clickDirectButton(restaurant: Restaurant) {
+        val action = TagFragmentDirections.actionFragmentTagToFragmentRestaurant(restaurant)
+        findNavController().navigate(action)
     }
 }
