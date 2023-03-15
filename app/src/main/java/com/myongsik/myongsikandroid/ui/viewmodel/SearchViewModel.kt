@@ -54,6 +54,7 @@ class SearchViewModel @Inject constructor(
     }
 
     //추천화면, size 10으로 설정함(최대 10까지만 출력되게끔)
+
     private val _resultRecommendSearch = MutableLiveData<SearchResponse>()
     val resultRecommendSearch : LiveData<SearchResponse>
         get() = _resultRecommendSearch
