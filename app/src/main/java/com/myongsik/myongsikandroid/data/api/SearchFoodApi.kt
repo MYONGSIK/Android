@@ -2,6 +2,7 @@ package com.myongsik.myongsikandroid.data.api
 
 
 import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
+import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.Constant.API_KEY
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -41,7 +42,7 @@ interface SearchFoodApi {
     ) : Response<SearchResponse>
 
     companion object{
-        private const val BASE_URL = "https://dapi.kakao.com"
+
 
         fun create() : SearchFoodApi {
             val logger = HttpLoggingInterceptor().apply { level =
@@ -55,7 +56,7 @@ interface SearchFoodApi {
                     .build()
 
             return Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Constant.KAKAO_BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

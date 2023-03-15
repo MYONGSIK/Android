@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -26,14 +26,14 @@ import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.adapter.state.SearchFoodLoadStateAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
-import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModelProviderFactory
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
-import kotlinx.coroutines.Job
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SearchFragment : Fragment(), OnLoveClick {
 
     private var _binding : FragmentSearchBinding?= null
@@ -51,10 +51,11 @@ class SearchFragment : Fragment(), OnLoveClick {
         "회", "곱창", "냉면", "닭발" //4  -> 총 20개
     )
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     //검색 뷰모델, 현재 의존성 주입 안함
-    private val searchViewModel : SearchViewModel by viewModels{
-        SearchViewModelProviderFactory()
-    }
+    private val searchViewModel : SearchViewModel by viewModels{ viewModelFactory }
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     //검색 어댑터 -> PagingAdapter
@@ -67,7 +68,7 @@ class SearchFragment : Fragment(), OnLoveClick {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -218,7 +219,6 @@ class SearchFragment : Fragment(), OnLoveClick {
 
     //검색 리사이클러뷰
     private fun setUpRecyclerView(){
-//        searchFoodAdapter = SearchFoodAdapter()
         searchFoodAdapter = SearchFoodPagingAdapter(this)
         binding.searchMyongjiRv.apply {
             setHasFixedSize(true)
@@ -299,11 +299,6 @@ class SearchFragment : Fragment(), OnLoveClick {
 
 
     override fun isItem(string: String){
-//        mainViewModel.isUpdate.observe(viewLifecycleOwner){
-//            return@observe it
-//        }
-
-
 
     }
 }
