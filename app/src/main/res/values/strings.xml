@@ -14,4 +14,5 @@
     <string name="yongin_campus">자연캠퍼스</string>
     <string name="campus_setting">캠퍼스 설정</string>
     <string name="app_sub_title">명지대 학식 식단표 제공 앱</string>
+    <string name="date_format">%s월 %s일</string>
 </resources>

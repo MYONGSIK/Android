@@ -2,6 +2,8 @@ package com.myongsik.myongsikandroid.di
 
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl
+import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepository
+import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepositoryImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -17,5 +19,11 @@ abstract class RepositoryModule {
     abstract fun bindFoodRepository(
         foodRepositoryImpl: FoodRepositoryImpl,
     ) : FoodRepository
+
+    @Singleton
+    @Binds
+    abstract fun provideSearchFoodRepository(
+        searchFoodRepositoryImpl: SearchFoodRepositoryImpl
+    ): SearchFoodRepository
 
 }
