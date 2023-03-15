@@ -13,7 +13,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -31,13 +30,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.*
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), OnLoveClick {
 
-    private var _binding : FragmentSearchBinding?= null
-    private val binding : FragmentSearchBinding
+    private var _binding: FragmentSearchBinding? = null
+    private val binding: FragmentSearchBinding
         get() = _binding!!
 
     private val intRandom = Random().nextInt(19)
@@ -51,18 +49,15 @@ class SearchFragment : Fragment(), OnLoveClick {
         "회", "곱창", "냉면", "닭발" //4  -> 총 20개
     )
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
     //검색 뷰모델, 현재 의존성 주입 안함
-    private val searchViewModel : SearchViewModel by viewModels{ viewModelFactory }
+    private val searchViewModel by viewModels<SearchViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     //검색 어댑터 -> PagingAdapter
-    private lateinit var searchFoodAdapter : SearchFoodPagingAdapter
+    private lateinit var searchFoodAdapter: SearchFoodPagingAdapter
 
     //추천 어댑터
-    private lateinit var searchRecommendAdapter : SearchFoodAdapter
+    private lateinit var searchRecommendAdapter: SearchFoodAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,7 +68,6 @@ class SearchFragment : Fragment(), OnLoveClick {
 
         return binding.root
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -94,7 +88,6 @@ class SearchFragment : Fragment(), OnLoveClick {
 
         //뷰가 생성될 때 마다 위의 배열에서의 랜덤값
         searchViewModel.searchRecommendFood(foodList[intRandom])
-
 
 
         //검색 아이콘 클릭했을 때
@@ -124,7 +117,7 @@ class SearchFragment : Fragment(), OnLoveClick {
         }
 
         //추천 viewModel
-        searchViewModel.resultRecommendSearch.observe(viewLifecycleOwner){ response ->
+        searchViewModel.resultRecommendSearch.observe(viewLifecycleOwner) { response ->
             val foods = response.documents
             searchRecommendAdapter.submitList(foods)
         }
@@ -146,7 +139,7 @@ class SearchFragment : Fragment(), OnLoveClick {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //텍스트 검색하기 시작했는데, editText 가 비어있지 않으면 검색을 하고있다는 뜻이니까
                 //검색 리사이클러뷰는 보이게, 나머지는 다 안보이게
-                if(binding.tlSearch.text.toString().isNotEmpty()){
+                if (binding.tlSearch.text.toString().isNotEmpty()) {
                     //검색 리사이클러뷰 보이게
                     binding.searchMyongjiRv.visibility = View.VISIBLE
 
@@ -196,19 +189,19 @@ class SearchFragment : Fragment(), OnLoveClick {
         }
 
 
-}
+    }
 
     //검색 기능
-    private fun searchBooks(){
+    private fun searchBooks() {
         var startTime = System.currentTimeMillis()
-        var endTime : Long
+        var endTime: Long
 
-        binding.tlSearch.addTextChangedListener{ text: Editable? ->
+        binding.tlSearch.addTextChangedListener { text: Editable? ->
             endTime = System.currentTimeMillis()
-            if(endTime - startTime >= SEARCH_FOODS_TIME_DELAY){
+            if (endTime - startTime >= SEARCH_FOODS_TIME_DELAY) {
                 text?.let {
                     val query = it.toString().trim()
-                    if(query.isNotEmpty()){
+                    if (query.isNotEmpty()) {
                         searchViewModel.searchPagingFood(query)
                     }
                 }
@@ -218,7 +211,7 @@ class SearchFragment : Fragment(), OnLoveClick {
     }
 
     //검색 리사이클러뷰
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView() {
         searchFoodAdapter = SearchFoodPagingAdapter(this)
         binding.searchMyongjiRv.apply {
             setHasFixedSize(true)
@@ -231,12 +224,12 @@ class SearchFragment : Fragment(), OnLoveClick {
 
         //검색 리사이클러뷰 아이템 클릭
         searchFoodAdapter.setOnItemClickListener {
-            val action  = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
+            val action = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
             findNavController().navigate(action)
         }
     }
 
-    private fun setupLoadState(){
+    private fun setupLoadState() {
         //load State 값을 받아옴
         searchFoodAdapter.addLoadStateListener { combinedLoadStates ->
             val loadState = combinedLoadStates.source //source 의 값을 받아옴
@@ -256,7 +249,7 @@ class SearchFragment : Fragment(), OnLoveClick {
 
 
     //추천 리사이클러뷰
-    private fun setUpRecommendRecyclerView(){
+    private fun setUpRecommendRecyclerView() {
         searchRecommendAdapter = SearchFoodAdapter(this)
         binding.searchMyongjiRecommend.apply {
             setHasFixedSize(true)
@@ -266,7 +259,7 @@ class SearchFragment : Fragment(), OnLoveClick {
 
         //추천 리사이클러뷰 아이템 클릭
         searchRecommendAdapter.setOnItemClickListener {
-            val action  = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
+            val action = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
             findNavController().navigate(action)
         }
     }
@@ -298,7 +291,7 @@ class SearchFragment : Fragment(), OnLoveClick {
     }
 
 
-    override fun isItem(string: String){
+    override fun isItem(string: String) {
 
     }
 }

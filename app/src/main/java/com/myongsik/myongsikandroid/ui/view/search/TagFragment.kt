@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -21,24 +19,19 @@ import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 //모아뒀으기 골라보세요 화면
 @AndroidEntryPoint
 class TagFragment : Fragment(), OnLoveClick {
 
-    private var _binding : FragmentTagBinding?= null
-    private val binding : FragmentTagBinding
+    private var _binding: FragmentTagBinding? = null
+    private val binding: FragmentTagBinding
         get() = _binding!!
 
-    private val args : TagFragmentArgs by navArgs()
+    private val args: TagFragmentArgs by navArgs()
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
     //검색 뷰모델
-    private val searchViewModel : SearchViewModel by viewModels{
-        viewModelFactory
-    }
+    private val searchViewModel by activityViewModels<SearchViewModel>()
     private val mainViewModel by activityViewModels<MainViewModel>()
 
 
@@ -71,7 +64,7 @@ class TagFragment : Fragment(), OnLoveClick {
     }
 
     //해시태그 모아보기 리사이클러뷰
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView() {
         tagFoodAdapter = SearchFoodPagingAdapter(this)
         binding.moaMyongjiRv.apply {
             setHasFixedSize(true)
