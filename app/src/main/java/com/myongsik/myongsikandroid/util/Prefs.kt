@@ -42,6 +42,4 @@ class Prefs(context: Context) {
     fun getUserID():String{
         return prefs.getString("MY_ID", "").toString()
     }
-
-
 }

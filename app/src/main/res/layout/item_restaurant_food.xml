@@ -21,7 +21,7 @@
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="식당이름" />
+        tools:text="@string/restaurant_name" />
 
     <ImageView
         android:id="@+id/item_food_ellipse_iv"
@@ -43,14 +43,14 @@
         app:layout_constraintBottom_toBottomOf="@id/item_food_ellipse_iv"
         app:layout_constraintLeft_toRightOf="@id/item_food_ellipse_iv"
         app:layout_constraintTop_toTopOf="@id/item_food_ellipse_iv"
-        tools:text="가게 종류" />
+        tools:text="@string/restaurant_type" />
 
     <TextView
         android:id="@+id/week_food_afternoon_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:text="320m"
+        android:text="@string/restaurant_distance"
         android:textColor="@color/main_color"
         android:textSize="10dp"
         android:textStyle="bold"
@@ -99,7 +99,7 @@
         app:layout_constraintBottom_toBottomOf="@id/item_food_location_iv"
         app:layout_constraintLeft_toRightOf="@id/item_food_location_iv"
         app:layout_constraintTop_toTopOf="@id/item_food_location_iv"
-        tools:text="가게 위치" />
+        tools:text="@string/restaurant_location" />
 
     <ImageView
         android:id="@+id/item_food_phone_iv"
@@ -123,7 +123,7 @@
         app:layout_constraintBottom_toBottomOf="@id/item_food_phone_iv"
         app:layout_constraintLeft_toRightOf="@id/item_food_phone_iv"
         app:layout_constraintTop_toTopOf="@id/item_food_phone_iv"
-        tools:text="가게 전화번호" />
+        tools:text="@string/restaurant_phone" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -47,6 +47,4 @@ class SearchFoodAdapter(listener : OnLoveClick) : ListAdapter<Restaurant, Search
             }
         }
     }
-
-
 }

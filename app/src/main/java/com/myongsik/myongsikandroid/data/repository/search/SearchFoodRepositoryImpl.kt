@@ -28,7 +28,6 @@ class SearchFoodRepositoryImpl @Inject constructor(
         size: Int,
         sort: String
     ): Response<SearchResponse> {
-
         return searchFoodApi.searchFood(query, category_group_code, x, y, radius, page, size, sort)
     }
 

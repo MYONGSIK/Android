@@ -29,13 +29,8 @@ class LoveFoodViewHolder(
             else
                 restaurant.place_name
 
-
-
         itemView.apply {
             binding.itemLoveLoveIv.setOnClickListener() {
-//                if(mCallback.isItem(restaurant)){
-//                    Snackbar.make(this, "이미 찜하셨습니다.", Snackbar.LENGTH_SHORT).show()
-//                }
                 mCallback.addItem(restaurant)
                 binding.itemLoveLoveIv.visibility = View.INVISIBLE
                 binding.itemLoveLoveFillIv.visibility = View.VISIBLE

@@ -33,5 +33,4 @@ abstract class RepositoryModule {
     abstract fun bindSearchViewModelFactory(
         viewModelFactory: SearchViewModelProviderFactory
     ): ViewModelProvider.Factory
-
 }

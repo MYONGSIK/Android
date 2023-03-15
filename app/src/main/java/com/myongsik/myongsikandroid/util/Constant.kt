@@ -30,7 +30,6 @@ object Constant {
     var DINNER_S = ""
     var DINNER_H = ""
 
-
     //Paging
     const val PAGING_SIZE = 15
 }

@@ -35,14 +35,12 @@ class TagFragment : Fragment(), OnLoveClick {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    //검색 뷰모델
+
     private val searchViewModel : SearchViewModel by viewModels{
         viewModelFactory
     }
     private val mainViewModel by activityViewModels<MainViewModel>()
 
-
-    //태그화면도 PagingAdapter 사용
     private lateinit var tagFoodAdapter: SearchFoodPagingAdapter
 
     override fun onCreateView(
@@ -70,7 +68,6 @@ class TagFragment : Fragment(), OnLoveClick {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    //해시태그 모아보기 리사이클러뷰
     private fun setUpRecyclerView(){
         tagFoodAdapter = SearchFoodPagingAdapter(this)
         binding.moaMyongjiRv.apply {
@@ -79,13 +76,11 @@ class TagFragment : Fragment(), OnLoveClick {
             adapter = tagFoodAdapter
         }
 
-        //태그 화면에서의 클릭
         tagFoodAdapter.setOnItemClickListener {
             val action = TagFragmentDirections.actionFragmentTagToFragmentRestaurant(it)
             findNavController().navigate(action)
         }
 
-        //태그에서의 백버튼
         binding.tagBackBt.setOnClickListener {
             findNavController().popBackStack()
         }

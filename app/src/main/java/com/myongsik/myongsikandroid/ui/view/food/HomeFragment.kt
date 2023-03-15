@@ -62,7 +62,6 @@ class HomeFragment : Fragment() {
 
     private var initDate: Int = 0
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -72,7 +71,6 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    //Context 를 불러오기 위해
     override fun onAttach(context: Context) {
 
         super.onAttach(context)
@@ -264,7 +262,6 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-
 
         // 색상
         binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

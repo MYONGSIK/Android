@@ -2,10 +2,7 @@ package com.myongsik.myongsikandroid.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.myongsik.myongsikandroid.data.api.SearchFoodApi
 import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepository
-import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepositoryImpl
-import dagger.Module
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")

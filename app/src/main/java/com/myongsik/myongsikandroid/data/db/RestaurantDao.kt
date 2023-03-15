@@ -29,7 +29,4 @@ interface RestaurantDao {
 
     @Query("select exists(SELECT * FROM love_list WHERE id = :id)")
     fun loveUpdate(id : String) : Boolean
-
-
-
 }
