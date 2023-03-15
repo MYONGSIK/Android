@@ -69,11 +69,6 @@ class TagFragment : Fragment(), OnSearchViewHolderClick {
             adapter = tagFoodAdapter
         }
 
-        tagFoodAdapter.setOnItemClickListener {
-            val action = TagFragmentDirections.actionFragmentTagToFragmentRestaurant(it)
-            findNavController().navigate(action)
-        }
-
         binding.tagBackBt.setOnClickListener {
             findNavController().popBackStack()
         }

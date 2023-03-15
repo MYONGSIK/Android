@@ -185,11 +185,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
                 footer = SearchFoodLoadStateAdapter()
             )
         }
-
-        searchFoodAdapter.setOnItemClickListener {
-            val action  = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
-            findNavController().navigate(action)
-        }
     }
 
     private fun setupLoadState(){
@@ -211,11 +206,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = searchRecommendAdapter
-        }
-
-        searchRecommendAdapter.setOnItemClickListener {
-            val action  = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(it)
-            findNavController().navigate(action)
         }
     }
 
