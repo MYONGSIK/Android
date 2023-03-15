@@ -14,6 +14,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
@@ -28,12 +29,15 @@ import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModelProviderFactory
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SearchFragment : Fragment(), OnLoveClick {
 
     private var _binding : FragmentSearchBinding?= null
@@ -51,10 +55,11 @@ class SearchFragment : Fragment(), OnLoveClick {
         "회", "곱창", "냉면", "닭발" //4  -> 총 20개
     )
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     //검색 뷰모델, 현재 의존성 주입 안함
-    private val searchViewModel : SearchViewModel by viewModels{
-        SearchViewModelProviderFactory()
-    }
+    private val searchViewModel : SearchViewModel by viewModels{ viewModelFactory }
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     //검색 어댑터 -> PagingAdapter

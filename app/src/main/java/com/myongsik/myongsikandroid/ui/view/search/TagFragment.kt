@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,10 +19,13 @@ import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModelProviderFactory
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 //모아뒀으기 골라보세요 화면
+@AndroidEntryPoint
 class TagFragment : Fragment(), OnLoveClick {
 
     private var _binding : FragmentTagBinding?= null
@@ -30,9 +34,11 @@ class TagFragment : Fragment(), OnLoveClick {
 
     private val args : TagFragmentArgs by navArgs<TagFragmentArgs>()
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     //검색 뷰모델
     private val searchViewModel : SearchViewModel by viewModels{
-        SearchViewModelProviderFactory()
+        viewModelFactory
     }
     private val mainViewModel by activityViewModels<MainViewModel>()
 
