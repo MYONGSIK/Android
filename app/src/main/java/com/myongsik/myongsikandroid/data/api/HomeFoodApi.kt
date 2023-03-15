@@ -2,6 +2,7 @@ package com.myongsik.myongsikandroid.data.api
 
 
 import com.myongsik.myongsikandroid.data.model.food.RequestMealData
+import com.myongsik.myongsikandroid.data.model.food.RequestScrap
 import com.myongsik.myongsikandroid.data.model.food.ResponseMealData
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
@@ -41,6 +42,9 @@ interface HomeFoodApi {
         @Body body : RequestMealData
     ) : Response<ResponseMealData>
 
-
+    @POST("/api/v2/scraps")
+    suspend fun postRestaurantScrap(
+        @Body body : RequestScrap
+    ) : Response<ResponseMealData>
 
 }
