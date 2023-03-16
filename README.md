@@ -42,7 +42,7 @@
 | **Android Jetpack**|  ViewModel, LiveData, Navigation, Room, Paging, View Binding, ViewPager2 |
 | **Dependency Injection**| Hilt       |
 | **Networking** | Retrofit2, OkHttp3           |
-| **Asynchronous**                 | Coroutine |
+| **Asynchronous**                 | Coroutine, Flow, StateFlow |
 | **Local DB**                 | Room, DataStore |
 | **Background**                 | AlarmManager |
 
