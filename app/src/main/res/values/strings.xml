@@ -72,5 +72,5 @@
     <string name="restaurant_phone">가게 전화번호</string>
 
     <string name="review_okay">완료</string>
-
+    <string name="check_newtwork_state">네트워크 상태를 확인해주세요.</string>
 </resources>
