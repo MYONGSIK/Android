@@ -165,8 +165,6 @@ class MyPagerAdapter(
         itemViewHolder.binding.todayAfternoonGoodIv.setColorFilter(color)
         itemViewHolder.binding.todayAfternoonHateIv.setColorFilter(color)
 
-        val mealIdPositionFirst = itemList + ((itemList.size) * position)
-
         fun getGoodChangeLunchA() {
             itemViewHolder.binding.todayLunchAGoodTv.setTextColor(Color.parseColor("#274984"))
             itemViewHolder.binding.todayLunchAHateTv.setTextColor(Color.parseColor("#CECECE"))

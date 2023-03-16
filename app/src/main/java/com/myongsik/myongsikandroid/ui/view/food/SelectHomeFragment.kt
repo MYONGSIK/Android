@@ -38,7 +38,6 @@ class SelectHomeFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-//
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
