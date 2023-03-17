@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -43,6 +44,9 @@ class SelectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dialogUtils = DialogUtils(requireContext())
+
+        @SuppressLint("HardwareIds")
+        val androidId = Settings.Secure.getString(requireContext().contentResolver, Settings.Secure.ANDROID_ID)
 
         binding.splashFBt.setOnTouchListener { _, motionEvent ->
             when (motionEvent.action) {
@@ -87,13 +91,12 @@ class SelectFragment : Fragment() {
             dialogUtils.showAlertDialog("인문캠퍼스로\n캠퍼스 설정을 하시겠어요?", 4,
                 yesClickListener = {
                     context?.let { it1 -> GetAdvertisingIdTask(it1).execute() }
-                    val deviceId = it.id
 
-                    val requestUser = RequestUserData(deviceId.toString())
+                    val requestUser = RequestUserData(androidId)
                     mainViewModel.postUser(requestUser)
                     mainViewModel.postUserData.observe(viewLifecycleOwner) {
 
-                        MyongsikApplication.prefs.setUserId(deviceId.toString())
+                        MyongsikApplication.prefs.setUserId(androidId)
                         MyongsikApplication.prefs.setUserCampus("S")
                         if (!NetworkUtils.getNetworkConnected(context)) {
                             findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
@@ -121,13 +124,12 @@ class SelectFragment : Fragment() {
                 yesClickListener = {
                     // 회원 등록
                     context?.let { it1 -> GetAdvertisingIdTask(it1).execute() }
-                    val deviceId = it.id
 
-                    val requestUser = RequestUserData(deviceId.toString())
+                    val requestUser = RequestUserData(androidId)
                     mainViewModel.postUser(requestUser)
                     mainViewModel.postUserData.observe(viewLifecycleOwner) {
 
-                        MyongsikApplication.prefs.setUserId(deviceId.toString())
+                        MyongsikApplication.prefs.setUserId(androidId)
                         MyongsikApplication.prefs.setUserCampus("Y")
                         if (!NetworkUtils.getNetworkConnected(context)) {
                             findNavController().navigate(R.id.action_fragment_select_to_fragment_home)

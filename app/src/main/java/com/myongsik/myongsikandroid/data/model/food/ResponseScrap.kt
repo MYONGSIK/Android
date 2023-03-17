@@ -10,6 +10,12 @@ data class ResponseScrap(
 ) {
     data class ResponseScrapData(
         val id: Int,
-        val storeId : String,
+        val address : String,
+        val category : String,
+        val code : String,
+        val contact : String,
+        val distance : String,
+        val name : String,
+        val urlAddress : String,
     )
 }
