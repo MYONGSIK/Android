@@ -2,6 +2,7 @@ package com.myongsik.myongsikandroid.ui.view.search
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,8 +51,15 @@ class LoveFragment : Fragment(), OnSearchViewHolderClick {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                mainViewModel.loveFoods.collectLatest { pagedData ->
-                    loveFoodAdapter.submitData(pagedData)
+                mainViewModel.loveIsFood.collectLatest {
+                    if(it.isEmpty()){
+                        binding.favoriteEmptyLove.visibility = View.VISIBLE
+                    } else {
+                        binding.favoriteEmptyLove.visibility = View.INVISIBLE
+                    }
+                    mainViewModel.loveFoods.collectLatest { pagedData ->
+                        loveFoodAdapter.submitData(pagedData)
+                    }
                 }
             }
         }

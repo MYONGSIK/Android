@@ -23,23 +23,6 @@ class SearchViewModel @Inject constructor(
     private val searchFoodRepository: SearchFoodRepository
 ) : ViewModel() {
 
-    //검색화면 -> Paging 으로 변환
-//    private val _resultSearch = MutableLiveData<SearchResponse>()
-//    val resultSearch : LiveData<SearchResponse>
-//        get() = _resultSearch
-//
-//    fun searchFood(query : String) = viewModelScope.launch(Dispatchers.IO) {
-//        val response = searchFoodRepository.searchFood(
-//            "서울 명지대 $query", "FD6, CE7", "126.923460283882",
-//            "37.5803504797164", 1500, 1, 15)
-//
-//        if(response.isSuccessful){
-//            response.body()?.let{ body ->
-//                _resultSearch.postValue(body)
-//            }
-//        }
-//    }
-
     //검색 페이징 -> 검색할 때, 해시태그 클릭했을 때 사용됨
     private val _searchPagingResult = MutableStateFlow<PagingData<Restaurant>>(PagingData.empty())
     val searchPagingResult : StateFlow<PagingData<Restaurant>> = _searchPagingResult.asStateFlow()

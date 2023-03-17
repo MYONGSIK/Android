@@ -263,6 +263,10 @@ class FoodRepositoryImpl @Inject constructor(
         return true
     }
 
+    override fun getLoveIsFood(): Flow<List<Restaurant>> {
+        return db.restaurantDao().getIsLoveFood()
+    }
+
     //음식 조회 페이징 처리
     override fun getFoods(): Flow<PagingData<Restaurant>> {
         val pagingSourceFactory = { db.restaurantDao().getFoods() }

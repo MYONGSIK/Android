@@ -137,4 +137,7 @@ class MainViewModel @Inject constructor(
         val restaurantLove = foodRepository.updateLove(string)
         _isUpdate.postValue(restaurantLove)
     }
+
+    val loveIsFood : StateFlow<List<Restaurant>> = foodRepository.getLoveIsFood()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), listOf())
 }

@@ -49,4 +49,6 @@ interface FoodRepository {
     fun loveIs(id : String) : Restaurant
 
     fun updateLove(id : String) : Boolean
+
+    fun getLoveIsFood() : Flow<List<Restaurant>>
 }
