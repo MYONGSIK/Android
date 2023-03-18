@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -14,11 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.databinding.FragmentSelectBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.DialogUtils
-import com.myongsik.myongsikandroid.util.GetAdvertisingIdTask
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import com.myongsik.myongsikandroid.util.NetworkUtils
 
@@ -29,7 +26,6 @@ class SelectFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var mainActivity: MainActivity
-    private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,9 +40,6 @@ class SelectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dialogUtils = DialogUtils(requireContext())
-
-        @SuppressLint("HardwareIds")
-        val androidId = Settings.Secure.getString(requireContext().contentResolver, Settings.Secure.ANDROID_ID)
 
         binding.splashFBt.setOnTouchListener { _, motionEvent ->
             when (motionEvent.action) {
@@ -90,20 +83,13 @@ class SelectFragment : Fragment() {
             }
             dialogUtils.showAlertDialog("인문캠퍼스로\n캠퍼스 설정을 하시겠어요?", 4,
                 yesClickListener = {
-                    context?.let { it1 -> GetAdvertisingIdTask(it1).execute() }
-
-                    val requestUser = RequestUserData(androidId)
-                    mainViewModel.postUser(requestUser)
-                    mainViewModel.postUserData.observe(viewLifecycleOwner) {
-
-                        MyongsikApplication.prefs.setUserId(androidId)
-                        MyongsikApplication.prefs.setUserCampus("S")
-                        if (!NetworkUtils.getNetworkConnected(context)) {
-                            findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
-                        } else {
-                            findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
-                        }
+                    MyongsikApplication.prefs.setUserCampus("S")
+                    if (!NetworkUtils.getNetworkConnected(context)) {
+                        findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
+                    } else {
+                        findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
                     }
+
                 },
                 noClickListener = {
                     context?.let {
@@ -122,20 +108,11 @@ class SelectFragment : Fragment() {
 
             dialogUtils.showAlertDialog("자연캠퍼스로\n캠퍼스 설정을 하시겠어요?", 4,
                 yesClickListener = {
-                    // 회원 등록
-                    context?.let { it1 -> GetAdvertisingIdTask(it1).execute() }
-
-                    val requestUser = RequestUserData(androidId)
-                    mainViewModel.postUser(requestUser)
-                    mainViewModel.postUserData.observe(viewLifecycleOwner) {
-
-                        MyongsikApplication.prefs.setUserId(androidId)
-                        MyongsikApplication.prefs.setUserCampus("Y")
-                        if (!NetworkUtils.getNetworkConnected(context)) {
-                            findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
-                        } else {
-                            findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
-                        }
+                    MyongsikApplication.prefs.setUserCampus("Y")
+                    if (!NetworkUtils.getNetworkConnected(context)) {
+                        findNavController().navigate(R.id.action_fragment_select_to_fragment_home)
+                    } else {
+                        findNavController().navigate(R.id.action_fragment_select_to_fragment_search)
                     }
                 },
                 noClickListener = {
