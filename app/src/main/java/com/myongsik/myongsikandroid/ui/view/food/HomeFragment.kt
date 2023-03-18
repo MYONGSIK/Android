@@ -301,7 +301,6 @@ import java.util.*
         }
     }
 
-
     private fun writeMenu(review: String) {
         val currentDate = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")

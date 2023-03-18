@@ -3,6 +3,7 @@ package com.myongsik.myongsikandroid.ui.view.search
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +13,13 @@ import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import com.myongsik.myongsikandroid.data.model.food.RequestScrap
 import com.myongsik.myongsikandroid.databinding.FragmentRestaurantBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
+import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 
 //장소 상세화면
@@ -33,6 +35,8 @@ class RestaurantFragment : Fragment() {
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     private lateinit var callback: OnBackPressedCallback
+
+    private var campus : String?= null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,6 +78,15 @@ class RestaurantFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        @SuppressLint("HardwareIds")
+        val androidId = Settings.Secure.getString(requireContext().contentResolver, Settings.Secure.ANDROID_ID)
+
+        if(MyongsikApplication.prefs.getUserCampus() == "S"){
+            campus = "SEOUL"
+        }else{
+            campus = "YONGIN"
+        }
+
         val restaurant = args.restaurant
         binding.webview.apply{
             webViewClient = CookWebViewClient()
@@ -99,6 +112,17 @@ class RestaurantFragment : Fragment() {
             binding.fabFavorite.visibility = View.INVISIBLE
             binding.fabFavoriteLove.visibility = View.VISIBLE
             mainViewModel.saveFoods(restaurant)
+            mainViewModel.scarpRestaurant(requestScrap = RequestScrap(
+                address = restaurant.road_address_name,
+                campus = campus!!,
+                category = restaurant.category_group_name,
+                code =restaurant.id,
+                contact = restaurant.phone,
+                distance = restaurant.distance,
+                name = restaurant.place_name,
+                phoneId = MyongsikApplication.prefs.getUserID(),
+                urlAddress = restaurant.place_url,
+            ))
             Snackbar.make(view, "찜 완료!", Snackbar.LENGTH_SHORT).show()
         }
 

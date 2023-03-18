@@ -137,4 +137,18 @@ class MainViewModel @Inject constructor(
         val restaurantLove = foodRepository.updateLove(string)
         _isUpdate.postValue(restaurantLove)
     }
+
+    val loveIsFood : StateFlow<List<Restaurant>> = foodRepository.getLoveIsFood()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), listOf())
+
+    private val _scrapRestaurant = MutableLiveData<ResponseScrap>()
+    val scrapRestaurant : LiveData<ResponseScrap>
+        get() = _scrapRestaurant
+    fun scarpRestaurant(requestScrap: RequestScrap) = viewModelScope.launch(Dispatchers.IO){
+        val response = foodRepository.postScrapRestaurant(requestScrap)
+
+        if(response.code() == 200){
+            _scrapRestaurant.postValue(response.body())
+        }
+    }
 }

@@ -1,16 +1,21 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.myongsik.myongsikandroid.R
+import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.databinding.FragmentSplashBinding
+import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import com.myongsik.myongsikandroid.util.NetworkUtils
 
@@ -21,6 +26,7 @@ class SplashFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var mainActivity : MainActivity
+    private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +38,18 @@ class SplashFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        if (MyongsikApplication.prefs.getString("newUser", "new") == "new") {
+            @SuppressLint("HardwareIds")
+            val androidId = Settings.Secure.getString(
+                requireContext().contentResolver,
+                Settings.Secure.ANDROID_ID
+            )
+            MyongsikApplication.prefs.setUserId(androidId)
+            MyongsikApplication.prefs.setString("newUser", "existing")
+            val requestUser = RequestUserData(androidId)
+            mainViewModel.postUser(requestUser)
+        }
+
         val handler = Handler(Looper.getMainLooper())
 
         if(MyongsikApplication.prefs.getUserCampus() ==""){

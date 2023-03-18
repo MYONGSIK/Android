@@ -2,6 +2,8 @@ package com.myongsik.myongsikandroid.data.repository.food
 
 import androidx.paging.PagingData
 import com.myongsik.myongsikandroid.data.model.food.FoodResult
+import com.myongsik.myongsikandroid.data.model.food.RequestScrap
+import com.myongsik.myongsikandroid.data.model.food.ResponseScrap
 import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
@@ -18,6 +20,8 @@ interface FoodRepository {
     suspend fun postReview(requestReviewData: RequestReviewData) : Response<ResponseReviewData>
 
     suspend fun postUser(requestUserData: RequestUserData) : Response<ResponseUserData>
+
+    suspend fun postScrapRestaurant(requestScrap: RequestScrap) : Response<ResponseScrap>
 
     //DataStore
     suspend fun saveLunchEvaluation(type: String, evaluation : String)
@@ -49,4 +53,6 @@ interface FoodRepository {
     fun loveIs(id : String) : Restaurant
 
     fun updateLove(id : String) : Boolean
+
+    fun getLoveIsFood() : Flow<List<Restaurant>>
 }
