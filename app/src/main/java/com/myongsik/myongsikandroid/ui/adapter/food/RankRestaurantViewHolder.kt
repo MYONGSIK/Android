@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
+import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantRankingBinding
 
 class RankRestaurantViewHolder(
@@ -25,7 +26,6 @@ class RankRestaurantViewHolder(
                 "${getRankRestaurant.name.substring(0, 12)}..."
             else
                 getRankRestaurant.name
-
 
         with(binding) {
             itemFoodPhoneTv.setOnClickListener {
@@ -53,23 +53,10 @@ class RankRestaurantViewHolder(
                 }
             }
 
-//            itemFoodDetailCl.setOnClickListener {
-//                clickCallback.clickDirectButton(restaurant)
-//            }
-
             itemFoodName.text = placeName
             itemFoodObject.text = getRankRestaurant.category
-//            itemFoodObject.text = restaurant.category_group_name
+            itemFoodPhoneTv.text = getRankRestaurant.contact
             weekFoodAfternoonTv.text = distance
-//            itemFoodLocationTv.text = restaurant.road_address_name
-
-//            itemFoodPhoneTv.apply {
-//                text = if (getRankRestaurant.phone == "") {
-//                    this.context.getString(R.string.is_null_phone_number)
-//                } else {
-//                    getRankRestaurant.phone
-//                }
-//            }
         }
     }
 }

@@ -43,7 +43,8 @@ import java.time.temporal.ChronoUnit
 import java.util.*
 
 //홈화면 일간 식단 조회 프래그먼트
-@AndroidEntryPoint class HomeFragment : Fragment() {
+@AndroidEntryPoint
+class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding

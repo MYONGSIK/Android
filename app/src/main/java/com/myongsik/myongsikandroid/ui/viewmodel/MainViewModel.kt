@@ -160,13 +160,13 @@ class MainViewModel @Inject constructor(
 
     fun getRankRestaurant() = viewModelScope.launch(Dispatchers.IO) {
         when (MyongsikApplication.prefs.getUserCampus()){
-            "S" -> start("SEOUL")
-            "Y" -> start("YONGIN")
+            "S" -> start("scrapCount,desc", "SEOUL")
+            "Y" -> start("scrapCount,desc","YONGIN")
         }
     }
 
-    private suspend fun start(campus: String) {
-        val response = foodRepository.getRankRestaurant(campus)
+    private suspend fun start(sort : String, campus: String) {
+        val response = foodRepository.getRankRestaurant(sort, campus)
 
         if(response.isSuccessful) {
             response.body()?.let { body ->

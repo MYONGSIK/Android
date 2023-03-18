@@ -3,7 +3,6 @@ package com.myongsik.myongsikandroid.ui.view.search
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,9 +77,6 @@ class RestaurantFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        @SuppressLint("HardwareIds")
-        val androidId = Settings.Secure.getString(requireContext().contentResolver, Settings.Secure.ANDROID_ID)
-
         if(MyongsikApplication.prefs.getUserCampus() == "S"){
             campus = "SEOUL"
         }else{
@@ -108,6 +104,13 @@ class RestaurantFragment : Fragment() {
             }
         }
 
+        val contact : String?
+        if(restaurant.phone == ""){
+            contact = "전화번호가 없습니다."
+        } else {
+            contact = restaurant.phone
+        }
+
         binding.fabFavorite.setOnClickListener {
             binding.fabFavorite.visibility = View.INVISIBLE
             binding.fabFavoriteLove.visibility = View.VISIBLE
@@ -117,7 +120,7 @@ class RestaurantFragment : Fragment() {
                 campus = campus!!,
                 category = restaurant.category_group_name,
                 code =restaurant.id,
-                contact = restaurant.phone,
+                contact = contact,
                 distance = restaurant.distance,
                 name = restaurant.place_name,
                 phoneId = MyongsikApplication.prefs.getUserID(),
