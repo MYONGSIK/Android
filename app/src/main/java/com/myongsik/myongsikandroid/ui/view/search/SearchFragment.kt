@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
+import com.myongsik.myongsikandroid.ui.adapter.food.RankRestaurantAdapter
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.adapter.state.SearchFoodLoadStateAdapter
@@ -57,6 +58,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
 
     //추천 어댑터
     private lateinit var searchRecommendAdapter: SearchFoodAdapter
+    private lateinit var rankRestaurantAdapter: RankRestaurantAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,12 +74,14 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
-        setUpRecommendRecyclerView()
+//        setUpRecommendRecyclerView()
+        setUpRankRestaurantRV()
         searchBooks()
 
         setupLoadState()
 
-        searchViewModel.searchRecommendFood(foodList[intRandom])
+        mainViewModel.getRankRestaurant()
+//        searchViewModel.searchRecommendFood(foodList[intRandom])
         binding.searchIcIv.setOnClickListener {
             binding.searchBackBt.visibility = View.VISIBLE
             binding.tlSearch.visibility = View.VISIBLE
@@ -98,9 +102,13 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
             binding.tlSearch.text = null
         }
 
-        searchViewModel.resultRecommendSearch.observe(viewLifecycleOwner){ response ->
-            val foods = response.documents
-            searchRecommendAdapter.submitList(foods)
+//        searchViewModel.resultRecommendSearch.observe(viewLifecycleOwner){ response ->
+//            val foods = response.documents
+//            searchRecommendAdapter.submitList(foods)
+//        }
+        mainViewModel.getRankRestaurant.observe(viewLifecycleOwner){
+            val response = it.data.content
+            rankRestaurantAdapter.submitList(response)
         }
 
         binding.tlSearch.addTextChangedListener(object : TextWatcher {
@@ -110,8 +118,8 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
                 binding.goodCafeDrinkTv.visibility = View.VISIBLE
                 binding.horizonSv.visibility = View.VISIBLE
                 binding.goodPlaceMyongji.visibility = View.VISIBLE
-                binding.searchMyongjiRecommend.visibility = View.VISIBLE
-
+//                binding.searchMyongjiRecommend.visibility = View.VISIBLE
+                binding.searchMyongjiRank.visibility = View.VISIBLE
                 binding.tvEmptylist.visibility = View.INVISIBLE
             }
 
@@ -121,7 +129,8 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
                     binding.goodCafeDrinkTv.visibility = View.INVISIBLE
                     binding.horizonSv.visibility = View.INVISIBLE
                     binding.goodPlaceMyongji.visibility = View.INVISIBLE
-                    binding.searchMyongjiRecommend.visibility = View.INVISIBLE
+//                    binding.searchMyongjiRecommend.visibility = View.INVISIBLE
+                    binding.searchMyongjiRank.visibility = View.INVISIBLE
                 }
             }
 
@@ -200,12 +209,20 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
         }
     }
 
-    private fun setUpRecommendRecyclerView(){
-        searchRecommendAdapter = SearchFoodAdapter(this)
-        binding.searchMyongjiRecommend.apply {
+//    private fun setUpRecommendRecyclerView(){
+//        searchRecommendAdapter = SearchFoodAdapter(this)
+//        binding.searchMyongjiRecommend.apply {
+//            setHasFixedSize(true)
+//            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+//            adapter = searchRecommendAdapter
+//        }
+//    }
+    private fun setUpRankRestaurantRV(){
+        rankRestaurantAdapter = RankRestaurantAdapter()
+        binding.searchMyongjiRank.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = searchRecommendAdapter
+            adapter = rankRestaurantAdapter
         }
     }
 

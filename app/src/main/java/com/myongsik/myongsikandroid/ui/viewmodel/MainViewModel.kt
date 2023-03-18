@@ -8,11 +8,13 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.myongsik.myongsikandroid.data.model.food.*
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
+import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
@@ -149,6 +151,27 @@ class MainViewModel @Inject constructor(
 
         if(response.code() == 200){
             _scrapRestaurant.postValue(response.body())
+        }
+    }
+
+    private val _getRankRestaurant = MutableLiveData<RankRestaurantResponse>()
+    val getRankRestaurant : LiveData<RankRestaurantResponse>
+        get() = _getRankRestaurant
+
+    fun getRankRestaurant() = viewModelScope.launch(Dispatchers.IO) {
+        when (MyongsikApplication.prefs.getUserCampus()){
+            "S" -> start("SEOUL")
+            "Y" -> start("YONGIN")
+        }
+    }
+
+    private suspend fun start(campus: String) {
+        val response = foodRepository.getRankRestaurant(campus)
+
+        if(response.isSuccessful) {
+            response.body()?.let { body ->
+                _getRankRestaurant.postValue(body)
+            }
         }
     }
 }

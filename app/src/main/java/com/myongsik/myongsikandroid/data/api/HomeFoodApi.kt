@@ -11,6 +11,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface HomeFoodApi {
 
@@ -38,4 +39,9 @@ interface HomeFoodApi {
     suspend fun postRestaurantScrap(
         @Body body: RequestScrap
     ): Response<ResponseScrap>
+
+    @GET("/api/v2/scraps/store")
+    suspend fun getRankRestaurant(
+        @Query("campus") campus: String
+    ) : Response<RankRestaurantResponse>
 }

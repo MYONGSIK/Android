@@ -28,18 +28,21 @@ class SearchFoodPagingSource(
             var c: String = ""
             var x: Double = 0.0
             var y: Double = 0.0
+            var radius : Int = 1500
             if (MyongsikApplication.prefs.getUserCampus() == "S") {
                 c = "서울"
                 x = 126.923460283882
                 y = 37.5803504797164
+                radius = 1500
             } else if (MyongsikApplication.prefs.getUserCampus() == "Y") {
                 c = "용인"
                 x = 127.18758354347
                 y = 37.224650469991
+                radius = 3000
             }
             val response = searchFoodApi.searchFood(
                 "$c 명지대 $query", "FD6, CE7", "$x",
-                "$y", 1500, pageNumber, params.loadSize, "distance"
+                "$y", radius, pageNumber, params.loadSize, "distance"
             )
             val endOfPaginationReached = response.body()?.meta?.is_end!!
 

@@ -11,10 +11,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
 import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
-import com.myongsik.myongsikandroid.data.model.food.FoodResult
-import com.myongsik.myongsikandroid.data.model.food.RequestScrap
-import com.myongsik.myongsikandroid.data.model.food.ResponseScrap
-import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
+import com.myongsik.myongsikandroid.data.model.food.*
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
@@ -57,6 +54,10 @@ class FoodRepositoryImpl @Inject constructor(
 
     override suspend fun postScrapRestaurant(requestScrap: RequestScrap): Response<ResponseScrap> {
         return api.postRestaurantScrap(requestScrap)
+    }
+
+    override suspend fun getRankRestaurant(campus: String): Response<RankRestaurantResponse> {
+        return api.getRankRestaurant(campus)
     }
 
     //DataStore

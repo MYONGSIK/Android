@@ -250,13 +250,25 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/horizon_sv" />
 
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/search_myongji_recommend"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:scrollbars="vertical"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/good_place_myongji" />-->
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/search_myongji_recommend"
+        android:id="@+id/search_myongji_rank"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/good_place_myongji" />
+        app:layout_constraintTop_toBottomOf="@id/good_place_myongji"
+        tools:listitem="@layout/item_restaurant_ranking"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
