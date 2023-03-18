@@ -16,8 +16,8 @@ android {
         applicationId "com.myongsik.myongsikandroid"
         minSdk 23
         targetSdk 33
-        versionCode 17
-        versionName "2.2.3"
+        versionCode 19
+        versionName "2.2.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
