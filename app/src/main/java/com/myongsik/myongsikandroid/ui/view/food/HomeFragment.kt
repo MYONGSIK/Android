@@ -56,8 +56,9 @@ import java.util.*
 
     private lateinit var mainActivity: MainActivity
 
-    private val localDate: LocalDate = LocalDate.now()
-    private val initDate: Int = LocalDate.now().dayOfWeek.value
+    private lateinit var localDate: LocalDate
+
+    private var initDate: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -98,9 +99,21 @@ import java.util.*
         checkWeekend()
     }
 
+    private fun settingDate(localDateTime: LocalDate) {
+        // 오늘 날짜
+        localDate = localDateTime
+        initDate = localDateTime.dayOfWeek.value
+        if (initDate == 7){
+            localDate = localDate.plusDays(1)
+            initDate = 1
+        }
+    }
+
     private fun initObserve() {
         mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
             val list = mutableListOf<List<String>>()
+
+            settingDate(LocalDate.parse(it.localDateTime.substring(0, 10)))
 
             it.data.forEach { foodResult ->
                 list.add(foodResult.meals)
