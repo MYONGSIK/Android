@@ -6,11 +6,13 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
+import com.myongsik.myongsikandroid.data.model.food.OnScrapViewHolderClick
 import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantRankingBinding
 
 class RankRestaurantViewHolder(
     private val binding: ItemRestaurantRankingBinding,
+    private val clickCallback: OnScrapViewHolderClick,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(getRankRestaurant: GetRankRestaurant) {
@@ -36,8 +38,7 @@ class RankRestaurantViewHolder(
                 }
             }
             itemFoodLocationTv.text = getRankRestaurant.address
-            val text = rankingTitleTv.text.toString().format(getRankRestaurant.scrapCount)
-            rankingTitleTv.text = text
+            rankingTitleTv1.text = getRankRestaurant.scrapCount.toString()
 
             itemFoodLocationTv.setOnClickListener {
                 val naverMapUrl = "nmap://search?query=${itemFoodLocationTv.text}"
@@ -51,6 +52,10 @@ class RankRestaurantViewHolder(
                         Toast.makeText(this, getString(R.string.please_install_naver_map), Toast.LENGTH_SHORT).show()
                     }
                 }
+            }
+
+            itemFoodDetailCl.setOnClickListener {
+                clickCallback.clickRankDirectButton(getRankRestaurant)
             }
 
             itemFoodName.text = placeName
