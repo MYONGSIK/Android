@@ -28,6 +28,7 @@ import com.myongsik.myongsikandroid.ui.adapter.state.SearchFoodLoadStateAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
+import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -73,6 +74,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        MyongsikApplication.prefs.setString("newUser", "notNew")
 
         setUpRecyclerView()
         setUpRankRestaurantRV()

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,8 +17,10 @@ import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.databinding.FragmentSplashBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
+import com.myongsik.myongsikandroid.util.DialogUtils
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import com.myongsik.myongsikandroid.util.NetworkUtils
+import java.net.ConnectException
 
 class SplashFragment : Fragment() {
 
@@ -38,16 +41,25 @@ class SplashFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val dialogUtils = DialogUtils(requireContext())
+
         if (MyongsikApplication.prefs.getString("newUser", "new") == "new") {
-            @SuppressLint("HardwareIds")
-            val androidId = Settings.Secure.getString(
-                requireContext().contentResolver,
-                Settings.Secure.ANDROID_ID
-            )
-            MyongsikApplication.prefs.setUserId(androidId)
-            MyongsikApplication.prefs.setString("newUser", "existing")
-            val requestUser = RequestUserData(androidId)
-            mainViewModel.postUser(requestUser)
+            try {
+                @SuppressLint("HardwareIds")
+                val androidId = Settings.Secure.getString(
+                    requireContext().contentResolver,
+                    Settings.Secure.ANDROID_ID
+                )
+                Log.d("ggplot", "${androidId} 신규회원")
+                val requestUser = RequestUserData(androidId)
+                mainViewModel.postUser(requestUser)
+                MyongsikApplication.prefs.setUserId(androidId)
+            } catch (e: ConnectException) {
+                dialogUtils.showConfirmDialog("네트워크 에러가 발생하였습니다.", "다시 접속해주세요.",
+                    yesClickListener = {
+                        mainActivity.finish()
+                    })
+            }
         }
 
         val handler = Handler(Looper.getMainLooper())
@@ -57,12 +69,7 @@ class SplashFragment : Fragment() {
                 findNavController().navigate(R.id.action_fragment_splash_to_fragment_select)
             },1500)
             return
-        }
-        if(!NetworkUtils.getNetworkConnected(context)){
-            handler.postDelayed({
-                findNavController().navigate(R.id.action_fragment_splash_to_fragment_home)
-            },1500)
-        }else{
+        } else{
             handler.postDelayed({
                 findNavController().navigate(R.id.action_fragment_splash_to_fragment_search)
             },1500)
