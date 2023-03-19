@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.data.model.food
+package com.myongsik.myongsikandroid.ui.adapter.search
 
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 

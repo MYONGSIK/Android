@@ -13,6 +13,7 @@ import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
+import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
@@ -149,6 +150,27 @@ class MainViewModel @Inject constructor(
 
         if(response.code() == 200){
             _scrapRestaurant.postValue(response.body())
+        }
+    }
+
+    private val _rankRestaurantResponse = MutableLiveData<RankRestaurantResponse>()
+    val rankRestaurantResponse : LiveData<RankRestaurantResponse>
+        get() = _rankRestaurantResponse
+
+    fun getRankRestaurant() = viewModelScope.launch(Dispatchers.IO) {
+        when (MyongsikApplication.prefs.getUserCampus()){
+            "S" -> start("scrapCount,desc", "SEOUL")
+            "Y" -> start("scrapCount,desc","YONGIN")
+        }
+    }
+
+    private suspend fun start(sort : String, campus: String) {
+        val response = foodRepository.getRankRestaurant(sort, campus)
+
+        if(response.isSuccessful) {
+            response.body()?.let { body ->
+                _rankRestaurantResponse.postValue(body)
+            }
         }
     }
 }

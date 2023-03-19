@@ -3,7 +3,6 @@ package com.myongsik.myongsikandroid.ui.adapter.search
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemLoveRestaurantBinding
 

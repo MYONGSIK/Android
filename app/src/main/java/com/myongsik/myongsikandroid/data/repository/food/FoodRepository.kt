@@ -1,10 +1,7 @@
 package com.myongsik.myongsikandroid.data.repository.food
 
 import androidx.paging.PagingData
-import com.myongsik.myongsikandroid.data.model.food.FoodResult
-import com.myongsik.myongsikandroid.data.model.food.RequestScrap
-import com.myongsik.myongsikandroid.data.model.food.ResponseScrap
-import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
+import com.myongsik.myongsikandroid.data.model.food.*
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
@@ -15,6 +12,7 @@ import retrofit2.Response
 
 interface FoodRepository {
 
+    //API
     suspend fun weekGetFoodArea(s:String) : Response<WeekFoodResponse>
 
     suspend fun postReview(requestReviewData: RequestReviewData) : Response<ResponseReviewData>
@@ -22,6 +20,8 @@ interface FoodRepository {
     suspend fun postUser(requestUserData: RequestUserData) : Response<ResponseUserData>
 
     suspend fun postScrapRestaurant(requestScrap: RequestScrap) : Response<ResponseScrap>
+
+    suspend fun getRankRestaurant(sort : String, campus : String) : Response<RankRestaurantResponse>
 
     //DataStore
     suspend fun saveLunchEvaluation(type: String, evaluation : String)

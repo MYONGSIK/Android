@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
+import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentLoveBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.LoveFoodPagingAdapter
@@ -105,5 +105,4 @@ class LoveFragment : Fragment(), OnSearchViewHolderClick {
         val action  = LoveFragmentDirections.actionFragmentLoveToFragmentRestaurant(restaurant)
         findNavController().navigate(action)
     }
-
 }

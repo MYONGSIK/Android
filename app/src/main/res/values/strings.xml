@@ -16,7 +16,7 @@
 
     <string name="app_sub_title">명지대 학식 식단표 제공 앱</string>
     <string name="date_format">%s월 %s일</string>
-    <string name="ranking_title_text">명지대학생들이 %s명 담았어요!</string>
+    <string name="ranking_title_text">명지대학생들이 %d명 담았어요!</string>
     <string name="is_null_phone_number">전화번호가 없습니다.</string>
     <string name="please_install_naver_map">네이버 지도를 설치해주세요.</string>
     <string name="direct_go">바로 가기</string>
@@ -36,7 +36,7 @@
     <string name="search_univ_cafe">#명지카페</string>
     <string name="search_univ_drink">#명지술집</string>
     <string name="search_univ_bread">#명지빵집</string>
-    <string name="search_already_food">#명식이가 준비했습니다!</string>
+    <string name="search_already_food">#명지인이 선택한 맛집</string>
 
     <string name="select_teacher_restaurant">교직원 식당</string>
     <string name="select_teacher_restaurant_time">운영시간\n중식 11:30~13:30 | 석식 17:30 ~ 18:30</string>

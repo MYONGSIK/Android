@@ -11,15 +11,17 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
+import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
+import com.myongsik.myongsikandroid.ui.adapter.food.OnScrapViewHolderClick
+import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
+import com.myongsik.myongsikandroid.ui.adapter.food.RankRestaurantAdapter
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.adapter.state.SearchFoodLoadStateAdapter
@@ -32,7 +34,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 @AndroidEntryPoint
-class SearchFragment : Fragment(), OnSearchViewHolderClick {
+class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderClick {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding
@@ -50,13 +52,14 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
 
     //검색 뷰모델, 현재 의존성 주입 안함
     private val searchViewModel by viewModels<SearchViewModel>()
-    private val mainViewModel by activityViewModels<MainViewModel>()
+    private val mainViewModel by viewModels<MainViewModel>()
 
     //검색 어댑터 -> PagingAdapter
     private lateinit var searchFoodAdapter: SearchFoodPagingAdapter
 
     //추천 어댑터
     private lateinit var searchRecommendAdapter: SearchFoodAdapter
+    private lateinit var rankRestaurantAdapter: RankRestaurantAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,12 +75,12 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
-        setUpRecommendRecyclerView()
+        setUpRankRestaurantRV()
         searchBooks()
 
         setupLoadState()
 
-        searchViewModel.searchRecommendFood(foodList[intRandom])
+        mainViewModel.getRankRestaurant()
         binding.searchIcIv.setOnClickListener {
             binding.searchBackBt.visibility = View.VISIBLE
             binding.tlSearch.visibility = View.VISIBLE
@@ -98,9 +101,9 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
             binding.tlSearch.text = null
         }
 
-        searchViewModel.resultRecommendSearch.observe(viewLifecycleOwner){ response ->
-            val foods = response.documents
-            searchRecommendAdapter.submitList(foods)
+        mainViewModel.rankRestaurantResponse.observe(viewLifecycleOwner){
+            val response = it.data.content
+            rankRestaurantAdapter.submitList(response)
         }
 
         binding.tlSearch.addTextChangedListener(object : TextWatcher {
@@ -110,8 +113,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
                 binding.goodCafeDrinkTv.visibility = View.VISIBLE
                 binding.horizonSv.visibility = View.VISIBLE
                 binding.goodPlaceMyongji.visibility = View.VISIBLE
-                binding.searchMyongjiRecommend.visibility = View.VISIBLE
-
+                binding.searchMyongjiRank.visibility = View.VISIBLE
                 binding.tvEmptylist.visibility = View.INVISIBLE
             }
 
@@ -121,7 +123,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
                     binding.goodCafeDrinkTv.visibility = View.INVISIBLE
                     binding.horizonSv.visibility = View.INVISIBLE
                     binding.goodPlaceMyongji.visibility = View.INVISIBLE
-                    binding.searchMyongjiRecommend.visibility = View.INVISIBLE
+                    binding.searchMyongjiRank.visibility = View.INVISIBLE
                 }
             }
 
@@ -200,12 +202,12 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
         }
     }
 
-    private fun setUpRecommendRecyclerView(){
-        searchRecommendAdapter = SearchFoodAdapter(this)
-        binding.searchMyongjiRecommend.apply {
+    private fun setUpRankRestaurantRV(){
+        rankRestaurantAdapter = RankRestaurantAdapter(this)
+        binding.searchMyongjiRank.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = searchRecommendAdapter
+            adapter = rankRestaurantAdapter
         }
     }
 
@@ -238,6 +240,25 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick {
     }
 
     override fun clickDirectButton(restaurant: Restaurant) {
+        val action = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(restaurant)
+        findNavController().navigate(action)
+    }
+
+    override fun clickRankDirectButton(getRankRestaurant: GetRankRestaurant) {
+        val restaurant = Restaurant(
+            address_name = getRankRestaurant.address,
+            category_group_code = " ",
+            category_group_name = getRankRestaurant.category,
+            category_name = getRankRestaurant.category,
+            distance = getRankRestaurant.distance,
+            id = getRankRestaurant.code,
+            phone = getRankRestaurant.contact,
+            place_name = getRankRestaurant.name,
+            place_url = getRankRestaurant.urlAddress,
+            road_address_name = getRankRestaurant.address,
+            x = " ",
+            y = " "
+        )
         val action = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(restaurant)
         findNavController().navigate(action)
     }
