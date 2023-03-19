@@ -5,8 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
-import com.myongsik.myongsikandroid.data.model.food.OnScrapViewHolderClick
-import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantRankingBinding
 
 class RankRestaurantAdapter(listener: OnScrapViewHolderClick) : ListAdapter<GetRankRestaurant, RankRestaurantViewHolder>(BookDiffCallback) {

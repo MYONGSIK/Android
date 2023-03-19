@@ -11,16 +11,14 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.PrimaryKey
 import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
-import com.myongsik.myongsikandroid.data.model.food.OnScrapViewHolderClick
-import com.myongsik.myongsikandroid.data.model.food.OnSearchViewHolderClick
+import com.myongsik.myongsikandroid.ui.adapter.food.OnScrapViewHolderClick
+import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.RankRestaurantAdapter
@@ -30,7 +28,6 @@ import com.myongsik.myongsikandroid.ui.adapter.state.SearchFoodLoadStateAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
-import com.squareup.moshi.Json
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
