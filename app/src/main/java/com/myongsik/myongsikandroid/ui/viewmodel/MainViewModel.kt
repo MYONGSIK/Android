@@ -8,7 +8,6 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.myongsik.myongsikandroid.data.model.food.*
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
-import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
@@ -154,9 +153,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private val _getRankRestaurant = MutableLiveData<RankRestaurantResponse>()
-    val getRankRestaurant : LiveData<RankRestaurantResponse>
-        get() = _getRankRestaurant
+    private val _rankRestaurantResponse = MutableLiveData<RankRestaurantResponse>()
+    val rankRestaurantResponse : LiveData<RankRestaurantResponse>
+        get() = _rankRestaurantResponse
 
     fun getRankRestaurant() = viewModelScope.launch(Dispatchers.IO) {
         when (MyongsikApplication.prefs.getUserCampus()){
@@ -170,7 +169,7 @@ class MainViewModel @Inject constructor(
 
         if(response.isSuccessful) {
             response.body()?.let { body ->
-                _getRankRestaurant.postValue(body)
+                _rankRestaurantResponse.postValue(body)
             }
         }
     }

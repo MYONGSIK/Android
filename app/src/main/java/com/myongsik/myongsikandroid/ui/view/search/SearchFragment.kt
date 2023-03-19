@@ -75,14 +75,12 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         super.onViewCreated(view, savedInstanceState)
 
         setUpRecyclerView()
-//        setUpRecommendRecyclerView()
         setUpRankRestaurantRV()
         searchBooks()
 
         setupLoadState()
 
         mainViewModel.getRankRestaurant()
-//        searchViewModel.searchRecommendFood(foodList[intRandom])
         binding.searchIcIv.setOnClickListener {
             binding.searchBackBt.visibility = View.VISIBLE
             binding.tlSearch.visibility = View.VISIBLE
@@ -103,11 +101,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
             binding.tlSearch.text = null
         }
 
-//        searchViewModel.resultRecommendSearch.observe(viewLifecycleOwner){ response ->
-//            val foods = response.documents
-//            searchRecommendAdapter.submitList(foods)
-//        }
-        mainViewModel.getRankRestaurant.observe(viewLifecycleOwner){
+        mainViewModel.rankRestaurantResponse.observe(viewLifecycleOwner){
             val response = it.data.content
             rankRestaurantAdapter.submitList(response)
         }
@@ -119,7 +113,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
                 binding.goodCafeDrinkTv.visibility = View.VISIBLE
                 binding.horizonSv.visibility = View.VISIBLE
                 binding.goodPlaceMyongji.visibility = View.VISIBLE
-//                binding.searchMyongjiRecommend.visibility = View.VISIBLE
                 binding.searchMyongjiRank.visibility = View.VISIBLE
                 binding.tvEmptylist.visibility = View.INVISIBLE
             }
@@ -130,7 +123,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
                     binding.goodCafeDrinkTv.visibility = View.INVISIBLE
                     binding.horizonSv.visibility = View.INVISIBLE
                     binding.goodPlaceMyongji.visibility = View.INVISIBLE
-//                    binding.searchMyongjiRecommend.visibility = View.INVISIBLE
                     binding.searchMyongjiRank.visibility = View.INVISIBLE
                 }
             }
@@ -210,14 +202,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         }
     }
 
-//    private fun setUpRecommendRecyclerView(){
-//        searchRecommendAdapter = SearchFoodAdapter(this)
-//        binding.searchMyongjiRecommend.apply {
-//            setHasFixedSize(true)
-//            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//            adapter = searchRecommendAdapter
-//        }
-//    }
     private fun setUpRankRestaurantRV(){
         rankRestaurantAdapter = RankRestaurantAdapter(this)
         binding.searchMyongjiRank.apply {
