@@ -77,7 +77,7 @@
         android:layout_marginRight="23dp"
         android:background="@drawable/search_food_stroke"
         android:paddingRight="14dp"
-        android:drawableRight="@drawable/search_find"
+        android:drawableRight="@drawable/search_find_icon"
         android:hint="@string/search_restaurant_text"
         android:inputType="textAutoComplete"
         android:paddingLeft="22dp"

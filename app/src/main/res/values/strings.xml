@@ -27,7 +27,7 @@
 
     <string name="food_review_bt">학식에 대한 의견 남기기</string>
 
-    <string name="love_not_restaurant">관심목록이 비어있습니다.</string>
+    <string name="love_not_restaurant">찜꽁리스트가 비어있어요!\n맛집을 찜꽁해 나만의 맛집 리스트를 만들어봐요!</string>
 
     <string name="search_empty_list">검색 결과가 없습니다.</string>
     <string name="search_restaurant_text">검색어를 입력하세요.</string>
