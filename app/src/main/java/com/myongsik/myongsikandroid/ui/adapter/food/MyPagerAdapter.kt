@@ -34,14 +34,16 @@ class MyPagerAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var builderDinnerFood = SpannableStringBuilder()
-
+    private var weekFoodA = ""
+    private var weekFoodB = ""
+    private var dinner = ""
 
     inner class ItemViewHolder(
         val binding: ItemHomeTodayFoodBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(weekFoodResult: List<List<String>>) {
 
-            val weekFoodA =
+            weekFoodA =
                 "${weekFoodResult[0][0]} ${weekFoodResult[0][1]} ${weekFoodResult[0][2]} " +
                         "${weekFoodResult[0][3]} ${weekFoodResult[0][4]} ${weekFoodResult[0][5]}"
             val builderWeekFoodA = SpannableStringBuilder(weekFoodA).apply {
@@ -58,7 +60,7 @@ class MyPagerAdapter(
                     Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
                 )
             }
-            val weekFoodB =
+            weekFoodB =
                 "${weekFoodResult[1][0]} ${weekFoodResult[1][1]} ${weekFoodResult[1][2]} " +
                         "${weekFoodResult[1][3]} ${weekFoodResult[1][4]} ${weekFoodResult[1][5]}"
             val builderWeekFoodB = SpannableStringBuilder(weekFoodB).apply {
@@ -77,7 +79,7 @@ class MyPagerAdapter(
             }
 
             if (weekFoodResult.size.toString() == "3") {
-                val dinner =
+                dinner =
                     "${weekFoodResult[2][0]} ${weekFoodResult[2][1]} ${weekFoodResult[2][2]} " +
                             "${weekFoodResult[2][3]} ${weekFoodResult[2][4]} ${weekFoodResult[2][5]}"
                 builderDinnerFood = SpannableStringBuilder(dinner).apply {
@@ -157,6 +159,16 @@ class MyPagerAdapter(
         val today = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
         val isItemSelected = position == (today - 2)
         val colorResId = if (isItemSelected) R.color.home_yes_color else R.color.home_not_color
+        if(!isItemSelected){
+            itemViewHolder.binding.todayFood1.text = weekFoodA
+            if (itemList[0].size.toString() == "3") {
+                itemViewHolder.binding.todayFoodLunchB.text = weekFoodB
+                itemViewHolder.binding.todayFoodAfternoon.text = dinner
+            } else {
+                // 자캠 경우 lunchB가 디너가됨
+                itemViewHolder.binding.todayFoodAfternoon.text = weekFoodB
+        }
+        }
         val color = ContextCompat.getColor(holder.itemView.context, colorResId)
         itemViewHolder.binding.todayAfternoonGoodTv.setTextColor(color)
         itemViewHolder.binding.todayAfternoonHateTv.setTextColor(color)
