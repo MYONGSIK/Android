@@ -11,8 +11,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
 import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
-import com.myongsik.myongsikandroid.data.model.food.FoodResult
-import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
+import com.myongsik.myongsikandroid.data.model.food.*
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
@@ -34,10 +33,6 @@ import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/*
-FoodRepository 를 구현한 FoodRepositoryImpl
-Hilt 주입 완료
- */
 @Singleton
 class FoodRepositoryImpl @Inject constructor(
     private val db : RestaurantDatabase,
@@ -57,27 +52,23 @@ class FoodRepositoryImpl @Inject constructor(
         return api.postUser(requestUserData)
     }
 
+    override suspend fun postScrapRestaurant(requestScrap: RequestScrap): Response<ResponseScrap> {
+        return api.postRestaurantScrap(requestScrap)
+    }
+
+    override suspend fun getRankRestaurant(sort : String, campus: String): Response<RankRestaurantResponse> {
+        return api.getRankRestaurant(sort, campus)
+    }
 
     //DataStore
     private object PreferencesKeys {
-        //저장, 불러올 키를 정의, String 사용
-        //중식 평가 키
         val LUNCH_EVALUATION = stringPreferencesKey("lunch_evaluation")
-
-        //중식 B 평가 키
         val LUNCH_B_EVALUATION = stringPreferencesKey("lunch_b_evaluation")
-
-        //석식 평가 키
         val DINNER_EVALUATION = stringPreferencesKey("dinner_evaluation")
-
         val DINNER_EVALUATION_S = stringPreferencesKey("dinner_s_evaluation")
-
         val LUNCH_A_EVALUATION_S = stringPreferencesKey("lunch_s_evaluation")
-
         val DINNER_EVALUATION_H = stringPreferencesKey("dinner_h_evaluation")
-
         val LUNCH_A_EVALUATION_H = stringPreferencesKey("lunch_h_evaluation")
-
     }
 
     //중식 A, B 석식 평가 저장
@@ -146,10 +137,8 @@ class FoodRepositoryImpl @Inject constructor(
         }
     }
 
-    //중식 A 조회
     override suspend fun getLunchEvaluation(): Flow<String> {
-        return dataStore.data //data 메서드
-            //실패 했을 대비에 예외처리
+        return dataStore.data
             .catch { exception ->
                 if (exception is IOException) {
                     exception.printStackTrace()
@@ -163,7 +152,6 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
-    //중식 B 조회
     override suspend fun getLunchBEvaluation(): Flow<String> {
         return dataStore.data //data 메서드
             //실패 했을 대비에 예외처리
@@ -180,7 +168,6 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
-    //석식 조회
     override suspend fun getDinnerEvaluation(): Flow<String> {
         return dataStore.data //data 메서드
             //실패 했을 대비에 예외처리
@@ -197,8 +184,6 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
-
-    //석식 조회
     override suspend fun getLunchSEvaluation(): Flow<String> {
         return dataStore.data //data 메서드
             //실패 했을 대비에 예외처리
@@ -215,7 +200,6 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
-    //석식 조회
     override suspend fun getDinnerSEvaluation(): Flow<String> {
         return dataStore.data //data 메서드
             //실패 했을 대비에 예외처리
@@ -248,7 +232,6 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
-    //석식 조회
     override suspend fun getDinnerHEvaluation(): Flow<String> {
         return dataStore.data //data 메서드
             //실패 했을 대비에 예외처리
@@ -287,6 +270,10 @@ class FoodRepositoryImpl @Inject constructor(
         return true
     }
 
+    override fun getLoveIsFood(): Flow<List<Restaurant>> {
+        return db.restaurantDao().getIsLoveFood()
+    }
+
     //음식 조회 페이징 처리
     override fun getFoods(): Flow<PagingData<Restaurant>> {
         val pagingSourceFactory = { db.restaurantDao().getFoods() }
@@ -300,6 +287,4 @@ class FoodRepositoryImpl @Inject constructor(
             pagingSourceFactory = pagingSourceFactory
         ).flow
     }
-
-
 }

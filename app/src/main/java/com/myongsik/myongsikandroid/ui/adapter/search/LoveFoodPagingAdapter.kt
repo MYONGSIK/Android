@@ -9,12 +9,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemLoveRestaurantBinding
 
 //관심목록 페이징 어댑터
-class LoveFoodPagingAdapter(listener : OnLoveClick)  : PagingDataAdapter<Restaurant, LoveFoodViewHolder>(BookDiffCallback) {
+class LoveFoodPagingAdapter(listener : OnSearchViewHolderClick)  : PagingDataAdapter<Restaurant, LoveFoodViewHolder>(BookDiffCallback) {
     private val mCallback = listener
 
     override fun onBindViewHolder(holder: LoveFoodViewHolder, position: Int) {
@@ -28,18 +27,15 @@ class LoveFoodPagingAdapter(listener : OnLoveClick)  : PagingDataAdapter<Restaur
                     holder.itemView.findViewById<TextView>(R.id.item_love_location_tv).visibility = View.GONE
                     holder.itemView.findViewById<ImageView>(R.id.item_love_phone_iv).visibility = View.GONE
                     holder.itemView.findViewById<TextView>(R.id.item_love_phone_tv).visibility = View.GONE
-                    holder.itemView.findViewById<ConstraintLayout>(R.id.item_love_detail_iv).visibility = View.GONE
+                    holder.itemView.findViewById<ConstraintLayout>(R.id.item_love_detail_cl).visibility = View.GONE
                 }else{
                     holder.itemView.findViewById<ImageView>(R.id.item_love_location_iv).visibility = View.VISIBLE
                     holder.itemView.findViewById<TextView>(R.id.item_love_distance_tv).visibility = View.VISIBLE
                     holder.itemView.findViewById<TextView>(R.id.item_love_location_tv).visibility = View.VISIBLE
                     holder.itemView.findViewById<ImageView>(R.id.item_love_phone_iv).visibility = View.VISIBLE
                     holder.itemView.findViewById<TextView>(R.id.item_love_phone_tv).visibility = View.VISIBLE
-                    holder.itemView.findViewById<ConstraintLayout>(R.id.item_love_detail_iv).visibility = View.VISIBLE
+                    holder.itemView.findViewById<ConstraintLayout>(R.id.item_love_detail_cl).visibility = View.VISIBLE
                 }
-            }
-            holder.itemView.findViewById<ConstraintLayout>(R.id.item_love_detail_iv).setOnClickListener {
-                onItemClickListener?.let{ it(restaurant) }
             }
         }
     }
@@ -48,11 +44,6 @@ class LoveFoodPagingAdapter(listener : OnLoveClick)  : PagingDataAdapter<Restaur
         return LoveFoodViewHolder(
             ItemLoveRestaurantBinding.inflate(LayoutInflater.from(parent.context), parent, false), mCallback
         )
-    }
-
-    private var onItemClickListener : ((Restaurant) -> Unit)? = null
-    fun setOnItemClickListener(listener : (Restaurant) -> Unit){
-        onItemClickListener = listener
     }
 
     companion object{
@@ -64,7 +55,6 @@ class LoveFoodPagingAdapter(listener : OnLoveClick)  : PagingDataAdapter<Restaur
             override fun areContentsTheSame(oldItem: Restaurant, newItem: Restaurant): Boolean {
                 return oldItem == newItem
             }
-
         }
     }
 }

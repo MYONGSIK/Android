@@ -1,10 +1,10 @@
-package com.myongsik.myongsikandroid.data.model.food
+package com.myongsik.myongsikandroid.ui.adapter.search
 
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 
-interface OnLoveClick {
+interface OnSearchViewHolderClick {
     fun addItem(restaurant : Restaurant)
     fun deleteItem(restaurant : Restaurant)
     fun isItem(string: String)
-//    fun getValue(): Int?
+    fun clickDirectButton(restaurant : Restaurant)
 }

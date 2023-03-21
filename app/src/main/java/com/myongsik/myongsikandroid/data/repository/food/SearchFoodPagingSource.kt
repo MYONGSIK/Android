@@ -11,8 +11,9 @@ import java.io.IOException
 
 //Paging Source
 class SearchFoodPagingSource(
-    private val query : String,
-) : PagingSource<Int, Restaurant>(){
+    private val query: String,
+    private val searchFoodApi: SearchFoodApi
+) : PagingSource<Int, Restaurant>() {
 
     override fun getRefreshKey(state: PagingState<Int, Restaurant>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -22,32 +23,35 @@ class SearchFoodPagingSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Restaurant> {
-        return try{
+        return try {
             val pageNumber = params.key ?: STARTING_PAGE_INDEX
             var c: String = ""
             var x: Double = 0.0
             var y: Double = 0.0
-            if (MyongsikApplication.prefs.getUserCampus() == "S"){
+            var radius : Int = 1500
+            if (MyongsikApplication.prefs.getUserCampus() == "S") {
                 c = "서울"
-                x= 126.923460283882
-                y= 37.5803504797164
-            }else if(MyongsikApplication.prefs.getUserCampus() == "Y"){
+                x = 126.923460283882
+                y = 37.5803504797164
+                radius = 1500
+            } else if (MyongsikApplication.prefs.getUserCampus() == "Y") {
                 c = "용인"
                 x = 127.18758354347
                 y = 37.224650469991
+                radius = 3000
             }
-            val response = SearchFoodApi.create().searchFood(
+            val response = searchFoodApi.searchFood(
                 "$c 명지대 $query", "FD6, CE7", "$x",
-                "$y", 1500, pageNumber, params.loadSize, "distance"
+                "$y", radius, pageNumber, params.loadSize, "distance"
             )
             val endOfPaginationReached = response.body()?.meta?.is_end!!
 
             val data = response.body()?.documents!!
 
-            val prevKey = if(pageNumber == STARTING_PAGE_INDEX) null else pageNumber - 1
-            val nextKey = if(endOfPaginationReached) {
+            val prevKey = if (pageNumber == STARTING_PAGE_INDEX) null else pageNumber - 1
+            val nextKey = if (endOfPaginationReached) {
                 null
-            }else{
+            } else {
                 pageNumber + (params.loadSize / PAGING_SIZE)
             }
 
@@ -56,13 +60,12 @@ class SearchFoodPagingSource(
                 prevKey = prevKey,
                 nextKey = nextKey
             )
-        } catch (exception : IOException){
+        } catch (exception: IOException) {
             LoadResult.Error(exception)
-        } catch (exception : HttpException){
+        } catch (exception: HttpException) {
             LoadResult.Error(exception)
         }
     }
-
 
     companion object {
         const val STARTING_PAGE_INDEX = 1

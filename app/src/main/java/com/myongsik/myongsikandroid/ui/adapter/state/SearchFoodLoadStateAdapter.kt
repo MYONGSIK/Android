@@ -21,5 +21,4 @@ class SearchFoodLoadStateAdapter() : LoadStateAdapter<SearchFoodLoadStateViewHol
             ItemLoadStateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
-
 }

@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myongsik.myongsikandroid.data.model.food.OnLoveClick
+import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentLoveBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.LoveFoodPagingAdapter
@@ -22,16 +22,14 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 //찜꽁 리스트 화면
-class LoveFragment : Fragment(), OnLoveClick {
+class LoveFragment : Fragment(), OnSearchViewHolderClick {
 
     private var _binding : FragmentLoveBinding?= null
     private val binding : FragmentLoveBinding
         get() = _binding!!
 
-    //back button
     private lateinit var callback: OnBackPressedCallback
 
-    //viewModel 생성
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     private lateinit var loveFoodAdapter : LoveFoodPagingAdapter
@@ -48,17 +46,19 @@ class LoveFragment : Fragment(), OnLoveClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //화살표 클릭 시 그 전 화면으로 뒤로가기
-//        binding.loveBackBt.setOnClickListener {
-//            findNavController().popBackStack()
-//        }
-
         setUpRecyclerView()
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                mainViewModel.loveFoods.collectLatest { pagedData ->
-                    loveFoodAdapter.submitData(pagedData)
+                mainViewModel.loveIsFood.collectLatest {
+                    if(it.isEmpty()){
+                        binding.favoriteEmptyLove.visibility = View.VISIBLE
+                    } else {
+                        binding.favoriteEmptyLove.visibility = View.INVISIBLE
+                    }
+                    mainViewModel.loveFoods.collectLatest { pagedData ->
+                        loveFoodAdapter.submitData(pagedData)
+                    }
                 }
             }
         }
@@ -67,7 +67,6 @@ class LoveFragment : Fragment(), OnLoveClick {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        //뒤로가기 버튼 클릭 시 검색화면으로
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val action = LoveFragmentDirections.actionFragmentLoveToFragmentSearch()
@@ -75,21 +74,14 @@ class LoveFragment : Fragment(), OnLoveClick {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-//
     }
 
-    //리사이클러뷰 어댑터를 페이징어댑터로 변경
     private fun setUpRecyclerView(){
-//        bookSearchAdapter = BookSearchAdapter()
         loveFoodAdapter = LoveFoodPagingAdapter(this)
         binding.loveMyongjiRv.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = loveFoodAdapter
-        }
-        loveFoodAdapter.setOnItemClickListener {
-            val action  = LoveFragmentDirections.actionFragmentLoveToFragmentRestaurant(it)
-            findNavController().navigate(action)
         }
     }
 
@@ -109,4 +101,8 @@ class LoveFragment : Fragment(), OnLoveClick {
     override fun isItem(string: String) {
     }
 
+    override fun clickDirectButton(restaurant: Restaurant) {
+        val action  = LoveFragmentDirections.actionFragmentLoveToFragmentRestaurant(restaurant)
+        findNavController().navigate(action)
+    }
 }

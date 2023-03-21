@@ -6,13 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.alarm.AlarmBroadCastReceiver
 import com.myongsik.myongsikandroid.databinding.ActivityMainBinding
-import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -26,55 +24,42 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    lateinit var mainViewModel : MainViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        //네비게이션들을 담는 호스트
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.myongsik_home_fragment_view) as NavHostFragment
-
-
-        //네비게이션 컨트롤러
         val navController = navHostFragment.navController
-
-        //바텀 네비게이션 뷰와 네비게이션을 묶어준다.
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
 
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener {
+        binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.fragment_home -> {
                     if (MyongsikApplication.prefs.getUserCampus() == "Y") {
                         navController.navigate(R.id.fragment_select_home)
-                        return@setOnNavigationItemSelectedListener true
+                        return@setOnItemSelectedListener true
                     } else{
                         navController.navigate(R.id.fragment_home)
                     }
                 }
                 R.id.fragment_search -> {
                         navController.navigate(R.id.fragment_search)
-                        return@setOnNavigationItemSelectedListener true
+                        return@setOnItemSelectedListener true
                 }
                 R.id.fragment_love -> {
                         navController.navigate(R.id.fragment_love)
-                        return@setOnNavigationItemSelectedListener true
+                        return@setOnItemSelectedListener true
                 }
                 // 다른 항목에 대한 처리 추가 가능
                 else -> {
                     // 처리할 로직이 없을 경우에도 true를 반환하여 이벤트를 소비하도록 구현
-                    return@setOnNavigationItemSelectedListener true
+                    return@setOnItemSelectedListener true
                 }
             }
             // 선택된 메뉴 항목에 대한 처리가 끝나고 true를 반환하여 이벤트를 소비하도록 구현
-            return@setOnNavigationItemSelectedListener true
+            return@setOnItemSelectedListener true
         }
 
-
-
-
-
-//        바텀 네비게이션 출력하는 부분과 그렇지 않은 부분을 나눔
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.fragment_home || destination.id == R.id.fragment_search
                 || destination.id == R.id.fragment_love || destination.id == R.id.fragment_select_home) {
@@ -84,15 +69,7 @@ class MainActivity : AppCompatActivity() {
                 binding.bottomNavigationView.visibility= View.GONE
                 binding.myongsikHomeFragmentView.setPadding(0,0,0,0)
             }
-
         }
-
-
-
-
-//        val foodRepository = FoodRepositoryImpl(dataStore)
-//        val factory = MainViewModelProviderFactory(foodRepository)
-//        mainViewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
         // Background
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager

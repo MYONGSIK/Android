@@ -10,8 +10,6 @@ class SearchFoodLoadStateViewHolder(
 ) : RecyclerView.ViewHolder(binding.root){
 
     fun bind(loadState : LoadState) {
-
         binding.progressBar.isVisible = loadState is LoadState.Loading
-
     }
 }

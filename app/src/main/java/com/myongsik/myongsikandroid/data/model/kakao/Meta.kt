@@ -1,6 +1,5 @@
 package com.myongsik.myongsikandroid.data.model.kakao
 
-
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 

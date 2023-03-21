@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentSelectHomeBinding
-import com.myongsik.myongsikandroid.ui.view.search.LoveFragmentDirections
-import com.myongsik.myongsikandroid.util.DialogUtils
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 
 class SelectHomeFragment : Fragment() {
@@ -20,7 +18,6 @@ class SelectHomeFragment : Fragment() {
     private var _binding : FragmentSelectHomeBinding?= null
     private val binding : FragmentSelectHomeBinding
         get() = _binding!!
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +31,6 @@ class SelectHomeFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        //뒤로가기 버튼 클릭 시 검색화면으로
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 val action = SelectHomeFragmentDirections.actionFragmentSelectHomeToFragmentSearch()
@@ -42,7 +38,6 @@ class SelectHomeFragment : Fragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-//
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,11 +63,8 @@ class SelectHomeFragment : Fragment() {
         }
     }
 
-
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
     }
-
-
 }

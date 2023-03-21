@@ -12,12 +12,13 @@ import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
+import com.myongsik.myongsikandroid.data.model.food.RequestScrap
 import com.myongsik.myongsikandroid.databinding.FragmentRestaurantBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
+import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 
 //장소 상세화면
@@ -28,13 +29,13 @@ class RestaurantFragment : Fragment() {
     private val binding : FragmentRestaurantBinding
         get() = _binding!!
 
-    //safe Args 로 받은 식당정보
     private val args : RestaurantFragmentArgs by navArgs<RestaurantFragmentArgs>()
 
     private val mainViewModel by activityViewModels<MainViewModel>()
 
-    //back button
     private lateinit var callback: OnBackPressedCallback
+
+    private var campus : String?= null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,14 +48,12 @@ class RestaurantFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (binding.webview.canGoBack()) {
-                    binding.webview.goBack()           // 이전페이지로 갈 수 있으면 이전페이지로 이동하고,
+                    binding.webview.goBack()
                 }
                 else{
-                    //아니면 그 전페이지로
                     findNavController().popBackStack()
                 }
             }
@@ -70,45 +69,31 @@ class RestaurantFragment : Fragment() {
             val url = request?.url?.toString()
 
             return url!!.startsWith("tel:")
-
             return true
         }
     }
-//        String url = request.getUrl().toString();
-//        if (url.startsWith("tel:")) {
-//            Intent call_phone = new Intent(Intent.ACTION_CALL);
-//            call_phone.setData(Uri.parse(url));
-//
-//            if (checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-//                Toast.makeText(getApplicationContext(),"전화걸기 권한을 승인해 주셔야 정상적인 전화걸기 서비스가 가능합니다.",Toast.LENGTH_SHORT).show();
-//                return true;
-//            }
-//            startActivity(call_phone);
-//        }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if(MyongsikApplication.prefs.getUserCampus() == "S"){
+            campus = "SEOUL"
+        }else{
+            campus = "YONGIN"
+        }
+
         val restaurant = args.restaurant
         binding.webview.apply{
-//            webViewClient = WebViewClient()
-//            settings.javaScriptEnabled = true
-//            loadUrl(restaurant.place_url)
-            webViewClient = CookWebViewClient()    //클래스 객체 생성
+            webViewClient = CookWebViewClient()
             var webSet = binding.webview.settings
             webSet.javaScriptEnabled = true
             loadUrl(restaurant.place_url)
         }
 
-        //찜 되어있는지, 안되어있는지 판단
         mainViewModel.loveIs(restaurant)
 
-        //그 결과
         mainViewModel.loveIs.observe(viewLifecycleOwner){
-            /*
-            null 이 나왔다는 것은 현재 관심목록에 없다는 뜻
-             */
             if(it == null){
                 binding.fabFavorite.visibility = View.VISIBLE
                 binding.fabFavoriteLove.visibility = View.INVISIBLE
@@ -119,15 +104,31 @@ class RestaurantFragment : Fragment() {
             }
         }
 
-        //관심목록에 저장하기 버튼을 클릭했을 때 (빈 하트)
+        val contact : String?
+        if(restaurant.phone == ""){
+            contact = "전화번호가 없습니다."
+        } else {
+            contact = restaurant.phone
+        }
+
         binding.fabFavorite.setOnClickListener {
             binding.fabFavorite.visibility = View.INVISIBLE
             binding.fabFavoriteLove.visibility = View.VISIBLE
             mainViewModel.saveFoods(restaurant)
+            mainViewModel.scarpRestaurant(requestScrap = RequestScrap(
+                address = restaurant.road_address_name,
+                campus = campus!!,
+                category = restaurant.category_group_name,
+                code =restaurant.id,
+                contact = contact,
+                distance = restaurant.distance,
+                name = restaurant.place_name,
+                phoneId = MyongsikApplication.prefs.getUserID(),
+                urlAddress = restaurant.place_url,
+            ))
             Snackbar.make(view, "찜 완료!", Snackbar.LENGTH_SHORT).show()
         }
 
-        //관심목록에서 없애기 버튼 클릭을 클릭했을 때 (채워져있는 하트)
         binding.fabFavoriteLove.setOnClickListener {
             binding.fabFavorite.visibility = View.VISIBLE
             binding.fabFavoriteLove.visibility = View.INVISIBLE
