@@ -86,7 +86,8 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         binding.searchIcIv.setOnClickListener {
             binding.searchBackBt.visibility = View.VISIBLE
             binding.tlSearch.visibility = View.VISIBLE
-
+            binding.searchTopV.visibility = View.INVISIBLE
+            binding.searchFindV.visibility =View.VISIBLE
             binding.searchTopTv.visibility = View.INVISIBLE
             binding.searchIcIv.visibility = View.INVISIBLE
         }
@@ -94,12 +95,11 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         binding.searchBackBt.setOnClickListener {
             binding.searchBackBt.visibility = View.INVISIBLE
             binding.tlSearch.visibility = View.INVISIBLE
-
+            binding.searchTopV.visibility = View.VISIBLE
+            binding.searchFindV.visibility =View.INVISIBLE
             binding.tvEmptylist.visibility = View.INVISIBLE
-
             binding.searchTopTv.visibility = View.VISIBLE
             binding.searchIcIv.visibility = View.VISIBLE
-
             binding.tlSearch.text = null
         }
 

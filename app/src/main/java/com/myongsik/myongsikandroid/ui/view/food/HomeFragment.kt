@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -100,6 +101,7 @@ class HomeFragment : Fragment() {
         checkWeekend()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun settingDate(localDateTime: LocalDate) {
         // 오늘 날짜
         localDate = localDateTime
@@ -110,6 +112,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initObserve() {
         mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
             val list = mutableListOf<List<String>>()
@@ -164,6 +167,7 @@ class HomeFragment : Fragment() {
     // 색상
     private fun initViewPager() {
         binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position) // 월요일
                 val monday = localDate.minusDays(((initDate - 1).toLong()))
@@ -273,6 +277,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initViews() {
         with(binding) {
             homeTodayArrowLeft.setOnClickListener {
@@ -315,6 +320,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun writeMenu(review: String) {
         val currentDate = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")

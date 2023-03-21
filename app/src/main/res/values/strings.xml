@@ -30,7 +30,7 @@
     <string name="love_not_restaurant">관심목록이 비어있습니다.</string>
 
     <string name="search_empty_list">검색 결과가 없습니다.</string>
-    <string name="search_restaurant_text">명지맛집을 검색 하세요.</string>
+    <string name="search_restaurant_text">검색어를 입력하세요.</string>
     <string name="search_restaurant_list">#모아뒀으니 골라보세요!</string>
     <string name="search_univ_good">#명지맛집</string>
     <string name="search_univ_cafe">#명지카페</string>

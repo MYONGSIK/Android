@@ -18,8 +18,8 @@
         android:id="@+id/search_back_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/ic_ep_arrow_left"
         android:visibility="invisible"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -73,17 +73,29 @@
         android:id="@+id/tl_search"
         android:layout_width="0dp"
         android:layout_height="43dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="23dp"
         android:background="@drawable/search_food_stroke"
+        android:paddingRight="14dp"
+        android:drawableRight="@drawable/search_find"
         android:hint="@string/search_restaurant_text"
         android:inputType="textAutoComplete"
-        android:paddingLeft="15dp"
+        android:paddingLeft="22dp"
         android:textSize="13sp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@id/search_back_bt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/search_back_bt"
         app:layout_constraintTop_toTopOf="@id/search_back_bt" />
+
+    <View
+        android:id="@+id/search_find_v"
+        android:layout_width="match_parent"
+        android:layout_height="1.4dp"
+        android:visibility="invisible"
+        android:background="@color/sub_color"
+        android:layout_marginTop="19dp"
+        app:layout_constraintTop_toBottomOf="@+id/tl_search" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_myongji_rv"
