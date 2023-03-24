@@ -68,7 +68,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
@@ -81,6 +80,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         searchBooks()
 
         setupLoadState()
+        initRefreshLayout()
 
         mainViewModel.getRankRestaurant()
         binding.searchIcIv.setOnClickListener {
@@ -104,6 +104,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         }
 
         mainViewModel.rankRestaurantResponse.observe(viewLifecycleOwner){
+            binding.refreshLayout.isRefreshing = false
             val response = it.data.content
             rankRestaurantAdapter.submitList(response)
         }
@@ -160,6 +161,12 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
             findNavController().navigate(action)
         }
 }
+
+    private fun initRefreshLayout() {
+        binding.refreshLayout.setOnRefreshListener {
+            mainViewModel.getRankRestaurant()
+        }
+    }
 
     private fun searchBooks(){
         var startTime = System.currentTimeMillis()
