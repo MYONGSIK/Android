@@ -7,9 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -18,6 +16,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
 import com.myongsik.myongsikandroid.ui.adapter.food.OnScrapViewHolderClick
 import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
@@ -64,6 +64,8 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
     //추천 어댑터
     private lateinit var searchRecommendAdapter: SearchFoodAdapter
     private lateinit var rankRestaurantAdapter: RankRestaurantAdapter
+
+    private var backKeyPressTime = 0L
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -226,7 +228,17 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if(binding.searchTopV.visibility == View.VISIBLE){
-                    activity?.finish()
+                    if (System.currentTimeMillis() > backKeyPressTime + 2000) {
+                        backKeyPressTime = System.currentTimeMillis()
+                        Snackbar.make(
+                            binding.fragmentSearch,
+                            getString(R.string.back_button_warning),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+
+                    } else if (System.currentTimeMillis() <= backKeyPressTime + 2000) {
+                        activity?.finish()
+                    }
                 } else{
                     binding.searchBackBt.visibility = View.INVISIBLE
                     binding.tlSearch.visibility = View.INVISIBLE
