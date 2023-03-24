@@ -7,7 +7,9 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -27,6 +29,7 @@ import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.adapter.state.SearchFoodLoadStateAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
+import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
@@ -86,17 +89,21 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         binding.searchIcIv.setOnClickListener {
             binding.searchBackBt.visibility = View.VISIBLE
             binding.tlSearch.visibility = View.VISIBLE
-
+            binding.searchTopV.visibility = View.INVISIBLE
+            binding.searchFindV.visibility =View.VISIBLE
             binding.searchTopTv.visibility = View.INVISIBLE
             binding.searchIcIv.visibility = View.INVISIBLE
+            binding.tlSearch.requestFocus()
+            CommonUtil.showKeyboard(binding.tlSearch, requireActivity())
         }
 
         binding.searchBackBt.setOnClickListener {
+            CommonUtil.hideKeyboard(requireActivity())
             binding.searchBackBt.visibility = View.INVISIBLE
             binding.tlSearch.visibility = View.INVISIBLE
-
+            binding.searchTopV.visibility = View.VISIBLE
+            binding.searchFindV.visibility =View.INVISIBLE
             binding.tvEmptylist.visibility = View.INVISIBLE
-
             binding.searchTopTv.visibility = View.VISIBLE
             binding.searchIcIv.visibility = View.VISIBLE
 
@@ -218,7 +225,19 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
 
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                activity?.finish()
+                if(binding.searchTopV.visibility == View.VISIBLE){
+                    activity?.finish()
+                } else{
+                    binding.searchBackBt.visibility = View.INVISIBLE
+                    binding.tlSearch.visibility = View.INVISIBLE
+                    binding.searchTopV.visibility = View.VISIBLE
+                    binding.searchFindV.visibility =View.INVISIBLE
+                    binding.tvEmptylist.visibility = View.INVISIBLE
+                    binding.searchTopTv.visibility = View.VISIBLE
+                    binding.searchIcIv.visibility = View.VISIBLE
+
+                    binding.tlSearch.text = null
+                }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
