@@ -163,6 +163,7 @@ class HomeFragment : Fragment() {
 
     // 색상
     private fun initViewPager() {
+        binding.viewPager2.offscreenPageLimit = 5
         binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position) // 월요일
