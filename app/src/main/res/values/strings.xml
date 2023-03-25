@@ -27,10 +27,10 @@
 
     <string name="food_review_bt">학식에 대한 의견 남기기</string>
 
-    <string name="love_not_restaurant">관심목록이 비어있습니다.</string>
+    <string name="love_not_restaurant">찜꽁리스트가 비어있어요!\n맛집을 찜꽁해 나만의 맛집 리스트를 만들어봐요!</string>
 
     <string name="search_empty_list">검색 결과가 없습니다.</string>
-    <string name="search_restaurant_text">명지맛집을 검색 하세요.</string>
+    <string name="search_restaurant_text">검색어를 입력하세요.</string>
     <string name="search_restaurant_list">#모아뒀으니 골라보세요!</string>
     <string name="search_univ_good">#명지맛집</string>
     <string name="search_univ_cafe">#명지카페</string>
@@ -73,4 +73,6 @@
 
     <string name="review_okay">완료</string>
     <string name="check_newtwork_state">네트워크 상태를 확인해주세요.</string>
+
+    <string name="back_button_warning">"'뒤로'버튼을 한번 더 누르시면 종료됩니다."</string>
 </resources>

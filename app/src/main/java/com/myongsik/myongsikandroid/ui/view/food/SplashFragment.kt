@@ -42,37 +42,43 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val dialogUtils = DialogUtils(requireContext())
-
-        if (MyongsikApplication.prefs.getString("newUser", "new") == "new") {
-            try {
-                @SuppressLint("HardwareIds")
-                val androidId = Settings.Secure.getString(
-                    requireContext().contentResolver,
-                    Settings.Secure.ANDROID_ID
-                )
-                Log.d("ggplot", "${androidId} 신규회원")
-                val requestUser = RequestUserData(androidId)
-                mainViewModel.postUser(requestUser)
-                MyongsikApplication.prefs.setUserId(androidId)
-            } catch (e: ConnectException) {
-                dialogUtils.showConfirmDialog("네트워크 에러가 발생하였습니다.", "다시 접속해주세요.",
-                    yesClickListener = {
-                        mainActivity.finish()
-                    })
-            }
+        if(!NetworkUtils.getNetworkConnected(requireContext())){
+            dialogUtils.showConfirmDialog("네트워크 에러가 발생하였습니다.", "다시 접속해주세요.",
+                yesClickListener = {
+                    mainActivity.finish()
+                })
         }
+        else {
+            if (MyongsikApplication.prefs.getString("newUser", "new") == "new") {
+                try {
+                    @SuppressLint("HardwareIds")
+                    val androidId = Settings.Secure.getString(
+                        requireContext().contentResolver,
+                        Settings.Secure.ANDROID_ID
+                    )
+                    Log.d("ggplot", "${androidId} 신규회원")
+                    val requestUser = RequestUserData(androidId)
+                    mainViewModel.postUser(requestUser)
+                    MyongsikApplication.prefs.setUserId(androidId)
+                } catch (e: ConnectException) {
+                    dialogUtils.showConfirmDialog("네트워크 에러가 발생하였습니다.", "다시 접속해주세요.",
+                        yesClickListener = {
+                            mainActivity.finish()
+                        })
+                }
+            }
+            val handler = Handler(Looper.getMainLooper())
 
-        val handler = Handler(Looper.getMainLooper())
-
-        if(MyongsikApplication.prefs.getUserCampus() ==""){
-            handler.postDelayed({
-                findNavController().navigate(R.id.action_fragment_splash_to_fragment_select)
-            },1500)
-            return
-        } else{
-            handler.postDelayed({
-                findNavController().navigate(R.id.action_fragment_splash_to_fragment_search)
-            },1500)
+            if(MyongsikApplication.prefs.getUserCampus() ==""){
+                handler.postDelayed({
+                    findNavController().navigate(R.id.action_fragment_splash_to_fragment_select)
+                },1500)
+                return
+            } else{
+                handler.postDelayed({
+                    findNavController().navigate(R.id.action_fragment_splash_to_fragment_search)
+                },1500)
+            }
         }
         super.onViewCreated(view, savedInstanceState)
     }
