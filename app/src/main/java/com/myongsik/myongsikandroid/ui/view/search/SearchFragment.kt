@@ -16,6 +16,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
 import com.myongsik.myongsikandroid.ui.adapter.food.OnScrapViewHolderClick
 import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
@@ -27,6 +29,7 @@ import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.adapter.state.SearchFoodLoadStateAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
+import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
@@ -62,6 +65,8 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
     private lateinit var searchRecommendAdapter: SearchFoodAdapter
     private lateinit var rankRestaurantAdapter: RankRestaurantAdapter
 
+    private var backKeyPressTime = 0L
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -86,17 +91,21 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         binding.searchIcIv.setOnClickListener {
             binding.searchBackBt.visibility = View.VISIBLE
             binding.tlSearch.visibility = View.VISIBLE
-
+            binding.searchTopV.visibility = View.INVISIBLE
+            binding.searchFindV.visibility =View.VISIBLE
             binding.searchTopTv.visibility = View.INVISIBLE
             binding.searchIcIv.visibility = View.INVISIBLE
+            binding.tlSearch.requestFocus()
+            CommonUtil.showKeyboard(binding.tlSearch, requireActivity())
         }
 
         binding.searchBackBt.setOnClickListener {
+            CommonUtil.hideKeyboard(requireActivity())
             binding.searchBackBt.visibility = View.INVISIBLE
             binding.tlSearch.visibility = View.INVISIBLE
-
+            binding.searchTopV.visibility = View.VISIBLE
+            binding.searchFindV.visibility =View.INVISIBLE
             binding.tvEmptylist.visibility = View.INVISIBLE
-
             binding.searchTopTv.visibility = View.VISIBLE
             binding.searchIcIv.visibility = View.VISIBLE
 
@@ -225,7 +234,29 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
 
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                activity?.finish()
+                if(binding.searchTopV.visibility == View.VISIBLE){
+                    if (System.currentTimeMillis() > backKeyPressTime + 2000) {
+                        backKeyPressTime = System.currentTimeMillis()
+                        Snackbar.make(
+                            binding.fragmentSearch,
+                            getString(R.string.back_button_warning),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+
+                    } else if (System.currentTimeMillis() <= backKeyPressTime + 2000) {
+                        activity?.finish()
+                    }
+                } else{
+                    binding.searchBackBt.visibility = View.INVISIBLE
+                    binding.tlSearch.visibility = View.INVISIBLE
+                    binding.searchTopV.visibility = View.VISIBLE
+                    binding.searchFindV.visibility =View.INVISIBLE
+                    binding.tvEmptylist.visibility = View.INVISIBLE
+                    binding.searchTopTv.visibility = View.VISIBLE
+                    binding.searchIcIv.visibility = View.VISIBLE
+
+                    binding.tlSearch.text = null
+                }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)

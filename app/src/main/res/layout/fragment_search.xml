@@ -19,16 +19,16 @@
             android:background="@drawable/home_background_top"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/search_back_bt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="20dp"
-            android:src="@drawable/ic_ep_arrow_left"
-            android:visibility="invisible"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/search_back_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="35dp"
+        android:src="@drawable/ic_ep_arrow_left"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/search_top_tv"
@@ -74,35 +74,47 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/search_top_tv" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tl_search"
-            android:layout_width="0dp"
-            android:layout_height="43dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/search_food_stroke"
-            android:hint="@string/search_restaurant_text"
-            android:inputType="textAutoComplete"
-            android:paddingLeft="15dp"
-            android:textSize="13sp"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="@id/search_back_bt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/search_back_bt"
-            app:layout_constraintTop_toTopOf="@id/search_back_bt" />
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/tl_search"
+        android:layout_width="0dp"
+        android:layout_height="43dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="23dp"
+        android:background="@drawable/search_food_stroke"
+        android:drawableRight="@drawable/search_find_icon"
+        android:hint="@string/search_restaurant_text"
+        android:inputType="textAutoComplete"
+        android:paddingLeft="22dp"
+        android:paddingRight="14dp"
+        android:textSize="13sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/search_back_bt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/search_back_bt"
+        app:layout_constraintTop_toTopOf="@id/search_back_bt" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/search_myongji_rv"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="25dp"
-            android:scrollbars="vertical"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_top_v"
-            app:layout_constraintVertical_bias="1.0" />
+    <View
+        android:id="@+id/search_find_v"
+        android:layout_width="match_parent"
+        android:layout_height="1.4dp"
+        android:layout_marginTop="19dp"
+        android:background="@color/sub_color"
+        android:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/tl_search" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_myongji_rv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="25dp"
+        android:scrollbars="vertical"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_find_v"
+        app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/good_cafe_drink_tv"
