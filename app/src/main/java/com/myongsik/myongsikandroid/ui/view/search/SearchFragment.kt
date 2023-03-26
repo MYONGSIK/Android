@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,7 @@ import com.myongsik.myongsikandroid.ui.adapter.food.OnScrapViewHolderClick
 import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
-import com.myongsik.myongsikandroid.ui.adapter.food.HomeHeaderAdapter
+import com.myongsik.myongsikandroid.ui.adapter.food.RankHeaderAdapter
 import com.myongsik.myongsikandroid.ui.adapter.food.RankRestaurantAdapter
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
@@ -212,14 +213,14 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
     }
 
     private fun setUpRankRestaurantRV(){
-        val headerAdapter = HomeHeaderAdapter()
+        val headerAdapter = RankHeaderAdapter(this)
         rankRestaurantAdapter = RankRestaurantAdapter(this)
         binding.searchMyongjiRank.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = rankRestaurantAdapter
+            adapter = ConcatAdapter(headerAdapter, rankRestaurantAdapter)
         }
-        binding.searchMyongjiRank.adapter = ConcatAdapter(headerAdapter, rankRestaurantAdapter)
+
     }
 
     override fun onAttach(context: Context) {
@@ -285,6 +286,27 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
             y = " "
         )
         val action = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(restaurant)
+        findNavController().navigate(action)
+    }
+
+    override fun onHashtagGoodFoodClick() {
+        Log.d("gg", "gg")
+        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("맛집")
+        findNavController().navigate(action)
+    }
+
+    override fun onHashtagGoodCafeClick() {
+        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("카페")
+        findNavController().navigate(action)
+    }
+
+    override fun onHashtagGoodDrinkClick() {
+        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("술집")
+        findNavController().navigate(action)
+    }
+
+    override fun onHashtagGoodBreadClick() {
+        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("빵집")
         findNavController().navigate(action)
     }
 }

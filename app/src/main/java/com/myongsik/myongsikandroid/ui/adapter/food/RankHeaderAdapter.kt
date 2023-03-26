@@ -1,21 +1,23 @@
 package com.myongsik.myongsikandroid.ui.adapter.food
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.myongsik.myongsikandroid.R
+import com.myongsik.myongsikandroid.databinding.HeaderSearchRankingBinding
 
-// Home RV Header 부분
-class HomeHeaderAdapter : RecyclerView.Adapter<HomeHeaderAdapter.HeaderViewHolder>() {
+class RankHeaderAdapter(listener: OnScrapViewHolderClick) : RecyclerView.Adapter<RankHeaderViewHolder>() {
 
-    class HeaderViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    private val mCallback = listener
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankHeaderViewHolder {
+        return RankHeaderViewHolder(
+            HeaderSearchRankingBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            mCallback
+        )
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeaderViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.header_search_ranking, parent, false)
-        return HeaderViewHolder(view)
+    override fun onBindViewHolder(holder: RankHeaderViewHolder, position: Int){
+
     }
-    override fun onBindViewHolder(holder: HeaderViewHolder, position: Int){}
     override fun getItemCount(): Int {
         return 1
     }
