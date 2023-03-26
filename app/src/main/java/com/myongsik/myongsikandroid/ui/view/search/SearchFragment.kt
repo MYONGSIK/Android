@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -44,15 +45,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
     private val binding: FragmentSearchBinding
         get() = _binding!!
 
-    private val intRandom = Random().nextInt(19)
-
     private lateinit var callback: OnBackPressedCallback
-
-    private val foodList = arrayOf(
-        "부대찌개", "국밥", "마라탕", "중식", "한식", "카페", "족발", "술집", // 8
-        "파스타", "커피", "삼겹살", "치킨", "떡볶이", "햄버거", "피자", "초밥", // 8
-        "회", "곱창", "냉면", "닭발" //4  -> 총 20개
-    )
 
     //검색 뷰모델, 현재 의존성 주입 안함
     private val searchViewModel by viewModels<SearchViewModel>()
@@ -62,7 +55,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
     private lateinit var searchFoodAdapter: SearchFoodPagingAdapter
 
     //추천 어댑터
-    private lateinit var searchRecommendAdapter: SearchFoodAdapter
     private lateinit var rankRestaurantAdapter: RankRestaurantAdapter
 
     private var backKeyPressTime = 0L
@@ -101,15 +93,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
 
         binding.searchBackBt.setOnClickListener {
             CommonUtil.hideKeyboard(requireActivity())
-            binding.searchBackBt.visibility = View.INVISIBLE
-            binding.tlSearch.visibility = View.INVISIBLE
-            binding.searchTopV.visibility = View.VISIBLE
-            binding.searchFindV.visibility =View.INVISIBLE
-            binding.tvEmptylist.visibility = View.INVISIBLE
-            binding.searchTopTv.visibility = View.VISIBLE
-            binding.searchIcIv.visibility = View.VISIBLE
-
-            binding.tlSearch.text = null
+            searchVisibleControl()
         }
 
         mainViewModel.rankRestaurantResponse.observe(viewLifecycleOwner){
@@ -121,7 +105,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         binding.tlSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 binding.searchMyongjiRv.visibility = View.INVISIBLE
-
                 binding.goodCafeDrinkTv.visibility = View.VISIBLE
                 binding.horizonSv.visibility = View.VISIBLE
                 binding.goodPlaceMyongji.visibility = View.VISIBLE
@@ -170,6 +153,18 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
             findNavController().navigate(action)
         }
 }
+
+    private fun searchVisibleControl() {
+        binding.searchBackBt.visibility = View.INVISIBLE
+        binding.tlSearch.visibility = View.INVISIBLE
+        binding.searchTopV.visibility = View.VISIBLE
+        binding.searchFindV.visibility =View.INVISIBLE
+        binding.tvEmptylist.visibility = View.INVISIBLE
+        binding.searchTopTv.visibility = View.VISIBLE
+        binding.searchIcIv.visibility = View.VISIBLE
+
+        binding.tlSearch.text = null
+    }
 
     private fun initRefreshLayout() {
         binding.refreshLayout.setOnRefreshListener {
@@ -247,15 +242,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
                         activity?.finish()
                     }
                 } else{
-                    binding.searchBackBt.visibility = View.INVISIBLE
-                    binding.tlSearch.visibility = View.INVISIBLE
-                    binding.searchTopV.visibility = View.VISIBLE
-                    binding.searchFindV.visibility =View.INVISIBLE
-                    binding.tvEmptylist.visibility = View.INVISIBLE
-                    binding.searchTopTv.visibility = View.VISIBLE
-                    binding.searchIcIv.visibility = View.VISIBLE
-
-                    binding.tlSearch.text = null
+                    searchVisibleControl()
                 }
             }
         }
