@@ -5,7 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.myongsik.myongsikandroid.databinding.HeaderSearchRankingBinding
 
-class RankHeaderAdapter(listener: OnScrapViewHolderClick) : RecyclerView.Adapter<RankHeaderViewHolder>() {
+class RankHeaderAdapter(listener: OnScrapViewHolderClick) :
+    RecyclerView.Adapter<RankHeaderViewHolder>() {
 
     private val mCallback = listener
 
@@ -15,9 +16,11 @@ class RankHeaderAdapter(listener: OnScrapViewHolderClick) : RecyclerView.Adapter
             mCallback
         )
     }
-    override fun onBindViewHolder(holder: RankHeaderViewHolder, position: Int){
+
+    override fun onBindViewHolder(holder: RankHeaderViewHolder, position: Int) {
 
     }
+
     override fun getItemCount(): Int {
         return 1
     }
