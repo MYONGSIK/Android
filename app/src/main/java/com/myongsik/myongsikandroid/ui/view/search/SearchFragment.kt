@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.R
@@ -24,6 +25,7 @@ import com.myongsik.myongsikandroid.ui.adapter.food.OnScrapViewHolderClick
 import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
+import com.myongsik.myongsikandroid.ui.adapter.food.HomeHeaderAdapter
 import com.myongsik.myongsikandroid.ui.adapter.food.RankRestaurantAdapter
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
@@ -105,9 +107,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         binding.tlSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 binding.searchMyongjiRv.visibility = View.INVISIBLE
-                binding.goodCafeDrinkTv.visibility = View.VISIBLE
-                binding.horizonSv.visibility = View.VISIBLE
-                binding.goodPlaceMyongji.visibility = View.VISIBLE
                 binding.searchMyongjiRank.visibility = View.VISIBLE
                 binding.tvEmptylist.visibility = View.INVISIBLE
             }
@@ -115,9 +114,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if(binding.tlSearch.text.toString().isNotEmpty()){
                     binding.searchMyongjiRv.visibility = View.VISIBLE
-                    binding.goodCafeDrinkTv.visibility = View.INVISIBLE
-                    binding.horizonSv.visibility = View.INVISIBLE
-                    binding.goodPlaceMyongji.visibility = View.INVISIBLE
                     binding.searchMyongjiRank.visibility = View.INVISIBLE
                 }
             }
@@ -133,25 +129,25 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
             }
         }
 
-        binding.itemSearchHashtag1.setOnClickListener {
-            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("맛집")
-            findNavController().navigate(action)
-        }
-
-        binding.itemSearchHashtag2.setOnClickListener {
-            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("카페")
-            findNavController().navigate(action)
-        }
-
-        binding.itemSearchHashtag3.setOnClickListener {
-            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("술집")
-            findNavController().navigate(action)
-        }
-
-        binding.itemSearchHashtag4.setOnClickListener {
-            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("빵집")
-            findNavController().navigate(action)
-        }
+//        binding.itemSearchHashtag1.setOnClickListener {
+//            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("맛집")
+//            findNavController().navigate(action)
+//        }
+//
+//        binding.itemSearchHashtag2.setOnClickListener {
+//            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("카페")
+//            findNavController().navigate(action)
+//        }
+//
+//        binding.itemSearchHashtag3.setOnClickListener {
+//            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("술집")
+//            findNavController().navigate(action)
+//        }
+//
+//        binding.itemSearchHashtag4.setOnClickListener {
+//            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("빵집")
+//            findNavController().navigate(action)
+//        }
 }
 
     private fun searchVisibleControl() {
@@ -216,12 +212,14 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
     }
 
     private fun setUpRankRestaurantRV(){
+        val headerAdapter = HomeHeaderAdapter()
         rankRestaurantAdapter = RankRestaurantAdapter(this)
         binding.searchMyongjiRank.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = rankRestaurantAdapter
         }
+        binding.searchMyongjiRank.adapter = ConcatAdapter(headerAdapter, rankRestaurantAdapter)
     }
 
     override fun onAttach(context: Context) {
