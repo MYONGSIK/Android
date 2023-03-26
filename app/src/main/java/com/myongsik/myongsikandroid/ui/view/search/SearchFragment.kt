@@ -4,11 +4,11 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -16,16 +16,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
-import com.myongsik.myongsikandroid.ui.adapter.food.OnScrapViewHolderClick
-import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
+import com.myongsik.myongsikandroid.ui.adapter.food.OnScrapViewHolderClick
+import com.myongsik.myongsikandroid.ui.adapter.food.RankHeaderAdapter
 import com.myongsik.myongsikandroid.ui.adapter.food.RankRestaurantAdapter
-import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodAdapter
+import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.adapter.state.SearchFoodLoadStateAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
@@ -36,7 +37,6 @@ import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.util.*
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderClick {
@@ -105,9 +105,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         binding.tlSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 binding.searchMyongjiRv.visibility = View.INVISIBLE
-                binding.goodCafeDrinkTv.visibility = View.VISIBLE
-                binding.horizonSv.visibility = View.VISIBLE
-                binding.goodPlaceMyongji.visibility = View.VISIBLE
                 binding.searchMyongjiRank.visibility = View.VISIBLE
                 binding.tvEmptylist.visibility = View.INVISIBLE
             }
@@ -115,9 +112,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if(binding.tlSearch.text.toString().isNotEmpty()){
                     binding.searchMyongjiRv.visibility = View.VISIBLE
-                    binding.goodCafeDrinkTv.visibility = View.INVISIBLE
-                    binding.horizonSv.visibility = View.INVISIBLE
-                    binding.goodPlaceMyongji.visibility = View.INVISIBLE
                     binding.searchMyongjiRank.visibility = View.INVISIBLE
                 }
             }
@@ -131,26 +125,6 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
             searchViewModel.searchPagingResult.collectLatest {
                 searchFoodAdapter.submitData(it)
             }
-        }
-
-        binding.itemSearchHashtag1.setOnClickListener {
-            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("맛집")
-            findNavController().navigate(action)
-        }
-
-        binding.itemSearchHashtag2.setOnClickListener {
-            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("카페")
-            findNavController().navigate(action)
-        }
-
-        binding.itemSearchHashtag3.setOnClickListener {
-            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("술집")
-            findNavController().navigate(action)
-        }
-
-        binding.itemSearchHashtag4.setOnClickListener {
-            val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("빵집")
-            findNavController().navigate(action)
         }
 }
 
@@ -216,12 +190,14 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
     }
 
     private fun setUpRankRestaurantRV(){
+        val headerAdapter = RankHeaderAdapter(this)
         rankRestaurantAdapter = RankRestaurantAdapter(this)
         binding.searchMyongjiRank.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = rankRestaurantAdapter
+            adapter = ConcatAdapter(headerAdapter, rankRestaurantAdapter)
         }
+
     }
 
     override fun onAttach(context: Context) {
@@ -287,6 +263,27 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
             y = " "
         )
         val action = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(restaurant)
+        findNavController().navigate(action)
+    }
+
+    override fun onHashtagGoodFoodClick() {
+        Log.d("gg", "gg")
+        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("맛집")
+        findNavController().navigate(action)
+    }
+
+    override fun onHashtagGoodCafeClick() {
+        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("카페")
+        findNavController().navigate(action)
+    }
+
+    override fun onHashtagGoodDrinkClick() {
+        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("술집")
+        findNavController().navigate(action)
+    }
+
+    override fun onHashtagGoodBreadClick() {
+        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("빵집")
         findNavController().navigate(action)
     }
 }
