@@ -47,6 +47,6 @@
 | **Asynchronous**                 | Coroutine, Flow, StateFlow |
 | **Local DB**                 | Room, DataStore |
 | **Background**                 | AlarmManager |
-| **Crashlytics**                 | Firebase |
+| **Firebase**                 | Crashlytics |
 
 
