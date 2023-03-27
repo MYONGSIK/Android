@@ -104,7 +104,7 @@ class HomeFragment : Fragment() {
         // 오늘 날짜
         localDate = localDateTime
         initDate = localDateTime.dayOfWeek.value
-        if (initDate == 7){
+        if (initDate == 7) {
             localDate = localDate.plusDays(1)
             initDate = 1
         }
@@ -137,24 +137,24 @@ class HomeFragment : Fragment() {
 
     private fun initData() {
         if (MyongsikApplication.prefs.getUserCampus() == "S") {
-            mainViewModel.weekGetFoodAreaFun("MCC식당")
+            mainViewModel.weekGetFoodAreaFun(getAreaName())
             binding.homeTimeTv.text = getString(R.string.home_time_tv)
         } else if (MyongsikApplication.prefs.getUserCampus() == "Y") {
             when (MyongsikApplication.prefs.getUserArea()) {
                 "S" -> {
-                    mainViewModel.weekGetFoodAreaFun("교직원식당")
+                    mainViewModel.weekGetFoodAreaFun(getAreaName())
                     binding.homeTimeTv.text = getString(R.string.home_time_staff_tv)
                 }
                 "L" -> {
-                    mainViewModel.weekGetFoodAreaFun("생활관식당")
+                    mainViewModel.weekGetFoodAreaFun(getAreaName())
                     binding.homeTimeTv.text = getString(R.string.home_time_life_tv)
                 }
                 "H" -> {
-                    mainViewModel.weekGetFoodAreaFun("학생식당")
+                    mainViewModel.weekGetFoodAreaFun(getAreaName())
                     binding.homeTimeTv.text = getString(R.string.home_time_student_tv)
                 }
                 "M" -> {
-                    mainViewModel.weekGetFoodAreaFun("명진당식당")
+                    mainViewModel.weekGetFoodAreaFun(getAreaName())
                     binding.homeTimeTv.text = getString(R.string.home_time_myonog_tv)
                 }
             }
@@ -291,8 +291,9 @@ class HomeFragment : Fragment() {
                 dialogUtils.showWriteReviewDialog { editText ->
                     val review = editText.text.toString()
                     if (review.isEmpty()) {
-                        dialogUtils.showConfirmDialog("의견 작성", "의견을 작성해주세요!") {}
+                        dialogUtils.showConfirmDialog(getString(R.string.opinion_write), getString(R.string.please_opinion_write)) {}
                     } else { // 리뷰 작성
+
                         writeMenu(review)
 
                         mainViewModel.postReviewData.observe(viewLifecycleOwner) {
@@ -320,10 +321,7 @@ class HomeFragment : Fragment() {
         val currentDate = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val formattedDate = currentDate.format(formatter)
-
-        val request = RequestReviewData(
-            review, formattedDate, MyongsikApplication.prefs.getUserID()
-        )
+        val request = RequestReviewData(review, formattedDate, MyongsikApplication.prefs.getUserID(), getAreaName())
         mainViewModel.postReview(request)
     }
 
@@ -331,7 +329,7 @@ class HomeFragment : Fragment() {
     private fun checkWeekend() {
         if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY || Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) {
             val dialogUtils = context?.let { DialogUtils(it) }
-            dialogUtils?.showConfirmDialog("주말 운영 안내", "주말에는 식당을 운영하지 않습니다.", yesClickListener = {})
+            dialogUtils?.showConfirmDialog(getString(R.string.weekend_noti), getString(R.string.weekend_not_service), yesClickListener = {})
         }
         with(binding) {
             viewPager2.visibility = View.VISIBLE
@@ -348,6 +346,30 @@ class HomeFragment : Fragment() {
     private fun defaultDataStore() {
         lifecycleScope.launch {
             mainViewModel.defaultDataStore()
+        }
+    }
+
+    private fun getAreaName():String {
+       return if (MyongsikApplication.prefs.getUserCampus() == "S") {
+            getString(R.string.user_area_mcc)
+        } else {
+            when (MyongsikApplication.prefs.getUserArea()) {
+                "S" -> {
+                    getString(R.string.user_area_s)
+                }
+                "L" -> {
+                    getString(R.string.user_area_l)
+                }
+                "H" -> {
+                    getString(R.string.user_area_h)
+                }
+                "M" -> {
+                    getString(R.string.user_area_m)
+                }
+                else -> {
+                    ""
+                }
+            }
         }
     }
 
