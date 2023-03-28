@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -22,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.myongsikandroid.data.model.kakao.toRankRestaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.OnScrapViewHolderClick
 import com.myongsik.myongsikandroid.ui.adapter.food.RankHeaderAdapter
@@ -37,6 +39,7 @@ import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderClick {
@@ -71,48 +74,50 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         MyongsikApplication.prefs.setString("newUser", "notNew")
-
         setUpRecyclerView()
         setUpRankRestaurantRV()
         searchBooks()
-
         setupLoadState()
         initRefreshLayout()
-
         mainViewModel.getRankRestaurant()
-        binding.searchIcIv.setOnClickListener {
-            binding.searchBackBt.visibility = View.VISIBLE
-            binding.tlSearch.visibility = View.VISIBLE
-            binding.searchTopV.visibility = View.INVISIBLE
-            binding.searchFindV.visibility =View.VISIBLE
-            binding.searchTopTv.visibility = View.INVISIBLE
-            binding.searchIcIv.visibility = View.INVISIBLE
-            binding.tlSearch.requestFocus()
-            CommonUtil.showKeyboard(binding.tlSearch, requireActivity())
+        initViews()
+        initRankObserve()
+        initRecomendObserve()
+        viewLifecycleOwner.lifecycleScope.launch {
+            searchViewModel.searchPagingResult.collectLatest {
+                searchFoodAdapter.submitData(it)
+            }
+        }
+    }
+
+    private fun initViews() = with(binding) {
+        searchIcIv.setOnClickListener {
+            searchBackBt.visibility = View.VISIBLE
+            tlSearch.visibility = View.VISIBLE
+            searchTopV.visibility = View.INVISIBLE
+            searchFindV.visibility = View.VISIBLE
+            searchTopTv.visibility = View.INVISIBLE
+            searchIcIv.visibility = View.INVISIBLE
+            tlSearch.requestFocus()
+            CommonUtil.showKeyboard(tlSearch, requireActivity())
         }
 
-        binding.searchBackBt.setOnClickListener {
+        searchBackBt.setOnClickListener {
             CommonUtil.hideKeyboard(requireActivity())
             searchVisibleControl()
         }
 
-        mainViewModel.rankRestaurantResponse.observe(viewLifecycleOwner){
-            binding.refreshLayout.isRefreshing = false
-            val response = it.data.content
-            rankRestaurantAdapter.submitList(response)
-        }
-
-        binding.tlSearch.addTextChangedListener(object : TextWatcher {
+        tlSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                binding.searchMyongjiRv.visibility = View.INVISIBLE
-                binding.searchMyongjiRank.visibility = View.VISIBLE
-                binding.tvEmptylist.visibility = View.INVISIBLE
+                searchMyongjiRv.visibility = View.INVISIBLE
+                searchMyongjiRank.visibility = View.VISIBLE
+                tvEmptylist.visibility = View.INVISIBLE
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(binding.tlSearch.text.toString().isNotEmpty()){
-                    binding.searchMyongjiRv.visibility = View.VISIBLE
-                    binding.searchMyongjiRank.visibility = View.INVISIBLE
+                if (tlSearch.text.toString().isNotEmpty()) {
+                    searchMyongjiRv.visibility = View.VISIBLE
+                    searchMyongjiRank.visibility = View.INVISIBLE
                 }
             }
 
@@ -120,19 +125,29 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
 
             }
         })
+    }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            searchViewModel.searchPagingResult.collectLatest {
-                searchFoodAdapter.submitData(it)
-            }
+    private fun initRankObserve() {
+        mainViewModel.rankRestaurantResponse.observe(viewLifecycleOwner) {
+            binding.refreshLayout.isRefreshing = false
+            val response = it.data.content
+            rankRestaurantAdapter.submitList(response)
         }
-}
+    }
+
+    private fun initRecomendObserve() {
+        searchViewModel.resultRecommendSearch.observe(this) { response ->
+            val foods = response.toRankRestaurant()
+            rankRestaurantAdapter.submitList(foods)
+
+        }
+    }
 
     private fun searchVisibleControl() {
         binding.searchBackBt.visibility = View.INVISIBLE
         binding.tlSearch.visibility = View.INVISIBLE
         binding.searchTopV.visibility = View.VISIBLE
-        binding.searchFindV.visibility =View.INVISIBLE
+        binding.searchFindV.visibility = View.INVISIBLE
         binding.tvEmptylist.visibility = View.INVISIBLE
         binding.searchTopTv.visibility = View.VISIBLE
         binding.searchIcIv.visibility = View.VISIBLE
@@ -146,7 +161,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         }
     }
 
-    private fun searchBooks(){
+    private fun searchBooks() {
         var startTime = System.currentTimeMillis()
         var endTime: Long
 
@@ -164,7 +179,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         }
     }
 
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView() {
         searchFoodAdapter = SearchFoodPagingAdapter(this)
         binding.searchMyongjiRv.apply {
             setHasFixedSize(true)
@@ -176,7 +191,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         }
     }
 
-    private fun setupLoadState(){
+    private fun setupLoadState() {
         searchFoodAdapter.addLoadStateListener { combinedLoadStates ->
             val loadState = combinedLoadStates.source
 
@@ -189,7 +204,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         }
     }
 
-    private fun setUpRankRestaurantRV(){
+    private fun setUpRankRestaurantRV() {
         val headerAdapter = RankHeaderAdapter(this)
         rankRestaurantAdapter = RankRestaurantAdapter(this)
         binding.searchMyongjiRank.apply {
@@ -197,15 +212,13 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = ConcatAdapter(headerAdapter, rankRestaurantAdapter)
         }
-
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if(binding.searchTopV.visibility == View.VISIBLE){
+                if (binding.searchTopV.visibility == View.VISIBLE) {
                     if (System.currentTimeMillis() > backKeyPressTime + 2000) {
                         backKeyPressTime = System.currentTimeMillis()
                         Snackbar.make(
@@ -217,7 +230,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
                     } else if (System.currentTimeMillis() <= backKeyPressTime + 2000) {
                         activity?.finish()
                     }
-                } else{
+                } else {
                     searchVisibleControl()
                 }
             }
@@ -238,7 +251,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         mainViewModel.deleteFoods(restaurant)
     }
 
-    override fun isItem(string: String){
+    override fun isItem(string: String) {
 
     }
 
@@ -285,5 +298,18 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
     override fun onHashtagGoodBreadClick() {
         val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("빵집")
         findNavController().navigate(action)
+    }
+
+    override fun onSelectSortMenu(sort: String) {
+        when (sort) {
+            "인기순" -> {
+                mainViewModel.getRankRestaurant()
+            }
+            "추천순" -> {
+                val foodList = resources.getStringArray(R.array.food_list)
+                val randomPosition = Random.nextInt(foodList.size)
+                searchViewModel.searchRecommendFood(foodList[randomPosition])
+            }
+        }
     }
 }
