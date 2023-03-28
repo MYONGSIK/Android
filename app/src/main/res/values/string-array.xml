@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sort_array">
+        <item>인기순</item>
+        <item>추천순</item>
+    </string-array>
+    <string-array name="food_list">
+        <item>부대찌개</item>
+        <item>국밥</item>
+        <item>마라탕</item>
+        <item>중식</item>
+        <item>한식</item>
+        <item>카페</item>
+        <item>족발</item>
+        <item>술집</item>
+        <item>파스타</item>
+        <item>커피</item>
+        <item>삼겹살</item>
+        <item>치킨</item>
+        <item>떡볶이</item>
+        <item>햄버거</item>
+        <item>피자</item>
+        <item>초밥</item>
+        <item>회</item>
+        <item>곱창</item>
+        <item>냉면</item>
+        <item>닭발</item>
+    </string-array>
+</resources>
