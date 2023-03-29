@@ -20,7 +20,7 @@ interface HomeFoodApi {
         @Path("area") area: String
     ): Response<WeekFoodResponse>
 
-    @POST("/api/v2/reviews")
+    @POST("/api/v2/reviews/area")
     suspend fun postReview(
         @Body body: RequestReviewData
     ): Response<ResponseReviewData>

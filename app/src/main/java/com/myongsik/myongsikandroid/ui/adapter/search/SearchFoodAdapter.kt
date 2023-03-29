@@ -13,10 +13,7 @@ class SearchFoodAdapter(listener: OnSearchViewHolderClick) : ListAdapter<Restaur
     private val mCallback = listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchFoodViewHolder {
-        return SearchFoodViewHolder(
-            ItemRestaurantFoodBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            mCallback
-        )
+        return SearchFoodViewHolder(ItemRestaurantFoodBinding.inflate(LayoutInflater.from(parent.context), parent, false), mCallback)
     }
 
     override fun onBindViewHolder(holder: SearchFoodViewHolder, position: Int) {
