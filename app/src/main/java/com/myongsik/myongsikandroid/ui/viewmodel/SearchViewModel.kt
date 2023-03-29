@@ -50,7 +50,7 @@ class SearchViewModel @Inject constructor(
     private suspend fun start(locate: String, query: String, x:Double, y:Double) {
         val response = searchFoodRepository.searchFood(
             "$locate 명지대 $query", "FD6, CE7", "$x",
-            "$y", 10000, 1, 10, "distance")
+            "$y", 10000, 1, 15, "distance")
 
         if(response.isSuccessful){
             response.body()?.let{ body ->

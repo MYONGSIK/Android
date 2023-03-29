@@ -41,8 +41,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-@AndroidEntryPoint
-class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderClick {
+@AndroidEntryPoint class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderClick {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding
@@ -61,11 +60,11 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
     private lateinit var rankRestaurantAdapter: RankRestaurantAdapter
 
     private var backKeyPressTime = 0L
+    private lateinit var currentMenu: String
+    private val foodList: Array<String> by lazy { resources.getStringArray(R.array.food_list) }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
@@ -136,28 +135,35 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
     }
 
     private fun initRecomendObserve() {
+        currentMenu = getString(R.string.rank_sort_menu_popularity)
         searchViewModel.resultRecommendSearch.observe(this) { response ->
+            binding.refreshLayout.isRefreshing = false
             val foods = response.toRankRestaurant()
             rankRestaurantAdapter.submitList(foods)
-
         }
     }
 
     private fun searchVisibleControl() {
-        binding.searchBackBt.visibility = View.INVISIBLE
-        binding.tlSearch.visibility = View.INVISIBLE
-        binding.searchTopV.visibility = View.VISIBLE
-        binding.searchFindV.visibility = View.INVISIBLE
-        binding.tvEmptylist.visibility = View.INVISIBLE
-        binding.searchTopTv.visibility = View.VISIBLE
-        binding.searchIcIv.visibility = View.VISIBLE
-
-        binding.tlSearch.text = null
+        with(binding) {
+            searchBackBt.visibility = View.INVISIBLE
+            tlSearch.visibility = View.INVISIBLE
+            searchTopV.visibility = View.VISIBLE
+            searchFindV.visibility = View.INVISIBLE
+            tvEmptylist.visibility = View.INVISIBLE
+            searchTopTv.visibility = View.VISIBLE
+            searchIcIv.visibility = View.VISIBLE
+            tlSearch.text = null
+        }
     }
 
     private fun initRefreshLayout() {
         binding.refreshLayout.setOnRefreshListener {
-            mainViewModel.getRankRestaurant()
+            val randomPosition = Random.nextInt(foodList.size)
+            if (currentMenu == getString(R.string.rank_sort_menu_popularity)) {
+                mainViewModel.getRankRestaurant()
+            } else {
+                searchViewModel.searchRecommendFood(foodList[randomPosition])
+            }
         }
     }
 
@@ -195,8 +201,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
         searchFoodAdapter.addLoadStateListener { combinedLoadStates ->
             val loadState = combinedLoadStates.source
 
-            val isListEmpty = searchFoodAdapter.itemCount < 1
-                    && loadState.refresh is LoadState.NotLoading && binding.tlSearch.text.toString().isNotEmpty()
+            val isListEmpty = searchFoodAdapter.itemCount < 1 && loadState.refresh is LoadState.NotLoading && binding.tlSearch.text.toString().isNotEmpty()
 
             binding.tvEmptylist.isVisible = isListEmpty
 
@@ -222,9 +227,7 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
                     if (System.currentTimeMillis() > backKeyPressTime + 2000) {
                         backKeyPressTime = System.currentTimeMillis()
                         Snackbar.make(
-                            binding.fragmentSearch,
-                            getString(R.string.back_button_warning),
-                            Snackbar.LENGTH_SHORT
+                            binding.fragmentSearch, getString(R.string.back_button_warning), Snackbar.LENGTH_SHORT
                         ).show()
 
                     } else if (System.currentTimeMillis() <= backKeyPressTime + 2000) {
@@ -301,13 +304,13 @@ class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderCli
     }
 
     override fun onSelectSortMenu(sort: String) {
+        currentMenu = sort
+        val randomPosition = Random.nextInt(foodList.size)
         when (sort) {
-            "인기순" -> {
+            getString(R.string.rank_sort_menu_popularity) -> {
                 mainViewModel.getRankRestaurant()
             }
-            "추천순" -> {
-                val foodList = resources.getStringArray(R.array.food_list)
-                val randomPosition = Random.nextInt(foodList.size)
+            getString(R.string.rank_sort_menu_suggestion) -> {
                 searchViewModel.searchRecommendFood(foodList[randomPosition])
             }
         }

@@ -17,13 +17,13 @@ fun SearchResponse.toRankRestaurant(): ArrayList<GetRankRestaurant> {
             GetRankRestaurant(
                 storeId = it.id.toInt(),
                 code = it.category_group_code,
-                name =it.place_name,
-                category =it.category_group_name,
-                address =it.road_address_name,
-                urlAddress =it.place_url,
-                distance =it.distance,
-                scrapCount =0,
-                contact =it.phone,
+                name = it.place_name,
+                category = it.category_group_name,
+                address = it.road_address_name,
+                urlAddress = it.place_url,
+                distance = it.distance,
+                scrapCount = null,
+                contact = it.phone,
             )
         )
     }

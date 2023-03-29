@@ -70,6 +70,9 @@
     <string name="restaurant_distance">320m</string>
     <string name="restaurant_location">가게 위치</string>
     <string name="restaurant_phone">가게 전화번호</string>
+    
+    <string name="rank_sort_menu_popularity">인기순</string>
+    <string name="rank_sort_menu_suggestion">추천순</string>
 
     <string name="review_okay">완료</string>
     <string name="check_newtwork_state">네트워크 상태를 확인해주세요.</string>

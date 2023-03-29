@@ -160,11 +160,11 @@
         android:id="@+id/spSort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/good_place_myongji"
+        android:textColor="#636363"
+        android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="@id/good_place_myongji"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="인기순"
-        android:textSize="12dp"
-        android:textColor="#636363" />
+        app:layout_constraintTop_toTopOf="@id/good_place_myongji"
+        tools:text="인기순" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

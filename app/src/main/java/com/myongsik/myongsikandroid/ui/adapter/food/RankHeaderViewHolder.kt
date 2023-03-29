@@ -1,5 +1,6 @@
 package com.myongsik.myongsikandroid.ui.adapter.food
 
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
@@ -16,7 +17,6 @@ class RankHeaderViewHolder(
 
     init {
         with(binding) {
-
             ArrayAdapter.createFromResource(
                 binding.root.context,
                 R.array.sort_array,
@@ -45,8 +45,9 @@ class RankHeaderViewHolder(
                     clickCallback.onSelectSortMenu(parent?.getItemAtPosition(position) as? String ?:"")
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    Log.d("HELLO","")
+                }
             }
         }
     }

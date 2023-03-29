@@ -3,6 +3,7 @@ package com.myongsik.myongsikandroid.ui.adapter.food
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
@@ -24,10 +25,31 @@ class RankRestaurantViewHolder(
         val placeName =
             if (getRankRestaurant.name.length >= 13)
                 "${getRankRestaurant.name.substring(0, 12)}..."
-            else
+            else {
                 getRankRestaurant.name
+            }
+
+
 
         with(binding) {
+            itemFoodName.text = placeName
+            itemFoodObject.text = getRankRestaurant.category
+            itemFoodLocationTv.text = getRankRestaurant.address
+            weekFoodAfternoonTv.text = distance
+
+            if (getRankRestaurant.contact.isEmpty()) {
+                itemFoodPhoneTv.text = context.getString(R.string.is_null_phone_number)
+            } else {
+                itemFoodPhoneTv.text = getRankRestaurant.contact
+            }
+
+            if (getRankRestaurant.scrapCount == null) {
+                isVisibleRankingTitle(false)
+            } else {
+                isVisibleRankingTitle(true)
+                rankingTitleTv1.text = getRankRestaurant.scrapCount.toString()
+            }
+
             itemFoodPhoneTv.setOnClickListener {
                 val text = itemFoodPhoneTv.text
                 if (context.getString(R.string.is_null_phone_number) != text) {
@@ -35,8 +57,7 @@ class RankRestaurantViewHolder(
                     context.startActivity(intent)
                 }
             }
-            itemFoodLocationTv.text = getRankRestaurant.address
-            rankingTitleTv1.text = getRankRestaurant.scrapCount.toString()
+
 
             itemFoodLocationTv.setOnClickListener {
                 val naverMapUrl = "nmap://search?query=${itemFoodLocationTv.text}"
@@ -55,11 +76,15 @@ class RankRestaurantViewHolder(
             itemFoodDetailCl.setOnClickListener {
                 clickCallback.clickRankDirectButton(getRankRestaurant)
             }
+        }
+    }
 
-            itemFoodName.text = placeName
-            itemFoodObject.text = getRankRestaurant.category
-            itemFoodPhoneTv.text = getRankRestaurant.contact
-            weekFoodAfternoonTv.text = distance
+    private fun isVisibleRankingTitle(isVisible:Boolean) {
+        binding.apply {
+            rankingTitleTv.isVisible = isVisible
+            rankingTitleTv1.isVisible = isVisible
+            rankingTitleTv2.isVisible = isVisible
+
         }
     }
 }
