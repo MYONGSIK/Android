@@ -1,7 +1,11 @@
 package com.myongsik.myongsikandroid.ui.adapter.food
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import android.net.Uri
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.myongsik.myongsikandroid.R
@@ -28,6 +32,22 @@ class RankRestaurantViewHolder(
                 getRankRestaurant.name
 
         with(binding) {
+
+            val addressSpannableString = SpannableString(getRankRestaurant.address)
+            addressSpannableString.setSpan(UnderlineSpan(), 0, addressSpannableString.length, 0)
+            itemFoodLocationTv.text = addressSpannableString
+
+            val phoneSpannableString = SpannableString(getRankRestaurant.contact)
+            phoneSpannableString.setSpan(UnderlineSpan(), 0, phoneSpannableString.length, 0)
+            itemFoodPhoneTv.text = phoneSpannableString
+
+
+            rankingTitleTv1.text = getRankRestaurant.scrapCount.toString()
+            itemFoodName.text = placeName
+            itemFoodObject.text = getRankRestaurant.category
+            weekFoodAfternoonTv.text = distance
+
+
             itemFoodPhoneTv.setOnClickListener {
                 val text = itemFoodPhoneTv.text
                 if (context.getString(R.string.is_null_phone_number) != text) {
@@ -35,31 +55,29 @@ class RankRestaurantViewHolder(
                     context.startActivity(intent)
                 }
             }
-            itemFoodLocationTv.text = getRankRestaurant.address
-            rankingTitleTv1.text = getRankRestaurant.scrapCount.toString()
+
 
             itemFoodLocationTv.setOnClickListener {
-                val naverMapUrl = "nmap://search?query=${itemFoodLocationTv.text}"
-                val uri = Uri.parse(naverMapUrl)
-                val mapIntent = Intent(Intent.ACTION_VIEW, uri)
-                mapIntent.setPackage("com.nhn.android.nmap")
-                if (mapIntent.resolveActivity(context.packageManager) != null) {
-                    context.startActivity(mapIntent)
-                } else {
-                    context.run {
-                        Toast.makeText(this, getString(R.string.please_install_naver_map), Toast.LENGTH_SHORT).show()
-                    }
-                }
+                moveNaverMap(this)
             }
 
             itemFoodDetailCl.setOnClickListener {
                 clickCallback.clickRankDirectButton(getRankRestaurant)
             }
+        }
+    }
 
-            itemFoodName.text = placeName
-            itemFoodObject.text = getRankRestaurant.category
-            itemFoodPhoneTv.text = getRankRestaurant.contact
-            weekFoodAfternoonTv.text = distance
+    private fun moveNaverMap(binding: ItemRestaurantRankingBinding) {
+        binding.root.context.run {
+            val naverMapUrl = "nmap://search?query=${binding.itemFoodLocationTv.text}"
+            val uri = Uri.parse(naverMapUrl)
+            val mapIntent = Intent(Intent.ACTION_VIEW, uri)
+            mapIntent.setPackage("com.nhn.android.nmap")
+            if (mapIntent.resolveActivity(packageManager) != null) {
+                startActivity(mapIntent)
+            } else {
+                Toast.makeText(this, getString(R.string.please_install_naver_map), Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
