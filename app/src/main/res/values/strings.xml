@@ -70,6 +70,10 @@
     <string name="restaurant_distance">320m</string>
     <string name="restaurant_location">가게 위치</string>
     <string name="restaurant_phone">가게 전화번호</string>
+    
+    <string name="rank_sort_menu_popularity">인기순</string>
+    <string name="rank_sort_menu_suggestion">추천순</string>
+    <string name="rank_sort_menu_distance">거리순</string>
 
     <string name="user_area_s">교직원식당</string>
     <string name="user_area_l">생활관식당</string>

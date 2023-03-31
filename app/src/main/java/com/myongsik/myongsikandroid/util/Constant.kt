@@ -7,6 +7,16 @@ object Constant {
     const val MYONG_SIK_BASE_URL = "http://13.209.50.30"
     const val KAKAO_BASE_URL = "https://dapi.kakao.com"
 
+    const val S = "S"
+    const val Y = "Y"
+    const val SEOUL = "SEOUL"
+    const val YONGIN = "YONGIN"
+
+    const val DISTANCE = "distance"
+    const val SCRAP_COUNT = "scrapCount"
+    const val DESC = "desc"
+    const val ASC = "asc"
+
     //DataStore Name
     const val DATASTORE_NAME = "food_evaluation_datastore"
 

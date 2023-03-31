@@ -1,5 +1,6 @@
 package com.myongsik.myongsikandroid.data.repository.food
 
+import androidx.datastore.preferences.core.Preferences
 import androidx.paging.PagingData
 import com.myongsik.myongsikandroid.data.model.food.*
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
@@ -26,6 +27,8 @@ interface FoodRepository {
     //DataStore
     suspend fun saveLunchEvaluation(type: String, evaluation : String)
 
+    suspend fun saveSortType(key: Preferences.Key<String>, value : String)
+
     suspend fun defaultDataStore()
 
     suspend fun getLunchEvaluation() : Flow<String>
@@ -41,6 +44,8 @@ interface FoodRepository {
     suspend fun getLunchHEvaluation() : Flow<String>
 
     suspend fun getDinnerHEvaluation() : Flow<String>
+
+    suspend fun getCurrentSortType() : Flow<String>
 
     //Room
     suspend fun insertFoods(restaurant: Restaurant)
