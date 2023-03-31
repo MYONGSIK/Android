@@ -1,8 +1,6 @@
 package com.myongsik.myongsikandroid.ui.adapter.food
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.Paint
 import android.net.Uri
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
@@ -33,19 +31,17 @@ class RankRestaurantViewHolder(
                 getRankRestaurant.name
             }
 
-
-
         with(binding) {
             val addressSpannableString = SpannableString(getRankRestaurant.address)
             addressSpannableString.setSpan(UnderlineSpan(), 0, addressSpannableString.length, 0)
             itemFoodLocationTv.text = addressSpannableString
 
-            if (getRankRestaurant.contact != context.getString(R.string.is_null_phone_number)) {
+            if (getRankRestaurant.contact != context.getString(R.string.is_null_phone_number) && getRankRestaurant.contact.isNotEmpty()) {
                 val phoneSpannableString = SpannableString(getRankRestaurant.contact)
                 phoneSpannableString.setSpan(UnderlineSpan(), 0, phoneSpannableString.length, 0)
                 itemFoodPhoneTv.text = phoneSpannableString
             } else {
-                itemFoodPhoneTv.text = getRankRestaurant.contact
+                itemFoodPhoneTv.text = context.getString(R.string.is_null_phone_number)
             }
 
             if (getRankRestaurant.scrapCount == null) {
@@ -95,7 +91,7 @@ class RankRestaurantViewHolder(
         }
     }
 
-    private fun isVisibleRankingTitle(isVisible:Boolean) {
+    private fun isVisibleRankingTitle(isVisible: Boolean) {
         binding.apply {
             rankingTitleTv.isVisible = isVisible
             rankingTitleTv1.isVisible = isVisible
