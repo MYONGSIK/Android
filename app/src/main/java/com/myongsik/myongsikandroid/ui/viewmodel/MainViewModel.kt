@@ -14,6 +14,7 @@ import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
+import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -170,8 +171,15 @@ class MainViewModel @Inject constructor(
 
     fun getRankRestaurant() = viewModelScope.launch(Dispatchers.IO) {
         when (MyongsikApplication.prefs.getUserCampus()) {
-            "S" -> start("scrapCount,desc", "SEOUL")
-            "Y" -> start("scrapCount,desc", "YONGIN")
+            Constant.S -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.SEOUL)
+            Constant.Y -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.YONGIN)
+        }
+    }
+
+    fun getDistanceRestaurant() = viewModelScope.launch(Dispatchers.IO) {
+        when (MyongsikApplication.prefs.getUserCampus()) {
+            Constant.S -> start("${Constant.DISTANCE},${Constant.ASC}", Constant.SEOUL)
+            Constant.Y -> start("${Constant.DISTANCE},${Constant.ASC}", Constant.YONGIN)
         }
     }
 

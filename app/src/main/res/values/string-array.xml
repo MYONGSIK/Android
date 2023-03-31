@@ -3,6 +3,7 @@
     <string-array name="sort_array">
         <item>인기순</item>
         <item>추천순</item>
+        <item>거리순</item>
     </string-array>
     <string-array name="food_list">
         <item>부대찌개</item>

@@ -213,12 +213,7 @@ import kotlin.random.Random
 
     private fun setUpRankRestaurantRV() {
         lifecycleScope.launch {
-            val sortTypePosition = when (mainViewModel.getCurrentSortType()) {
-                getString(R.string.rank_sort_menu_popularity) -> { 0 }
-                else -> { 1 }
-            }
-
-            val headerAdapter = RankHeaderAdapter(this@SearchFragment, sortTypePosition)
+            val headerAdapter = RankHeaderAdapter(this@SearchFragment, getSorTypePosition())
             rankRestaurantAdapter = RankRestaurantAdapter(this@SearchFragment)
             binding.searchMyongjiRank.apply {
                 setHasFixedSize(true)
@@ -323,6 +318,9 @@ import kotlin.random.Random
             getString(R.string.rank_sort_menu_suggestion) -> {
                 searchViewModel.searchRecommendFood(foodList[randomPosition])
             }
+            getString(R.string.rank_sort_menu_distance) -> {
+                mainViewModel.getDistanceRestaurant()
+            }
         }
     }
 
@@ -336,7 +334,25 @@ import kotlin.random.Random
                 getString(R.string.rank_sort_menu_suggestion) -> {
                     searchViewModel.searchRecommendFood(foodList[randomPosition])
                 }
+                getString(R.string.rank_sort_menu_distance) -> {
+                    mainViewModel.getDistanceRestaurant()
+                }
             }
         }
+    }
+
+    private suspend fun getSorTypePosition(): Int {
+        val sortTypePosition = when (mainViewModel.getCurrentSortType()) {
+            getString(R.string.rank_sort_menu_popularity) -> {
+                0
+            }
+            getString(R.string.rank_sort_menu_suggestion) -> {
+                1
+            }
+            else -> {
+                2
+            }
+        }
+        return sortTypePosition
     }
 }
