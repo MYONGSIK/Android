@@ -321,21 +321,24 @@ import kotlin.random.Random
             getString(R.string.rank_sort_menu_distance) -> {
                 mainViewModel.getDistanceRestaurant()
             }
+            else -> {
+                return
+            }
         }
     }
 
     private fun getFoodData() {
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             val randomPosition = Random.nextInt(foodList.size)
-            when(mainViewModel.getCurrentSortType()) {
-                getString(R.string.rank_sort_menu_popularity) -> {
-                    mainViewModel.getRankRestaurant()
-                }
+            when (mainViewModel.getCurrentSortType()) {
                 getString(R.string.rank_sort_menu_suggestion) -> {
                     searchViewModel.searchRecommendFood(foodList[randomPosition])
                 }
                 getString(R.string.rank_sort_menu_distance) -> {
                     mainViewModel.getDistanceRestaurant()
+                }
+                else -> {
+                    mainViewModel.getRankRestaurant()
                 }
             }
         }
@@ -343,14 +346,14 @@ import kotlin.random.Random
 
     private suspend fun getSorTypePosition(): Int {
         val sortTypePosition = when (mainViewModel.getCurrentSortType()) {
-            getString(R.string.rank_sort_menu_popularity) -> {
-                0
-            }
             getString(R.string.rank_sort_menu_suggestion) -> {
                 1
             }
-            else -> {
+            getString(R.string.rank_sort_menu_distance) -> {
                 2
+            }
+            else -> {
+                0
             }
         }
         return sortTypePosition
