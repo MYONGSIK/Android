@@ -25,6 +25,7 @@ import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.Pref
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_B_EVALUATION
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_EVALUATION
 import com.myongsik.myongsikandroid.util.Constant
+import com.myongsik.myongsikandroid.util.DataStoreKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -35,12 +36,12 @@ import javax.inject.Singleton
 
 @Singleton
 class FoodRepositoryImpl @Inject constructor(
-    private val db : RestaurantDatabase,
+    private val db: RestaurantDatabase,
     private val dataStore: DataStore<Preferences>,
-    private val api : HomeFoodApi,
+    private val api: HomeFoodApi,
 ) : FoodRepository {
 
-    override suspend fun weekGetFoodArea(s:String): Response<WeekFoodResponse> {
+    override suspend fun weekGetFoodArea(s: String): Response<WeekFoodResponse> {
         return api.weekGetFoodArea(s)
     }
 
@@ -56,7 +57,7 @@ class FoodRepositoryImpl @Inject constructor(
         return api.postRestaurantScrap(requestScrap)
     }
 
-    override suspend fun getRankRestaurant(sort : String, campus: String): Response<RankRestaurantResponse> {
+    override suspend fun getRankRestaurant(sort: String, campus: String): Response<RankRestaurantResponse> {
         return api.getRankRestaurant(sort, campus)
     }
 
@@ -109,6 +110,12 @@ class FoodRepositoryImpl @Inject constructor(
                     prefs[DINNER_EVALUATION_H] = evaluation
                 }
             }
+        }
+    }
+
+    override suspend fun saveSortType(key: Preferences.Key<String>, value: String) {
+        dataStore.edit {prefs ->
+            prefs[key] = value
         }
     }
 
@@ -248,6 +255,21 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
+    override suspend fun getCurrentSortType(): Flow<String> {
+        return dataStore.data //data 메서드
+            .catch { exception ->
+                if (exception is IOException) {
+                    exception.printStackTrace()
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { prefs ->
+                prefs[DataStoreKey.SORT_TYPE] ?: ""
+            }
+    }
+
     //장소 찜꽁리스트에 저장
     override suspend fun insertFoods(restaurant: Restaurant) {
         db.restaurantDao().insertGoodFood(restaurant)
@@ -264,7 +286,7 @@ class FoodRepositoryImpl @Inject constructor(
     }
 
     override fun updateLove(id: String): Boolean {
-        if(!db.restaurantDao().loveUpdate(id)){
+        if (!db.restaurantDao().loveUpdate(id)) {
             return false
         }
         return true

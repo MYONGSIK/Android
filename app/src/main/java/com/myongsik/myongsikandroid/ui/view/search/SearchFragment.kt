@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -35,10 +34,13 @@ import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
 import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
+import com.myongsik.myongsikandroid.util.DataStoreKey
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 @AndroidEntryPoint class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderClick {
@@ -78,7 +80,7 @@ import kotlin.random.Random
         searchBooks()
         setupLoadState()
         initRefreshLayout()
-        mainViewModel.getRankRestaurant()
+        getFoodData()
         initViews()
         initRankObserve()
         initRecomendObserve()
@@ -160,7 +162,7 @@ import kotlin.random.Random
         binding.refreshLayout.setOnRefreshListener {
             val randomPosition = Random.nextInt(foodList.size)
             if (currentMenu == getString(R.string.rank_sort_menu_popularity)) {
-                mainViewModel.getRankRestaurant()
+                getFoodData()
             } else {
                 searchViewModel.searchRecommendFood(foodList[randomPosition])
             }
@@ -210,12 +212,19 @@ import kotlin.random.Random
     }
 
     private fun setUpRankRestaurantRV() {
-        val headerAdapter = RankHeaderAdapter(this)
-        rankRestaurantAdapter = RankRestaurantAdapter(this)
-        binding.searchMyongjiRank.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            adapter = ConcatAdapter(headerAdapter, rankRestaurantAdapter)
+        lifecycleScope.launch {
+            val sortTypePosition = when (mainViewModel.getCurrentSortType()) {
+                getString(R.string.rank_sort_menu_popularity) -> { 0 }
+                else -> { 1 }
+            }
+
+            val headerAdapter = RankHeaderAdapter(this@SearchFragment, sortTypePosition)
+            rankRestaurantAdapter = RankRestaurantAdapter(this@SearchFragment)
+            binding.searchMyongjiRank.apply {
+                setHasFixedSize(true)
+                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                adapter = ConcatAdapter(headerAdapter, rankRestaurantAdapter)
+            }
         }
     }
 
@@ -305,6 +314,7 @@ import kotlin.random.Random
 
     override fun onSelectSortMenu(sort: String) {
         currentMenu = sort
+        mainViewModel.saveSortType(DataStoreKey.SORT_TYPE, sort)
         val randomPosition = Random.nextInt(foodList.size)
         when (sort) {
             getString(R.string.rank_sort_menu_popularity) -> {
@@ -312,6 +322,20 @@ import kotlin.random.Random
             }
             getString(R.string.rank_sort_menu_suggestion) -> {
                 searchViewModel.searchRecommendFood(foodList[randomPosition])
+            }
+        }
+    }
+
+    private fun getFoodData() {
+        lifecycleScope.launch{
+            val randomPosition = Random.nextInt(foodList.size)
+            when(mainViewModel.getCurrentSortType()) {
+                getString(R.string.rank_sort_menu_popularity) -> {
+                    mainViewModel.getRankRestaurant()
+                }
+                getString(R.string.rank_sort_menu_suggestion) -> {
+                    searchViewModel.searchRecommendFood(foodList[randomPosition])
+                }
             }
         }
     }

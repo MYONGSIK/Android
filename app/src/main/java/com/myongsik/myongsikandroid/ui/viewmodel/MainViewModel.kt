@@ -1,5 +1,6 @@
 package com.myongsik.myongsikandroid.ui.viewmodel
 
+import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,25 +31,25 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _weekGetFoodArea = MutableLiveData<WeekFoodResponse>()
-    val weekGetFoodArea : LiveData<WeekFoodResponse>
+    val weekGetFoodArea: LiveData<WeekFoodResponse>
         get() = _weekGetFoodArea
 
     private val _postReviewData = MutableLiveData<ResponseReviewData>()
-    val postReviewData : LiveData<ResponseReviewData>
+    val postReviewData: LiveData<ResponseReviewData>
         get() = _postReviewData
 
     private val _postUserData = MutableLiveData<ResponseUserData>()
-    val postUserData : LiveData<ResponseUserData>
+    val postUserData: LiveData<ResponseUserData>
         get() = _postUserData
 
     private val _postMealData = MutableLiveData<ResponseMealData>()
-    val postMealData : LiveData<ResponseMealData>
+    val postMealData: LiveData<ResponseMealData>
         get() = _postMealData
 
     fun weekGetFoodAreaFun(s: String) = viewModelScope.launch(Dispatchers.IO) {
         val response = foodRepository.weekGetFoodArea(s)
 
-        if(response.code() == 200){
+        if (response.code() == 200) {
             _weekGetFoodArea.postValue(response.body())
         }
     }
@@ -56,7 +57,7 @@ class MainViewModel @Inject constructor(
     fun postReview(requestReviewData: RequestReviewData) = viewModelScope.launch(Dispatchers.IO) {
         val response = foodRepository.postReview(requestReviewData)
 
-        if(response.code() == 200){
+        if (response.code() == 200) {
             _postReviewData.postValue(response.body())
         }
     }
@@ -64,18 +65,22 @@ class MainViewModel @Inject constructor(
     fun postUser(requestUserData: RequestUserData) = viewModelScope.launch(Dispatchers.IO) {
         val response = foodRepository.postUser(requestUserData)
 
-        if(response.code() == 200){
+        if (response.code() == 200) {
             _postUserData.postValue(response.body())
         }
     }
 
     //DataStore
-    fun saveLunchEvaluation(type: String, value : String) = viewModelScope.launch(Dispatchers.IO) {
+    fun saveLunchEvaluation(type: String, value: String) = viewModelScope.launch(Dispatchers.IO) {
         foodRepository.saveLunchEvaluation(type, value)
     }
 
+    fun saveSortType(key: Preferences.Key<String>, value: String) = viewModelScope.launch(Dispatchers.IO) {
+        foodRepository.saveSortType(key, value)
+    }
+
     //DataStore 초기화
-    suspend fun defaultDataStore(){
+    suspend fun defaultDataStore() {
         foodRepository.defaultDataStore()
     }
 
@@ -108,6 +113,10 @@ class MainViewModel @Inject constructor(
         foodRepository.getDinnerSEvaluation().first()
     }
 
+    suspend fun getCurrentSortType() = withContext(Dispatchers.IO) {
+        foodRepository.getCurrentSortType().first()
+    }
+
     //Room
     fun saveFoods(restaurant: Restaurant) = viewModelScope.launch(Dispatchers.IO) {
         foodRepository.insertFoods(restaurant)
@@ -118,14 +127,15 @@ class MainViewModel @Inject constructor(
     }
 
     private val _loveIs = MutableLiveData<Restaurant>()
-    val loveIs : LiveData<Restaurant>
+    val loveIs: LiveData<Restaurant>
         get() = _loveIs
-    fun loveIs(restaurant: Restaurant) = viewModelScope.launch(Dispatchers.IO){
+
+    fun loveIs(restaurant: Restaurant) = viewModelScope.launch(Dispatchers.IO) {
         val restaurantLove = foodRepository.loveIs(restaurant.id)
         _loveIs.postValue(restaurantLove)
     }
 
-    val loveFoods : StateFlow<PagingData<Restaurant>> =
+    val loveFoods: StateFlow<PagingData<Restaurant>> =
         foodRepository.getFoods()
             .cachedIn(viewModelScope)
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PagingData.empty())
@@ -134,40 +144,41 @@ class MainViewModel @Inject constructor(
     val isUpdate: LiveData<Boolean>
         get() = _isUpdate
 
-    fun loveUpdate(string: String)= viewModelScope.launch(Dispatchers.IO){
+    fun loveUpdate(string: String) = viewModelScope.launch(Dispatchers.IO) {
         val restaurantLove = foodRepository.updateLove(string)
         _isUpdate.postValue(restaurantLove)
     }
 
-    val loveIsFood : StateFlow<List<Restaurant>> = foodRepository.getLoveIsFood()
+    val loveIsFood: StateFlow<List<Restaurant>> = foodRepository.getLoveIsFood()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), listOf())
 
     private val _scrapRestaurant = MutableLiveData<ResponseScrap>()
-    val scrapRestaurant : LiveData<ResponseScrap>
+    val scrapRestaurant: LiveData<ResponseScrap>
         get() = _scrapRestaurant
-    fun scarpRestaurant(requestScrap: RequestScrap) = viewModelScope.launch(Dispatchers.IO){
+
+    fun scarpRestaurant(requestScrap: RequestScrap) = viewModelScope.launch(Dispatchers.IO) {
         val response = foodRepository.postScrapRestaurant(requestScrap)
 
-        if(response.code() == 200){
+        if (response.code() == 200) {
             _scrapRestaurant.postValue(response.body())
         }
     }
 
     private val _rankRestaurantResponse = MutableLiveData<RankRestaurantResponse>()
-    val rankRestaurantResponse : LiveData<RankRestaurantResponse>
+    val rankRestaurantResponse: LiveData<RankRestaurantResponse>
         get() = _rankRestaurantResponse
 
     fun getRankRestaurant() = viewModelScope.launch(Dispatchers.IO) {
-        when (MyongsikApplication.prefs.getUserCampus()){
+        when (MyongsikApplication.prefs.getUserCampus()) {
             "S" -> start("scrapCount,desc", "SEOUL")
-            "Y" -> start("scrapCount,desc","YONGIN")
+            "Y" -> start("scrapCount,desc", "YONGIN")
         }
     }
 
-    private suspend fun start(sort : String, campus: String) {
+    private suspend fun start(sort: String, campus: String) {
         val response = foodRepository.getRankRestaurant(sort, campus)
 
-        if(response.isSuccessful) {
+        if (response.isSuccessful) {
             response.body()?.let { body ->
                 _rankRestaurantResponse.postValue(body)
             }

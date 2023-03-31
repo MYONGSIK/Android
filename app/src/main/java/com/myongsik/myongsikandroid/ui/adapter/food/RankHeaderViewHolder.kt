@@ -11,8 +11,9 @@ import com.myongsik.myongsikandroid.databinding.HeaderSearchRankingBinding
 
 
 class RankHeaderViewHolder(
-    binding : HeaderSearchRankingBinding,
+    binding: HeaderSearchRankingBinding,
     private val clickCallback: OnScrapViewHolderClick,
+    sortType: Int,
 ) : RecyclerView.ViewHolder(binding.root) {
 
     init {
@@ -22,31 +23,34 @@ class RankHeaderViewHolder(
                 R.array.sort_array,
                 android.R.layout.simple_spinner_item
             ).also { adapter ->
-                // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                // Apply the adapter to the spinner
-                binding.spSort.adapter = adapter
+                spSort.adapter = adapter
+                spSort.setSelection(sortType, false)
             }
 
-            itemSearchHashtag1.setOnClickListener{
+            itemSearchHashtag1.setOnClickListener {
                 clickCallback.onHashtagGoodFoodClick()
             }
-            itemSearchHashtag2.setOnClickListener{
+            itemSearchHashtag2.setOnClickListener {
                 clickCallback.onHashtagGoodCafeClick()
             }
-            itemSearchHashtag3.setOnClickListener{
+            itemSearchHashtag3.setOnClickListener {
                 clickCallback.onHashtagGoodDrinkClick()
             }
-            itemSearchHashtag4.setOnClickListener{
+            itemSearchHashtag4.setOnClickListener {
                 clickCallback.onHashtagGoodBreadClick()
             }
+            btArrow.setOnClickListener {
+                spSort.performClick()
+            }
+
             spSort.onItemSelectedListener = object : OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    clickCallback.onSelectSortMenu(parent?.getItemAtPosition(position) as? String ?:"")
+                    clickCallback.onSelectSortMenu(parent?.getItemAtPosition(position) as? String ?: "")
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    Log.d("HELLO","")
+                    Log.d("HELLO", "")
                 }
             }
         }
