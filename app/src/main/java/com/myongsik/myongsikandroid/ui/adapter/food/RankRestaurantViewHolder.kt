@@ -32,21 +32,22 @@ class RankRestaurantViewHolder(
                 getRankRestaurant.name
 
         with(binding) {
-
             val addressSpannableString = SpannableString(getRankRestaurant.address)
             addressSpannableString.setSpan(UnderlineSpan(), 0, addressSpannableString.length, 0)
             itemFoodLocationTv.text = addressSpannableString
 
-            val phoneSpannableString = SpannableString(getRankRestaurant.contact)
-            phoneSpannableString.setSpan(UnderlineSpan(), 0, phoneSpannableString.length, 0)
-            itemFoodPhoneTv.text = phoneSpannableString
-
+            if (getRankRestaurant.contact != context.getString(R.string.is_null_phone_number)) {
+                val phoneSpannableString = SpannableString(getRankRestaurant.contact)
+                phoneSpannableString.setSpan(UnderlineSpan(), 0, phoneSpannableString.length, 0)
+                itemFoodPhoneTv.text = phoneSpannableString
+            } else {
+                itemFoodPhoneTv.text = getRankRestaurant.contact
+            }
 
             rankingTitleTv1.text = getRankRestaurant.scrapCount.toString()
             itemFoodName.text = placeName
             itemFoodObject.text = getRankRestaurant.category
             weekFoodAfternoonTv.text = distance
-
 
             itemFoodPhoneTv.setOnClickListener {
                 val text = itemFoodPhoneTv.text
@@ -55,7 +56,6 @@ class RankRestaurantViewHolder(
                     context.startActivity(intent)
                 }
             }
-
 
             itemFoodLocationTv.setOnClickListener {
                 moveNaverMap(this)

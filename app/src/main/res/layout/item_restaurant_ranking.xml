@@ -148,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="7dp"
-            android:text="@string/restaurant_phone"
+            tools:text="@string/restaurant_phone"
             app:layout_constraintBottom_toBottomOf="@id/item_food_phone_iv"
             app:layout_constraintLeft_toRightOf="@id/item_food_phone_iv"
             app:layout_constraintTop_toTopOf="@id/item_food_phone_iv" />
