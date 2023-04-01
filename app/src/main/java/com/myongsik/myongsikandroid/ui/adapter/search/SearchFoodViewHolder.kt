@@ -2,6 +2,8 @@ package com.myongsik.myongsikandroid.ui.adapter.search
 
 import android.content.Intent
 import android.net.Uri
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -76,18 +78,21 @@ class SearchFoodViewHolder(
                 clickCallback.clickDirectButton(restaurant)
             }
 
+            val addressSpannableString = SpannableString(restaurant.road_address_name)
+            addressSpannableString.setSpan(UnderlineSpan(), 0, addressSpannableString.length, 0)
+            itemFoodLocationTv.text = addressSpannableString
+
+            if (restaurant.phone != context.getString(R.string.is_null_phone_number) && restaurant.phone.isNotEmpty()) {
+                val phoneSpannableString = SpannableString(restaurant.phone)
+                phoneSpannableString.setSpan(UnderlineSpan(), 0, phoneSpannableString.length, 0)
+                itemFoodPhoneTv.text = phoneSpannableString
+            } else {
+                itemFoodPhoneTv.text = context.getString(R.string.is_null_phone_number)
+            }
+
             itemFoodName.text = placeName
             itemFoodObject.text = restaurant.category_group_name
             weekFoodAfternoonTv.text = distance
-            itemFoodLocationTv.text = restaurant.road_address_name
-
-            itemFoodPhoneTv.apply {
-                text = if (restaurant.phone == "") {
-                    this.context.getString(R.string.is_null_phone_number)
-                } else {
-                    restaurant.phone
-                }
-            }
         }
     }
 }
