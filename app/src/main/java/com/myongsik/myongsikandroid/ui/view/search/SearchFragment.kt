@@ -161,7 +161,7 @@ import kotlin.random.Random
     private fun initRefreshLayout() {
         binding.refreshLayout.setOnRefreshListener {
             val randomPosition = Random.nextInt(foodList.size)
-            if (currentMenu == getString(R.string.rank_sort_menu_popularity)) {
+            if (currentMenu == getString(R.string.rank_sort_menu_popularity) || currentMenu == getString(R.string.rank_sort_menu_distance)) {
                 getFoodData()
             } else {
                 searchViewModel.searchRecommendFood(foodList[randomPosition])
