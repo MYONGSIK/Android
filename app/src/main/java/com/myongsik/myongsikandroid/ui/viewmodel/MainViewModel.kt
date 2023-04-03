@@ -3,7 +3,6 @@ package com.myongsik.myongsikandroid.ui.viewmodel
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -22,14 +21,13 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val foodRepository: FoodRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _weekGetFoodArea = MutableLiveData<WeekFoodResponse>()
     val weekGetFoodArea: LiveData<WeekFoodResponse>
@@ -47,7 +45,7 @@ class MainViewModel @Inject constructor(
     val postMealData: LiveData<ResponseMealData>
         get() = _postMealData
 
-    fun weekGetFoodAreaFun(s: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun weekGetFoodAreaFun(s: String) = launch {
         val response = foodRepository.weekGetFoodArea(s)
 
         if (response.code() == 200) {
@@ -55,7 +53,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun postReview(requestReviewData: RequestReviewData) = viewModelScope.launch(Dispatchers.IO) {
+    fun postReview(requestReviewData: RequestReviewData) = launch {
         val response = foodRepository.postReview(requestReviewData)
 
         if (response.code() == 200) {
@@ -63,7 +61,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun postUser(requestUserData: RequestUserData) = viewModelScope.launch(Dispatchers.IO) {
+    fun postUser(requestUserData: RequestUserData) = launch {
         val response = foodRepository.postUser(requestUserData)
 
         if (response.code() == 200) {
@@ -72,11 +70,11 @@ class MainViewModel @Inject constructor(
     }
 
     //DataStore
-    fun saveLunchEvaluation(type: String, value: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun saveLunchEvaluation(type: String, value: String) = launch {
         foodRepository.saveLunchEvaluation(type, value)
     }
 
-    fun saveSortType(key: Preferences.Key<String>, value: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun saveSortType(key: Preferences.Key<String>, value: String) = launch {
         foodRepository.saveSortType(key, value)
     }
 
@@ -119,11 +117,11 @@ class MainViewModel @Inject constructor(
     }
 
     //Room
-    fun saveFoods(restaurant: Restaurant) = viewModelScope.launch(Dispatchers.IO) {
+    fun saveFoods(restaurant: Restaurant) = launch {
         foodRepository.insertFoods(restaurant)
     }
 
-    fun deleteFoods(restaurant: Restaurant) = viewModelScope.launch(Dispatchers.IO) {
+    fun deleteFoods(restaurant: Restaurant) = launch {
         foodRepository.deleteFoods(restaurant)
     }
 
@@ -131,7 +129,7 @@ class MainViewModel @Inject constructor(
     val loveIs: LiveData<Restaurant>
         get() = _loveIs
 
-    fun loveIs(restaurant: Restaurant) = viewModelScope.launch(Dispatchers.IO) {
+    fun loveIs(restaurant: Restaurant) = launch {
         val restaurantLove = foodRepository.loveIs(restaurant.id)
         _loveIs.postValue(restaurantLove)
     }
@@ -145,7 +143,7 @@ class MainViewModel @Inject constructor(
     val isUpdate: LiveData<Boolean>
         get() = _isUpdate
 
-    fun loveUpdate(string: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun loveUpdate(string: String) = launch {
         val restaurantLove = foodRepository.updateLove(string)
         _isUpdate.postValue(restaurantLove)
     }
@@ -157,7 +155,7 @@ class MainViewModel @Inject constructor(
     val scrapRestaurant: LiveData<ResponseScrap>
         get() = _scrapRestaurant
 
-    fun scarpRestaurant(requestScrap: RequestScrap) = viewModelScope.launch(Dispatchers.IO) {
+    fun scarpRestaurant(requestScrap: RequestScrap) = launch {
         val response = foodRepository.postScrapRestaurant(requestScrap)
 
         if (response.code() == 200) {
@@ -169,14 +167,14 @@ class MainViewModel @Inject constructor(
     val rankRestaurantResponse: LiveData<RankRestaurantResponse>
         get() = _rankRestaurantResponse
 
-    fun getRankRestaurant() = viewModelScope.launch(Dispatchers.IO) {
+    fun getRankRestaurant() = launch {
         when (MyongsikApplication.prefs.getUserCampus()) {
             Constant.S -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.SEOUL)
             Constant.Y -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.YONGIN)
         }
     }
 
-    fun getDistanceRestaurant() = viewModelScope.launch(Dispatchers.IO) {
+    fun getDistanceRestaurant() = launch {
         when (MyongsikApplication.prefs.getUserCampus()) {
             Constant.S -> start("${Constant.DISTANCE},${Constant.ASC}", Constant.SEOUL)
             Constant.Y -> start("${Constant.DISTANCE},${Constant.ASC}", Constant.YONGIN)

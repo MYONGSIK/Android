@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -24,11 +25,11 @@ import java.net.ConnectException
 
 class SplashFragment : Fragment() {
 
-    private var _binding : FragmentSplashBinding?= null
-    private val binding : FragmentSplashBinding
+    private var _binding: FragmentSplashBinding? = null
+    private val binding: FragmentSplashBinding
         get() = _binding!!
 
-    private lateinit var mainActivity : MainActivity
+    private lateinit var mainActivity: MainActivity
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     override fun onCreateView(
@@ -42,13 +43,12 @@ class SplashFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val dialogUtils = DialogUtils(requireContext())
-        if(!NetworkUtils.getNetworkConnected(requireContext())){
+        if (!NetworkUtils.getNetworkConnected(requireContext())) {
             dialogUtils.showConfirmDialog("네트워크 에러가 발생하였습니다.", "다시 접속해주세요.",
                 yesClickListener = {
                     mainActivity.finish()
                 })
-        }
-        else {
+        } else {
             if (MyongsikApplication.prefs.getString("newUser", "new") == "new") {
                 try {
                     @SuppressLint("HardwareIds")
@@ -56,7 +56,7 @@ class SplashFragment : Fragment() {
                         requireContext().contentResolver,
                         Settings.Secure.ANDROID_ID
                     )
-                    Log.d("ggplot", "${androidId} 신규회원")
+                    Log.d("ggplot", "$androidId 신규회원")
                     val requestUser = RequestUserData(androidId)
                     mainViewModel.postUser(requestUser)
                     MyongsikApplication.prefs.setUserId(androidId)
@@ -69,17 +69,18 @@ class SplashFragment : Fragment() {
             }
             val handler = Handler(Looper.getMainLooper())
 
-            if(MyongsikApplication.prefs.getUserCampus() ==""){
+            if (MyongsikApplication.prefs.getUserCampus() == "") {
                 handler.postDelayed({
                     findNavController().navigate(R.id.action_fragment_splash_to_fragment_select)
-                },1500)
+                }, 1500)
                 return
-            } else{
+            } else {
                 handler.postDelayed({
                     findNavController().navigate(R.id.action_fragment_splash_to_fragment_search)
-                },1500)
+                }, 1500)
             }
         }
+        initErrorObserve()
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -91,5 +92,17 @@ class SplashFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun initErrorObserve() {
+        mainViewModel.exceptionLiveData.observe(this) {
+            context?.run {
+                AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.error))
+                    .setMessage(getString(R.string.check_newtwork_state))
+                    .create()
+                    .show()
+            }
+        }
     }
 }
