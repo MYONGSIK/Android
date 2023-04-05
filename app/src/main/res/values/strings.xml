@@ -89,4 +89,9 @@
     <string name="please_opinion_write">의견을 작성해주세요!</string>
     <string name="weekend_noti">주말 운영 안내</string>
     <string name="weekend_not_service">주말에는 식당을 운영하지 않습니다.</string>
+
+    <string name="tag_good_restaurant">맛집</string>
+    <string name="tag_good_cafe">카페</string>
+    <string name="tag_good_drink">술집</string>
+    <string name="tag_good_bread">빵집</string>
 </resources>

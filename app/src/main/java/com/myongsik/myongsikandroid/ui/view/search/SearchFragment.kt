@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,10 +36,8 @@ import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
 import com.myongsik.myongsikandroid.util.DataStoreKey
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlin.random.Random
 
 @AndroidEntryPoint class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderClick {
@@ -287,23 +284,22 @@ import kotlin.random.Random
     }
 
     override fun onHashtagGoodFoodClick() {
-        Log.d("gg", "gg")
-        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("맛집")
+        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment(getString(R.string.tag_good_restaurant))
         findNavController().navigate(action)
     }
 
     override fun onHashtagGoodCafeClick() {
-        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("카페")
+        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment(getString(R.string.tag_good_cafe))
         findNavController().navigate(action)
     }
 
     override fun onHashtagGoodDrinkClick() {
-        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("술집")
+        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment(getString(R.string.tag_good_drink))
         findNavController().navigate(action)
     }
 
     override fun onHashtagGoodBreadClick() {
-        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment("빵집")
+        val action = SearchFragmentDirections.actionFragmentSearchToTagFragment(getString(R.string.tag_good_bread))
         findNavController().navigate(action)
     }
 
