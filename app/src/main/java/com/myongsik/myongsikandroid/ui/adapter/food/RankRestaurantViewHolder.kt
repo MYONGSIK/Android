@@ -70,10 +70,6 @@ class RankRestaurantViewHolder(
             itemFoodDetailCl.setOnClickListener {
                 clickCallback.clickRankDirectButton(getRankRestaurant)
             }
-
-            itemFoodDetailCl.setOnClickListener {
-                clickCallback.clickRankDirectButton(getRankRestaurant)
-            }
         }
     }
 

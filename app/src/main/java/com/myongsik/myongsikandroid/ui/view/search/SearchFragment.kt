@@ -276,8 +276,8 @@ import kotlin.random.Random
             place_name = getRankRestaurant.name,
             place_url = getRankRestaurant.urlAddress,
             road_address_name = getRankRestaurant.address,
-            x = " ",
-            y = " "
+            x = getRankRestaurant.x ?: " ",
+            y = getRankRestaurant.y ?: " "
         )
         val action = SearchFragmentDirections.actionFragmentSearchToRestaurantFragment(restaurant)
         findNavController().navigate(action)
