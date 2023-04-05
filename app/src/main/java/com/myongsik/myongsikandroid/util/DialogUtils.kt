@@ -87,7 +87,7 @@ class DialogUtils(private val context: Context) {
         builder.setView(dialogView)
 
         val alertDialog = builder.create()
-        alertDialog.setCancelable(false)
+        alertDialog.setCancelable(true)
         alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         dialogView.findViewById<TextView>(R.id.review_confirm_btn).setOnClickListener {
