@@ -103,36 +103,6 @@ class HomeViewModel @Inject constructor(
         foodRepository.getCurrentSortType().first()
     }
 
-    //Room
-    fun saveFoods(restaurant: Restaurant) = launch {
-        foodRepository.insertFoods(restaurant)
-    }
-
-    fun deleteFoods(restaurant: Restaurant) = launch {
-        foodRepository.deleteFoods(restaurant)
-    }
-
-    private val _loveIs = MutableLiveData<Restaurant>()
-    val loveIs: LiveData<Restaurant>
-        get() = _loveIs
-
-    fun loveIs(restaurant: Restaurant) = launch {
-        val restaurantLove = foodRepository.loveIs(restaurant.id)
-        _loveIs.postValue(restaurantLove)
-    }
-
-    private val _scrapRestaurant = MutableLiveData<ResponseScrap>()
-    val scrapRestaurant: LiveData<ResponseScrap>
-        get() = _scrapRestaurant
-
-    fun scarpRestaurant(requestScrap: RequestScrap) = launch {
-        val response = foodRepository.postScrapRestaurant(requestScrap)
-
-        if (response.code() == 200) {
-            _scrapRestaurant.postValue(response.body())
-        }
-    }
-
     private val _rankRestaurantResponse = MutableLiveData<RankRestaurantResponse>()
     val rankRestaurantResponse: LiveData<RankRestaurantResponse>
         get() = _rankRestaurantResponse
