@@ -83,6 +83,7 @@
 
     <string name="review_okay">완료</string>
     <string name="check_newtwork_state">네트워크 상태를 확인해주세요.</string>
+    <string name="error">ERROR</string>
 
     <string name="back_button_warning">"'뒤로'버튼을 한번 더 누르시면 종료됩니다."</string>
     <string name="opinion_write">의견 작성</string>
