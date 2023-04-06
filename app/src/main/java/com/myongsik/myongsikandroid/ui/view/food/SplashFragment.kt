@@ -6,31 +6,32 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.myongsik.myongsikandroid.MainActivity
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.databinding.FragmentSplashBinding
-import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.food.SplashViewModel
 import com.myongsik.myongsikandroid.util.DialogUtils
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import com.myongsik.myongsikandroid.util.NetworkUtils
+import dagger.hilt.android.AndroidEntryPoint
 import java.net.ConnectException
 
+@AndroidEntryPoint
 class SplashFragment : Fragment() {
-
     private var _binding: FragmentSplashBinding? = null
     private val binding: FragmentSplashBinding
         get() = _binding!!
 
     private lateinit var mainActivity: MainActivity
-    private val mainViewModel by activityViewModels<MainViewModel>()
+    private val splashViewModel by viewModels<SplashViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,9 +57,8 @@ class SplashFragment : Fragment() {
                         requireContext().contentResolver,
                         Settings.Secure.ANDROID_ID
                     )
-                    Log.d("ggplot", "$androidId 신규회원")
                     val requestUser = RequestUserData(androidId)
-                    mainViewModel.postUser(requestUser)
+                    splashViewModel.postUser(requestUser)
                     MyongsikApplication.prefs.setUserId(androidId)
                 } catch (e: ConnectException) {
                     dialogUtils.showConfirmDialog("네트워크 에러가 발생하였습니다.", "다시 접속해주세요.",
@@ -95,7 +95,7 @@ class SplashFragment : Fragment() {
     }
 
     private fun initErrorObserve() {
-        mainViewModel.exceptionLiveData.observe(this) {
+        splashViewModel.exceptionLiveData.observe(this) {
             context?.run {
                 AlertDialog.Builder(this)
                     .setTitle(getString(R.string.error))

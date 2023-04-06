@@ -19,11 +19,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.myongsik.myongsikandroid.MainActivity
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.MyPagerAdapter
-import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
 import com.myongsik.myongsikandroid.util.Constant.DINNER
 import com.myongsik.myongsikandroid.util.Constant.DINNER_H
 import com.myongsik.myongsikandroid.util.Constant.DINNER_S
@@ -50,7 +51,7 @@ class HomeFragment : Fragment() {
     private val binding: FragmentHomeBinding
         get() = _binding!!
 
-    private val mainViewModel by viewModels<MainViewModel>()
+    private val homeViewModel by viewModels<HomeViewModel>()
 
     //back button
     private lateinit var callback: OnBackPressedCallback
@@ -111,7 +112,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initObserve() {
-        mainViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
+        homeViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
             val list = mutableListOf<List<String>>()
 
             settingDate(LocalDate.parse(it.localDateTime.substring(0, 10)))
@@ -127,7 +128,7 @@ class HomeFragment : Fragment() {
             }
 
             with(binding) {
-                viewPager2.adapter = MyPagerAdapter(chunkedList, mainViewModel)
+                viewPager2.adapter = MyPagerAdapter(chunkedList, homeViewModel)
                 viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                 setCurrentPage(initDate)
                 indicator.setViewPager(viewPager2)
@@ -137,24 +138,24 @@ class HomeFragment : Fragment() {
 
     private fun initData() {
         if (MyongsikApplication.prefs.getUserCampus() == "S") {
-            mainViewModel.weekGetFoodAreaFun(getAreaName())
+            homeViewModel.weekGetFoodAreaFun(getAreaName())
             binding.homeTimeTv.text = getString(R.string.home_time_tv)
         } else if (MyongsikApplication.prefs.getUserCampus() == "Y") {
             when (MyongsikApplication.prefs.getUserArea()) {
                 "S" -> {
-                    mainViewModel.weekGetFoodAreaFun(getAreaName())
+                    homeViewModel.weekGetFoodAreaFun(getAreaName())
                     binding.homeTimeTv.text = getString(R.string.home_time_staff_tv)
                 }
                 "L" -> {
-                    mainViewModel.weekGetFoodAreaFun(getAreaName())
+                    homeViewModel.weekGetFoodAreaFun(getAreaName())
                     binding.homeTimeTv.text = getString(R.string.home_time_life_tv)
                 }
                 "H" -> {
-                    mainViewModel.weekGetFoodAreaFun(getAreaName())
+                    homeViewModel.weekGetFoodAreaFun(getAreaName())
                     binding.homeTimeTv.text = getString(R.string.home_time_student_tv)
                 }
                 "M" -> {
-                    mainViewModel.weekGetFoodAreaFun(getAreaName())
+                    homeViewModel.weekGetFoodAreaFun(getAreaName())
                     binding.homeTimeTv.text = getString(R.string.home_time_myonog_tv)
                 }
             }
@@ -296,7 +297,7 @@ class HomeFragment : Fragment() {
 
                         writeMenu(review)
 
-                        mainViewModel.postReviewData.observe(viewLifecycleOwner) {
+                        homeViewModel.postReviewData.observe(viewLifecycleOwner) {
                             if (it.success) {
                                 val anotherDialogView = LayoutInflater.from(context).inflate(R.layout.item_review_dialog, null)
                                 val anotherDialog = AlertDialog.Builder(context).setView(anotherDialogView).create().apply {
@@ -322,7 +323,7 @@ class HomeFragment : Fragment() {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val formattedDate = currentDate.format(formatter)
         val request = RequestReviewData(review, formattedDate, MyongsikApplication.prefs.getUserID(), getAreaName())
-        mainViewModel.postReview(request)
+        homeViewModel.postReview(request)
     }
 
     //주말
@@ -345,7 +346,7 @@ class HomeFragment : Fragment() {
     //하루가 지났을 때 DataStore 를 초기화함
     private fun defaultDataStore() {
         lifecycleScope.launch {
-            mainViewModel.defaultDataStore()
+            homeViewModel.defaultDataStore()
         }
     }
 
@@ -376,13 +377,13 @@ class HomeFragment : Fragment() {
     //중식 평가 불러오기
     private fun getEvaluation() {
         lifecycleScope.launch { //현재 불러온 값에 따라 값을 저장
-            LUNCH_A_GOOD = mainViewModel.getLunchEvaluation()
-            LUNCH_B_GOOD = mainViewModel.getLunchBEvaluation()
-            DINNER = mainViewModel.getDinnerEvaluation()
-            DINNER_S = mainViewModel.getDinnerSEvaluation()
-            LUNCH_A_GOOD_S = mainViewModel.getLunchSEvaluation()
-            DINNER_H = mainViewModel.getDinnerHEvaluation()
-            LUNCH_A_GOOD_H = mainViewModel.getLunchHEvaluation()
+            LUNCH_A_GOOD = homeViewModel.getLunchEvaluation()
+            LUNCH_B_GOOD = homeViewModel.getLunchBEvaluation()
+            DINNER = homeViewModel.getDinnerEvaluation()
+            DINNER_S = homeViewModel.getDinnerSEvaluation()
+            LUNCH_A_GOOD_S = homeViewModel.getLunchSEvaluation()
+            DINNER_H = homeViewModel.getDinnerHEvaluation()
+            LUNCH_A_GOOD_H = homeViewModel.getLunchHEvaluation()
         }
     }
 }

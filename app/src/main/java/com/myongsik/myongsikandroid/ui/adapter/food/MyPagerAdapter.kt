@@ -6,7 +6,6 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View.GONE
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.ItemHomeTodayFoodBinding
-import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
 import com.myongsik.myongsikandroid.util.Constant.DINNER
 import com.myongsik.myongsikandroid.util.Constant.DINNER_H
 import com.myongsik.myongsikandroid.util.Constant.DINNER_S
@@ -28,7 +27,7 @@ import java.util.*
 
 class MyPagerAdapter(
     private val itemList: List<List<List<String>>>,
-    private val mainViewModel: MainViewModel
+    private val homeViewModel: HomeViewModel
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -263,7 +262,7 @@ class MyPagerAdapter(
                         )
                     ) {
                         defaultChangeB()
-                        mainViewModel.saveLunchEvaluation("B", "")
+                        homeViewModel.saveLunchEvaluation("B", "")
                         return@setOnClickListener
                     }
                 }
@@ -279,7 +278,7 @@ class MyPagerAdapter(
                         // 인캠의 경우
                         LUNCH_B_GOOD = "good"
                         getGoodChangeLunchB()
-                        mainViewModel.saveLunchEvaluation("B", "good")
+                        homeViewModel.saveLunchEvaluation("B", "good")
 
                     },
                     noClickListener = {
@@ -297,7 +296,7 @@ class MyPagerAdapter(
                         )
                     ) {
                         defaultChangeB()
-                        mainViewModel.saveLunchEvaluation("B", "")
+                        homeViewModel.saveLunchEvaluation("B", "")
                         return@setOnClickListener
                     }
                 }
@@ -313,7 +312,7 @@ class MyPagerAdapter(
                         // 인캠의 경우
                         LUNCH_B_GOOD = "hate"
                         getHateChangeLunchB()
-                        mainViewModel.saveLunchEvaluation("B", "hate")
+                        homeViewModel.saveLunchEvaluation("B", "hate")
 
                     },
                     noClickListener = {
@@ -331,7 +330,7 @@ class MyPagerAdapter(
                             )
                         ) {
                             defaultChangeA()
-                            mainViewModel.saveLunchEvaluation("A", "")
+                            homeViewModel.saveLunchEvaluation("A", "")
                             return@setOnClickListener
                         }
                     }
@@ -343,7 +342,7 @@ class MyPagerAdapter(
                                 )
                             ) {
                                 defaultChangeA()
-                                mainViewModel.saveLunchEvaluation("AS", "")
+                                homeViewModel.saveLunchEvaluation("AS", "")
                                 return@setOnClickListener
                             }
                         }
@@ -355,7 +354,7 @@ class MyPagerAdapter(
                                 )
                             ) {
                                 defaultChangeA()
-                                mainViewModel.saveLunchEvaluation("AH", "")
+                                homeViewModel.saveLunchEvaluation("AH", "")
                                 return@setOnClickListener
                             }
                         }
@@ -374,20 +373,20 @@ class MyPagerAdapter(
                         if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
                             LUNCH_A_GOOD = "good"
                             getGoodChangeLunchA()
-                            mainViewModel.saveLunchEvaluation("A", "good")
+                            homeViewModel.saveLunchEvaluation("A", "good")
                         }
                         // 자캠의 경우
                         else {
                             if (MyongsikApplication.prefs.getUserArea() == "L") {
                                 LUNCH_A_GOOD_S = "good"
                                 getGoodChangeLunchA()
-                                mainViewModel.saveLunchEvaluation("AS", "good")
+                                homeViewModel.saveLunchEvaluation("AS", "good")
 
                             }
                             if (MyongsikApplication.prefs.getUserArea() == "H") {
                                 LUNCH_A_GOOD_H = "good"
                                 getGoodChangeLunchA()
-                                mainViewModel.saveLunchEvaluation("AH", "good")
+                                homeViewModel.saveLunchEvaluation("AH", "good")
 
                             }
                         }
@@ -407,7 +406,7 @@ class MyPagerAdapter(
                         ) {
 
                             defaultChangeA()
-                            mainViewModel.saveLunchEvaluation("A", "")
+                            homeViewModel.saveLunchEvaluation("A", "")
                             return@setOnClickListener
                         }
                     }
@@ -420,7 +419,7 @@ class MyPagerAdapter(
                         ) {
 
                             defaultChangeA()
-                            mainViewModel.saveLunchEvaluation("AS", "")
+                            homeViewModel.saveLunchEvaluation("AS", "")
                             return@setOnClickListener
                         }
                     }
@@ -432,7 +431,7 @@ class MyPagerAdapter(
                             )
                         ) {
                             defaultChangeA()
-                            mainViewModel.saveLunchEvaluation("AH", "")
+                            homeViewModel.saveLunchEvaluation("AH", "")
                             return@setOnClickListener
                         }
                     }
@@ -447,19 +446,19 @@ class MyPagerAdapter(
                         if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
                             LUNCH_A_GOOD = "hate"
                             getHateChangeLunchA()
-                            mainViewModel.saveLunchEvaluation("A", "hate")
+                            homeViewModel.saveLunchEvaluation("A", "hate")
                         }
                         // 자캠의 경우
                         else {
                             if (MyongsikApplication.prefs.getUserArea() == "L") {
                                 LUNCH_A_GOOD_S = "hate"
                                 getHateChangeLunchA()
-                                mainViewModel.saveLunchEvaluation("AS", "hate")
+                                homeViewModel.saveLunchEvaluation("AS", "hate")
                             }
                             if (MyongsikApplication.prefs.getUserArea() == "H") {
                                 LUNCH_A_GOOD_H = "hate"
                                 getHateChangeLunchA()
-                                mainViewModel.saveLunchEvaluation("AH", "hate")
+                                homeViewModel.saveLunchEvaluation("AH", "hate")
                             }
                         }
                     },
@@ -479,7 +478,7 @@ class MyPagerAdapter(
                         ) {
 
                             defaultChange()
-                            mainViewModel.saveLunchEvaluation("D", "")
+                            homeViewModel.saveLunchEvaluation("D", "")
                             return@setOnClickListener
                         }
                     }
@@ -492,7 +491,7 @@ class MyPagerAdapter(
                         ) {
 
                             defaultChange()
-                            mainViewModel.saveLunchEvaluation("DS", "")
+                            homeViewModel.saveLunchEvaluation("DS", "")
                             return@setOnClickListener
                         }
                     }
@@ -505,7 +504,7 @@ class MyPagerAdapter(
                         ) {
 
                             defaultChange()
-                            mainViewModel.saveLunchEvaluation("DH", "")
+                            homeViewModel.saveLunchEvaluation("DH", "")
                             return@setOnClickListener
                         }
                     }
@@ -523,7 +522,7 @@ class MyPagerAdapter(
                         if (itemList[0].size.toString() == "3" || MyongsikApplication.prefs.getUserArea() == "S") {
                             DINNER = "good"
                             getGoodChangeDinner()
-                            mainViewModel.saveLunchEvaluation("D", "good")
+                            homeViewModel.saveLunchEvaluation("D", "good")
                         }
                         // 자캠의 경우
                         else {
@@ -532,14 +531,14 @@ class MyPagerAdapter(
                                 DINNER_S = "good"
                                 getGoodChangeDinner()
 
-                                mainViewModel.saveLunchEvaluation("DS", "good")
+                                homeViewModel.saveLunchEvaluation("DS", "good")
                             }
                             if (MyongsikApplication.prefs.getUserArea() == "H") {
 
                                 DINNER_H = "good"
                                 getGoodChangeDinner()
 
-                                mainViewModel.saveLunchEvaluation("DH", "good")
+                                homeViewModel.saveLunchEvaluation("DH", "good")
                             }
                         }
                     },
@@ -558,7 +557,7 @@ class MyPagerAdapter(
                             )
                         ) {
                             defaultChange()
-                            mainViewModel.saveLunchEvaluation("D", "")
+                            homeViewModel.saveLunchEvaluation("D", "")
                             return@setOnClickListener
                         }
                     }
@@ -570,7 +569,7 @@ class MyPagerAdapter(
                             )
                         ) {
                             defaultChange()
-                            mainViewModel.saveLunchEvaluation("DS", "")
+                            homeViewModel.saveLunchEvaluation("DS", "")
                             return@setOnClickListener
                         }
                     }
@@ -583,7 +582,7 @@ class MyPagerAdapter(
                         ) {
 
                             defaultChange()
-                            mainViewModel.saveLunchEvaluation("DH", "")
+                            homeViewModel.saveLunchEvaluation("DH", "")
                             return@setOnClickListener
 
                         }
@@ -601,21 +600,21 @@ class MyPagerAdapter(
                             DINNER = "hate"
                             getHateChangeDinner()
 
-                            mainViewModel.saveLunchEvaluation("D", "hate")
+                            homeViewModel.saveLunchEvaluation("D", "hate")
                         }
                         // 자캠 생활관
                         else {
                             if (MyongsikApplication.prefs.getUserArea() == "L") {
                                 DINNER_S = "hate"
                                 getHateChangeDinner()
-                                mainViewModel.saveLunchEvaluation("DS", "hate")
+                                homeViewModel.saveLunchEvaluation("DS", "hate")
                             }
                             if (MyongsikApplication.prefs.getUserArea() == "H") {
 
                                 DINNER_H = "hate"
                                 getHateChangeDinner()
 
-                                mainViewModel.saveLunchEvaluation("DH", "hate")
+                                homeViewModel.saveLunchEvaluation("DH", "hate")
                             }
                         }
                     },
