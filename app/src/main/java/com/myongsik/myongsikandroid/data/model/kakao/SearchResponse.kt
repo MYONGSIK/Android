@@ -16,7 +16,7 @@ fun SearchResponse.toRankRestaurant(): ArrayList<GetRankRestaurant> {
         list.add(
             GetRankRestaurant(
                 storeId = it.id.toInt(),
-                code = it.category_group_code,
+                code = it.id,
                 name = it.place_name,
                 category = it.category_group_name,
                 address = it.road_address_name,
@@ -24,6 +24,8 @@ fun SearchResponse.toRankRestaurant(): ArrayList<GetRankRestaurant> {
                 distance = it.distance,
                 scrapCount = null,
                 contact = it.phone,
+                x = it.x,
+                y = it.y
             )
         )
     }

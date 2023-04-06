@@ -17,5 +17,7 @@ data class GetRankRestaurant(
     val urlAddress : String,
     val distance : String,
     val scrapCount : Int?,
-    val contact : String
+    val contact : String,
+    val x : String?,
+    val y : String?
 )
