@@ -8,7 +8,7 @@ import androidx.paging.cachedIn
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
 import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepository
-import com.myongsik.myongsikandroid.ui.viewmodel.BaseViewModel
+import com.myongsik.myongsikandroid.BaseViewModel
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

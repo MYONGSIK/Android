@@ -3,23 +3,16 @@ package com.myongsik.myongsikandroid.ui.viewmodel.food
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.myongsik.myongsikandroid.data.model.food.*
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
-import com.myongsik.myongsikandroid.ui.viewmodel.BaseViewModel
+import com.myongsik.myongsikandroid.BaseViewModel
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 

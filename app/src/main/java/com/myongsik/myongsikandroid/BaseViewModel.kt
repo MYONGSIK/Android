@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.ui.viewmodel
+package com.myongsik.myongsikandroid
 
 import android.util.Log
 import androidx.lifecycle.LiveData

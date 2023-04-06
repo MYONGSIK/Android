@@ -9,7 +9,7 @@ import com.myongsik.myongsikandroid.data.model.food.RequestScrap
 import com.myongsik.myongsikandroid.data.model.food.ResponseScrap
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
-import com.myongsik.myongsikandroid.ui.viewmodel.BaseViewModel
+import com.myongsik.myongsikandroid.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
