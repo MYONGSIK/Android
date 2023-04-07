@@ -29,8 +29,8 @@ import com.myongsik.myongsikandroid.ui.adapter.food.RankRestaurantAdapter
 import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
 import com.myongsik.myongsikandroid.ui.adapter.state.SearchFoodLoadStateAdapter
-import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
-import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.search.SearchViewModel
 import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
 import com.myongsik.myongsikandroid.util.DataStoreKey
@@ -50,7 +50,7 @@ import kotlin.random.Random
 
     //검색 뷰모델, 현재 의존성 주입 안함
     private val searchViewModel by viewModels<SearchViewModel>()
-    private val mainViewModel by viewModels<MainViewModel>()
+    private val homeViewModel by viewModels<HomeViewModel>()
 
     //검색 어댑터 -> PagingAdapter
     private lateinit var searchFoodAdapter: SearchFoodPagingAdapter
@@ -126,7 +126,7 @@ import kotlin.random.Random
     }
 
     private fun initRankObserve() {
-        mainViewModel.rankRestaurantResponse.observe(viewLifecycleOwner) {
+        homeViewModel.rankRestaurantResponse.observe(viewLifecycleOwner) {
             binding.refreshLayout.isRefreshing = false
             val response = it.data.content
             rankRestaurantAdapter.submitList(response)
@@ -248,11 +248,11 @@ import kotlin.random.Random
     }
 
     override fun addItem(restaurant: Restaurant) {
-        mainViewModel.saveFoods(restaurant)
+
     }
 
     override fun deleteItem(restaurant: Restaurant) {
-        mainViewModel.deleteFoods(restaurant)
+
     }
 
     override fun isItem(string: String) {
@@ -305,17 +305,17 @@ import kotlin.random.Random
 
     override fun onSelectSortMenu(sort: String) {
         currentMenu = sort
-        mainViewModel.saveSortType(DataStoreKey.SORT_TYPE, sort)
+        homeViewModel.saveSortType(DataStoreKey.SORT_TYPE, sort)
         val randomPosition = Random.nextInt(foodList.size)
         when (sort) {
             getString(R.string.rank_sort_menu_popularity) -> {
-                mainViewModel.getRankRestaurant()
+                homeViewModel.getRankRestaurant()
             }
             getString(R.string.rank_sort_menu_suggestion) -> {
                 searchViewModel.searchRecommendFood(foodList[randomPosition])
             }
             getString(R.string.rank_sort_menu_distance) -> {
-                mainViewModel.getDistanceRestaurant()
+                homeViewModel.getDistanceRestaurant()
             }
             else -> {
                 return
@@ -326,22 +326,22 @@ import kotlin.random.Random
     private fun getFoodData() {
         lifecycleScope.launch {
             val randomPosition = Random.nextInt(foodList.size)
-            when (mainViewModel.getCurrentSortType()) {
+            when (homeViewModel.getCurrentSortType()) {
                 getString(R.string.rank_sort_menu_suggestion) -> {
                     searchViewModel.searchRecommendFood(foodList[randomPosition])
                 }
                 getString(R.string.rank_sort_menu_distance) -> {
-                    mainViewModel.getDistanceRestaurant()
+                    homeViewModel.getDistanceRestaurant()
                 }
                 else -> {
-                    mainViewModel.getRankRestaurant()
+                    homeViewModel.getRankRestaurant()
                 }
             }
         }
     }
 
     private suspend fun getSorTypePosition(): Int {
-        val sortTypePosition = when (mainViewModel.getCurrentSortType()) {
+        val sortTypePosition = when (homeViewModel.getCurrentSortType()) {
             getString(R.string.rank_sort_menu_suggestion) -> {
                 1
             }

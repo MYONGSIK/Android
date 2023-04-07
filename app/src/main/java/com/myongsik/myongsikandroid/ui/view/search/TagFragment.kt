@@ -5,17 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentTagBinding
+import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.ui.adapter.search.SearchFoodPagingAdapter
-import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
-import com.myongsik.myongsikandroid.ui.viewmodel.SearchViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.search.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -31,8 +30,7 @@ class TagFragment : Fragment(), OnSearchViewHolderClick {
     private val args: TagFragmentArgs by navArgs()
 
     //검색 뷰모델
-    private val searchViewModel by activityViewModels<SearchViewModel>()
-    private val mainViewModel by activityViewModels<MainViewModel>()
+    private val searchViewModel by viewModels<SearchViewModel>()
 
     private lateinit var tagFoodAdapter: SearchFoodPagingAdapter
 
@@ -79,20 +77,20 @@ class TagFragment : Fragment(), OnSearchViewHolderClick {
         super.onDestroyView()
     }
 
+    override fun clickDirectButton(restaurant: Restaurant) {
+        val action = TagFragmentDirections.actionFragmentTagToFragmentRestaurant(restaurant)
+        findNavController().navigate(action)
+    }
+
     override fun addItem(restaurant: Restaurant) {
-        mainViewModel.saveFoods(restaurant)
+
     }
 
     override fun deleteItem(restaurant: Restaurant) {
-        mainViewModel.deleteFoods(restaurant)
+
     }
 
     override fun isItem(string: String) {
 
-    }
-
-    override fun clickDirectButton(restaurant: Restaurant) {
-        val action = TagFragmentDirections.actionFragmentTagToFragmentRestaurant(restaurant)
-        findNavController().navigate(action)
     }
 }

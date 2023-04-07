@@ -11,13 +11,14 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.data.model.food.RequestScrap
 import com.myongsik.myongsikandroid.databinding.FragmentRestaurantBinding
-import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.search.LoveViewModel
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +32,7 @@ class RestaurantFragment : Fragment() {
 
     private val args : RestaurantFragmentArgs by navArgs<RestaurantFragmentArgs>()
 
-    private val mainViewModel by activityViewModels<MainViewModel>()
+    private val loveViewModel by viewModels<LoveViewModel>()
 
     private lateinit var callback: OnBackPressedCallback
 
@@ -91,9 +92,9 @@ class RestaurantFragment : Fragment() {
             loadUrl(restaurant.place_url)
         }
 
-        mainViewModel.loveIs(restaurant)
+        loveViewModel.loveIs(restaurant)
 
-        mainViewModel.loveIs.observe(viewLifecycleOwner){
+        loveViewModel.loveIs.observe(viewLifecycleOwner){
             if(it == null){
                 binding.fabFavorite.visibility = View.VISIBLE
                 binding.fabFavoriteLove.visibility = View.INVISIBLE
@@ -114,8 +115,8 @@ class RestaurantFragment : Fragment() {
         binding.fabFavorite.setOnClickListener {
             binding.fabFavorite.visibility = View.INVISIBLE
             binding.fabFavoriteLove.visibility = View.VISIBLE
-            mainViewModel.saveFoods(restaurant)
-            mainViewModel.scarpRestaurant(requestScrap = RequestScrap(
+            loveViewModel.saveFoods(restaurant)
+            loveViewModel.scarpRestaurant(requestScrap = RequestScrap(
                 address = restaurant.road_address_name,
                 campus = campus!!,
                 category = restaurant.category_group_name,
@@ -132,7 +133,7 @@ class RestaurantFragment : Fragment() {
         binding.fabFavoriteLove.setOnClickListener {
             binding.fabFavorite.visibility = View.VISIBLE
             binding.fabFavoriteLove.visibility = View.INVISIBLE
-            mainViewModel.deleteFoods(restaurant)
+            loveViewModel.deleteFoods(restaurant)
             Snackbar.make(view, "찜 목록에서 삭제되었습니다.", Snackbar.LENGTH_SHORT).show()
         }
     }

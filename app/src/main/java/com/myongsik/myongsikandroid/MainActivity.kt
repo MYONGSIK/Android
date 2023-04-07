@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.ui.view.food
+package com.myongsik.myongsikandroid
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -8,7 +8,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.alarm.AlarmBroadCastReceiver
 import com.myongsik.myongsikandroid.databinding.ActivityMainBinding
 import com.myongsik.myongsikandroid.util.MyongsikApplication

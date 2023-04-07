@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -17,11 +18,14 @@ import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentLoveBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.LoveFoodPagingAdapter
-import com.myongsik.myongsikandroid.ui.viewmodel.MainViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.search.LoveViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 //찜꽁 리스트 화면
+@AndroidEntryPoint
 class LoveFragment : Fragment(), OnSearchViewHolderClick {
 
     private var _binding : FragmentLoveBinding?= null
@@ -30,7 +34,7 @@ class LoveFragment : Fragment(), OnSearchViewHolderClick {
 
     private lateinit var callback: OnBackPressedCallback
 
-    private val mainViewModel by activityViewModels<MainViewModel>()
+    private val loveViewModel by viewModels<LoveViewModel>()
 
     private lateinit var loveFoodAdapter : LoveFoodPagingAdapter
 
@@ -50,13 +54,13 @@ class LoveFragment : Fragment(), OnSearchViewHolderClick {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                mainViewModel.loveIsFood.collectLatest {
+                loveViewModel.loveIsFood.collectLatest {
                     if(it.isEmpty()){
                         binding.favoriteEmptyLove.visibility = View.VISIBLE
                     } else {
                         binding.favoriteEmptyLove.visibility = View.INVISIBLE
                     }
-                    mainViewModel.loveFoods.collectLatest { pagedData ->
+                    loveViewModel.loveFoods.collectLatest { pagedData ->
                         loveFoodAdapter.submitData(pagedData)
                     }
                 }
@@ -91,11 +95,11 @@ class LoveFragment : Fragment(), OnSearchViewHolderClick {
     }
 
     override fun addItem(restaurant: Restaurant) {
-        mainViewModel.saveFoods(restaurant)
+
     }
 
     override fun deleteItem(restaurant: Restaurant) {
-        mainViewModel.deleteFoods(restaurant)
+        loveViewModel.deleteFoods(restaurant)
     }
 
     override fun isItem(string: String) {
