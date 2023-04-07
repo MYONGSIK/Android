@@ -19,10 +19,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.snackbar.Snackbar
+import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.MainActivity
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
+import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.MyPagerAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
 import com.myongsik.myongsikandroid.util.Constant.DINNER
@@ -45,38 +48,35 @@ import java.util.*
 
 //홈화면 일간 식단 조회 프래그먼트
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
-
-    private var _binding: FragmentHomeBinding? = null
-    private val binding: FragmentHomeBinding
-        get() = _binding!!
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private val homeViewModel by viewModels<HomeViewModel>()
-
-    //back button
-    private lateinit var callback: OnBackPressedCallback
-
-    private lateinit var mainActivity: MainActivity
 
     private lateinit var localDate: LocalDate
 
     private var initDate: Int = 0
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentHomeBinding {
+        return FragmentHomeBinding.inflate(inflater, container, false)
     }
 
-    override fun onAttach(context: Context) {
+    override fun initView() {
+        initData()
+        initViewPager()
+        initViews()
+        setEvaluationData()
+        chekNetwork()
+        checkWeekend()
+    }
 
-        super.onAttach(context)
+    override fun initListener() {
+        initObserve()
 
-        mainActivity = context as MainActivity
-
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() { //뒤로가기 버튼시 검색화면으로
+        settingBackPressedCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
                 if (MyongsikApplication.prefs.getUserCampus() == "S") {
                     val action = HomeFragmentDirections.actionFragmentHomeToFragmentSearch()
                     findNavController().navigate(action)
@@ -84,21 +84,8 @@ class HomeFragment : Fragment() {
                     val action = HomeFragmentDirections.actionFragmentHomeToFragmentSelectHome()
                     findNavController().navigate(action)
                 }
-
             }
-        }
-        activity?.onBackPressedDispatcher?.addCallback(this, callback)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initObserve()
-        initData()
-        initViewPager()
-        initViews()
-        setEvaluationData()
-        chekNetwork()
-        checkWeekend()
+        })
     }
 
     private fun settingDate(localDateTime: LocalDate) {
@@ -235,11 +222,6 @@ class HomeFragment : Fragment() {
                 }
             }
         })
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     //하루가 지났을 때 AlarmManager 가 실행되면서 DataStore 가 초기화됐을 때
