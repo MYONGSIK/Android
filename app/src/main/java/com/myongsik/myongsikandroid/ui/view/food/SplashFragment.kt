@@ -13,9 +13,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.MainActivity
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
+import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
 import com.myongsik.myongsikandroid.databinding.FragmentSplashBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.food.SplashViewModel
 import com.myongsik.myongsikandroid.util.DialogUtils
@@ -25,29 +27,23 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.net.ConnectException
 
 @AndroidEntryPoint
-class SplashFragment : Fragment() {
-    private var _binding: FragmentSplashBinding? = null
-    private val binding: FragmentSplashBinding
-        get() = _binding!!
+class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
-    private lateinit var mainActivity: MainActivity
     private val splashViewModel by viewModels<SplashViewModel>()
 
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSplashBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentSplashBinding {
+        return FragmentSplashBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun initView() {
         val dialogUtils = DialogUtils(requireContext())
         if (!NetworkUtils.getNetworkConnected(requireContext())) {
             dialogUtils.showConfirmDialog("네트워크 에러가 발생하였습니다.", "다시 접속해주세요.",
                 yesClickListener = {
-                    mainActivity.finish()
+                    activity?.finish()
                 })
         } else {
             if (MyongsikApplication.prefs.getString("newUser", "new") == "new") {
@@ -63,7 +59,7 @@ class SplashFragment : Fragment() {
                 } catch (e: ConnectException) {
                     dialogUtils.showConfirmDialog("네트워크 에러가 발생하였습니다.", "다시 접속해주세요.",
                         yesClickListener = {
-                            mainActivity.finish()
+                            activity?.finish()
                         })
                 }
             }
@@ -80,18 +76,10 @@ class SplashFragment : Fragment() {
                 }, 1500)
             }
         }
+    }
+
+    override fun initListener() {
         initErrorObserve()
-        super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mainActivity = context as MainActivity
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     private fun initErrorObserve() {
