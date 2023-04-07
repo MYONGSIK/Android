@@ -1,8 +1,5 @@
 package com.myongsik.myongsikandroid.ui.view.search
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,18 +7,13 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.BaseFragment
-import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.food.RequestScrap
 import com.myongsik.myongsikandroid.databinding.FragmentRestaurantBinding
-import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
-import com.myongsik.myongsikandroid.databinding.FragmentTagBinding
-import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.search.LoveViewModel
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint

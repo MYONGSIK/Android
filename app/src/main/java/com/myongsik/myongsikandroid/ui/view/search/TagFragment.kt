@@ -1,19 +1,13 @@
 package com.myongsik.myongsikandroid.ui.view.search
 
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myongsik.myongsikandroid.BaseFragment
-import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentTagBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick

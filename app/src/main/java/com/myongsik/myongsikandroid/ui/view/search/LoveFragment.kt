@@ -1,24 +1,20 @@
 package com.myongsik.myongsikandroid.ui.view.search
 
-import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
+import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentLoveBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.LoveFoodPagingAdapter
-import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
+import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
 import com.myongsik.myongsikandroid.ui.viewmodel.search.LoveViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -26,32 +22,35 @@ import kotlinx.coroutines.launch
 
 //찜꽁 리스트 화면
 @AndroidEntryPoint
-class LoveFragment : Fragment(), OnSearchViewHolderClick {
-
-    private var _binding : FragmentLoveBinding?= null
-    private val binding : FragmentLoveBinding
-        get() = _binding!!
-
-    private lateinit var callback: OnBackPressedCallback
+class LoveFragment : BaseFragment<FragmentLoveBinding>(), OnSearchViewHolderClick {
 
     private val loveViewModel by viewModels<LoveViewModel>()
 
     private lateinit var loveFoodAdapter : LoveFoodPagingAdapter
 
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentLoveBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentLoveBinding {
+        return FragmentLoveBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun initView() {
         setUpRecyclerView()
+    }
 
+    override fun initListener() {
+        getFavoriteRestaurant()
+
+        settingBackPressedCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val action = LoveFragmentDirections.actionFragmentLoveToFragmentSearch()
+                findNavController().navigate(action)
+            }
+        })
+    }
+
+    private fun getFavoriteRestaurant(){
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 loveViewModel.loveIsFood.collectLatest {
@@ -68,18 +67,6 @@ class LoveFragment : Fragment(), OnSearchViewHolderClick {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val action = LoveFragmentDirections.actionFragmentLoveToFragmentSearch()
-                findNavController().navigate(action)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
-
     private fun setUpRecyclerView(){
         loveFoodAdapter = LoveFoodPagingAdapter(this)
         binding.loveMyongjiRv.apply {
@@ -87,11 +74,6 @@ class LoveFragment : Fragment(), OnSearchViewHolderClick {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = loveFoodAdapter
         }
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     override fun addItem(restaurant: Restaurant) {
