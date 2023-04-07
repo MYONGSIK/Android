@@ -18,11 +18,13 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.kakao.toRankRestaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
+import com.myongsik.myongsikandroid.databinding.FragmentTagBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.OnScrapViewHolderClick
 import com.myongsik.myongsikandroid.ui.adapter.food.RankHeaderAdapter
 import com.myongsik.myongsikandroid.ui.adapter.food.RankRestaurantAdapter
@@ -40,13 +42,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-@AndroidEntryPoint class SearchFragment : Fragment(), OnSearchViewHolderClick, OnScrapViewHolderClick {
-
-    private var _binding: FragmentSearchBinding? = null
-    private val binding: FragmentSearchBinding
-        get() = _binding!!
-
-    private lateinit var callback: OnBackPressedCallback
+@AndroidEntryPoint class SearchFragment : BaseFragment<FragmentSearchBinding>(), OnSearchViewHolderClick, OnScrapViewHolderClick {
 
     //검색 뷰모델, 현재 의존성 주입 안함
     private val searchViewModel by viewModels<SearchViewModel>()
@@ -62,15 +58,14 @@ import kotlin.random.Random
     private lateinit var currentMenu: String
     private val foodList: Array<String> by lazy { resources.getStringArray(R.array.food_list) }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun getViewBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentSearchBinding {
+        return FragmentSearchBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView() {
         MyongsikApplication.prefs.setString("newUser", "notNew")
         setUpRecyclerView()
         setUpRankRestaurantRV()
@@ -79,6 +74,9 @@ import kotlin.random.Random
         initRefreshLayout()
         getFoodData()
         initViews()
+    }
+
+    override fun initListener() {
         initRankObserve()
         initRecomendObserve()
         viewLifecycleOwner.lifecycleScope.launch {
@@ -86,6 +84,24 @@ import kotlin.random.Random
                 searchFoodAdapter.submitData(it)
             }
         }
+
+        settingBackPressedCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (binding.searchTopV.visibility == View.VISIBLE) {
+                    if (System.currentTimeMillis() > backKeyPressTime + 2000) {
+                        backKeyPressTime = System.currentTimeMillis()
+                        Snackbar.make(
+                            binding.fragmentSearch, getString(R.string.back_button_warning), Snackbar.LENGTH_SHORT
+                        ).show()
+
+                    } else if (System.currentTimeMillis() <= backKeyPressTime + 2000) {
+                        activity?.finish()
+                    }
+                } else {
+                    searchVisibleControl()
+                }
+            }
+        })
     }
 
     private fun initViews() = with(binding) {
@@ -218,33 +234,6 @@ import kotlin.random.Random
                 adapter = ConcatAdapter(headerAdapter, rankRestaurantAdapter)
             }
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (binding.searchTopV.visibility == View.VISIBLE) {
-                    if (System.currentTimeMillis() > backKeyPressTime + 2000) {
-                        backKeyPressTime = System.currentTimeMillis()
-                        Snackbar.make(
-                            binding.fragmentSearch, getString(R.string.back_button_warning), Snackbar.LENGTH_SHORT
-                        ).show()
-
-                    } else if (System.currentTimeMillis() <= backKeyPressTime + 2000) {
-                        activity?.finish()
-                    }
-                } else {
-                    searchVisibleControl()
-                }
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     override fun addItem(restaurant: Restaurant) {
