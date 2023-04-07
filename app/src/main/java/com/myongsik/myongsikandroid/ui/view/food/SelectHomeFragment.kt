@@ -1,48 +1,28 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
-import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentSelectHomeBinding
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 
-class SelectHomeFragment : Fragment() {
-    private lateinit var callback: OnBackPressedCallback
+class SelectHomeFragment : BaseFragment<FragmentSelectHomeBinding>() {
 
-    private var _binding : FragmentSelectHomeBinding?= null
-    private val binding : FragmentSelectHomeBinding
-        get() = _binding!!
-
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentSelectHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentSelectHomeBinding {
+        return FragmentSelectHomeBinding.inflate(inflater, container, false)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun initView() {
 
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                val action = SelectHomeFragmentDirections.actionFragmentSelectHomeToFragmentSearch()
-                findNavController().navigate(action)
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+    override fun initListener() {
         binding.selectHomeHakV.setOnClickListener {
             MyongsikApplication.prefs.setUserArea("H")
             findNavController().navigate(R.id.action_fragment_select_home_to_fragment_home)
@@ -59,12 +39,13 @@ class SelectHomeFragment : Fragment() {
         binding.selectHomeMyongV.setOnClickListener {
             MyongsikApplication.prefs.setUserArea("M")
             findNavController().navigate(R.id.action_fragment_select_home_to_fragment_home)
-
         }
-    }
 
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
+        settingBackPressedCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val action = SelectHomeFragmentDirections.actionFragmentSelectHomeToFragmentSearch()
+                findNavController().navigate(action)
+            }
+        })
     }
 }
