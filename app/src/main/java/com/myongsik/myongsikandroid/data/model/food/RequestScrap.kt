@@ -10,4 +10,6 @@ data class RequestScrap(
     val name : String,
     val phoneId : String,
     val urlAddress : String,
+    val latitude : String,
+    val longitude : String
 )
