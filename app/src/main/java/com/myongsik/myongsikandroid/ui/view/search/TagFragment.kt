@@ -1,15 +1,13 @@
 package com.myongsik.myongsikandroid.ui.view.search
 
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentTagBinding
 import com.myongsik.myongsikandroid.ui.adapter.search.OnSearchViewHolderClick
@@ -21,42 +19,34 @@ import kotlinx.coroutines.launch
 
 //모아뒀으기 골라보세요 화면
 @AndroidEntryPoint
-class TagFragment : Fragment(), OnSearchViewHolderClick {
-
-    private var _binding: FragmentTagBinding? = null
-    private val binding: FragmentTagBinding
-        get() = _binding!!
+class TagFragment : BaseFragment<FragmentTagBinding>(), OnSearchViewHolderClick {
 
     private val args: TagFragmentArgs by navArgs()
-
     //검색 뷰모델
     private val searchViewModel by viewModels<SearchViewModel>()
 
     private lateinit var tagFoodAdapter: SearchFoodPagingAdapter
-
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentTagBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentTagBinding {
+        return FragmentTagBinding.inflate(inflater, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun initView() {
         val keyWord = args.tag
 
         setUpRecyclerView()
         binding.tagTopTv.text = "#명지${keyWord}"
-
         searchViewModel.searchPagingFood(keyWord)
+    }
+
+    override fun initListener() {
         viewLifecycleOwner.lifecycleScope.launch {
             searchViewModel.searchPagingResult.collectLatest {
                 tagFoodAdapter.submitData(it)
             }
         }
-
-        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun setUpRecyclerView(){
@@ -70,11 +60,6 @@ class TagFragment : Fragment(), OnSearchViewHolderClick {
         binding.tagBackBt.setOnClickListener {
             findNavController().popBackStack()
         }
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     override fun clickDirectButton(restaurant: Restaurant) {

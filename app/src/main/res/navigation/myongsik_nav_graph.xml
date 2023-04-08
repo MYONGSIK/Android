@@ -22,8 +22,9 @@
             app:destination="@id/fragment_home" />
         <action
             android:id="@+id/action_fragment_splash_to_fragment_select"
-            app:destination="@id/fragment_select" />
-
+            app:destination="@id/fragment_select"
+            app:popUpTo="@id/fragment_splash"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/fragment_select"

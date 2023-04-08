@@ -1,43 +1,34 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.res.ColorStateList
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.myongsik.myongsikandroid.MainActivity
+import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentSelectBinding
 import com.myongsik.myongsikandroid.util.DialogUtils
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import com.myongsik.myongsikandroid.util.NetworkUtils
 
-class SelectFragment : Fragment() {
+class SelectFragment : BaseFragment<FragmentSelectBinding>(){
 
-    private var _binding: FragmentSelectBinding? = null
-    private val binding: FragmentSelectBinding
-        get() = _binding!!
-
-    private lateinit var mainActivity: MainActivity
-
-    override fun onCreateView(
+    override fun getViewBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSelectBinding.inflate(inflater, container, false)
-        return binding.root
+        container: ViewGroup?
+    ): FragmentSelectBinding {
+        return FragmentSelectBinding.inflate(inflater, container, false)
+    }
+
+    override fun initView() {
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initListener() {
         val dialogUtils = DialogUtils(requireContext())
 
         binding.splashFBt.setOnTouchListener { _, motionEvent ->
@@ -67,7 +58,6 @@ class SelectFragment : Fragment() {
             }
             false
         }
-
 
         // 첫 경고창
         dialogUtils.showConfirmDialog("", "",
@@ -122,21 +112,9 @@ class SelectFragment : Fragment() {
                 })
         }
 
-
         binding.splashEt.setOnClickListener {
             dialogUtils.showConfirmDialog("캠퍼스 설정",
                 "캠퍼스 설정을 통해 접속 시 선택한 캠퍼스 학식 메뉴를 확인할 수 있습니다.", yesClickListener = {})
         }
-    }
-
-    //Context 를 불러오기 위해
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mainActivity = context as MainActivity
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 }
