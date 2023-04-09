@@ -14,4 +14,6 @@ interface OnScrapViewHolderClick {
     fun onHashtagGoodBreadClick()
 
     fun onSelectSortMenu(sort: String)
+
+    fun onClickMap()
 }

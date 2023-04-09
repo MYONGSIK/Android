@@ -40,6 +40,9 @@ class RankHeaderViewHolder(
             itemSearchHashtag4.setOnClickListener {
                 clickCallback.onHashtagGoodBreadClick()
             }
+            goodMap.setOnClickListener{
+                clickCallback.onClickMap()
+            }
             btArrow.setOnClickListener {
                 spSort.performClick()
             }

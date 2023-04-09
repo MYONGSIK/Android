@@ -140,4 +140,7 @@ dependencies {
 
     //refresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    //map
+    implementation files('libs/libDaumMapAndroid.jar')
 }

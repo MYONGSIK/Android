@@ -87,6 +87,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_fragment_search_to_fragment_map"
+            app:destination="@id/fragment_map" />
     </fragment>
     <fragment
         android:id="@+id/fragment_tag"
@@ -126,4 +129,9 @@
             android:id="@+id/action_fragment_select_home_to_fragment_search"
             app:destination="@id/fragment_search" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_map"
+        android:name="com.myongsik.myongsikandroid.ui.view.food.MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/fragment_map"/>
 </navigation>
