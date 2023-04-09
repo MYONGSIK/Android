@@ -62,7 +62,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
 
                 val marker = MapPOIItem()
                 // 클릭했을 때 해당 가게 이름
-                marker.itemName = item.storeId.toString()
+                marker.itemName = item.name
+                marker.tag = item.storeId
                 marker.mapPoint = MapPoint.mapPointWithGeoCoord(latitude!!.toDouble(), longitude!!.toDouble())
                 // 현재 기본 마커 사용 추 후에 커스텀해서 바꿔야함
                 val customBitmap = createCustomMarkerBitmap(item.scrapCount.toString())
@@ -93,7 +94,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
     }
 
     override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem) {
-        homeViewModel.getOneRestaurant(p1.itemName.toInt())
+        homeViewModel.getOneRestaurant(p1.tag)
         showBottomSheetDialog()
     }
 
