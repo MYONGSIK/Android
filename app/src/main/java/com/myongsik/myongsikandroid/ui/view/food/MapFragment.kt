@@ -2,13 +2,10 @@ package com.myongsik.myongsikandroid.ui.view.food
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
