@@ -5,9 +5,12 @@ import android.graphics.Canvas
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentMapBinding
@@ -89,7 +92,33 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
     }
 
     override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
+        showBottomSheetDialog()
         Toast.makeText(requireContext(), "마커 클릭: ${p1?.itemName}", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showBottomSheetDialog() {
+        val view = layoutInflater.inflate(R.layout.dialog_bottom_restaurant_sheet, null)
+        val bottomSheetDialog = BottomSheetDialog(requireActivity())
+        bottomSheetDialog.setContentView(view)
+        bottomSheetDialog.show()
+
+        view.findViewById<LinearLayout>(R.id.llBottomAlbum).setOnClickListener {
+
+        }
+
+        val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
+
+        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    bottomSheetDialog.dismiss()
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+            }
+        })
     }
 
     @Deprecated("Deprecated in Java")

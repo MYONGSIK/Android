@@ -130,4 +130,16 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
+    private val _getDetailRestaurant = MutableLiveData<GetRankRestaurant>()
+    val getDetailRestaurant: LiveData<GetRankRestaurant>
+        get() = _getDetailRestaurant
+
+    fun getOneRestaurant(storeId : Int) = launch {
+        val response = foodRepository.getOneRestaurant(storeId)
+
+        if (response.code() == 200) {
+            _getDetailRestaurant.postValue(response.body())
+        }
+    }
 }

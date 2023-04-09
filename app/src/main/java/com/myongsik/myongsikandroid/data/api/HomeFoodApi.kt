@@ -46,4 +46,9 @@ interface HomeFoodApi {
         @Query("campus") campus: String,
         @Query("size") size : Int = 20
     ) : Response<RankRestaurantResponse>
+
+    @GET("/api/v2/scraps/store/{storeId}")
+    suspend fun getOneRestaurant(
+        @Query("storeId") storeId : Int
+    ) : Response<GetRankRestaurant>
 }

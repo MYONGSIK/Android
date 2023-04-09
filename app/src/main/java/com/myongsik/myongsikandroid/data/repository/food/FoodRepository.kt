@@ -24,6 +24,8 @@ interface FoodRepository {
 
     suspend fun getRankRestaurant(sort : String, campus : String, size : Int) : Response<RankRestaurantResponse>
 
+    suspend fun getOneRestaurant(storeId : Int) : Response<GetRankRestaurant>
+
     //DataStore
     suspend fun saveLunchEvaluation(type: String, evaluation : String)
 

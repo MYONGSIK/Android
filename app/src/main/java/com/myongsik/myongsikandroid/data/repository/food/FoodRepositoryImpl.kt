@@ -61,6 +61,10 @@ class FoodRepositoryImpl @Inject constructor(
         return api.getRankRestaurant(sort, campus, size)
     }
 
+    override suspend fun getOneRestaurant(storeId: Int): Response<GetRankRestaurant> {
+        return api.getOneRestaurant(storeId)
+    }
+
     //DataStore
     private object PreferencesKeys {
         val LUNCH_EVALUATION = stringPreferencesKey("lunch_evaluation")
