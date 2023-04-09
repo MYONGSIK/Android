@@ -11,7 +11,9 @@ import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
     private var backPressedCallback: OnBackPressedCallback? = null
-    protected lateinit var binding: T
+    private var _binding: T? = null
+    protected val binding: T
+        get() = _binding ?: throw IllegalStateException("Binding is not available")
 
     abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): T
 
@@ -20,8 +22,8 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = getViewBinding(inflater, container)
-        return binding.root
+        _binding = getViewBinding(inflater, container)
+        return _binding?.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,6 +31,11 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
         initView()
         initListener()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onAttach(context: Context) {

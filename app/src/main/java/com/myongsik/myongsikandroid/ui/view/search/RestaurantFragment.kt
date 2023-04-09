@@ -73,6 +73,8 @@ class RestaurantFragment : BaseFragment<FragmentRestaurantBinding>() {
                 name = restaurant.place_name,
                 phoneId = MyongsikApplication.prefs.getUserID(),
                 urlAddress = restaurant.place_url,
+                latitude = restaurant.x,
+                longitude = restaurant.y
             ))
             Snackbar.make(binding.root, "찜 완료!", Snackbar.LENGTH_SHORT).show()
         }

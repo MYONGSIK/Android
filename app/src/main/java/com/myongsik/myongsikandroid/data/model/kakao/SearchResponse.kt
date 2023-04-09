@@ -24,8 +24,8 @@ fun SearchResponse.toRankRestaurant(): ArrayList<GetRankRestaurant> {
                 distance = it.distance,
                 scrapCount = null,
                 contact = it.phone,
-                x = it.x,
-                y = it.y
+                latitude = it.x,
+                longitude = it.y
             )
         )
     }

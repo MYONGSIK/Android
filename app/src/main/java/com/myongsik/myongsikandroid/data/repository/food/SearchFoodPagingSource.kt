@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.myongsik.myongsikandroid.data.api.SearchFoodApi
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.Constant.PAGING_SIZE
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import retrofit2.HttpException
@@ -29,20 +30,20 @@ class SearchFoodPagingSource(
             var x: Double = 0.0
             var y: Double = 0.0
             var radius : Int = 1500
-            if (MyongsikApplication.prefs.getUserCampus() == "S") {
-                c = "서울"
-                x = 126.923460283882
-                y = 37.5803504797164
+            if (MyongsikApplication.prefs.getUserCampus() == Constant.S) {
+                c = Constant.SEOUL_CAMPUS
+                x = Constant.SEOUL_CAMPUS_X
+                y = Constant.SEOUL_CAMPUS_Y
                 radius = 1500
-            } else if (MyongsikApplication.prefs.getUserCampus() == "Y") {
-                c = "용인"
-                x = 127.18758354347
-                y = 37.224650469991
+            } else if (MyongsikApplication.prefs.getUserCampus() == Constant.Y) {
+                c = Constant.YONGIN_CAMPUS
+                x = Constant.YONGIN_CAMPUS_X
+                y = Constant.YONGIN_CAMPUS_Y
                 radius = 3000
             }
             val response = searchFoodApi.searchFood(
-                "$c 명지대 $query", "FD6, CE7", "$x",
-                "$y", radius, pageNumber, params.loadSize, "distance"
+                "$c $query", Constant.CATEGORY_GROUP_CODE, "$x",
+                "$y", radius, pageNumber, params.loadSize, Constant.DISTANCE
             )
             val endOfPaginationReached = response.body()?.meta?.is_end!!
 

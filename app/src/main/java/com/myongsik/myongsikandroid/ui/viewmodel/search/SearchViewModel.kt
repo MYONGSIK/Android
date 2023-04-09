@@ -9,6 +9,7 @@ import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
 import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepository
 import com.myongsik.myongsikandroid.BaseViewModel
+import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -41,15 +42,15 @@ class SearchViewModel @Inject constructor(
 
     fun searchRecommendFood(query : String) = launch {
         when (MyongsikApplication.prefs.getUserCampus()){
-            "S" -> start("서울", query, 126.923460283882, 37.5803504797164)
-            "Y" -> start("용인", query, 127.18758354347, 37.224650469991)
+            Constant.S -> start(Constant.SEOUL_CAMPUS, query, Constant.SEOUL_CAMPUS_X, Constant.SEOUL_CAMPUS_Y)
+            Constant.Y -> start(Constant.YONGIN_CAMPUS, query, Constant.YONGIN_CAMPUS_X, Constant.YONGIN_CAMPUS_Y)
         }
     }
 
     private suspend fun start(locate: String, query: String, x:Double, y:Double) {
         val response = searchFoodRepository.searchFood(
-            "$locate 명지대 $query", "FD6, CE7", "$x",
-            "$y", 10000, 1, 15, "distance")
+            "$locate $query", Constant.CATEGORY_GROUP_CODE, "$x",
+            "$y", 10000, 1, 15, Constant.DISTANCE)
 
         if(response.isSuccessful){
             response.body()?.let{ body ->
