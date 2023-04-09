@@ -43,6 +43,7 @@ interface HomeFoodApi {
     @GET("/api/v2/scraps/store")
     suspend fun getRankRestaurant(
         @Query("sort") sort : String = "scrapCount,desc",
-        @Query("campus") campus: String
+        @Query("campus") campus: String,
+        @Query("size") size : Int = 20
     ) : Response<RankRestaurantResponse>
 }

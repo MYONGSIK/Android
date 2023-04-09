@@ -102,20 +102,27 @@ class HomeViewModel @Inject constructor(
 
     fun getRankRestaurant() = launch {
         when (MyongsikApplication.prefs.getUserCampus()) {
-            Constant.S -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.SEOUL)
-            Constant.Y -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.YONGIN)
+            Constant.S -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.SEOUL, 20)
+            Constant.Y -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.YONGIN, 20)
         }
     }
 
     fun getDistanceRestaurant() = launch {
         when (MyongsikApplication.prefs.getUserCampus()) {
-            Constant.S -> start("${Constant.DISTANCE},${Constant.ASC}", Constant.SEOUL)
-            Constant.Y -> start("${Constant.DISTANCE},${Constant.ASC}", Constant.YONGIN)
+            Constant.S -> start("${Constant.DISTANCE},${Constant.ASC}", Constant.SEOUL, 20)
+            Constant.Y -> start("${Constant.DISTANCE},${Constant.ASC}", Constant.YONGIN, 20)
         }
     }
 
-    private suspend fun start(sort: String, campus: String) {
-        val response = foodRepository.getRankRestaurant(sort, campus)
+    fun getMapRankRestaurant() = launch {
+        when (MyongsikApplication.prefs.getUserCampus()) {
+            Constant.S -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.SEOUL, Int.MAX_VALUE)
+            Constant.Y -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.YONGIN, Int.MAX_VALUE)
+        }
+    }
+
+    private suspend fun start(sort: String, campus: String, size : Int) {
+        val response = foodRepository.getRankRestaurant(sort, campus, size)
 
         if (response.isSuccessful) {
             response.body()?.let { body ->

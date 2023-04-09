@@ -22,7 +22,7 @@ interface FoodRepository {
 
     suspend fun postScrapRestaurant(requestScrap: RequestScrap) : Response<ResponseScrap>
 
-    suspend fun getRankRestaurant(sort : String, campus : String) : Response<RankRestaurantResponse>
+    suspend fun getRankRestaurant(sort : String, campus : String, size : Int) : Response<RankRestaurantResponse>
 
     //DataStore
     suspend fun saveLunchEvaluation(type: String, evaluation : String)
