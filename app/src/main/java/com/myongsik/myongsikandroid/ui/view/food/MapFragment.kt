@@ -1,5 +1,7 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,20 +60,29 @@ class MapFragment : BaseFragment<FragmentMapBinding>() {
                 marker.itemName = item.name
                 marker.mapPoint = MapPoint.mapPointWithGeoCoord(latitude!!.toDouble(), longitude!!.toDouble())
                 // 현재 기본 마커 사용 추 후에 커스텀해서 바꿔야함
-                marker.markerType = MapPOIItem.MarkerType.YellowPin
-//                marker.customCalloutBalloon = createCustomBalloon(item.scrapCount.toString()) // 맞춤형 말풍선 설정
-                // 선택 했을 때 마크
-                marker.selectedMarkerType = MapPOIItem.MarkerType.RedPin
+                val customBitmap = createCustomMarkerBitmap(item.scrapCount.toString())
+                marker.customImageBitmap = customBitmap
+                marker.markerType = MapPOIItem.MarkerType.CustomImage
+                marker.setCustomImageAnchor(0.5f, 1.0f)
 
                 mapView.addPOIItem(marker) // 지도에 마커 추가
             }
         }
     }
 
-    private fun createCustomBalloon(name: String): View {
-        val balloon = LayoutInflater.from(requireContext()).inflate(R.layout.custom_balloon, null) // 맞춤형 말풍선 레이아웃 불러오기
-        val textView = balloon.findViewById<TextView>(R.id.name) // 레이아웃에서 텍스트뷰 찾기
-        textView.text = name // 텍스트뷰에 이름 설정
-        return balloon
+    private fun createCustomMarkerBitmap(name: String): Bitmap {
+        val customMarkerView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_balloon, null)
+
+        val textView = customMarkerView.findViewById<TextView>(R.id.name)
+        textView.text = name
+
+        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        customMarkerView.layout(0, 0, customMarkerView.measuredWidth, customMarkerView.measuredHeight)
+
+        val bitmap = Bitmap.createBitmap(customMarkerView.measuredWidth, customMarkerView.measuredHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        customMarkerView.draw(canvas)
+
+        return bitmap
     }
 }
