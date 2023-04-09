@@ -49,6 +49,6 @@ interface HomeFoodApi {
 
     @GET("/api/v2/scraps/store/{storeId}")
     suspend fun getOneRestaurant(
-        @Query("storeId") storeId : Int
-    ) : Response<GetRankRestaurant>
+        @Path("storeId") storeId : Int
+    ) : Response<ResponseOneRestaurant>
 }

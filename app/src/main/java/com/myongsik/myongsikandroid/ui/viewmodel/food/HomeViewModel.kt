@@ -131,14 +131,14 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private val _getDetailRestaurant = MutableLiveData<GetRankRestaurant>()
-    val getDetailRestaurant: LiveData<GetRankRestaurant>
+    private val _getDetailRestaurant = MutableLiveData<ResponseOneRestaurant>()
+    val getDetailRestaurant: LiveData<ResponseOneRestaurant>
         get() = _getDetailRestaurant
 
     fun getOneRestaurant(storeId : Int) = launch {
         val response = foodRepository.getOneRestaurant(storeId)
 
-        if (response.code() == 200) {
+        if (response.isSuccessful) {
             _getDetailRestaurant.postValue(response.body())
         }
     }

@@ -2,6 +2,7 @@ package com.myongsik.myongsikandroid.ui.view.food
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -91,9 +92,9 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         return bitmap
     }
 
-    override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem?) {
+    override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem) {
+        homeViewModel.getOneRestaurant(p1.itemName.toInt())
         showBottomSheetDialog()
-        Toast.makeText(requireContext(), "마커 클릭: ${p1?.itemName}", Toast.LENGTH_SHORT).show()
     }
 
     private fun showBottomSheetDialog() {
@@ -102,8 +103,12 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         bottomSheetDialog.setContentView(view)
         bottomSheetDialog.show()
 
-        view.findViewById<LinearLayout>(R.id.llBottomAlbum).setOnClickListener {
+        val restaurantName = view.findViewById<TextView>(R.id.restaurant_name)
+        val restaurantScrapCount = view.findViewById<TextView>(R.id.restaurant_scrap_count)
 
+        homeViewModel.getDetailRestaurant.observe(viewLifecycleOwner){
+            restaurantName.text = it.data.name
+            restaurantScrapCount.text = it.data.scrapCount.toString()
         }
 
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)

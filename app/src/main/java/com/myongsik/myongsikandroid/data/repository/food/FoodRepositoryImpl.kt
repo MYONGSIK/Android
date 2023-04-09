@@ -61,7 +61,7 @@ class FoodRepositoryImpl @Inject constructor(
         return api.getRankRestaurant(sort, campus, size)
     }
 
-    override suspend fun getOneRestaurant(storeId: Int): Response<GetRankRestaurant> {
+    override suspend fun getOneRestaurant(storeId: Int): Response<ResponseOneRestaurant> {
         return api.getOneRestaurant(storeId)
     }
 

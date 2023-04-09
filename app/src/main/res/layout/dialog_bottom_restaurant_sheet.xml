@@ -14,78 +14,32 @@
         android:layout_height="4dp"
         android:layout_marginBottom="16dp"
         android:background="#e5e5e5"
-        app:layout_constraintBottom_toTopOf="@+id/llBottomAlbum"
+        app:layout_constraintBottom_toTopOf="@+id/restaurant_scrap_count"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp"
         />
 
-    <LinearLayout
-        android:id="@+id/llBottomAlbum"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/restaurant_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="24dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="24dp"
-        android:paddingBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/llBottomPhotoShot"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="ㄴㅁㅇㄹㄴㅁㅇㄹ"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llBottomPhotoShot"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingStart="24dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="24dp"
-        android:paddingBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/llBottomPhotoBasic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="sadf"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/llBottomPhotoBasic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:orientation="horizontal"
-        android:paddingStart="24dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="24dp"
-        android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:textSize="20sp"
+        />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="qweqrrr"
-            android:textColor="@color/black"
-            android:textSize="16dp" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/restaurant_scrap_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/restaurant_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
