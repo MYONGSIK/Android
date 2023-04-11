@@ -2,10 +2,15 @@ package com.myongsik.myongsikandroid.util
 
 import android.app.Application
 import android.content.Context
+import androidx.hilt.work.HiltWorkerFactory
+import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
+import javax.inject.Inject
 
 @HiltAndroidApp
-class MyongsikApplication : Application(){
+class MyongsikApplication : Application(), Configuration.Provider {
+    @Inject
+    lateinit var workFactory: HiltWorkerFactory
     companion object{
         var appContext : Context? = null
 
@@ -16,4 +21,9 @@ class MyongsikApplication : Application(){
         prefs = Prefs(applicationContext)
         super.onCreate()
     }
+
+    override fun getWorkManagerConfiguration(): Configuration =
+        Configuration.Builder()
+            .setWorkerFactory(workFactory)
+            .build()
 }

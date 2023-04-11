@@ -45,6 +45,10 @@ class FoodRepositoryImpl @Inject constructor(
         return api.weekGetFoodArea(s)
     }
 
+    override suspend fun dayGetFoodArea(area: String): Response<DayFoodResponse> {
+        return api.dayGetFoodArea(area)
+    }
+
     override suspend fun postReview(requestReviewData: RequestReviewData): Response<ResponseReviewData> {
         return api.postReview(requestReviewData)
     }
