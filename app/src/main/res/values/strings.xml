@@ -98,4 +98,7 @@
 
     <string name="campus_example_address">서울특별시 서대문구 거북골로 34</string>
     <string name="restaurant_example_category">음식점</string>
+    <string name="restaurant_example_name">엄마손 떡볶이</string>
+    <string name="restaurant_scrap">찜꽁</string>
+    <string name="restaurant_example_scrap">20</string>
 </resources>

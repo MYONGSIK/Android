@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -101,12 +102,17 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         bottomSheetDialog.setContentView(view)
         bottomSheetDialog.show()
 
-        val restaurantName = view.findViewById<TextView>(R.id.restaurant_name)
-        val restaurantScrapCount = view.findViewById<TextView>(R.id.restaurant_scrap_count)
+        val restaurantName = view.findViewById<TextView>(R.id.dialog_name_tv)
+        val restaurantScrapCount = view.findViewById<TextView>(R.id.dialog_scrap_count_number_tv)
+        val restaurantCategory = view.findViewById<TextView>(R.id.dialog_category_tv)
+        val restaurantAddress = view.findViewById<TextView>(R.id.dialog_address_tv)
+        val restaurantCallIv = view.findViewById<ImageView>(R.id.tvModifyChangeQuestion)
 
         homeViewModel.getDetailRestaurant.observe(viewLifecycleOwner){
             restaurantName.text = it.data.name
             restaurantScrapCount.text = it.data.scrapCount.toString()
+            restaurantCategory.text = it.data.category
+            restaurantAddress.text = it.data.address
         }
 
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
