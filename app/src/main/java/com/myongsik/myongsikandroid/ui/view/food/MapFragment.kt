@@ -13,10 +13,14 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.R
+import com.myongsik.myongsikandroid.data.model.food.RequestScrap
+import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentMapBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
+import com.myongsik.myongsikandroid.ui.viewmodel.search.LoveViewModel
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,6 +32,7 @@ import net.daum.mf.map.api.MapView
 class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventListener {
 
     private val homeViewModel by viewModels<HomeViewModel>()
+    private val loveViewModel by viewModels<LoveViewModel>()
 
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -110,23 +115,42 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         val restaurantCategory = view.findViewById<TextView>(R.id.dialog_category_tv)
         val restaurantAddress = view.findViewById<TextView>(R.id.dialog_address_tv)
         val restaurantCallIv = view.findViewById<ImageView>(R.id.tvModifyChangeQuestion)
+        val restaurantScrapIv = view.findViewById<ImageView>(R.id.tvDismissDialog)
         var restaurantPhoneNum = ""
+        var restaurantId = 0
 
+        var restaurantScrap : RequestScrap? = null
+        var restaurant : Restaurant? = null
         homeViewModel.getDetailRestaurant.observe(viewLifecycleOwner){
+            restaurantId = it.data.storeId
             restaurantName.text = it.data.name
             restaurantScrapCount.text = it.data.scrapCount.toString()
             restaurantCategory.text = it.data.category
             restaurantAddress.text = it.data.address
             restaurantPhoneNum = it.data.contact
+            restaurantScrap = RequestScrap(
+                address = it.data.address,
+                campus = MyongsikApplication.prefs.getUserCampus(),
+                category = it.data.category,
+                code = it.data.code,
+                contact = it.data.contact,
+                distance = it.data.distance,
+                name = it.data.name,
+                phoneId = MyongsikApplication.prefs.getUserID(),
+                urlAddress = it.data.urlAddress,
+                latitude = it.data.latitude.toString(),
+                longitude = it.data.longitude.toString()
+            )
         }
 
         restaurantCallIv.setOnClickListener {
-            if (context?.getString(R.string.is_null_phone_number) != restaurantPhoneNum) {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("tel:$restaurantPhoneNum"))
-                context?.startActivity(intent)
-            } else {
-                Toast.makeText(requireContext(), getString(R.string.is_null_phone_number), Toast.LENGTH_SHORT).show()
-            }
+            restaurantClick(restaurantPhoneNum)
+        }
+
+        restaurantScrapIv.setOnClickListener {
+            loveViewModel.scarpRestaurant(restaurantScrap!!)
+            Snackbar.make(binding.root, "찜 완료!", Snackbar.LENGTH_SHORT).show()
+            homeViewModel.getOneRestaurant(restaurantId)
         }
 
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
@@ -142,6 +166,15 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
 
             }
         })
+    }
+
+    private fun restaurantClick(phoneNum : String) {
+        if (context?.getString(R.string.is_null_phone_number) != phoneNum) {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("tel:$phoneNum"))
+            context?.startActivity(intent)
+        } else {
+            Toast.makeText(requireContext(), getString(R.string.is_null_phone_number), Toast.LENGTH_SHORT).show()
+        }
     }
 
     @Deprecated("Deprecated in Java")
