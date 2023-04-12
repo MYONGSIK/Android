@@ -2,6 +2,7 @@ package com.myongsik.myongsikandroid.alarm
 
 import android.content.Context
 import android.util.Log
+import android.view.View
 import android.widget.RemoteViews
 import androidx.hilt.work.HiltWorker
 import androidx.work.Worker
@@ -31,7 +32,6 @@ class UpdateWidgetWorker @AssistedInject constructor(
         GlobalScope.launch {
             val currentArea = CommonUtil.getAreaName(context)
             val response = repository.dayGetFoodArea(currentArea)
-            Log.d("MenuWidget", "meals: $currentArea")
             val meals = if (response.isSuccessful) {
                 response.body()?.data?.map { Pair(it.mealType, it.meals) } ?: emptyList()
             } else {
@@ -43,7 +43,7 @@ class UpdateWidgetWorker @AssistedInject constructor(
         }
     }
 
-    private fun createRemoteViews(context: Context, currentArea: String, meals: List<Pair<String, List<String>>>): RemoteViews {
+    private fun createRemoteViews(context: Context, currentArea: String, meals: List<Pair<String?, List<String>?>>): RemoteViews {
         val remoteViews = RemoteViews(context.packageName, R.layout.item_widget_menu)
         Log.d("MenuWidget", "meals: $meals")
         remoteViews.apply {
@@ -54,15 +54,29 @@ class UpdateWidgetWorker @AssistedInject constructor(
         return remoteViews
     }
 
-    private fun RemoteViews.setFoodTypeData(meals: List<Pair<String, List<String>>>) {
-        setTextViewText(R.id.tvFirstFoodType, meals.getOrNull(0)?.first)
-        setTextViewText(R.id.tvSecondFoodType, meals.getOrNull(1)?.first)
-        setTextViewText(R.id.tvThirdFoodType, meals.getOrNull(2)?.first)
+    private fun RemoteViews.setFoodTypeData(meals: List<Pair<String?, List<String>?>>) {
+        val foodTypeTextViewIds = listOf(R.id.tvFirstFoodType, R.id.tvSecondFoodType, R.id.tvThirdFoodType)
+        foodTypeTextViewIds.forEachIndexed { index, id ->
+            val pair = meals.getOrNull(index)
+            if (pair?.first.isNullOrBlank()) {
+                setViewVisibility(id, View.GONE)
+            } else {
+                setViewVisibility(id, View.VISIBLE)
+                setTextViewText(id, pair?.first)
+            }
+        }
     }
 
-    private fun RemoteViews.setFoodData(meals: List<Pair<String, List<String>>>) {
-        setTextViewText(R.id.tvFirstFood, meals.getOrNull(0)?.second?.filter { it.isNotBlank() }?.joinToString(", ") ?: "")
-        setTextViewText(R.id.tvSecondFood, meals.getOrNull(1)?.second?.filter { it.isNotBlank() }?.joinToString(", ") ?: "")
-        setTextViewText(R.id.tvThirdFood, meals.getOrNull(2)?.second?.filter { it.isNotBlank() }?.joinToString(", ") ?: "")
+    private fun RemoteViews.setFoodData(meals: List<Pair<String?, List<String>?>>) {
+        val foodTextViewIds = listOf(R.id.tvFirstFood, R.id.tvSecondFood, R.id.tvThirdFood)
+        foodTextViewIds.forEachIndexed { index, id ->
+            val pair = meals.getOrNull(index)
+            if (pair?.second.isNullOrEmpty()) {
+                setViewVisibility(id, View.GONE)
+            } else {
+                setViewVisibility(id, View.VISIBLE)
+                setTextViewText(id, pair?.second?.filter { it.isNotBlank() }?.joinToString(", ") ?: "")
+            }
+        }
     }
 }
