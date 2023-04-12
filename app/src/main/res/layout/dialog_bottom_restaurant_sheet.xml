@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/clDialogBottomRestaurantSheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -15,19 +16,52 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:background="#e5e5e5"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_name_tv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dialog_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:text="@string/restaurant_example_category"
+        android:textColor="@color/black_color_838E9A"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_category_tv"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/dialog_category_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="33dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/restaurant_example_category"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_address_icon_iv"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/dialog_address_icon_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="32dp"
         android:layout_marginBottom="12dp"
         android:src="@drawable/ic_search1"
         app:layout_constraintBottom_toTopOf="@+id/vMiddleLine"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/dialog_address_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/gray_color_838E9A"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_address_icon_iv"
+        app:layout_constraintStart_toEndOf="@+id/dialog_address_icon_iv"
+        app:layout_constraintTop_toTopOf="@id/dialog_address_icon_iv"
+        tools:text="@string/campus_example_address" />
 
     <View
         android:id="@+id/vMiddleLine"
@@ -74,7 +108,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:paddingVertical="14dp"
-            android:src="@drawable/icon_call"
+            android:src="@drawable/ic_color_call"
             android:textColor="@color/main_color"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -84,6 +118,5 @@
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

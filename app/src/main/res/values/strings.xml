@@ -95,4 +95,7 @@
     <string name="tag_good_cafe">카페</string>
     <string name="tag_good_drink">술집</string>
     <string name="tag_good_bread">빵집</string>
+
+    <string name="campus_example_address">서울특별시 서대문구 거북골로 34</string>
+    <string name="restaurant_example_category">음식점</string>
 </resources>
