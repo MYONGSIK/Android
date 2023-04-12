@@ -29,27 +29,40 @@ class UpdateWidgetWorker @AssistedInject constructor(
 
     private fun getMeals() {
         GlobalScope.launch {
-            val response = repository.dayGetFoodArea(CommonUtil.getAreaName(context))
+            val currentArea = CommonUtil.getAreaName(context)
+            val response = repository.dayGetFoodArea(currentArea)
+            Log.d("MenuWidget", "meals: $currentArea")
             val meals = if (response.isSuccessful) {
-                response.body()?.data?.map { it.meals } ?: emptyList()
+                response.body()?.data?.map { Pair(it.mealType, it.meals) } ?: emptyList()
             } else {
                 emptyList()
             }
 
-            val remoteViews = createRemoteViews(context, meals)
+            val remoteViews = createRemoteViews(context, currentArea, meals)
             CommonUtil.updateWidget(context, remoteViews)
         }
     }
 
-    private fun createRemoteViews(context: Context, meals: List<List<String>>): RemoteViews {
+    private fun createRemoteViews(context: Context, currentArea: String, meals: List<Pair<String, List<String>>>): RemoteViews {
         val remoteViews = RemoteViews(context.packageName, R.layout.item_widget_menu)
+        Log.d("MenuWidget", "meals: $meals")
         remoteViews.apply {
-            Log.d("MenuWidget", "meals: $meals")
-            setTextViewText(R.id.tvArea, CommonUtil.getAreaName(context))
-            setTextViewText(R.id.tvFirstFood, meals[0].filter { it.isNotBlank() }.joinToString(", "))
-            setTextViewText(R.id.tvSecondFood, meals[1].filter { it.isNotBlank() }.joinToString(", "))
-            setTextViewText(R.id.tvThirdFood, meals[2].filter { it.isNotBlank() }.joinToString(", "))
+            setTextViewText(R.id.tvArea, currentArea)
+            setFoodTypeData(meals)
+            setFoodData(meals)
         }
         return remoteViews
+    }
+
+    private fun RemoteViews.setFoodTypeData(meals: List<Pair<String, List<String>>>) {
+        setTextViewText(R.id.tvFirstFoodType, meals.getOrNull(0)?.first)
+        setTextViewText(R.id.tvSecondFoodType, meals.getOrNull(1)?.first)
+        setTextViewText(R.id.tvThirdFoodType, meals.getOrNull(2)?.first)
+    }
+
+    private fun RemoteViews.setFoodData(meals: List<Pair<String, List<String>>>) {
+        setTextViewText(R.id.tvFirstFood, meals.getOrNull(0)?.second?.filter { it.isNotBlank() }?.joinToString(", ") ?: "")
+        setTextViewText(R.id.tvSecondFood, meals.getOrNull(1)?.second?.filter { it.isNotBlank() }?.joinToString(", ") ?: "")
+        setTextViewText(R.id.tvThirdFood, meals.getOrNull(2)?.second?.filter { it.isNotBlank() }?.joinToString(", ") ?: "")
     }
 }

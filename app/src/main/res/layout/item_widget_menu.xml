@@ -20,7 +20,7 @@
         />
 
     <TextView
-        android:id="@+id/week_food_lunch_a_v"
+        android:id="@+id/tvFirstFoodType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/home_food_stroke_category"
@@ -47,7 +47,7 @@
         android:textSize="12dp" />
 
     <TextView
-        android:id="@+id/week_food_lunch_b_tv"
+        android:id="@+id/tvSecondFoodType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/home_food_stroke_category"
@@ -78,7 +78,7 @@
         app:layout_constraintTop_toBottomOf="@+id/today_day_lunch_b" />
 
     <TextView
-        android:id="@+id/week_food_afternoon_tv"
+        android:id="@+id/tvThirdFoodType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/home_food_stroke_category"
