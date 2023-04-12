@@ -1,12 +1,15 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -107,12 +110,23 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         val restaurantCategory = view.findViewById<TextView>(R.id.dialog_category_tv)
         val restaurantAddress = view.findViewById<TextView>(R.id.dialog_address_tv)
         val restaurantCallIv = view.findViewById<ImageView>(R.id.tvModifyChangeQuestion)
+        var restaurantPhoneNum = ""
 
         homeViewModel.getDetailRestaurant.observe(viewLifecycleOwner){
             restaurantName.text = it.data.name
             restaurantScrapCount.text = it.data.scrapCount.toString()
             restaurantCategory.text = it.data.category
             restaurantAddress.text = it.data.address
+            restaurantPhoneNum = it.data.contact
+        }
+
+        restaurantCallIv.setOnClickListener {
+            if (context?.getString(R.string.is_null_phone_number) != restaurantPhoneNum) {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("tel:$restaurantPhoneNum"))
+                context?.startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), getString(R.string.is_null_phone_number), Toast.LENGTH_SHORT).show()
+            }
         }
 
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
