@@ -58,6 +58,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="33dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
         android:text="@string/restaurant_example_name"
         android:textColor="@color/black_color_838E9A"
         app:layout_constraintBottom_toTopOf="@+id/dialog_category_tv"
@@ -81,7 +83,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginBottom="12dp"
         android:src="@drawable/place"
-        app:layout_constraintBottom_toTopOf="@+id/vMiddleLine"
+        app:layout_constraintBottom_toTopOf="@+id/dialog_bottom_love_cl"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -96,23 +98,20 @@
         app:layout_constraintTop_toTopOf="@id/dialog_address_icon_iv"
         tools:text="@string/campus_example_address" />
 
-    <View
-        android:id="@+id/vMiddleLine"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ededed"
-        app:layout_constraintBottom_toTopOf="@+id/cl" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl"
-        android:layout_width="match_parent"
+        android:id="@+id/dialog_bottom_love_cl"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rect94_eaeaea"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
+        app:layout_constraintEnd_toStartOf="@id/dialog_bottom_call_cl"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/tvDismissDialog"
+            android:id="@+id/dialog_bottom_love_iv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -121,21 +120,25 @@
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/vSubMiddleLine"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/vSubMiddleLine"
-            android:layout_width="1dp"
-            android:layout_height="0dp"
-            android:background="#ededed"
-            app:layout_constraintBottom_toBottomOf="@+id/tvDismissDialog"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dialog_bottom_call_cl"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rect94_eaeaea"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dialog_bottom_love_cl">
+
         <ImageView
-            android:id="@+id/tvModifyChangeQuestion"
+            android:id="@+id/dialog_bottom_call_iv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -146,8 +149,8 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/vSubMiddleLine"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -35,6 +36,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
 
     private val homeViewModel by viewModels<HomeViewModel>()
     private val loveViewModel by viewModels<LoveViewModel>()
+    private lateinit var mapView : MapView
+    private lateinit var marker : MapPOIItem
 
     override fun getViewBinding(
         inflater: LayoutInflater,
@@ -58,7 +61,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
     }
 
     private fun createMapView(){
-        val mapView = MapView(requireActivity())
+        mapView = MapView(requireActivity())
         if (MyongsikApplication.prefs.getUserCampus() == "Y") {
             mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(Constant.YONGIN_CAMPUS_Y, Constant.YONGIN_CAMPUS_X), true)
         } else{
@@ -66,14 +69,17 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         }
         val mapViewContainer = binding.mapView
         mapViewContainer.addView(mapView)
+        initMapView()
+    }
 
+    private fun initMapView(){
         homeViewModel.rankRestaurantResponse.observe(viewLifecycleOwner) { response ->
             response.data.content.forEach { item ->
                 //현재 이름이 바뀌여있음
                 val latitude = item.longitude // 위도
                 val longitude = item.latitude // 경도
 
-                val marker = MapPOIItem()
+                marker = MapPOIItem()
                 // 클릭했을 때 해당 가게 이름
                 marker.itemName = item.name
                 marker.tag = item.storeId
@@ -111,6 +117,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         showBottomSheetDialog()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showBottomSheetDialog() {
         val view = layoutInflater.inflate(R.layout.dialog_bottom_restaurant_sheet, null)
         val bottomSheetDialog = BottomSheetDialog(requireActivity())
@@ -121,20 +128,21 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         val restaurantScrapCount = view.findViewById<TextView>(R.id.dialog_scrap_count_number_tv)
         val restaurantCategory = view.findViewById<TextView>(R.id.dialog_category_tv)
         val restaurantAddress = view.findViewById<TextView>(R.id.dialog_address_tv)
-        val restaurantCallIv = view.findViewById<ImageView>(R.id.tvModifyChangeQuestion)
-        val restaurantScrapIv = view.findViewById<ImageView>(R.id.tvDismissDialog)
+        val restaurantCallIv = view.findViewById<ImageView>(R.id.dialog_bottom_call_iv)
+        val restaurantScrapIv = view.findViewById<ImageView>(R.id.dialog_bottom_love_iv)
         var restaurantPhoneNum = ""
-        var restaurantId = 0
 
         var restaurantScrap : RequestScrap? = null
         var restaurant : Restaurant? = null
+        var scrapCount = 0
         homeViewModel.getDetailRestaurant.observe(viewLifecycleOwner){
-            restaurantId = it.data.storeId
             restaurantName.text = it.data.name
+            scrapCount = it.data.scrapCount!!.toInt()
             restaurantScrapCount.text = it.data.scrapCount.toString()
             restaurantCategory.text = it.data.category
             restaurantAddress.text = it.data.address
             restaurantPhoneNum = it.data.contact
+            //스크랩
             restaurantScrap = RequestScrap(
                 address = it.data.address,
                 campus = MyongsikApplication.prefs.getUserCampus(),
@@ -148,6 +156,21 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
                 latitude = it.data.latitude.toString(),
                 longitude = it.data.longitude.toString()
             )
+            restaurant = Restaurant(
+                address_name = it.data.address,
+                category_group_code = " ",
+                category_group_name = it.data.category,
+                category_name = it.data.category,
+                distance = it.data.distance,
+                id = it.data.code,
+                phone = it.data.contact,
+                place_name = it.data.name,
+                place_url = it.data.urlAddress,
+                road_address_name = it.data.address,
+                x = it.data.latitude.toString(),
+                y = it.data.longitude.toString()
+            )
+
         }
 
         restaurantCallIv.setOnClickListener {
@@ -156,8 +179,9 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
 
         restaurantScrapIv.setOnClickListener {
             loveViewModel.scarpRestaurant(restaurantScrap!!)
+            loveViewModel.saveFoods(restaurant!!)
             Snackbar.make(binding.root, "찜 완료!", Snackbar.LENGTH_SHORT).show()
-            homeViewModel.getOneRestaurant(restaurantId)
+            restaurantScrapCount.text = (scrapCount+1).toString()
         }
 
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
