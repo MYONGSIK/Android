@@ -130,6 +130,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         val restaurantAddress = view.findViewById<TextView>(R.id.dialog_address_tv)
         val restaurantCallIv = view.findViewById<ImageView>(R.id.dialog_bottom_call_iv)
         val restaurantScrapIv = view.findViewById<ImageView>(R.id.dialog_bottom_love_iv)
+        val restaurantScrapOnIv = view.findViewById<ImageView>(R.id.dialog_bottom_scrap_iv)
         var restaurantPhoneNum = ""
 
         var restaurantScrap : RequestScrap? = null
@@ -170,7 +171,18 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
                 x = it.data.latitude.toString(),
                 y = it.data.longitude.toString()
             )
+            loveViewModel.loveIs(restaurant!!)
+        }
 
+        loveViewModel.loveIs.observe(viewLifecycleOwner){
+            if(it == null){
+                restaurantScrapIv.visibility = View.VISIBLE
+                restaurantScrapOnIv.visibility = View.INVISIBLE
+            }
+            else{
+                restaurantScrapIv.visibility = View.INVISIBLE
+                restaurantScrapOnIv.visibility = View.VISIBLE
+            }
         }
 
         restaurantCallIv.setOnClickListener {
@@ -180,8 +192,17 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         restaurantScrapIv.setOnClickListener {
             loveViewModel.scarpRestaurant(restaurantScrap!!)
             loveViewModel.saveFoods(restaurant!!)
-            Snackbar.make(binding.root, "찜 완료!", Snackbar.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "찜 완료!", Toast.LENGTH_SHORT).show()
             restaurantScrapCount.text = (scrapCount+1).toString()
+            restaurantScrapOnIv.visibility = View.VISIBLE
+            restaurantScrapIv.visibility = View.INVISIBLE
+        }
+
+        restaurantScrapOnIv.setOnClickListener {
+            loveViewModel.deleteFoods(restaurant!!)
+            Toast.makeText(requireContext(), "찜 목록에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+            restaurantScrapOnIv.visibility = View.INVISIBLE
+            restaurantScrapIv.visibility = View.VISIBLE
         }
 
         val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
