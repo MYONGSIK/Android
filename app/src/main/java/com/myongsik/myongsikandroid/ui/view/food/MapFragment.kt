@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
@@ -47,7 +49,12 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
     }
 
     override fun initListener() {
-
+        settingBackPressedCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val action = MapFragmentDirections.actionFragmentMapToFragmentSearch()
+                findNavController().navigate(action)
+            }
+        })
     }
 
     private fun createMapView(){

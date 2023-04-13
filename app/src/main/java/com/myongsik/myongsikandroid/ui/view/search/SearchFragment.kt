@@ -292,12 +292,6 @@ import kotlin.random.Random
         findNavController().navigate(action)
     }
 
-    override fun onClickMap() {
-        val action = SearchFragmentDirections.actionFragmentSearchToFragmentMap()
-        findNavController().navigate(action)
-    }
-
-
     override fun onSelectSortMenu(sort: String) {
         currentMenu = sort
         homeViewModel.saveSortType(DataStoreKey.SORT_TYPE, sort)

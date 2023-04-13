@@ -133,5 +133,9 @@
         android:id="@+id/fragment_map"
         android:name="com.myongsik.myongsikandroid.ui.view.food.MapFragment"
         android:label="MapFragment"
-        tools:layout="@layout/fragment_map"/>
+        tools:layout="@layout/fragment_map">
+        <action
+            android:id="@+id/action_fragment_map_to_fragment_search"
+            app:destination="@id/fragment_search" />
+    </fragment>
 </navigation>

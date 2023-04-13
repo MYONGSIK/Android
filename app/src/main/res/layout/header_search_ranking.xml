@@ -156,16 +156,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/horizon_sv" />
 
-    <TextView
-        android:id="@+id/good_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:text="지도"
-        app:layout_constraintBottom_toBottomOf="@+id/good_place_myongji"
-        app:layout_constraintLeft_toRightOf="@+id/good_place_myongji"
-        app:layout_constraintTop_toTopOf="@+id/good_place_myongji" />
-
     <Spinner
         android:id="@+id/spSort"
         android:layout_width="wrap_content"
