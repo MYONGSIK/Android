@@ -37,11 +37,11 @@ class MenuWidget : AppWidgetProvider() {
     override fun onUpdate(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray?) {
         super.onUpdate(context, appWidgetManager, appWidgetIds)
         context ?: return
+        Log.d(TAG, "onUpdate")
         startWidgetUpdateWorker(context)
     }
 
     private fun startWidgetUpdateWorker(context: Context) {
-
         val updateOnceRequest = OneTimeWorkRequestBuilder<UpdateWidgetWorker>()
             .setConstraints(constraints)
             .build()
@@ -56,6 +56,5 @@ class MenuWidget : AppWidgetProvider() {
             enqueue(updateOnceRequest)
             enqueueUniquePeriodicWork(TAG, ExistingPeriodicWorkPolicy.REPLACE, updateRequest)
         }
-
     }
 }

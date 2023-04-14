@@ -56,26 +56,28 @@ class UpdateWidgetWorker @AssistedInject constructor(
 
     private fun RemoteViews.setFoodTypeData(meals: List<Pair<String?, List<String>?>>) {
         val foodTypeTextViewIds = listOf(R.id.tvFirstFoodType, R.id.tvSecondFoodType, R.id.tvThirdFoodType)
-        foodTypeTextViewIds.forEachIndexed { index, id ->
-            val pair = meals.getOrNull(index)
-            if (pair?.first.isNullOrBlank()) {
-                setViewVisibility(id, View.GONE)
-            } else {
-                setViewVisibility(id, View.VISIBLE)
-                setTextViewText(id, pair?.first)
+        meals.forEachIndexed { index, pair ->
+            foodTypeTextViewIds[index].let { id ->
+                if (pair.first.isNullOrBlank()) {
+                    setViewVisibility(id, View.GONE)
+                } else {
+                    setViewVisibility(id, View.VISIBLE)
+                    setTextViewText(id, pair.first)
+                }
             }
         }
     }
 
     private fun RemoteViews.setFoodData(meals: List<Pair<String?, List<String>?>>) {
         val foodTextViewIds = listOf(R.id.tvFirstFood, R.id.tvSecondFood, R.id.tvThirdFood)
-        foodTextViewIds.forEachIndexed { index, id ->
-            val pair = meals.getOrNull(index)
-            if (pair?.second.isNullOrEmpty()) {
-                setViewVisibility(id, View.GONE)
-            } else {
-                setViewVisibility(id, View.VISIBLE)
-                setTextViewText(id, pair?.second?.filter { it.isNotBlank() }?.joinToString(", ") ?: "")
+        meals.forEachIndexed { index, pair ->
+            foodTextViewIds[index].let { id ->
+                if (pair.second.isNullOrEmpty()) {
+                    setViewVisibility(id, View.GONE)
+                } else {
+                    setViewVisibility(id, View.VISIBLE)
+                    setTextViewText(id, pair.second?.filter { it.isNotBlank() }?.joinToString(", ") ?: "")
+                }
             }
         }
     }

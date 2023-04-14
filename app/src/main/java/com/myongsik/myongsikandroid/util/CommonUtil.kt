@@ -65,7 +65,7 @@ object CommonUtil {
             set(Calendar.MINUTE, 5)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
-            if (timeInMillis > System.currentTimeMillis()) {
+            if (timeInMillis < System.currentTimeMillis()) {
                 add(Calendar.DAY_OF_MONTH, 1)
             }
         }
