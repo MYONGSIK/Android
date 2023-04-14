@@ -44,7 +44,7 @@
 | **Networking** | Retrofit2, OkHttp3           |
 | **Asynchronous**                 | Coroutine, Flow, StateFlow |
 | **Local DB**                 | Room, DataStore |
-| **Background**                 | AlarmManager |
+| **Background**                 | AlarmManager, WorkManager |
 | **Firebase**                 | Crashlytics |
 
 
