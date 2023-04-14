@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantRankingBinding
+import com.myongsik.myongsikandroid.util.CommonUtil
 
 class RankRestaurantViewHolder(
     private val binding: ItemRestaurantRankingBinding,
@@ -18,11 +19,7 @@ class RankRestaurantViewHolder(
 
     fun bind(getRankRestaurant: GetRankRestaurant) {
         val context = binding.root.context
-        val distance = if (getRankRestaurant.distance.length >= 4) {
-            "${getRankRestaurant.distance[0]}.${getRankRestaurant.distance[1]}km"
-        } else {
-            "${getRankRestaurant.distance}m"
-        }
+        val distance = CommonUtil.distanceMapper(getRankRestaurant.distance)
 
         val placeName =
             if (getRankRestaurant.name.length >= 13)
