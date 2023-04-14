@@ -21,7 +21,8 @@
 <img src="https://user-images.githubusercontent.com/83231344/224467960-f747fb78-9b05-4c82-b831-3a2c15297a1e.png" width="18%" height="30%">
 </p>
 
-## 📌 Wiki
+## 📌 명식이 Android 팀의 기록
+[[Architecture] Clean Architecture 도입의 고민](https://github.com/MYONGSIK/Android/wiki/%5BArchitecture%5D-Clean-Architecture-%EB%8F%84%EC%9E%85%EC%9D%98-%EA%B3%A0%EB%AF%BC)
 
 ## 📌 App Architecture
 ![스크린샷 2023-04-13 오전 9 50 09](https://user-images.githubusercontent.com/83231344/231617438-0c5375d9-03dd-4b52-b97d-e8c0d83b339b.png)
