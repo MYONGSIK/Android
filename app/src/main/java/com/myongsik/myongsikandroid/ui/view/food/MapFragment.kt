@@ -70,20 +70,21 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
                 //현재 이름이 바뀌여있음
                 val latitude = item.longitude // 위도
                 val longitude = item.latitude // 경도
+                if(latitude != null && longitude != null){
+                    marker = MapPOIItem()
+                    // 클릭했을 때 해당 가게 이름
+                    marker.itemName = item.scrapCount.toString()
+                    marker.tag = item.storeId
+                    marker.mapPoint = MapPoint.mapPointWithGeoCoord(latitude.toDouble(), longitude.toDouble())
+                    // 현재 기본 마커 사용 추 후에 커스텀해서 바꿔야함
+                    val customBitmap = createCustomMarkerBitmap(item.scrapCount.toString())
+                    marker.customImageBitmap = customBitmap
+                    marker.markerType = MapPOIItem.MarkerType.CustomImage
+                    marker.setCustomImageAnchor(0.5f, 1.0f)
 
-                marker = MapPOIItem()
-                // 클릭했을 때 해당 가게 이름
-                marker.itemName = item.scrapCount.toString()
-                marker.tag = item.storeId
-                marker.mapPoint = MapPoint.mapPointWithGeoCoord(latitude!!.toDouble(), longitude!!.toDouble())
-                // 현재 기본 마커 사용 추 후에 커스텀해서 바꿔야함
-                val customBitmap = createCustomMarkerBitmap(item.scrapCount.toString())
-                marker.customImageBitmap = customBitmap
-                marker.markerType = MapPOIItem.MarkerType.CustomImage
-                marker.setCustomImageAnchor(0.5f, 1.0f)
-
-                mapView.addPOIItem(marker) // 지도에 마커 추가
-                mapView.setPOIItemEventListener(this)
+                    mapView.addPOIItem(marker) // 지도에 마커 추가
+                    mapView.setPOIItemEventListener(this)
+                }
             }
         }
     }
