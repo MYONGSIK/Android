@@ -28,4 +28,12 @@ object CommonUtil {
             )
         }
     }
+
+    fun distanceMapper(distance : String): String {
+        return if (distance.length >= 4) {
+            "${distance[0]}.${distance[1]}km"
+        } else {
+            "${distance}m"
+        }
+    }
 }

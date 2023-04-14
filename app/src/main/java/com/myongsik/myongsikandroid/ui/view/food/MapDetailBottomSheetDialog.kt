@@ -16,6 +16,7 @@ import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.DialogBottomRestaurantSheetBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.search.LoveViewModel
+import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -53,11 +54,7 @@ class MapDetailBottomSheetDialog(private val restaurantId: Int) : BottomSheetDia
 
             homeViewModel.getDetailRestaurant.observe(viewLifecycleOwner) {
                 dialogNameTv.text = it.data.name
-                val distance = if (it.data.distance.length >= 4) {
-                    "${it.data.distance[0]}.${it.data.distance[1]}km"
-                } else {
-                    "${it.data.distance}m"
-                }
+                val distance = CommonUtil.distanceMapper(it.data.distance)
                 dialogDistanceTv.text = distance
                 dialogCategoryTv.text = it.data.category
                 dialogAddressTv.text = it.data.address
