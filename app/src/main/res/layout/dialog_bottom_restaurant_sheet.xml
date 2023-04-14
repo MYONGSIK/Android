@@ -21,49 +21,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/dialog_scrap_iv"
-        android:layout_width="14dp"
-        android:layout_height="12dp"
-        android:layout_marginEnd="3dp"
-        android:src="@drawable/group_14017"
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_scrap_count_number_tv"
-        app:layout_constraintEnd_toStartOf="@+id/dialog_scrap_count_number_tv"
-        app:layout_constraintTop_toTopOf="@+id/dialog_scrap_count_number_tv" />
-
-    <TextView
-        android:id="@+id/dialog_scrap_count_number_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="2dp"
-        android:text="@string/restaurant_example_scrap"
-        android:textColor="@color/gray_color_838E9A"
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_name_tv"
-        app:layout_constraintEnd_toStartOf="@+id/dialog_scrap_count_tv"
-        app:layout_constraintTop_toTopOf="@+id/dialog_name_tv" />
-
-    <TextView
-        android:id="@+id/dialog_scrap_count_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:text="@string/restaurant_scrap"
-        android:textColor="@color/gray_color_838E9A"
-        app:layout_constraintBottom_toBottomOf="@+id/dialog_name_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/dialog_name_tv" />
-
     <TextView
         android:id="@+id/dialog_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="33dp"
-        android:textSize="20dp"
-        android:textStyle="bold"
         android:text="@string/restaurant_example_name"
         android:textColor="@color/black_color_838E9A"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/dialog_category_tv"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/item_food_ellipse_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:src="@drawable/ic_restaurant_ellipse"
+        app:layout_constraintBottom_toBottomOf="@id/dialog_name_tv"
+        app:layout_constraintLeft_toRightOf="@id/dialog_name_tv"
+        app:layout_constraintTop_toTopOf="@id/dialog_name_tv" />
+
+    <TextView
+        android:id="@+id/dialog_distance_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:fontFamily="@font/notosans_regular"
+        tools:text="@string/restaurant_distance"
+        android:textColor="@color/sub_color"
+        android:textStyle="bold"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@id/item_food_ellipse_iv"
+        app:layout_constraintLeft_toRightOf="@id/item_food_ellipse_iv"
+        app:layout_constraintTop_toTopOf="@id/item_food_ellipse_iv" />
 
     <TextView
         android:id="@+id/dialog_category_tv"

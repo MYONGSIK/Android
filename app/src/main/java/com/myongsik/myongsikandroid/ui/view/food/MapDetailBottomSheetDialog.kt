@@ -50,12 +50,15 @@ class MapDetailBottomSheetDialog(private val restaurantId: Int) : BottomSheetDia
             var restaurantPhoneNum = ""
             var restaurantScrap: RequestScrap? = null
             var restaurant: Restaurant? = null
-            var scrapCount = 0
 
             homeViewModel.getDetailRestaurant.observe(viewLifecycleOwner) {
                 dialogNameTv.text = it.data.name
-                scrapCount = it.data.scrapCount!!.toInt()
-                dialogScrapCountNumberTv.text = it.data.scrapCount.toString()
+                val distance = if (it.data.distance.length >= 4) {
+                    "${it.data.distance[0]}.${it.data.distance[1]}km"
+                } else {
+                    "${it.data.distance}m"
+                }
+                dialogDistanceTv.text = distance
                 dialogCategoryTv.text = it.data.category
                 dialogAddressTv.text = it.data.address
                 restaurantPhoneNum = it.data.contact
@@ -108,7 +111,6 @@ class MapDetailBottomSheetDialog(private val restaurantId: Int) : BottomSheetDia
                 loveViewModel.scarpRestaurant(restaurantScrap!!)
                 loveViewModel.saveFoods(restaurant!!)
                 Toast.makeText(requireContext(), "찜 완료!", Toast.LENGTH_SHORT).show()
-                binding.dialogScrapCountNumberTv.text = (scrapCount + 1).toString()
                 dialogBottomScrapIv.visibility = View.VISIBLE
                 dialogBottomLoveIv.visibility = View.INVISIBLE
             }
