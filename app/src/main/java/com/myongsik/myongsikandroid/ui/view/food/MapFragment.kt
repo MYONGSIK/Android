@@ -29,6 +29,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
     private lateinit var mapView : MapView
     private lateinit var marker : MapPOIItem
 
+    private var previouslySelectedMarker: MapPOIItem? = null
+
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -71,7 +73,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
 
                 marker = MapPOIItem()
                 // 클릭했을 때 해당 가게 이름
-                marker.itemName = item.name
+                marker.itemName = item.scrapCount.toString()
                 marker.tag = item.storeId
                 marker.mapPoint = MapPoint.mapPointWithGeoCoord(latitude!!.toDouble(), longitude!!.toDouble())
                 // 현재 기본 마커 사용 추 후에 커스텀해서 바꿔야함
@@ -84,6 +86,22 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
                 mapView.setPOIItemEventListener(this)
             }
         }
+    }
+
+    private fun createSelectedCustomMarkerBitmap(name: String): Bitmap {
+        val customMarkerView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_selected_balloon, null)
+
+        val textView = customMarkerView.findViewById<TextView>(R.id.name)
+        textView.text = name
+
+        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        customMarkerView.layout(0, 0, customMarkerView.measuredWidth, customMarkerView.measuredHeight)
+
+        val bitmap = Bitmap.createBitmap(customMarkerView.measuredWidth, customMarkerView.measuredHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        customMarkerView.draw(canvas)
+
+        return bitmap
     }
 
     private fun createCustomMarkerBitmap(name: String): Bitmap {
@@ -102,7 +120,40 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         return bitmap
     }
 
+    //선택된 마커
     override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem) {
+        previouslySelectedMarker?.let { prevMarker ->
+            p0?.removePOIItem(prevMarker)
+
+            val originalBitmap = createCustomMarkerBitmap(prevMarker.itemName)
+
+            val restoredMarker = MapPOIItem()
+            restoredMarker.itemName = prevMarker.itemName
+            restoredMarker.tag = prevMarker.tag
+            restoredMarker.mapPoint = prevMarker.mapPoint
+            restoredMarker.customImageBitmap = originalBitmap
+            restoredMarker.markerType = MapPOIItem.MarkerType.CustomImage
+            restoredMarker.setCustomImageAnchor(0.5f, 1.0f)
+
+            p0?.addPOIItem(restoredMarker)
+        }
+        // 기존 마커를 지도에서 제거
+        p0?.removePOIItem(p1)
+        val selectedBitmap = createSelectedCustomMarkerBitmap(p1.itemName)
+
+        val newMarker = MapPOIItem()
+        newMarker.itemName = p1.itemName
+        newMarker.tag = p1.tag
+        newMarker.mapPoint = p1.mapPoint
+        newMarker.customImageBitmap = selectedBitmap
+        newMarker.markerType = MapPOIItem.MarkerType.CustomImage
+        newMarker.setCustomImageAnchor(0.5f, 1.0f)
+
+        // 새로운 마커를 지도에 추가
+        p0?.addPOIItem(newMarker)
+        previouslySelectedMarker = newMarker
+        p0?.invalidate()
+
         showBottomSheetDialog(p1.tag)
     }
 
