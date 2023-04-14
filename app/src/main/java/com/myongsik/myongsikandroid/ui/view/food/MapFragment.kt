@@ -1,26 +1,17 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.model.food.RequestScrap
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentMapBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
 import com.myongsik.myongsikandroid.ui.viewmodel.search.LoveViewModel
@@ -35,7 +26,6 @@ import net.daum.mf.map.api.MapView
 class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventListener {
 
     private val homeViewModel by viewModels<HomeViewModel>()
-    private val loveViewModel by viewModels<LoveViewModel>()
     private lateinit var mapView : MapView
     private lateinit var marker : MapPOIItem
 
@@ -113,120 +103,12 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
     }
 
     override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem) {
-        homeViewModel.getOneRestaurant(p1.tag)
-        showBottomSheetDialog()
+        showBottomSheetDialog(p1.tag)
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun showBottomSheetDialog() {
-        val view = layoutInflater.inflate(R.layout.dialog_bottom_restaurant_sheet, null)
-        val bottomSheetDialog = BottomSheetDialog(requireActivity())
-        bottomSheetDialog.setContentView(view)
-        bottomSheetDialog.show()
-
-        val restaurantName = view.findViewById<TextView>(R.id.dialog_name_tv)
-        val restaurantScrapCount = view.findViewById<TextView>(R.id.dialog_scrap_count_number_tv)
-        val restaurantCategory = view.findViewById<TextView>(R.id.dialog_category_tv)
-        val restaurantAddress = view.findViewById<TextView>(R.id.dialog_address_tv)
-        val restaurantCallIv = view.findViewById<ImageView>(R.id.dialog_bottom_call_iv)
-        val restaurantScrapIv = view.findViewById<ImageView>(R.id.dialog_bottom_love_iv)
-        val restaurantScrapOnIv = view.findViewById<ImageView>(R.id.dialog_bottom_scrap_iv)
-        var restaurantPhoneNum = ""
-
-        var restaurantScrap : RequestScrap? = null
-        var restaurant : Restaurant? = null
-        var scrapCount = 0
-        homeViewModel.getDetailRestaurant.observe(viewLifecycleOwner){
-            restaurantName.text = it.data.name
-            scrapCount = it.data.scrapCount!!.toInt()
-            restaurantScrapCount.text = it.data.scrapCount.toString()
-            restaurantCategory.text = it.data.category
-            restaurantAddress.text = it.data.address
-            restaurantPhoneNum = it.data.contact
-            //스크랩
-            restaurantScrap = RequestScrap(
-                address = it.data.address,
-                campus = MyongsikApplication.prefs.getUserCampus(),
-                category = it.data.category,
-                code = it.data.code,
-                contact = it.data.contact,
-                distance = it.data.distance,
-                name = it.data.name,
-                phoneId = MyongsikApplication.prefs.getUserID(),
-                urlAddress = it.data.urlAddress,
-                latitude = it.data.latitude.toString(),
-                longitude = it.data.longitude.toString()
-            )
-            restaurant = Restaurant(
-                address_name = it.data.address,
-                category_group_code = " ",
-                category_group_name = it.data.category,
-                category_name = it.data.category,
-                distance = it.data.distance,
-                id = it.data.code,
-                phone = it.data.contact,
-                place_name = it.data.name,
-                place_url = it.data.urlAddress,
-                road_address_name = it.data.address,
-                x = it.data.latitude.toString(),
-                y = it.data.longitude.toString()
-            )
-            loveViewModel.loveIs(restaurant!!)
-        }
-
-        loveViewModel.loveIs.observe(viewLifecycleOwner){
-            if(it == null){
-                restaurantScrapIv.visibility = View.VISIBLE
-                restaurantScrapOnIv.visibility = View.INVISIBLE
-            }
-            else{
-                restaurantScrapIv.visibility = View.INVISIBLE
-                restaurantScrapOnIv.visibility = View.VISIBLE
-            }
-        }
-
-        restaurantCallIv.setOnClickListener {
-            restaurantClick(restaurantPhoneNum)
-        }
-
-        restaurantScrapIv.setOnClickListener {
-            loveViewModel.scarpRestaurant(restaurantScrap!!)
-            loveViewModel.saveFoods(restaurant!!)
-            Toast.makeText(requireContext(), "찜 완료!", Toast.LENGTH_SHORT).show()
-            restaurantScrapCount.text = (scrapCount+1).toString()
-            restaurantScrapOnIv.visibility = View.VISIBLE
-            restaurantScrapIv.visibility = View.INVISIBLE
-        }
-
-        restaurantScrapOnIv.setOnClickListener {
-            loveViewModel.deleteFoods(restaurant!!)
-            Toast.makeText(requireContext(), "찜 목록에서 삭제되었습니다.", Toast.LENGTH_SHORT).show()
-            restaurantScrapOnIv.visibility = View.INVISIBLE
-            restaurantScrapIv.visibility = View.VISIBLE
-        }
-
-        val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
-
-        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                    bottomSheetDialog.dismiss()
-                }
-            }
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-
-            }
-        })
-    }
-
-    private fun restaurantClick(phoneNum : String) {
-        if (context?.getString(R.string.is_null_phone_number) != phoneNum) {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("tel:$phoneNum"))
-            context?.startActivity(intent)
-        } else {
-            Toast.makeText(requireContext(), getString(R.string.is_null_phone_number), Toast.LENGTH_SHORT).show()
-        }
+    private fun showBottomSheetDialog(restaurantId: Int) {
+        val mapDetailBottomSheetDialog = MapDetailBottomSheetDialog(restaurantId)
+        mapDetailBottomSheetDialog.show(childFragmentManager, "custom_bottom_sheet")
     }
 
     @Deprecated("Deprecated in Java")
