@@ -54,7 +54,6 @@ class UpdateWidgetWorker @AssistedInject constructor(
 
     private fun createRemoteViews(context: Context, meals: List<Pair<String?, List<String>?>>): RemoteViews {
         val remoteViews = RemoteViews(context.packageName, R.layout.item_widget_menu)
-        val meals = listOf(Pair("아침", listOf("밥", "김치")), Pair("점심", listOf("밥", "김치")), Pair("저녁", listOf("밥", "김치")))
         try {
             Log.d("MenuWidget", "meals: $meals")
             remoteViews.apply {
