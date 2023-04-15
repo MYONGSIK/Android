@@ -48,10 +48,26 @@ class UpdateWidgetWorker @AssistedInject constructor(
         Log.d("MenuWidget", "meals: $meals")
         remoteViews.apply {
             setTextViewText(R.id.tvArea, currentArea)
-            setFoodTypeData(meals)
-            setFoodData(meals)
+            if (meals.isEmpty()) {
+                setWeekendMessage()
+                return@apply
+            } else {
+                setFoodTypeData(meals)
+                setFoodData(meals)
+            }
         }
         return remoteViews
+    }
+
+    private fun RemoteViews.setWeekendMessage() {
+        setViewVisibility(R.id.tvArea, View.GONE)
+        setViewVisibility(R.id.tvFirstFoodType, View.GONE)
+        setViewVisibility(R.id.tvSecondFoodType, View.GONE)
+        setViewVisibility(R.id.tvThirdFoodType, View.GONE)
+        setViewVisibility(R.id.tvFirstFood, View.GONE)
+        setViewVisibility(R.id.tvSecondFood, View.GONE)
+        setViewVisibility(R.id.tvThirdFood, View.GONE)
+        setViewVisibility(R.id.tvWeekendMessage, View.VISIBLE)
     }
 
     private fun RemoteViews.setFoodTypeData(meals: List<Pair<String?, List<String>?>>) {

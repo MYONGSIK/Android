@@ -38,6 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
+        android:layout_weight="1"
         android:breakStrategy="high_quality"
         android:fontFamily="@font/notosans_regular"
         android:maxLines="3"
@@ -66,6 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
+        android:layout_weight="1"
         android:breakStrategy="high_quality"
         android:fontFamily="@font/notosans_regular"
         android:inputType="textMultiLine"
@@ -101,6 +103,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="1dp"
+        android:layout_weight="1"
         android:breakStrategy="high_quality"
         android:fontFamily="@font/notosans_regular"
         android:maxLines="3"
@@ -111,6 +114,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/today_day_afternoon"
         tools:text="@string/food_list" />
+
+    <TextView
+        android:id="@+id/tvWeekendMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:text="@string/weekend_not_service"/>
 </LinearLayout>
 
 
