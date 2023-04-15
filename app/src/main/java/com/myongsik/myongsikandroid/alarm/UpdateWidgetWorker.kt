@@ -10,10 +10,13 @@ import androidx.work.WorkerParameters
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.util.CommonUtil
+import com.myongsik.myongsikandroid.util.DateUtil
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @HiltWorker
 class UpdateWidgetWorker @AssistedInject constructor(
@@ -24,12 +27,14 @@ class UpdateWidgetWorker @AssistedInject constructor(
     Worker(context, params) {
 
     override fun doWork(): Result {
-        getMeals()
+        GlobalScope.launch {
+            getMeals()
+        }
         return Result.success()
     }
 
-    private fun getMeals() {
-        GlobalScope.launch {
+    private suspend fun getMeals() {
+        withContext(Dispatchers.Main) {
             val currentArea = CommonUtil.getAreaName(context)
             val response = repository.dayGetFoodArea(currentArea)
             val meals = if (response.isSuccessful) {
@@ -37,21 +42,20 @@ class UpdateWidgetWorker @AssistedInject constructor(
             } else {
                 emptyList()
             }
-
-            val remoteViews = createRemoteViews(context, currentArea, meals)
+            val remoteViews = createRemoteViews(context, meals)
             CommonUtil.updateWidget(context, remoteViews)
         }
     }
 
-    private fun createRemoteViews(context: Context, currentArea: String, meals: List<Pair<String?, List<String>?>>): RemoteViews {
+    private fun createRemoteViews(context: Context, meals: List<Pair<String?, List<String>?>>): RemoteViews {
         val remoteViews = RemoteViews(context.packageName, R.layout.item_widget_menu)
         Log.d("MenuWidget", "meals: $meals")
         remoteViews.apply {
-            setTextViewText(R.id.tvArea, currentArea)
             if (meals.isEmpty()) {
                 setWeekendMessage()
                 return@apply
             } else {
+                setTitleData()
                 setFoodTypeData(meals)
                 setFoodData(meals)
             }
@@ -59,8 +63,12 @@ class UpdateWidgetWorker @AssistedInject constructor(
         return remoteViews
     }
 
+    private fun RemoteViews.setTitleData() {
+        setTextViewText(R.id.tvDate, DateUtil.getCurrentDate())
+        setTextViewText(R.id.tvArea, CommonUtil.getAreaName(context))
+    }
+
     private fun RemoteViews.setWeekendMessage() {
-        setViewVisibility(R.id.tvArea, View.GONE)
         setViewVisibility(R.id.tvFirstFoodType, View.GONE)
         setViewVisibility(R.id.tvSecondFoodType, View.GONE)
         setViewVisibility(R.id.tvThirdFoodType, View.GONE)

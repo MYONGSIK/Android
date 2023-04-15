@@ -12,6 +12,7 @@ import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.alarm.UpdateWidgetWorker
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.util.CommonUtil
+import com.myongsik.myongsikandroid.util.DateUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -47,7 +48,7 @@ class MenuWidget : AppWidgetProvider() {
             .build()
 
         val updateRequest = PeriodicWorkRequestBuilder<UpdateWidgetWorker>(1, TimeUnit.DAYS)
-            .setInitialDelay(CommonUtil.getDelayUntilNextMidnight(), TimeUnit.MILLISECONDS)
+            .setInitialDelay(DateUtil.getDelayUntilNextMidnight(), TimeUnit.MILLISECONDS)
             .setConstraints(constraints)
             .addTag(TAG)
             .build()

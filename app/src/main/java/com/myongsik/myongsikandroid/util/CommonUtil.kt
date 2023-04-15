@@ -58,20 +58,6 @@ object CommonUtil {
         } ?: return ""
     }
 
-    fun getDelayUntilNextMidnight(): Long {
-        val calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 0)
-            set(Calendar.MINUTE, 5)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-            if (timeInMillis < System.currentTimeMillis()) {
-                add(Calendar.DAY_OF_MONTH, 1)
-            }
-        }
-        return calendar.timeInMillis - System.currentTimeMillis()
-    }
-
     fun updateWidget(context: Context, updateViews: RemoteViews) {
         val widgetProvider = ComponentName(context, MenuWidget::class.java)
         AppWidgetManager.getInstance(context).updateAppWidget(widgetProvider, updateViews)

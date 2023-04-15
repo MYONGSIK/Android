@@ -1,129 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvArea"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textColor="@color/black"
-        android:textSize="12dp"
-        android:textStyle="bold"
-        tools:text="명진당" />
-
-    <TextView
-        android:id="@+id/tvFirstFoodType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/home_food_stroke_category"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="2dp"
-        android:text="@string/lunch_a_text"
-        android:textColor="@color/sub_color"
-        android:textSize="12dp"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvFirstFood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_weight="1"
-        android:breakStrategy="high_quality"
-        android:fontFamily="@font/notosans_regular"
-        android:maxLines="3"
-        android:textAlignment="center"
-        android:textColor="#717171"
-        android:textSize="12dp"
-        tools:text="@string/food_list" />
-
-    <TextView
-        android:id="@+id/tvSecondFoodType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/home_food_stroke_category"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="2dp"
-        android:text="@string/lunch_b_text"
-        android:textColor="@color/sub_color"
-        android:textSize="12sp"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvSecondFood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_weight="1"
-        android:breakStrategy="high_quality"
-        android:fontFamily="@font/notosans_regular"
-        android:inputType="textMultiLine"
-        android:maxLines="3"
-        android:textAlignment="center"
-        android:textColor="#717171"
-        android:textSize="12dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/today_day_lunch_b"
-        tools:text="@string/food_list" />
-
-    <TextView
-        android:id="@+id/tvThirdFoodType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/home_food_stroke_category"
-        android:fontFamily="@font/notosans_regular"
-        android:includeFontPadding="false"
-        android:paddingHorizontal="8dp"
-        android:paddingVertical="2dp"
-        android:text="@string/dinner_text"
-        android:textColor="@color/sub_color"
-        android:textFontWeight="500"
-        android:textSize="12dp"
-        android:visibility="gone"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvThirdFood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:layout_weight="1"
-        android:breakStrategy="high_quality"
-        android:fontFamily="@font/notosans_regular"
-        android:maxLines="3"
-        android:textAlignment="center"
-        android:textColor="#717171"
-        android:textSize="12sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/today_day_afternoon"
-        tools:text="@string/food_list" />
-
-    <TextView
-        android:id="@+id/tvWeekendMessage"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:text="@string/weekend_not_service"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="46dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/c_656565"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            tools:text="2019.12.31" />
+
+        <TextView
+            android:id="@+id/tvArea"
+            android:layout_width="match_parent"
+            android:gravity="end"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/c_656565"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            tools:text="인문캠" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="#F6F7FA"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvFirstFoodType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:textColor="#0A45CA"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                tools:text="중식 A" />
+
+            <ImageView
+                android:layout_width="3dp"
+                android:layout_height="52dp"
+                android:layout_marginEnd="10dp"
+                android:background="#0A45CA" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvFirstFood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="#111111"
+                    android:textSize="12dp"
+                    tools:text="@string/food_list" />
+
+                <TextView
+                    android:id="@+id/tvFirstFoodTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="8dp"
+                    tools:text="중식 운영 시간 11:30~17:30" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="#F6F7FA"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvSecondFoodType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:textColor="#0A45CA"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                tools:text="중식 B" />
+
+            <ImageView
+                android:layout_width="3dp"
+                android:layout_height="52dp"
+                android:layout_marginEnd="10dp"
+                android:background="#0A45CA" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvSecondFood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="#111111"
+                    android:textSize="12dp"
+                    tools:text="@string/food_list" />
+
+                <TextView
+                    android:id="@+id/tvSecondFoodTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="8dp"
+                    tools:text="중식 운영 시간 11:30~17:30" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="#F6F7FA"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvThirdFoodType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:textColor="#0A45CA"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                tools:text="석식" />
+
+            <ImageView
+                android:layout_width="3dp"
+                android:layout_height="52dp"
+                android:layout_marginEnd="10dp"
+                android:background="#0A45CA" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvThirdFood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="#111111"
+                    android:textSize="12dp"
+                    tools:text="@string/food_list" />
+
+                <TextView
+                    android:id="@+id/tvThirdFoodTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:textSize="8dp"
+                    tools:text="중식 운영 시간 11:30~17:30" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvWeekendMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/weekend_not_service"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </LinearLayout>
 </LinearLayout>
 
 
