@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="20dp"
-    android:background="@color/white"
+    android:paddingHorizontal="20dp"
+    android:background="@drawable/shape_background_round_ffffff"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="26dp"
         android:orientation="horizontal">
 
         <TextView
@@ -45,8 +45,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:background="#F6F7FA"
+            android:padding="12dp"
+            android:background="@drawable/widget_top_round_background_f6f7fa"
             android:orientation="horizontal">
 
             <TextView
@@ -61,7 +61,7 @@
 
             <ImageView
                 android:layout_width="3dp"
-                android:layout_height="52dp"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:background="#0A45CA" />
 
@@ -96,7 +96,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:background="#F6F7FA"
+            android:padding="12dp"
+            android:background="@drawable/widget_bottom_round_background_f6f7fa"
             android:orientation="horizontal">
 
             <TextView
@@ -111,7 +112,7 @@
 
             <ImageView
                 android:layout_width="3dp"
-                android:layout_height="52dp"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:background="#0A45CA" />
 
@@ -146,7 +147,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:background="#F6F7FA"
+            android:padding="12dp"
+            android:background="@drawable/widget_round_background_f6f7fa"
             android:orientation="horizontal">
 
             <TextView
@@ -161,7 +163,7 @@
 
             <ImageView
                 android:layout_width="3dp"
-                android:layout_height="52dp"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="10dp"
                 android:background="#0A45CA" />
 

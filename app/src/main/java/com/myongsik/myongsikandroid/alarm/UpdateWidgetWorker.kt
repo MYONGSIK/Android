@@ -56,11 +56,18 @@ class UpdateWidgetWorker @AssistedInject constructor(
                 return@apply
             } else {
                 setTitleData()
+                setTimeData()
                 setFoodTypeData(meals)
                 setFoodData(meals)
             }
         }
         return remoteViews
+    }
+
+    private fun RemoteViews.setTimeData() {
+//        setTextViewText(R.id.tvFirstFoodTime)
+//        setTextViewText(R.id.tvSecondFoodTime)
+//        setTextViewText(R.id.tvSecondFoodTime)
     }
 
     private fun RemoteViews.setTitleData() {
