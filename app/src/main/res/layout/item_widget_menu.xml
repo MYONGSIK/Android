@@ -43,6 +43,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/firstFoodLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
@@ -93,6 +94,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/secondFoodLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -144,6 +146,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/thirdFoodLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -196,8 +199,9 @@
 
         <TextView
             android:id="@+id/tvWeekendMessage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/weekend_not_service"
             android:textColor="@color/black"

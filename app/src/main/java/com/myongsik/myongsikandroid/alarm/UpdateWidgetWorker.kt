@@ -49,18 +49,23 @@ class UpdateWidgetWorker @AssistedInject constructor(
 
     private fun createRemoteViews(context: Context, meals: List<Pair<String?, List<String>?>>): RemoteViews {
         val remoteViews = RemoteViews(context.packageName, R.layout.item_widget_menu)
-        Log.d("MenuWidget", "meals: $meals")
-        remoteViews.apply {
-            if (meals.isEmpty()) {
-                setWeekendMessage()
-                return@apply
-            } else {
-                setTitleData()
-                setTimeData()
-                setFoodTypeData(meals)
-                setFoodData(meals)
+        try {
+            Log.d("MenuWidget", "meals: $meals")
+            remoteViews.apply {
+                if (meals.isEmpty()) {
+                    setWeekendMessage()
+                    return@apply
+                } else {
+                    setTitleData()
+                    setTimeData()
+                    setFoodTypeData(meals)
+                    setFoodData(meals)
+                }
             }
+        } catch (e:Exception) {
+            remoteViews.setWeekendMessage()
         }
+
         return remoteViews
     }
 
@@ -76,12 +81,11 @@ class UpdateWidgetWorker @AssistedInject constructor(
     }
 
     private fun RemoteViews.setWeekendMessage() {
-        setViewVisibility(R.id.tvFirstFoodType, View.GONE)
-        setViewVisibility(R.id.tvSecondFoodType, View.GONE)
-        setViewVisibility(R.id.tvThirdFoodType, View.GONE)
-        setViewVisibility(R.id.tvFirstFood, View.GONE)
-        setViewVisibility(R.id.tvSecondFood, View.GONE)
-        setViewVisibility(R.id.tvThirdFood, View.GONE)
+        setViewVisibility(R.id.tvDate, View.GONE)
+        setViewVisibility(R.id.tvArea, View.GONE)
+        setViewVisibility(R.id.firstFoodLayout, View.GONE)
+        setViewVisibility(R.id.secondFoodLayout, View.GONE)
+        setViewVisibility(R.id.thirdFoodLayout, View.GONE)
         setViewVisibility(R.id.tvWeekendMessage, View.VISIBLE)
     }
 
