@@ -58,6 +58,50 @@ object CommonUtil {
         } ?: return ""
     }
 
+    fun getAreaTime(context: Context?): Triple<String?, String?, String?> {
+        context?.run {
+            return if (MyongsikApplication.prefs.getUserCampus() == "S") {
+                Triple(
+                    getString(R.string.home_launch_time),
+                    getString(R.string.home_launch_time),
+                    getString(R.string.home_dinner_time)
+                )
+            } else {
+                when (MyongsikApplication.prefs.getUserArea()) {
+                    "S" -> {
+                        Triple(
+                            getString(R.string.select_teacher_launch_time),
+                            getString(R.string.select_teacher_launch_time),
+                            getString(R.string.select_teacher_dinner_time)
+                        )
+                    }
+                    "L" -> {
+                        Triple(
+                            getString(R.string.select_room_launch_time),
+                            getString(R.string.select_room_launch_time),
+                            getString(R.string.select_room_dinner_time)
+                        )
+                    }
+                    "H" -> {
+                        Triple(
+                            getString(R.string.select_student_breakfast_time),
+                            getString(R.string.select_student_breakfast_time),
+                            getString(R.string.select_student_launch_time)
+                        )
+                    }
+                    else -> {
+                        Triple(
+                            getString(R.string.select_new_rice_time),
+                            getString(R.string.select_new_salad_time),
+                            getString(R.string.select_new_salad_time)
+                        )
+                    }
+                }
+            }
+        } ?: return Triple(null, null, null)
+
+    }
+
     fun updateWidget(context: Context, updateViews: RemoteViews) {
         val widgetProvider = ComponentName(context, MenuWidget::class.java)
         AppWidgetManager.getInstance(context).updateAppWidget(widgetProvider, updateViews)

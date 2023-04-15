@@ -1,6 +1,11 @@
 package com.myongsik.myongsikandroid.alarm
 
 import android.content.Context
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
@@ -49,6 +54,7 @@ class UpdateWidgetWorker @AssistedInject constructor(
 
     private fun createRemoteViews(context: Context, meals: List<Pair<String?, List<String>?>>): RemoteViews {
         val remoteViews = RemoteViews(context.packageName, R.layout.item_widget_menu)
+        val meals = listOf(Pair("아침", listOf("밥", "김치")), Pair("점심", listOf("밥", "김치")), Pair("저녁", listOf("밥", "김치")))
         try {
             Log.d("MenuWidget", "meals: $meals")
             remoteViews.apply {
@@ -62,7 +68,7 @@ class UpdateWidgetWorker @AssistedInject constructor(
                     setFoodData(meals)
                 }
             }
-        } catch (e:Exception) {
+        } catch (e: Exception) {
             remoteViews.setWeekendMessage()
         }
 
@@ -70,9 +76,11 @@ class UpdateWidgetWorker @AssistedInject constructor(
     }
 
     private fun RemoteViews.setTimeData() {
-//        setTextViewText(R.id.tvFirstFoodTime)
-//        setTextViewText(R.id.tvSecondFoodTime)
-//        setTextViewText(R.id.tvSecondFoodTime)
+        CommonUtil.getAreaTime(context).run {
+            setTextViewText(R.id.tvFirstFoodTime, first)
+            setTextViewText(R.id.tvSecondFoodTime, second)
+            setTextViewText(R.id.tvThirdFoodTime, third)
+        }
     }
 
     private fun RemoteViews.setTitleData() {
@@ -111,7 +119,14 @@ class UpdateWidgetWorker @AssistedInject constructor(
                     setViewVisibility(id, View.GONE)
                 } else {
                     setViewVisibility(id, View.VISIBLE)
-                    setTextViewText(id, pair.second?.filter { it.isNotBlank() }?.joinToString(", ") ?: "")
+                    val food = pair.second?.filter { it.isNotBlank() }?.joinToString(" ") ?: ""
+                    val spannable = SpannableString(food)
+                    val endPosition = pair.second?.getOrNull(0)?.length ?: 0
+                    spannable.apply {
+                        setSpan(ForegroundColorSpan(context.getColor(R.color.sub_color)), 0, endPosition, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        setSpan(StyleSpan(Typeface.BOLD), 0, endPosition, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    }
+                    setTextViewText(id, spannable)
                 }
             }
         }
