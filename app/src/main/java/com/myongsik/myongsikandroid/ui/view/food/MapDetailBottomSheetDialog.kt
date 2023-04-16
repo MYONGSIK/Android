@@ -145,6 +145,7 @@ class MapDetailBottomSheetDialog(private val restaurantId: Int) : BottomSheetDia
             }
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
             }
         })
     }
