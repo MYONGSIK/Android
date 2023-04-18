@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="20dp"
     android:background="@drawable/shape_background_round_ffffff"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,9 +27,9 @@
         <TextView
             android:id="@+id/tvArea"
             android:layout_width="match_parent"
-            android:gravity="end"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:gravity="end"
             android:textColor="@color/c_656565"
             android:textSize="10dp"
             android:textStyle="bold"
@@ -46,9 +46,9 @@
             android:id="@+id/firstFoodLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
             android:background="@drawable/widget_top_round_background_f6f7fa"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/tvFirstFoodType"
@@ -98,9 +98,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:padding="12dp"
             android:background="@drawable/widget_bottom_round_background_f6f7fa"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
             <TextView
                 android:id="@+id/tvSecondFoodType"
@@ -150,9 +150,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:padding="12dp"
             android:background="@drawable/widget_round_background_f6f7fa"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tvThirdFoodType"
@@ -202,11 +203,11 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="26dp"
             android:gravity="center"
             android:text="@string/weekend_not_service"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:layout_marginBottom="26dp"
             android:textStyle="bold"
             android:visibility="gone" />
 

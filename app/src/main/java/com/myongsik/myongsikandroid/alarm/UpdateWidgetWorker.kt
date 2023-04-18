@@ -98,13 +98,16 @@ class UpdateWidgetWorker @AssistedInject constructor(
 
     private fun RemoteViews.setFoodTypeData(meals: List<Pair<String?, List<String>?>>) {
         val foodTypeTextViewIds = listOf(R.id.tvFirstFoodType, R.id.tvSecondFoodType, R.id.tvThirdFoodType)
+        val foodLayoutIds = listOf(R.id.firstFoodLayout, R.id.secondFoodLayout, R.id.thirdFoodLayout)
         meals.forEachIndexed { index, pair ->
-            foodTypeTextViewIds[index].let { id ->
+            (foodTypeTextViewIds[index] to foodLayoutIds[index]).let { ids ->
                 if (pair.first.isNullOrBlank()) {
-                    setViewVisibility(id, View.GONE)
+                    setViewVisibility(ids.first, View.GONE)
+                    setViewVisibility(ids.second, View.GONE)
                 } else {
-                    setViewVisibility(id, View.VISIBLE)
-                    setTextViewText(id, pair.first)
+                    setViewVisibility(ids.second, View.VISIBLE)
+                    setViewVisibility(ids.first, View.VISIBLE)
+                    setTextViewText(ids.first, pair.first)
                 }
             }
         }

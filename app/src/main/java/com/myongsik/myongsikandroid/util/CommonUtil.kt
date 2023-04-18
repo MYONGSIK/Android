@@ -71,15 +71,15 @@ object CommonUtil {
                     "S" -> {
                         Triple(
                             getString(R.string.select_teacher_launch_time),
-                            getString(R.string.select_teacher_launch_time),
-                            getString(R.string.select_teacher_dinner_time)
+                            getString(R.string.select_teacher_dinner_time),
+                            null
                         )
                     }
                     "L" -> {
                         Triple(
                             getString(R.string.select_room_launch_time),
-                            getString(R.string.select_room_launch_time),
-                            getString(R.string.select_room_dinner_time)
+                            getString(R.string.select_room_dinner_time),
+                            null
                         )
                     }
                     "H" -> {
