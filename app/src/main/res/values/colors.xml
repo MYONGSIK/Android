@@ -17,4 +17,7 @@
     <color name="home_gray_color">#A6A6A6</color>
     <color name="home_arrow_gray_color">#D4D4D4</color>
     <color name="home_not_food">#E31F1F</color>
+
+    <color name="gray_color_eaeaea">#EAEAEA</color>
+    <color name="gray_color_d9d9d9">#D9D9D9</color>
 </resources>
