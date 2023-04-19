@@ -40,6 +40,10 @@ class SelectHomeFragment : BaseFragment<FragmentSelectHomeBinding>() {
             MyongsikApplication.prefs.setUserArea("M")
             findNavController().navigate(R.id.action_fragment_select_home_to_fragment_home)
         }
+        binding.selectHomeSettingIv.setOnClickListener {
+            val action = SelectHomeFragmentDirections.actionFragmentSelectHomeToWidgetSettingFragment()
+            findNavController().navigate(action)
+        }
 
         settingBackPressedCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
