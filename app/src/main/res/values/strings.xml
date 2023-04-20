@@ -95,4 +95,8 @@
     <string name="tag_good_cafe">카페</string>
     <string name="tag_good_drink">술집</string>
     <string name="tag_good_bread">빵집</string>
+
+    <string name="widget_setting">위젯 설정</string>
+    <string name="student_restaurant">학생회관</string>
+    <string name="myongjin_restaurant">명진당</string>
 </resources>

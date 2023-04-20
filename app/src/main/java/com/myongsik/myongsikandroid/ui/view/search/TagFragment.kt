@@ -47,6 +47,10 @@ class TagFragment : BaseFragment<FragmentTagBinding>(), OnSearchViewHolderClick 
                 tagFoodAdapter.submitData(it)
             }
         }
+
+        binding.tagBackBt.setOnClickListener {
+            findNavController().popBackStack()
+        }
     }
 
     private fun setUpRecyclerView(){
@@ -55,10 +59,6 @@ class TagFragment : BaseFragment<FragmentTagBinding>(), OnSearchViewHolderClick 
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = tagFoodAdapter
-        }
-
-        binding.tagBackBt.setOnClickListener {
-            findNavController().popBackStack()
         }
     }
 

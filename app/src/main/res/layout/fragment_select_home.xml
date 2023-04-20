@@ -38,6 +38,16 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/select_home_setting_iv"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_setting"
+                    app:layout_constraintBottom_toBottomOf="@+id/select_home_top_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/select_home_top_tv" />
+
+                <ImageView
                     android:id="@+id/select_home_banner_iv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
