@@ -6,7 +6,6 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.View
 import android.widget.RemoteViews
 import androidx.hilt.work.HiltWorker
@@ -20,6 +19,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -40,28 +40,29 @@ class UpdateWidgetWorker @AssistedInject constructor(
 
     private suspend fun getMeals() {
         withContext(Dispatchers.Main) {
-            val currentArea = CommonUtil.getAreaName(context)
+            val currentArea = repository.getCurrentWidgetType().firstOrNull() ?: ""
             val response = repository.dayGetFoodArea(currentArea)
             val meals = if (response.isSuccessful) {
                 response.body()?.data?.map { Pair(it.mealType, it.meals) } ?: emptyList()
             } else {
                 emptyList()
             }
-            val remoteViews = createRemoteViews(context, meals)
+            val remoteViews = createRemoteViews(context, meals, currentArea)
             CommonUtil.updateWidget(context, remoteViews)
         }
     }
 
-    private fun createRemoteViews(context: Context, meals: List<Pair<String?, List<String>?>>): RemoteViews {
+    private fun createRemoteViews(context: Context, meals: List<Pair<String?, List<String>?>>, currentArea: String): RemoteViews {
         val remoteViews = RemoteViews(context.packageName, R.layout.item_widget_menu)
         try {
-            Log.d("MenuWidget", "meals: $meals")
             remoteViews.apply {
                 if (meals.isEmpty()) {
                     setWeekendMessage()
                     return@apply
                 } else {
-                    setTitleData()
+                    setWeekMessage()
+                    setViewVisibility(R.id.thirdFoodLayout, View.GONE)
+                    setTitleData(currentArea)
                     setTimeData()
                     setFoodTypeData(meals)
                     setFoodData(meals)
@@ -82,9 +83,9 @@ class UpdateWidgetWorker @AssistedInject constructor(
         }
     }
 
-    private fun RemoteViews.setTitleData() {
+    private fun RemoteViews.setTitleData(currentArea: String) {
         setTextViewText(R.id.tvDate, DateUtil.getCurrentDate())
-        setTextViewText(R.id.tvArea, CommonUtil.getAreaName(context))
+        setTextViewText(R.id.tvArea, currentArea)
     }
 
     private fun RemoteViews.setWeekendMessage() {
@@ -94,6 +95,12 @@ class UpdateWidgetWorker @AssistedInject constructor(
         setViewVisibility(R.id.secondFoodLayout, View.GONE)
         setViewVisibility(R.id.thirdFoodLayout, View.GONE)
         setViewVisibility(R.id.tvWeekendMessage, View.VISIBLE)
+    }
+
+    private fun RemoteViews.setWeekMessage() {
+        setViewVisibility(R.id.tvDate, View.VISIBLE)
+        setViewVisibility(R.id.tvArea, View.VISIBLE)
+        setViewVisibility(R.id.tvWeekendMessage, View.GONE)
     }
 
     private fun RemoteViews.setFoodTypeData(meals: List<Pair<String?, List<String>?>>) {

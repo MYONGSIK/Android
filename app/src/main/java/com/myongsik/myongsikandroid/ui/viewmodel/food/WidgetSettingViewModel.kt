@@ -51,14 +51,14 @@ class WidgetSettingViewModel @Inject constructor(private val foodRepository: Foo
         _myongjinCheck.value = false
         _studentCheck.value = false
         _teacherCheck.value = false
-        setWidgetType(WidgetType.DORMITORY.name)
+        setWidgetType(WidgetType.DORMITORY.type)
     }
     fun checkMyongjin() {
         _dormitoryCheck.value = false
         _myongjinCheck.value = true
         _studentCheck.value = false
         _teacherCheck.value = false
-        setWidgetType(WidgetType.MYONGJIN.name)
+        setWidgetType(WidgetType.MYONGJIN.type)
     }
 
     fun checkStudent() {
@@ -66,7 +66,7 @@ class WidgetSettingViewModel @Inject constructor(private val foodRepository: Foo
         _myongjinCheck.value = false
         _studentCheck.value = true
         _teacherCheck.value = false
-        setWidgetType(WidgetType.STUDENT.name)
+        setWidgetType(WidgetType.STUDENT.type)
     }
 
     fun checkTeacher() {
@@ -74,7 +74,7 @@ class WidgetSettingViewModel @Inject constructor(private val foodRepository: Foo
         _myongjinCheck.value = false
         _studentCheck.value = false
         _teacherCheck.value = true
-        setWidgetType(WidgetType.TEACHER.name)
+        setWidgetType(WidgetType.TEACHER.type)
     }
 
 }

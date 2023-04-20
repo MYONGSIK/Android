@@ -4,8 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.R
+import com.myongsik.myongsikandroid.alarm.UpdateWidgetWorker
+import com.myongsik.myongsikandroid.data.type.WidgetType
 import com.myongsik.myongsikandroid.databinding.FragmentWidgetSettingBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.food.WidgetSettingViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -40,22 +46,22 @@ import dagger.hilt.android.AndroidEntryPoint
     override fun initListener() {
         with(binding) { // 생활관식당
             widgetDormitoryCl.setOnClickListener {
-                viewModel.checkDormitory()
+                checkAndUpdate(WidgetType.DORMITORY)
             }
 
             // 명진당
             widgetMyongjinCl.setOnClickListener {
-                viewModel.checkMyongjin()
+                checkAndUpdate(WidgetType.MYONGJIN)
             }
 
             // 학생회관
             widgetStudentCl.setOnClickListener {
-                viewModel.checkStudent()
+                checkAndUpdate(WidgetType.STUDENT)
             }
 
             // 교직원식당
             widgetTeacherCl.setOnClickListener {
-                viewModel.checkTeacher()
+                checkAndUpdate(WidgetType.TEACHER)
             }
 
             widgetBackBtnIv.setOnClickListener {
@@ -92,6 +98,30 @@ import dagger.hilt.android.AndroidEntryPoint
     private fun initTeacherObserve() {
         viewModel.teacherCheck.observe(viewLifecycleOwner) {
             binding.widgetTeacherUncheckIv.setColorFilter(getCurrentColor(it))
+        }
+    }
+
+    private fun checkAndUpdate(type: WidgetType) {
+        when (type) {
+            WidgetType.DORMITORY -> viewModel.checkDormitory()
+            WidgetType.MYONGJIN -> viewModel.checkMyongjin()
+            WidgetType.STUDENT -> viewModel.checkStudent()
+            WidgetType.TEACHER -> viewModel.checkTeacher()
+        }
+        updateWidget()
+    }
+
+    private fun updateWidget() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val updateOnceRequest = OneTimeWorkRequestBuilder<UpdateWidgetWorker>()
+            .setConstraints(constraints)
+            .build()
+
+        context?.let {
+            WorkManager.getInstance(it).enqueue(updateOnceRequest)
         }
     }
 

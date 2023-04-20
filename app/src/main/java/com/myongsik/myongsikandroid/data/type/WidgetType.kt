@@ -1,16 +1,15 @@
 package com.myongsik.myongsikandroid.data.type
 
-enum class WidgetType(type:String) {
-
-    DORMITORY("dormitory"), MYONGJIN("myongjin"), STUDENT("student"), TEACHER("teacher")
+enum class WidgetType(val type:String) {
+    DORMITORY("생활관식당"), MYONGJIN("명진당식당"), STUDENT("학생식당"), TEACHER("교직원식당")
 }
 
 fun String.toWidgetType() : WidgetType {
     return when(this) {
-        WidgetType.DORMITORY.name -> WidgetType.DORMITORY
-        WidgetType.MYONGJIN.name -> WidgetType.MYONGJIN
-        WidgetType.STUDENT.name -> WidgetType.STUDENT
-        WidgetType.TEACHER.name -> WidgetType.TEACHER
+        WidgetType.DORMITORY.type -> WidgetType.DORMITORY
+        WidgetType.MYONGJIN.type -> WidgetType.MYONGJIN
+        WidgetType.STUDENT.type -> WidgetType.STUDENT
+        WidgetType.TEACHER.type -> WidgetType.TEACHER
         else -> WidgetType.DORMITORY
     }
 }

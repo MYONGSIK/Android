@@ -13,6 +13,7 @@ import com.myongsik.myongsikandroid.alarm.UpdateWidgetWorker
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.myongsikandroid.util.DateUtil
+import com.myongsik.myongsikandroid.util.NetworkUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -37,7 +38,9 @@ class MenuWidget : AppWidgetProvider() {
 
     override fun onUpdate(context: Context?, appWidgetManager: AppWidgetManager?, appWidgetIds: IntArray?) {
         super.onUpdate(context, appWidgetManager, appWidgetIds)
-        context ?: return
+        if (context == null || !NetworkUtils.getNetworkConnected(context)) {
+            return
+        }
         Log.d(TAG, "onUpdate")
         startWidgetUpdateWorker(context)
     }
