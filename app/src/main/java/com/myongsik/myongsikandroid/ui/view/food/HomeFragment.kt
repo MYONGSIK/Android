@@ -1,33 +1,28 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
 import android.app.AlertDialog
-import android.content.Context
 import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.BaseFragment
-import com.myongsik.myongsikandroid.MainActivity
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
-import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.MyPagerAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
+import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.myongsikandroid.util.Constant.DINNER
 import com.myongsik.myongsikandroid.util.Constant.DINNER_H
 import com.myongsik.myongsikandroid.util.Constant.DINNER_S
@@ -125,24 +120,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun initData() {
         if (MyongsikApplication.prefs.getUserCampus() == "S") {
-            homeViewModel.weekGetFoodAreaFun(getAreaName())
+            homeViewModel.weekGetFoodAreaFun(CommonUtil.getAreaName(context))
             binding.homeTimeTv.text = getString(R.string.home_time_tv)
         } else if (MyongsikApplication.prefs.getUserCampus() == "Y") {
             when (MyongsikApplication.prefs.getUserArea()) {
                 "S" -> {
-                    homeViewModel.weekGetFoodAreaFun(getAreaName())
+                    homeViewModel.weekGetFoodAreaFun(CommonUtil.getAreaName(context))
                     binding.homeTimeTv.text = getString(R.string.home_time_staff_tv)
                 }
                 "L" -> {
-                    homeViewModel.weekGetFoodAreaFun(getAreaName())
+                    homeViewModel.weekGetFoodAreaFun(CommonUtil.getAreaName(context))
                     binding.homeTimeTv.text = getString(R.string.home_time_life_tv)
                 }
                 "H" -> {
-                    homeViewModel.weekGetFoodAreaFun(getAreaName())
+                    homeViewModel.weekGetFoodAreaFun(CommonUtil.getAreaName(context))
                     binding.homeTimeTv.text = getString(R.string.home_time_student_tv)
                 }
                 "M" -> {
-                    homeViewModel.weekGetFoodAreaFun(getAreaName())
+                    homeViewModel.weekGetFoodAreaFun(CommonUtil.getAreaName(context))
                     binding.homeTimeTv.text = getString(R.string.home_time_myonog_tv)
                 }
             }
@@ -304,7 +299,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         val currentDate = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val formattedDate = currentDate.format(formatter)
-        val request = RequestReviewData(review, formattedDate, MyongsikApplication.prefs.getUserID(), getAreaName())
+        val request = RequestReviewData(review, formattedDate, MyongsikApplication.prefs.getUserID(), CommonUtil.getAreaName(context))
         homeViewModel.postReview(request)
     }
 
@@ -329,30 +324,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun defaultDataStore() {
         lifecycleScope.launch {
             homeViewModel.defaultDataStore()
-        }
-    }
-
-    private fun getAreaName():String {
-       return if (MyongsikApplication.prefs.getUserCampus() == "S") {
-            getString(R.string.user_area_mcc)
-        } else {
-            when (MyongsikApplication.prefs.getUserArea()) {
-                "S" -> {
-                    getString(R.string.user_area_s)
-                }
-                "L" -> {
-                    getString(R.string.user_area_l)
-                }
-                "H" -> {
-                    getString(R.string.user_area_h)
-                }
-                "M" -> {
-                    getString(R.string.user_area_m)
-                }
-                else -> {
-                    ""
-                }
-            }
         }
     }
 

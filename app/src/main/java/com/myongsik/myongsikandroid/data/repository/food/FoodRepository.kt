@@ -14,40 +14,44 @@ import retrofit2.Response
 interface FoodRepository {
 
     //API
-    suspend fun weekGetFoodArea(s:String) : Response<WeekFoodResponse>
+    suspend fun weekGetFoodArea(s: String): Response<WeekFoodResponse>
 
-    suspend fun postReview(requestReviewData: RequestReviewData) : Response<ResponseReviewData>
+    suspend fun dayGetFoodArea(area: String): Response<DayFoodResponse>
 
-    suspend fun postUser(requestUserData: RequestUserData) : Response<ResponseUserData>
+    suspend fun postReview(requestReviewData: RequestReviewData): Response<ResponseReviewData>
 
-    suspend fun postScrapRestaurant(requestScrap: RequestScrap) : Response<ResponseScrap>
+    suspend fun postUser(requestUserData: RequestUserData): Response<ResponseUserData>
 
-    suspend fun getRankRestaurant(sort : String, campus : String) : Response<RankRestaurantResponse>
+    suspend fun postScrapRestaurant(requestScrap: RequestScrap): Response<ResponseScrap>
+
+    suspend fun getRankRestaurant(sort: String, campus: String): Response<RankRestaurantResponse>
 
     //DataStore
-    suspend fun saveLunchEvaluation(type: String, evaluation : String)
+    suspend fun saveLunchEvaluation(type: String, evaluation: String)
 
-    suspend fun saveSortType(key: Preferences.Key<String>, value : String)
+    suspend fun saveSortType(key: Preferences.Key<String>, value: String)
 
     suspend fun saveWidgetType(type : String)
 
     suspend fun defaultDataStore()
 
-    suspend fun getLunchEvaluation() : Flow<String>
+    suspend fun getLunchEvaluation(): Flow<String>
 
-    suspend fun getLunchBEvaluation() : Flow<String>
+    suspend fun getLunchBEvaluation(): Flow<String>
 
-    suspend fun getDinnerEvaluation() : Flow<String>
+    suspend fun getDinnerEvaluation(): Flow<String>
 
-    suspend fun getLunchSEvaluation() : Flow<String>
+    suspend fun getLunchSEvaluation(): Flow<String>
 
-    suspend fun getDinnerSEvaluation() : Flow<String>
+    suspend fun getDinnerSEvaluation(): Flow<String>
 
-    suspend fun getLunchHEvaluation() : Flow<String>
+    suspend fun getLunchHEvaluation(): Flow<String>
 
-    suspend fun getDinnerHEvaluation() : Flow<String>
+    suspend fun getDinnerHEvaluation(): Flow<String>
 
-    suspend fun getCurrentSortType() : Flow<String>
+    suspend fun getCurrentSortType(): Flow<String>
+
+    suspend fun getCurrentWidgetType(): Flow<String>
 
     //Room
     suspend fun insertFoods(restaurant: Restaurant)
@@ -55,12 +59,11 @@ interface FoodRepository {
     suspend fun deleteFoods(restaurant: Restaurant)
 
     //Room PagingData
-    fun getFoods() : Flow<PagingData<Restaurant>>
+    fun getFoods(): Flow<PagingData<Restaurant>>
 
-    fun loveIs(id : String) : Restaurant
+    fun loveIs(id: String): Restaurant
 
-    fun updateLove(id : String) : Boolean
+    fun updateLove(id: String): Boolean
 
     fun getLoveIsFood() : Flow<List<Restaurant>>
-    suspend fun getCurrentWidgetType(): Flow<String>
 }
