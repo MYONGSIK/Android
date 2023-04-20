@@ -29,6 +29,8 @@ interface FoodRepository {
 
     suspend fun saveSortType(key: Preferences.Key<String>, value : String)
 
+    suspend fun saveWidgetType(type : String)
+
     suspend fun defaultDataStore()
 
     suspend fun getLunchEvaluation() : Flow<String>
@@ -60,4 +62,5 @@ interface FoodRepository {
     fun updateLove(id : String) : Boolean
 
     fun getLoveIsFood() : Flow<List<Restaurant>>
+    suspend fun getCurrentWidgetType(): Flow<String>
 }
