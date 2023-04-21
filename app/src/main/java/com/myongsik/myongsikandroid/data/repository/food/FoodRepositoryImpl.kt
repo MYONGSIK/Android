@@ -57,8 +57,12 @@ class FoodRepositoryImpl @Inject constructor(
         return api.postRestaurantScrap(requestScrap)
     }
 
-    override suspend fun getRankRestaurant(sort: String, campus: String): Response<RankRestaurantResponse> {
-        return api.getRankRestaurant(sort, campus)
+    override suspend fun getRankRestaurant(sort: String, campus: String, size : Int): Response<RankRestaurantResponse> {
+        return api.getRankRestaurant(sort, campus, size)
+    }
+
+    override suspend fun getOneRestaurant(storeId: Int): Response<ResponseOneRestaurant> {
+        return api.getOneRestaurant(storeId)
     }
 
     //DataStore

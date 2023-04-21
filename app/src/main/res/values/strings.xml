@@ -96,7 +96,14 @@
     <string name="tag_good_drink">술집</string>
     <string name="tag_good_bread">빵집</string>
 
+    <string name="campus_example_address">서울특별시 서대문구 거북골로 34</string>
+    <string name="restaurant_example_category">음식점</string>
+    <string name="restaurant_example_name">엄마손 떡볶이</string>
+    <string name="restaurant_scrap">찜꽁</string>
+    <string name="restaurant_example_scrap">20</string>
+
     <string name="widget_setting">위젯 설정</string>
     <string name="student_restaurant">학생회관</string>
     <string name="myongjin_restaurant">명진당</string>
+
 </resources>

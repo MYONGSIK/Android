@@ -27,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="44ba0213a21d755ef2e20b473a0ffd26"/>
         <receiver android:name=".alarm.AlarmBroadCastReceiver"/>
     </application>
 

@@ -41,6 +41,10 @@ class MainActivity : AppCompatActivity() {
                         navController.navigate(R.id.fragment_home)
                     }
                 }
+                R.id.fragment_map -> {
+                    navController.navigate(R.id.fragment_map)
+                    return@setOnItemSelectedListener true
+                }
                 R.id.fragment_search -> {
                         navController.navigate(R.id.fragment_search)
                         return@setOnItemSelectedListener true
@@ -61,7 +65,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.fragment_home || destination.id == R.id.fragment_search
-                || destination.id == R.id.fragment_love || destination.id == R.id.fragment_select_home) {
+                || destination.id == R.id.fragment_love || destination.id == R.id.fragment_select_home || destination.id == R.id.fragment_map) {
                 binding.bottomNavigationView.visibility = View.VISIBLE
                 binding.myongsikHomeFragmentView.setPadding(0,0,0,0)}
             else {

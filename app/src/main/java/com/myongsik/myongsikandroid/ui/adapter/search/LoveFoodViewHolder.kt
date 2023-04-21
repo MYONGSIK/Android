@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemLoveRestaurantBinding
+import com.myongsik.myongsikandroid.util.CommonUtil
 
 //관심목록에서 사용하는 RV Holder
 class LoveFoodViewHolder(
@@ -14,11 +15,7 @@ class LoveFoodViewHolder(
 
     fun bind(restaurant: Restaurant) {
         val parentView = binding.root
-        val distance = if (restaurant.distance.length >= 4) {
-            "${restaurant.distance[0]}.${restaurant.distance[1]}km"
-        } else {
-            "${restaurant.distance}m"
-        }
+        val distance = CommonUtil.distanceMapper(restaurant.distance)
         val phone = if (restaurant.phone == "") "전화번호가 없습니다." else restaurant.phone
 
         val placeName =

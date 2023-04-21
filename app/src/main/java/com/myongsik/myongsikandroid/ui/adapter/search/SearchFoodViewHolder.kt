@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantFoodBinding
+import com.myongsik.myongsikandroid.util.CommonUtil
 
 //카카오 api 불러온 리사이클러뷰 아이템 뷰홀더
 class SearchFoodViewHolder(
@@ -20,11 +21,7 @@ class SearchFoodViewHolder(
 
     fun bind(restaurant: Restaurant) {
         val context = binding.root.context
-        val distance = if (restaurant.distance.length >= 4) {
-            "${restaurant.distance[0]}.${restaurant.distance[1]}km"
-        } else {
-            "${restaurant.distance}m"
-        }
+        val distance = CommonUtil.distanceMapper(restaurant.distance)
 
         val placeName =
             if (restaurant.place_name.length >= 13)

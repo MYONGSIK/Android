@@ -160,9 +160,9 @@
         android:id="@+id/spSort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@null"
         android:textColor="#636363"
         android:textSize="12dp"
-        android:background="@null"
         app:layout_constraintBottom_toBottomOf="@id/good_place_myongji"
         app:layout_constraintEnd_toStartOf="@+id/btArrow"
         app:layout_constraintTop_toTopOf="@id/good_place_myongji"
@@ -172,13 +172,12 @@
         android:id="@+id/btArrow"
         android:layout_width="24dp"
         android:layout_height="36dp"
-        android:paddingEnd="12dp"
         android:paddingTop="12dp"
+        android:paddingEnd="12dp"
         android:paddingBottom="12dp"
         android:src="@drawable/arrow_bottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/spSort"
         app:layout_constraintBottom_toBottomOf="@id/spSort"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/spSort" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
