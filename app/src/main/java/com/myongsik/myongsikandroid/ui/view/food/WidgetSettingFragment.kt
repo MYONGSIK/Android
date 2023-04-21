@@ -1,17 +1,24 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.work.Constraints
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.R
+import com.myongsik.myongsikandroid.alarm.UpdateWidgetWorker
+import com.myongsik.myongsikandroid.data.type.WidgetType
 import com.myongsik.myongsikandroid.databinding.FragmentWidgetSettingBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.food.WidgetSettingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class WidgetSettingFragment : BaseFragment<FragmentWidgetSettingBinding>() {
+@AndroidEntryPoint class WidgetSettingFragment : BaseFragment<FragmentWidgetSettingBinding>() {
 
     private val viewModel by viewModels<WidgetSettingViewModel>()
 
@@ -23,89 +30,111 @@ class WidgetSettingFragment : BaseFragment<FragmentWidgetSettingBinding>() {
         resources.getColor(R.color.gray_color_d9d9d9, null)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+    }
+
     override fun getViewBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
+        inflater: LayoutInflater, container: ViewGroup?
     ): FragmentWidgetSettingBinding {
         return FragmentWidgetSettingBinding.inflate(inflater, container, false)
     }
 
     override fun initView() {
-        if(true){
-            /*
-                데이터스토어값이 없을 경우, 즉 처음 위젯을 설정할 경우 디폴트 값으로 생활관 식당이 체크 되어 있다.
-                if 문 안에 true값 대신 데이터스토어값에 빈 값이 들어있을 경우로 하시면 될 것 같습니다.
-             */
-            viewModel._dormitoryCheck.value = true
-        }
+        initCheckData()
+        initObserve()
+    }
+
+    private fun initCheckData() {
+        viewModel.getCheckData()
     }
 
     override fun initListener() {
-        with(binding) {
-            // 생활관식당
+        with(binding) { // 생활관식당
             widgetDormitoryCl.setOnClickListener {
-                viewModel._dormitoryCheck.value = true
-                viewModel._myongjinCheck.value = false
-                viewModel._studentCheck.value = false
-                viewModel._teacherCheck.value = false
+                checkAndUpdate(WidgetType.DORMITORY)
             }
 
             // 명진당
             widgetMyongjinCl.setOnClickListener {
-                viewModel._myongjinCheck.value = true
-                viewModel._dormitoryCheck.value = false
-                viewModel._studentCheck.value = false
-                viewModel._teacherCheck.value = false
+                checkAndUpdate(WidgetType.MYONGJIN)
             }
 
             // 학생회관
             widgetStudentCl.setOnClickListener {
-                viewModel._studentCheck.value = true
-                viewModel._dormitoryCheck.value = false
-                viewModel._myongjinCheck.value = false
-                viewModel._teacherCheck.value = false
+                checkAndUpdate(WidgetType.STUDENT)
             }
 
             // 교직원식당
             widgetTeacherCl.setOnClickListener {
-                viewModel._teacherCheck.value = true
-                viewModel._dormitoryCheck.value = false
-                viewModel._myongjinCheck.value = false
-                viewModel._studentCheck.value = false
-            }
-
-            viewModel.dormitoryCheck.observe(viewLifecycleOwner) {
-                if(it) {
-                    widgetDormitoryUncheckIv.setColorFilter(checkColor)
-                } else {
-                    widgetDormitoryUncheckIv.setColorFilter(notCheckColor)
-                }
-            }
-            viewModel.myongjinCheck.observe(viewLifecycleOwner) {
-                if(it) {
-                    widgetMyongjinUncheckIv.setColorFilter(checkColor)
-                } else {
-                    widgetMyongjinUncheckIv.setColorFilter(notCheckColor)
-                }
-            }
-            viewModel.studentCheck.observe(viewLifecycleOwner) {
-                if(it) {
-                    widgetStudentUncheckIv.setColorFilter(checkColor)
-                } else {
-                    widgetStudentUncheckIv.setColorFilter(notCheckColor)
-                }
-            }
-            viewModel.teacherCheck.observe(viewLifecycleOwner) {
-                if(it) {
-                    widgetTeacherUncheckIv.setColorFilter(checkColor)
-                } else {
-                    widgetTeacherUncheckIv.setColorFilter(notCheckColor)
-                }
+                checkAndUpdate(WidgetType.TEACHER)
             }
 
             widgetBackBtnIv.setOnClickListener {
                 findNavController().popBackStack()
             }
         }
+    }
+
+    private fun initObserve() {
+        initDormitoryObserve()
+        initMyongjinObserve()
+        initStudentObserve()
+        initTeacherObserve()
+    }
+
+    private fun initDormitoryObserve() {
+        viewModel.dormitoryCheck.observe(viewLifecycleOwner) {
+            binding.widgetDormitoryUncheckIv.setColorFilter(getCurrentColor(it))
+        }
+    }
+
+    private fun initMyongjinObserve() {
+        viewModel.myongjinCheck.observe(viewLifecycleOwner) {
+            binding.widgetMyongjinUncheckIv.setColorFilter(getCurrentColor(it))
+        }
+    }
+
+    private fun initStudentObserve() {
+        viewModel.studentCheck.observe(viewLifecycleOwner) {
+            binding.widgetStudentUncheckIv.setColorFilter(getCurrentColor(it))
+        }
+    }
+
+    private fun initTeacherObserve() {
+        viewModel.teacherCheck.observe(viewLifecycleOwner) {
+            binding.widgetTeacherUncheckIv.setColorFilter(getCurrentColor(it))
+        }
+    }
+
+    private fun checkAndUpdate(type: WidgetType) {
+        when (type) {
+            WidgetType.DORMITORY -> viewModel.checkDormitory()
+            WidgetType.MYONGJIN -> viewModel.checkMyongjin()
+            WidgetType.STUDENT -> viewModel.checkStudent()
+            WidgetType.TEACHER -> viewModel.checkTeacher()
+        }
+        updateWidget()
+    }
+
+    private fun updateWidget() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val updateOnceRequest = OneTimeWorkRequestBuilder<UpdateWidgetWorker>()
+            .setConstraints(constraints)
+            .build()
+
+        context?.let {
+            WorkManager.getInstance(it).enqueue(updateOnceRequest)
+        }
+    }
+
+    private fun getCurrentColor(it: Boolean) = if (it) {
+        checkColor
+    } else {
+        notCheckColor
     }
 }

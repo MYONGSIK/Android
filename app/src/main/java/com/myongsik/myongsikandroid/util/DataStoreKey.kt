@@ -6,4 +6,6 @@ object DataStoreKey {
 
     val SORT_TYPE = stringPreferencesKey("sort_type")
 
+    val WIDGET_TYPE = stringPreferencesKey("widget_type")
+
 }

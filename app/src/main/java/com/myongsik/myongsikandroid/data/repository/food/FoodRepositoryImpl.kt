@@ -45,6 +45,10 @@ class FoodRepositoryImpl @Inject constructor(
         return api.weekGetFoodArea(s)
     }
 
+    override suspend fun dayGetFoodArea(area: String): Response<DayFoodResponse> {
+        return api.dayGetFoodArea(area)
+    }
+
     override suspend fun postReview(requestReviewData: RequestReviewData): Response<ResponseReviewData> {
         return api.postReview(requestReviewData)
     }
@@ -118,8 +122,14 @@ class FoodRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveSortType(key: Preferences.Key<String>, value: String) {
-        dataStore.edit {prefs ->
+        dataStore.edit { prefs ->
             prefs[key] = value
+        }
+    }
+
+    override suspend fun saveWidgetType(type: String) {
+        dataStore.edit { prefs ->
+            prefs[DataStoreKey.WIDGET_TYPE] = type
         }
     }
 
@@ -271,6 +281,21 @@ class FoodRepositoryImpl @Inject constructor(
             }
             .map { prefs ->
                 prefs[DataStoreKey.SORT_TYPE] ?: ""
+            }
+    }
+
+    override suspend fun getCurrentWidgetType(): Flow<String> {
+        return dataStore.data //data 메서드
+            .catch { exception ->
+                if (exception is IOException) {
+                    exception.printStackTrace()
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }
+            .map { prefs ->
+                prefs[DataStoreKey.WIDGET_TYPE] ?: ""
             }
     }
 
