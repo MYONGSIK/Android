@@ -1,6 +1,8 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -26,6 +28,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
     private val notCheckColor by lazy {
         resources.getColor(R.color.gray_color_d9d9d9, null)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
     override fun getViewBinding(

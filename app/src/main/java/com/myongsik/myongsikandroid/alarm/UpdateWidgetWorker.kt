@@ -63,8 +63,8 @@ class UpdateWidgetWorker @AssistedInject constructor(
                     setWeekMessage()
                     setViewVisibility(R.id.thirdFoodLayout, View.GONE)
                     setTitleData(currentArea)
-                    setTimeData()
-                    setFoodTypeData(meals)
+                    setTimeData(currentArea)
+                    setFoodTypeData(meals, currentArea)
                     setFoodData(meals)
                 }
             }
@@ -75,8 +75,8 @@ class UpdateWidgetWorker @AssistedInject constructor(
         return remoteViews
     }
 
-    private fun RemoteViews.setTimeData() {
-        CommonUtil.getAreaTime(context).run {
+    private fun RemoteViews.setTimeData(currentArea: String) {
+        CommonUtil.getAreaTime(context, currentArea).run {
             setTextViewText(R.id.tvFirstFoodTime, first)
             setTextViewText(R.id.tvSecondFoodTime, second)
             setTextViewText(R.id.tvThirdFoodTime, third)
@@ -103,7 +103,7 @@ class UpdateWidgetWorker @AssistedInject constructor(
         setViewVisibility(R.id.tvWeekendMessage, View.GONE)
     }
 
-    private fun RemoteViews.setFoodTypeData(meals: List<Pair<String?, List<String>?>>) {
+    private fun RemoteViews.setFoodTypeData(meals: List<Pair<String?, List<String>?>>, currentArea: String) {
         val foodTypeTextViewIds = listOf(R.id.tvFirstFoodType, R.id.tvSecondFoodType, R.id.tvThirdFoodType)
         val foodLayoutIds = listOf(R.id.firstFoodLayout, R.id.secondFoodLayout, R.id.thirdFoodLayout)
         meals.forEachIndexed { index, pair ->
@@ -114,7 +114,7 @@ class UpdateWidgetWorker @AssistedInject constructor(
                 } else {
                     setViewVisibility(ids.second, View.VISIBLE)
                     setViewVisibility(ids.first, View.VISIBLE)
-                    setTextViewText(ids.first, pair.first)
+                    setTextViewText(ids.first, CommonUtil.getDailyFoodParsing(context, currentArea).toList()[index])
                 }
             }
         }

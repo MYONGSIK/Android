@@ -50,8 +50,7 @@ class MenuWidget : AppWidgetProvider() {
             .setConstraints(constraints)
             .build()
 
-        val updateRequest = PeriodicWorkRequestBuilder<UpdateWidgetWorker>(1, TimeUnit.DAYS)
-            .setInitialDelay(DateUtil.getDelayUntilNextMidnight(), TimeUnit.MILLISECONDS)
+        val updateRequest = PeriodicWorkRequestBuilder<UpdateWidgetWorker>(1, TimeUnit.HOURS)
             .setConstraints(constraints)
             .addTag(TAG)
             .build()

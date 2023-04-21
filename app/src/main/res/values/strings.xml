@@ -59,7 +59,7 @@
 
     <string name="select_new_restaurant">명진당</string>
     <string name="select_new_restaurant_time">운영시간\n백반 11:30~14:30 \n샐러드,볶음밥 10:00 ~ 15:00</string>
-    <string name="select_new_rice_time">백반 운영시간 11:30~14:30 \n샐러드,볶음밥 10:00 ~ 15:00</string>
+    <string name="select_new_rice_time">백반 운영시간 11:30~14:30</string>
     <string name="select_new_salad_time">샐러드,볶음밥 운영시간 10:00 ~ 15:00</string>
 
     <string name="splash_myongji_title_text">명지대 학식 식단표 제공 앱</string>
@@ -73,9 +73,6 @@
     <string name="campus_dialog_sub_title_text">최초로 설정된 캠퍼스는 이후 변경이 어려우니 신중하게 골라주세요!</string>
     <string name="campus_dialog_okay_text">확 인</string>
 
-    <string name="lunch_a_text">중식A</string>
-    <string name="lunch_b_text">중식B</string>
-    <string name="dinner_text">석식</string>
     <string name="food_list">베이컨김치볶음밥 후라이 맑은우동국물 피쉬앤칩스 케찹 단무지 배추김치</string>
     <string name="food_good_evaluation">맛있어요 </string>
     <string name="food_hate_evaluation">맛없어요 </string>
@@ -114,4 +111,14 @@
     <string name="widget_setting">위젯 설정</string>
     <string name="student_restaurant">학생회관</string>
     <string name="myongjin_restaurant">명진당</string>
+
+    <string name="break_fast">조식</string>
+    <string name="lunch_text">중식</string>
+    <string name="lunch_a_text">중식A</string>
+    <string name="lunch_b_text">중식B</string>
+    <string name="dinner_text">석식</string>
+    <string name="rice">백반</string>
+    <string name="salad">샐러드</string>
+    <string name="fried_rice">볶음밥</string>
+
 </resources>

@@ -8,8 +8,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.RemoteViews
 import com.myongsik.myongsikandroid.R
+import com.myongsik.myongsikandroid.data.type.WidgetType
+import com.myongsik.myongsikandroid.data.type.toWidgetType
 import com.myongsik.myongsikandroid.ui.widget.MenuWidget
-import java.util.*
 
 object CommonUtil {
     fun hideKeyboard(activity: Activity) {
@@ -58,7 +59,7 @@ object CommonUtil {
         } ?: return ""
     }
 
-    fun getAreaTime(context: Context?): Triple<String?, String?, String?> {
+    fun getAreaTime(context: Context?, currentArea: String): Triple<String?, String?, String?> {
         context?.run {
             return if (MyongsikApplication.prefs.getUserCampus() == "S") {
                 Triple(
@@ -67,40 +68,77 @@ object CommonUtil {
                     getString(R.string.home_dinner_time)
                 )
             } else {
-                when (MyongsikApplication.prefs.getUserArea()) {
-                    "S" -> {
+                when (currentArea.toWidgetType()) {
+                    WidgetType.TEACHER -> {
                         Triple(
                             getString(R.string.select_teacher_launch_time),
                             getString(R.string.select_teacher_dinner_time),
                             null
                         )
                     }
-                    "L" -> {
+                    WidgetType.STUDENT -> {
                         Triple(
-                            getString(R.string.select_room_launch_time),
-                            getString(R.string.select_room_dinner_time),
+                            getString(R.string.select_student_breakfast_time),
+                            getString(R.string.select_student_launch_time),
                             null
                         )
                     }
-                    "H" -> {
-                        Triple(
-                            getString(R.string.select_student_breakfast_time),
-                            getString(R.string.select_student_breakfast_time),
-                            getString(R.string.select_student_launch_time)
-                        )
-                    }
-                    else -> {
+                    WidgetType.MYONGJIN -> {
                         Triple(
                             getString(R.string.select_new_rice_time),
                             getString(R.string.select_new_salad_time),
                             getString(R.string.select_new_salad_time)
                         )
                     }
+                    else -> {
+                        Triple(
+                            getString(R.string.select_room_launch_time),
+                            getString(R.string.select_room_dinner_time),
+                            null
+                        )
+                    }
                 }
             }
         } ?: return Triple(null, null, null)
-
     }
+
+    fun getDailyFoodParsing(context: Context?, currentArea: String) : Triple<String?, String?, String?> {
+        context?.run {
+            return if (MyongsikApplication.prefs.getUserCampus() == "S") {
+                Triple(
+                    getString(R.string.lunch_a_text),
+                    getString(R.string.lunch_b_text),
+                    getString(R.string.dinner_text)
+                )
+            } else {
+                when (currentArea.toWidgetType()) {
+                    WidgetType.STUDENT -> {
+                        Triple(
+                            getString(R.string.break_fast),
+                            getString(R.string.lunch_text),
+                            null
+                        )
+                    }
+                    WidgetType.MYONGJIN -> {
+                        Triple(
+                            getString(R.string.rice),
+                            getString(R.string.salad),
+                            getString(R.string.fried_rice)
+                        )
+                    }
+                    else -> {
+                        Triple(
+                            getString(R.string.lunch_a_text),
+                            getString(R.string.dinner_text),
+                            null
+                        )
+                    }
+                }
+            }
+        } ?: return Triple(null, null, null)
+    }
+
+
 
     fun updateWidget(context: Context, updateViews: RemoteViews) {
         val widgetProvider = ComponentName(context, MenuWidget::class.java)
