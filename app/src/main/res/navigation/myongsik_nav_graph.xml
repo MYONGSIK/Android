@@ -128,6 +128,9 @@
         <action
             android:id="@+id/action_fragment_select_home_to_fragment_search"
             app:destination="@id/fragment_search" />
+        <action
+            android:id="@+id/action_fragment_select_home_to_widgetSettingFragment"
+            app:destination="@id/widgetSettingFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragment_map"
@@ -137,5 +140,11 @@
         <action
             android:id="@+id/action_fragment_map_to_fragment_search"
             app:destination="@id/fragment_search" />
+    </fragment>
+    <fragment
+        android:id="@+id/widgetSettingFragment"
+        android:name="com.myongsik.myongsikandroid.ui.view.food.WidgetSettingFragment"
+        android:label="WidgetSettingFragment"
+        tools:layout="@layout/fragment_widget_setting">
     </fragment>
 </navigation>
