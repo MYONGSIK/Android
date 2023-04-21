@@ -65,6 +65,10 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
     }
 
     private fun initMapView(){
+        rankResponseObserve()
+    }
+
+    private fun rankResponseObserve() {
         homeViewModel.rankRestaurantResponse.observe(viewLifecycleOwner) { response ->
             response.data.content.forEach { item ->
                 //현재 이름이 바뀌여있음
