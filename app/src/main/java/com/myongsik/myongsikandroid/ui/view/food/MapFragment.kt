@@ -75,19 +75,20 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
                 val latitude = item.longitude // 위도
                 val longitude = item.latitude // 경도
                 if(latitude != null && longitude != null){
-                    marker = MapPOIItem()
-                    // 클릭했을 때 해당 가게 이름
-                    marker.itemName = item.scrapCount.toString()
-                    marker.tag = item.storeId
-                    marker.mapPoint = MapPoint.mapPointWithGeoCoord(latitude.toDouble(), longitude.toDouble())
-                    // 현재 기본 마커 사용 추 후에 커스텀해서 바꿔야함
-                    val customBitmap = createCustomMarkerBitmap(item.scrapCount.toString())
-                    marker.customImageBitmap = customBitmap
-                    marker.markerType = MapPOIItem.MarkerType.CustomImage
-                    marker.setCustomImageAnchor(0.5f, 1.0f)
+                    val marker = MapPOIItem().apply {
+                        itemName = item.scrapCount.toString()
+                        tag = item.storeId
+                        mapPoint = MapPoint.mapPointWithGeoCoord(latitude.toDouble(), longitude.toDouble())
+                        val customBitmap = createCustomMarkerBitmap(item.scrapCount.toString())
+                        customImageBitmap = customBitmap
+                        markerType = MapPOIItem.MarkerType.CustomImage
+                        setCustomImageAnchor(0.5f, 1.0f)
+                    }
 
-                    mapView.addPOIItem(marker) // 지도에 마커 추가
-                    mapView.setPOIItemEventListener(this)
+                    mapView.apply {
+                        addPOIItem(marker)
+                        setPOIItemEventListener(this@MapFragment)
+                    }
                 }
             }
         }
@@ -132,13 +133,14 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
 
             val originalBitmap = createCustomMarkerBitmap(prevMarker.itemName)
 
-            val restoredMarker = MapPOIItem()
-            restoredMarker.itemName = prevMarker.itemName
-            restoredMarker.tag = prevMarker.tag
-            restoredMarker.mapPoint = prevMarker.mapPoint
-            restoredMarker.customImageBitmap = originalBitmap
-            restoredMarker.markerType = MapPOIItem.MarkerType.CustomImage
-            restoredMarker.setCustomImageAnchor(0.5f, 1.0f)
+            val restoredMarker = MapPOIItem().apply {
+                itemName = prevMarker.itemName
+                tag = prevMarker.tag
+                mapPoint = prevMarker.mapPoint
+                customImageBitmap = originalBitmap
+                markerType = MapPOIItem.MarkerType.CustomImage
+                setCustomImageAnchor(0.5f, 1.0f)
+            }
 
             p0?.addPOIItem(restoredMarker)
         }
@@ -146,13 +148,14 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         p0?.removePOIItem(p1)
         val selectedBitmap = createSelectedCustomMarkerBitmap(p1.itemName)
 
-        val newMarker = MapPOIItem()
-        newMarker.itemName = p1.itemName
-        newMarker.tag = p1.tag
-        newMarker.mapPoint = p1.mapPoint
-        newMarker.customImageBitmap = selectedBitmap
-        newMarker.markerType = MapPOIItem.MarkerType.CustomImage
-        newMarker.setCustomImageAnchor(0.5f, 1.0f)
+        val newMarker = MapPOIItem().apply {
+            itemName = p1.itemName
+            tag = p1.tag
+            mapPoint = p1.mapPoint
+            customImageBitmap = selectedBitmap
+            markerType = MapPOIItem.MarkerType.CustomImage
+            setCustomImageAnchor(0.5f, 1.0f)
+        }
 
         // 새로운 마커를 지도에 추가
         p0?.addPOIItem(newMarker)
