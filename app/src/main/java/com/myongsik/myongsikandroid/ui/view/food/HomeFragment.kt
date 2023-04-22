@@ -10,12 +10,15 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
@@ -59,6 +62,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initView() {
+        showBottomSheetDialog()
         initData()
         initViewPager()
         initViews()
@@ -338,5 +342,26 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             DINNER_H = homeViewModel.getDinnerHEvaluation()
             LUNCH_A_GOOD_H = homeViewModel.getLunchHEvaluation()
         }
+    }
+
+    private fun showBottomSheetDialog() {
+        val view = layoutInflater.inflate(R.layout.dialog_bottom_update_sheet, null)
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        bottomSheetDialog.setContentView(view)
+        bottomSheetDialog.show()
+
+        val bottomSheetBehavior = BottomSheetBehavior.from(view.parent as View)
+
+        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    bottomSheetDialog.dismiss()
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+            }
+        })
     }
 }
