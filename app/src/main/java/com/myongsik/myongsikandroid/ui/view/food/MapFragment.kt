@@ -71,9 +71,8 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
     private fun rankResponseObserve() {
         homeViewModel.rankRestaurantResponse.observe(viewLifecycleOwner) { response ->
             response.data.content.forEach { item ->
-                //현재 이름이 바뀌여있음
-                val latitude = item.longitude // 위도
-                val longitude = item.latitude // 경도
+                val latitude = item.longitude
+                val longitude = item.latitude
                 if(latitude != null && longitude != null){
                     val marker = MapPOIItem().apply {
                         itemName = item.scrapCount.toString()
@@ -126,7 +125,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         return bitmap
     }
 
-    //선택된 마커
     override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem) {
         previouslySelectedMarker?.let { prevMarker ->
             p0?.removePOIItem(prevMarker)
@@ -157,7 +155,6 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
             setCustomImageAnchor(0.5f, 1.0f)
         }
 
-        // 새로운 마커를 지도에 추가
         p0?.addPOIItem(newMarker)
         previouslySelectedMarker = newMarker
         p0?.invalidate()
