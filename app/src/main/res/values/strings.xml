@@ -6,7 +6,7 @@
     <string name="home_time_life_tv">운영시간 │ 중식 11:30~13:30 | 석식 17:00 ~ 18:30</string>
     <string name="home_time_staff_tv">운영시간 │ 중식 11:30~13:30 | 석식 17:30 ~ 18:30</string>
     <string name="home_time_student_tv">운영시간 │ 조식 8:30~9:30 | 중식 10:00 ~ 15:00</string>
-    <string name="home_time_myonog_tv">운영시간 │ 백반 11:30~14:30 샐러드,볶음밥 10:00 ~ 15:00</string>
+    <string name="home_time_myonog_tv">운영시간 │ 백반 11:30~14:30 샐러드,볶음밥 11:00 ~ 16:00</string>
 
     <string name="home_launch_time">중식 운영시간 11:30 ~14:00 </string>
     <string name="home_dinner_time">석식 운영시간 17:30 ~19:00</string>
@@ -58,9 +58,9 @@
 
 
     <string name="select_new_restaurant">명진당</string>
-    <string name="select_new_restaurant_time">운영시간\n백반 11:30~14:30 \n샐러드,볶음밥 10:00 ~ 15:00</string>
+    <string name="select_new_restaurant_time">운영시간\n백반 11:30~14:30 \n샐러드,볶음밥 11:00 ~ 16:00</string>
     <string name="select_new_rice_time">백반 운영시간 11:30~14:30</string>
-    <string name="select_new_salad_time">샐러드,볶음밥 운영시간 10:00 ~ 15:00</string>
+    <string name="select_new_salad_time">샐러드,볶음밥 운영시간 11:00 ~ 16:00</string>
 
     <string name="splash_myongji_title_text">명지대 학식 식단표 제공 앱</string>
     <string name="tag_myongji_good_food">#명지 맛집</string>
