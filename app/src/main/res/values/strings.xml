@@ -135,4 +135,6 @@
     <string name="widget_title">위젯 설정</string>
     <string name="widget_text">앱을 접속하지 않고도 원하는 식당 한 곳을 \n설정하여 위젯으로 메뉴를 확인할 수 있어요!</string>
 
+    <string name="preference_key_see">업데이트 다이얼로그</string>
+
 </resources>
