@@ -136,7 +136,7 @@ object CommonUtil {
                     }
                     else -> {
                         Triple(
-                            getString(R.string.lunch_a_text),
+                            getString(R.string.lunch_text),
                             getString(R.string.dinner_text),
                             null
                         )

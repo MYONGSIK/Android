@@ -10,19 +10,23 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
+import com.myongsik.myongsikandroid.databinding.DialogBottomUpdateSheetBinding
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.MyPagerAdapter
 import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
-import com.myongsik.myongsikandroid.util.CommonUtil
+import com.myongsik.myongsikandroid.util.*
 import com.myongsik.myongsikandroid.util.Constant.DINNER
 import com.myongsik.myongsikandroid.util.Constant.DINNER_H
 import com.myongsik.myongsikandroid.util.Constant.DINNER_S
@@ -30,9 +34,6 @@ import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD_H
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD_S
 import com.myongsik.myongsikandroid.util.Constant.LUNCH_B_GOOD
-import com.myongsik.myongsikandroid.util.DialogUtils
-import com.myongsik.myongsikandroid.util.MyongsikApplication
-import com.myongsik.myongsikandroid.util.NetworkUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -59,6 +60,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     override fun initView() {
+        if(MyongsikApplication.prefs.getString(PreferenceKey.UPDATE_KEY, getString(R.string.preference_key_see)) == getString(R.string.preference_key_see)) {
+            showBottomSheetDialog()
+        }
         initData()
         initViewPager()
         initViews()
@@ -338,5 +342,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             DINNER_H = homeViewModel.getDinnerHEvaluation()
             LUNCH_A_GOOD_H = homeViewModel.getLunchHEvaluation()
         }
+    }
+
+    private fun showBottomSheetDialog() {
+        val binding = DialogBottomUpdateSheetBinding.inflate(layoutInflater)
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        bottomSheetDialog.setContentView(binding.root)
+        bottomSheetDialog.show()
+
+        binding.bottomUpdateNotSeeCl.setOnClickListener {
+            MyongsikApplication.prefs.setString(PreferenceKey.UPDATE_KEY, getString(R.string.update_not_see))
+            bottomSheetDialog.dismiss()
+        }
+
+        val bottomSheetBehavior = BottomSheetBehavior.from(binding.root.parent as View)
+
+        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    bottomSheetDialog.dismiss()
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+            }
+        })
     }
 }
