@@ -10,7 +10,6 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
@@ -352,6 +351,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
         binding.bottomUpdateNotSeeCl.setOnClickListener {
             MyongsikApplication.prefs.setString(PreferenceKey.UPDATE_KEY, getString(R.string.update_not_see))
+            bottomSheetDialog.dismiss()
+        }
+
+        binding.bottomBatteryExceptionCl.setOnClickListener {
+            CommonUtil.batteryExceptionDialog(context)
             bottomSheetDialog.dismiss()
         }
 

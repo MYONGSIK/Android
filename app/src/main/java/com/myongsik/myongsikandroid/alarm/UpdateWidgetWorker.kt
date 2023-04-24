@@ -29,8 +29,7 @@ class UpdateWidgetWorker @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted params: WorkerParameters,
     private var repository: FoodRepository
-) :
-    Worker(context, params) {
+) : Worker(context, params) {
 
     override fun doWork(): Result {
         GlobalScope.launch {

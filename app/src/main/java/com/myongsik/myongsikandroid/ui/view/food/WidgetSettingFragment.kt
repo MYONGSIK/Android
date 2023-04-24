@@ -16,6 +16,7 @@ import com.myongsik.myongsikandroid.alarm.UpdateWidgetWorker
 import com.myongsik.myongsikandroid.data.type.WidgetType
 import com.myongsik.myongsikandroid.databinding.FragmentWidgetSettingBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.food.WidgetSettingViewModel
+import com.myongsik.myongsikandroid.util.CommonUtil
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint class WidgetSettingFragment : BaseFragment<FragmentWidgetSettingBinding>() {
@@ -73,6 +74,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
             widgetBackBtnIv.setOnClickListener {
                 findNavController().popBackStack()
+            }
+            bottomBatteryExceptionCl.setOnClickListener {
+                CommonUtil.batteryExceptionDialog(context)
             }
         }
     }

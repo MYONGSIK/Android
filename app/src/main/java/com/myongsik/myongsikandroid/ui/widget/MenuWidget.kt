@@ -2,23 +2,13 @@ package com.myongsik.myongsikandroid.ui.widget
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
-import android.content.ComponentName
 import android.content.Context
 import android.util.Log
-import android.widget.RemoteViews
-import androidx.room.Update
 import androidx.work.*
-import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.alarm.UpdateWidgetWorker
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
-import com.myongsik.myongsikandroid.util.CommonUtil
-import com.myongsik.myongsikandroid.util.DateUtil
 import com.myongsik.myongsikandroid.util.NetworkUtils
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
