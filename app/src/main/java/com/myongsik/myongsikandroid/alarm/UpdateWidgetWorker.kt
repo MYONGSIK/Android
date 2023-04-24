@@ -15,6 +15,7 @@ import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.myongsikandroid.util.DateUtil
+import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +41,12 @@ class UpdateWidgetWorker @AssistedInject constructor(
 
     private suspend fun getMeals() {
         withContext(Dispatchers.Main) {
-            val currentArea = repository.getCurrentWidgetType().firstOrNull() ?: ""
+            val currentArea = if (MyongsikApplication.prefs.getUserCampus() == "S") {
+                context.getString(R.string.user_area_mcc)
+            } else {
+                repository.getCurrentWidgetType().firstOrNull() ?: context.getString(R.string.user_area_l)
+            }
+
             val response = repository.dayGetFoodArea(currentArea)
             val meals = if (response.isSuccessful) {
                 response.body()?.data?.map { Pair(it.mealType, it.meals) } ?: emptyList()

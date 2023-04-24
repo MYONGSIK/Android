@@ -53,7 +53,7 @@ interface FoodRepository {
 
     suspend fun getCurrentSortType(): Flow<String>
 
-    suspend fun getCurrentWidgetType(): Flow<String>
+    suspend fun getCurrentWidgetType(): Flow<String?>
 
     //Room
     suspend fun insertFoods(restaurant: Restaurant)

@@ -36,11 +36,12 @@ class WidgetSettingViewModel @Inject constructor(private val foodRepository: Foo
     fun getCheckData() {
         viewModelScope.launch {
             foodRepository.getCurrentWidgetType().collectLatest {
-                when(it.toWidgetType()) {
+                when(it?.toWidgetType()) {
                     WidgetType.DORMITORY -> checkDormitory()
                     WidgetType.MYONGJIN -> checkMyongjin()
                     WidgetType.STUDENT -> checkStudent()
                     WidgetType.TEACHER -> checkTeacher()
+                    else -> checkDormitory()
                 }
             }
         }

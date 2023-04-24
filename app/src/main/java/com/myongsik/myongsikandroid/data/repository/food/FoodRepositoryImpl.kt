@@ -284,7 +284,7 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
-    override suspend fun getCurrentWidgetType(): Flow<String> {
+    override suspend fun getCurrentWidgetType(): Flow<String?> {
         return dataStore.data //data 메서드
             .catch { exception ->
                 if (exception is IOException) {
@@ -295,7 +295,7 @@ class FoodRepositoryImpl @Inject constructor(
                 }
             }
             .map { prefs ->
-                prefs[DataStoreKey.WIDGET_TYPE] ?: ""
+                prefs[DataStoreKey.WIDGET_TYPE]
             }
     }
 
