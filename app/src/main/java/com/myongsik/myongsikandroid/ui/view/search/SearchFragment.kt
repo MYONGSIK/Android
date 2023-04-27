@@ -1,7 +1,5 @@
 package com.myongsik.myongsikandroid.ui.view.search
 
-import android.content.Context
-import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -10,7 +8,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -24,7 +21,6 @@ import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.kakao.toRankRestaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
-import com.myongsik.myongsikandroid.databinding.FragmentTagBinding
 import com.myongsik.myongsikandroid.ui.adapter.food.OnScrapViewHolderClick
 import com.myongsik.myongsikandroid.ui.adapter.food.RankHeaderAdapter
 import com.myongsik.myongsikandroid.ui.adapter.food.RankRestaurantAdapter

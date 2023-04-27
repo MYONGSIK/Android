@@ -1,6 +1,5 @@
 package com.myongsik.myongsikandroid.ui.view.food
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.view.LayoutInflater
@@ -14,7 +13,6 @@ import com.myongsik.myongsikandroid.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentMapBinding
 import com.myongsik.myongsikandroid.ui.viewmodel.food.HomeViewModel
-import com.myongsik.myongsikandroid.ui.viewmodel.search.LoveViewModel
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint

@@ -2,10 +2,10 @@ package com.myongsik.myongsikandroid.ui.viewmodel.food
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.myongsik.myongsikandroid.BaseViewModel
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
-import com.myongsik.myongsikandroid.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
