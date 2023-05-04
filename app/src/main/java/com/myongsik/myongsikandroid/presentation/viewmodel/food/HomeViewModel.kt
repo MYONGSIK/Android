@@ -3,11 +3,14 @@ package com.myongsik.myongsikandroid.presentation.viewmodel.food
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.myongsik.myongsikandroid.data.model.food.*
+import com.myongsik.myongsikandroid.BaseViewModel
+import com.myongsik.myongsikandroid.data.model.food.RankRestaurantResponse
+import com.myongsik.myongsikandroid.data.model.food.ResponseMealData
+import com.myongsik.myongsikandroid.data.model.food.ResponseOneRestaurant
+import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
-import com.myongsik.myongsikandroid.BaseViewModel
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -116,8 +119,8 @@ class HomeViewModel @Inject constructor(
 
     fun getMapRankRestaurant() = launch {
         when (MyongsikApplication.prefs.getUserCampus()) {
-            Constant.S -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.SEOUL, Int.MAX_VALUE)
-            Constant.Y -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.YONGIN, Int.MAX_VALUE)
+            Constant.S -> start("${Constant.SCRAP_COUNT},${Constant.ASC}", Constant.SEOUL, Int.MAX_VALUE)
+            Constant.Y -> start("${Constant.SCRAP_COUNT},${Constant.ASC}", Constant.YONGIN, Int.MAX_VALUE)
         }
     }
 

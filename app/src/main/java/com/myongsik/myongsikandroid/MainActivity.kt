@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.myongsik.myongsikandroid.alarm.AlarmBroadCastReceiver
@@ -31,6 +32,10 @@ class MainActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
 
+        binding.bottomNavigationView.setOnItemReselectedListener{
+            false
+        }
+
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.fragment_home -> {
@@ -46,12 +51,12 @@ class MainActivity : AppCompatActivity() {
                     return@setOnItemSelectedListener true
                 }
                 R.id.fragment_search -> {
-                        navController.navigate(R.id.fragment_search)
-                        return@setOnItemSelectedListener true
+                    navController.navigate(R.id.fragment_search)
+                    return@setOnItemSelectedListener true
                 }
                 R.id.fragment_love -> {
-                        navController.navigate(R.id.fragment_love)
-                        return@setOnItemSelectedListener true
+                    navController.navigate(R.id.fragment_love)
+                    return@setOnItemSelectedListener true
                 }
                 // 다른 항목에 대한 처리 추가 가능
                 else -> {
@@ -87,7 +92,4 @@ class MainActivity : AppCompatActivity() {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime.timeInMillis, AlarmManager.INTERVAL_DAY, pIntent)
 
     }
-
-
-
 }

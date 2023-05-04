@@ -7,11 +7,7 @@ import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface HomeFoodApi {
 

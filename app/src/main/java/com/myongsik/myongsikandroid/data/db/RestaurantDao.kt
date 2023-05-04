@@ -1,7 +1,5 @@
 package com.myongsik.myongsikandroid.data.db
 
-import androidx.lifecycle.LiveData
-import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant

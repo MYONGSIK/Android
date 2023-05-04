@@ -2,6 +2,7 @@ package com.myongsik.myongsikandroid.presentation.view.food
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -124,40 +125,47 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
     }
 
     override fun onPOIItemSelected(p0: MapView?, p1: MapPOIItem) {
-        previouslySelectedMarker?.let { prevMarker ->
-            p0?.removePOIItem(prevMarker)
+        if (previouslySelectedMarker != null && previouslySelectedMarker?.tag == p1.tag) {
+            // 동일한 마커가 다시 클릭되었을 때
+            p0?.deselectPOIItem(p1)
+            previouslySelectedMarker = null
+            return
+        } else {
+            previouslySelectedMarker?.let { prevMarker ->
+                p0?.removePOIItem(prevMarker)
 
-            val originalBitmap = createCustomMarkerBitmap(prevMarker.itemName)
+                val originalBitmap = createCustomMarkerBitmap(prevMarker.itemName)
 
-            val restoredMarker = MapPOIItem().apply {
-                itemName = prevMarker.itemName
-                tag = prevMarker.tag
-                mapPoint = prevMarker.mapPoint
-                customImageBitmap = originalBitmap
+                val restoredMarker = MapPOIItem().apply {
+                    itemName = prevMarker.itemName
+                    tag = prevMarker.tag
+                    mapPoint = prevMarker.mapPoint
+                    customImageBitmap = originalBitmap
+                    markerType = MapPOIItem.MarkerType.CustomImage
+                    setCustomImageAnchor(0.5f, 1.0f)
+                }
+
+                p0?.addPOIItem(restoredMarker)
+            }
+            // 기존 마커를 지도에서 제거
+            p0?.removePOIItem(p1)
+            val selectedBitmap = createSelectedCustomMarkerBitmap(p1.itemName)
+
+            val newMarker = MapPOIItem().apply {
+                itemName = p1.itemName
+                tag = p1.tag
+                mapPoint = p1.mapPoint
+                customImageBitmap = selectedBitmap
                 markerType = MapPOIItem.MarkerType.CustomImage
                 setCustomImageAnchor(0.5f, 1.0f)
             }
 
-            p0?.addPOIItem(restoredMarker)
+            p0?.addPOIItem(newMarker)
+            previouslySelectedMarker = newMarker
+            p0?.invalidate()
+
+            showBottomSheetDialog(p1.tag)
         }
-        // 기존 마커를 지도에서 제거
-        p0?.removePOIItem(p1)
-        val selectedBitmap = createSelectedCustomMarkerBitmap(p1.itemName)
-
-        val newMarker = MapPOIItem().apply {
-            itemName = p1.itemName
-            tag = p1.tag
-            mapPoint = p1.mapPoint
-            customImageBitmap = selectedBitmap
-            markerType = MapPOIItem.MarkerType.CustomImage
-            setCustomImageAnchor(0.5f, 1.0f)
-        }
-
-        p0?.addPOIItem(newMarker)
-        previouslySelectedMarker = newMarker
-        p0?.invalidate()
-
-        showBottomSheetDialog(p1.tag)
     }
 
     private fun showBottomSheetDialog(restaurantId: Int) {

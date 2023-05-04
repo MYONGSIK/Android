@@ -7,7 +7,6 @@ import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import com.myongsik.myongsikandroid.data.model.user.toRequestUserEntity
 import com.myongsik.myongsikandroid.data.model.user.toResponseUserData
-import com.myongsik.myongsikandroid.domain.model.RequestUserEntity
 import com.myongsik.myongsikandroid.domain.user.PostUserDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp
+import net.daum.mf.map.api.MapView
 import javax.inject.Inject
 
 @HiltAndroidApp
