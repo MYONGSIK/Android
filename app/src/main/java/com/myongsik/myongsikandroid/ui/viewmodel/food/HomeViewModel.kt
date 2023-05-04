@@ -119,8 +119,8 @@ class HomeViewModel @Inject constructor(
 
     fun getMapRankRestaurant() = launch {
         when (MyongsikApplication.prefs.getUserCampus()) {
-            Constant.S -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.SEOUL, Int.MAX_VALUE)
-            Constant.Y -> start("${Constant.SCRAP_COUNT},${Constant.DESC}", Constant.YONGIN, Int.MAX_VALUE)
+            Constant.S -> start("${Constant.SCRAP_COUNT},${Constant.ASC}", Constant.SEOUL, Int.MAX_VALUE)
+            Constant.Y -> start("${Constant.SCRAP_COUNT},${Constant.ASC}", Constant.YONGIN, Int.MAX_VALUE)
         }
     }
 
