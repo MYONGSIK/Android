@@ -30,11 +30,6 @@ interface HomeFoodApi {
         @Body body: RequestReviewData
     ): Response<ResponseReviewData>
 
-    @POST("/api/v2/users")
-    suspend fun postUser(
-        @Body body: RequestUserData
-    ): Response<ResponseUserData>
-
     @POST("/api/v2/meals/evaluate")
     suspend fun postMeal(
         @Body body: RequestMealData

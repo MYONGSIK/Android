@@ -20,8 +20,6 @@ interface FoodRepository {
 
     suspend fun postReview(requestReviewData: RequestReviewData): Response<ResponseReviewData>
 
-    suspend fun postUser(requestUserData: RequestUserData): Response<ResponseUserData>
-
     suspend fun postScrapRestaurant(requestScrap: RequestScrap): Response<ResponseScrap>
 
     suspend fun getRankRestaurant(sort : String, campus : String, size : Int) : Response<RankRestaurantResponse>

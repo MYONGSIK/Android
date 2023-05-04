@@ -53,10 +53,6 @@ class FoodRepositoryImpl @Inject constructor(
         return api.postReview(requestReviewData)
     }
 
-    override suspend fun postUser(requestUserData: RequestUserData): Response<ResponseUserData> {
-        return api.postUser(requestUserData)
-    }
-
     override suspend fun postScrapRestaurant(requestScrap: RequestScrap): Response<ResponseScrap> {
         return api.postRestaurantScrap(requestScrap)
     }

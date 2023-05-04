@@ -8,6 +8,7 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
 import com.myongsik.myongsikandroid.data.api.SearchFoodApi
+import com.myongsik.myongsikandroid.data.api.UserApi
 import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.Constant.DATASTORE_NAME
@@ -63,6 +64,17 @@ object AppModule {
     fun provideSearchFoodApi(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): SearchFoodApi {
         return Retrofit.Builder()
             .baseUrl(Constant.KAKAO_BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+            .create()
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserApi(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): UserApi {
+        return Retrofit.Builder()
+            .baseUrl(Constant.MYONG_SIK_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(gsonConverterFactory)
             .build()
