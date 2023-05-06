@@ -295,11 +295,6 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
-    //장소 찜꽁리스트에 저장
-    override suspend fun insertFoods(restaurant: Restaurant) {
-        db.restaurantDao().insertGoodFood(restaurant)
-    }
-
     //장소 찜콩리스트에서 삭제
     override suspend fun deleteFoods(restaurant: Restaurant) {
         db.restaurantDao().deleteBook(restaurant)
