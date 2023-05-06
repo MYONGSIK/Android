@@ -27,7 +27,6 @@ import java.util.*
 
 class MyPagerAdapter(
     private val itemList: List<List<List<String>>>,
-    private val homeViewModel: HomeViewModel
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

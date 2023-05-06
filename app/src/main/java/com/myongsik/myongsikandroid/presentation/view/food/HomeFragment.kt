@@ -113,7 +113,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
 
             with(binding) {
-                viewPager2.adapter = MyPagerAdapter(chunkedList, homeViewModel)
+                viewPager2.adapter = MyPagerAdapter(chunkedList)
                 viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
                 setCurrentPage(initDate)
                 indicator.setViewPager(viewPager2)
