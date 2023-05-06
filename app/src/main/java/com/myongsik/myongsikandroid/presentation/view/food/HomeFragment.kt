@@ -65,7 +65,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         initData()
         initViewPager()
         initViews()
-        setEvaluationData()
         chekNetwork()
         checkWeekend()
     }
@@ -222,27 +221,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         })
     }
 
-    //하루가 지났을 때 AlarmManager 가 실행되면서 DataStore 가 초기화됐을 때
-    private fun setEvaluationData() {
-        if (MyongsikApplication.prefs.getString("key", "null") == "gg") { //하루가 지나고 DataStore 초기화 후 prefs 값을 변경시켜줌으로써 다음에는 초기화 안되게 막아둠
-            initEvaluation()
-        } else {
-            getEvaluation()
-        }
-    }
-
-    private fun initEvaluation() {
-        LUNCH_A_GOOD = ""
-        LUNCH_B_GOOD = ""
-        DINNER = ""
-        LUNCH_A_GOOD_S = ""
-        DINNER_S = ""
-        LUNCH_A_GOOD_H = ""
-        DINNER_H = ""
-        defaultDataStore()
-        MyongsikApplication.prefs.setString("key", "todayStart")
-    }
-
     //네트워크 연결 되어있는지 확인
     private fun chekNetwork() {
         if (!NetworkUtils.getNetworkConnected(context)) { //실패했을 경우
@@ -321,26 +299,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun setCurrentPage(value: Int) {
         binding.viewPager2.setCurrentItem(value - 1, false)
-    }
-
-    //하루가 지났을 때 DataStore 를 초기화함
-    private fun defaultDataStore() {
-        lifecycleScope.launch {
-            homeViewModel.defaultDataStore()
-        }
-    }
-
-    //중식 평가 불러오기
-    private fun getEvaluation() {
-        lifecycleScope.launch { //현재 불러온 값에 따라 값을 저장
-            LUNCH_A_GOOD = homeViewModel.getLunchEvaluation()
-            LUNCH_B_GOOD = homeViewModel.getLunchBEvaluation()
-            DINNER = homeViewModel.getDinnerEvaluation()
-            DINNER_S = homeViewModel.getDinnerSEvaluation()
-            LUNCH_A_GOOD_S = homeViewModel.getLunchSEvaluation()
-            DINNER_H = homeViewModel.getDinnerHEvaluation()
-            LUNCH_A_GOOD_H = homeViewModel.getLunchHEvaluation()
-        }
     }
 
     private fun showBottomSheetDialog() {

@@ -5,7 +5,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
-import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -15,15 +14,6 @@ import com.myongsik.myongsikandroid.data.model.food.*
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
-import com.myongsik.myongsikandroid.data.model.user.RequestUserData
-import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
-import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION
-import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION_H
-import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION_S
-import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_A_EVALUATION_H
-import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_A_EVALUATION_S
-import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_B_EVALUATION
-import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_EVALUATION
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.DataStoreKey
 import kotlinx.coroutines.flow.Flow
@@ -66,57 +56,6 @@ class FoodRepositoryImpl @Inject constructor(
     }
 
     //DataStore
-    private object PreferencesKeys {
-        val LUNCH_EVALUATION = stringPreferencesKey("lunch_evaluation")
-        val LUNCH_B_EVALUATION = stringPreferencesKey("lunch_b_evaluation")
-        val DINNER_EVALUATION = stringPreferencesKey("dinner_evaluation")
-        val DINNER_EVALUATION_S = stringPreferencesKey("dinner_s_evaluation")
-        val LUNCH_A_EVALUATION_S = stringPreferencesKey("lunch_s_evaluation")
-        val DINNER_EVALUATION_H = stringPreferencesKey("dinner_h_evaluation")
-        val LUNCH_A_EVALUATION_H = stringPreferencesKey("lunch_h_evaluation")
-    }
-
-    //중식 A, B 석식 평가 저장
-    override suspend fun saveLunchEvaluation(type: String, evaluation: String) {
-        when (type) {
-            "A" -> {
-                dataStore.edit { prefs ->
-                    prefs[LUNCH_EVALUATION] = evaluation
-                }
-            }
-            "B" -> {
-                dataStore.edit { prefs ->
-                    prefs[LUNCH_B_EVALUATION] = evaluation
-                }
-            }
-            "D" -> {
-                dataStore.edit { prefs ->
-                    prefs[DINNER_EVALUATION] = evaluation
-                }
-            }
-            "DS" -> {
-                dataStore.edit { prefs ->
-                    prefs[DINNER_EVALUATION_S] = evaluation
-                }
-            }
-            "AS" -> {
-                dataStore.edit { prefs ->
-                    prefs[LUNCH_A_EVALUATION_S] = evaluation
-                }
-            }
-            "AH" -> {
-                dataStore.edit { prefs ->
-                    prefs[LUNCH_A_EVALUATION_H] = evaluation
-                }
-            }
-            "DH" -> {
-                dataStore.edit { prefs ->
-                    prefs[DINNER_EVALUATION_H] = evaluation
-                }
-            }
-        }
-    }
-
     override suspend fun saveSortType(key: Preferences.Key<String>, value: String) {
         dataStore.edit { prefs ->
             prefs[key] = value
@@ -127,142 +66,6 @@ class FoodRepositoryImpl @Inject constructor(
         dataStore.edit { prefs ->
             prefs[DataStoreKey.WIDGET_TYPE] = type
         }
-    }
-
-    //DataStore 초기화
-    override suspend fun defaultDataStore() {
-        dataStore.edit { prefs ->
-            prefs[LUNCH_EVALUATION] = ""
-        }
-        dataStore.edit { prefs ->
-            prefs[LUNCH_B_EVALUATION] = ""
-        }
-        dataStore.edit { prefs ->
-            prefs[DINNER_EVALUATION] = ""
-        }
-        dataStore.edit { prefs ->
-            prefs[LUNCH_A_EVALUATION_S] = ""
-        }
-        dataStore.edit { prefs ->
-            prefs[DINNER_EVALUATION_S] = ""
-        }
-        dataStore.edit { prefs ->
-            prefs[LUNCH_A_EVALUATION_H] = ""
-        }
-        dataStore.edit { prefs ->
-            prefs[DINNER_EVALUATION_H] = ""
-        }
-    }
-
-    override suspend fun getLunchEvaluation(): Flow<String> {
-        return dataStore.data
-            .catch { exception ->
-                if (exception is IOException) {
-                    exception.printStackTrace()
-                    emit(emptyPreferences())
-                } else {
-                    throw exception
-                }
-            }
-            .map { prefs ->
-                prefs[LUNCH_EVALUATION] ?: ""
-            }
-    }
-
-    override suspend fun getLunchBEvaluation(): Flow<String> {
-        return dataStore.data //data 메서드
-            //실패 했을 대비에 예외처리
-            .catch { exception ->
-                if (exception is IOException) {
-                    exception.printStackTrace()
-                    emit(emptyPreferences())
-                } else {
-                    throw exception
-                }
-            }
-            .map { prefs ->
-                prefs[LUNCH_B_EVALUATION] ?: ""
-            }
-    }
-
-    override suspend fun getDinnerEvaluation(): Flow<String> {
-        return dataStore.data //data 메서드
-            //실패 했을 대비에 예외처리
-            .catch { exception ->
-                if (exception is IOException) {
-                    exception.printStackTrace()
-                    emit(emptyPreferences())
-                } else {
-                    throw exception
-                }
-            }
-            .map { prefs ->
-                prefs[DINNER_EVALUATION] ?: ""
-            }
-    }
-
-    override suspend fun getLunchSEvaluation(): Flow<String> {
-        return dataStore.data //data 메서드
-            //실패 했을 대비에 예외처리
-            .catch { exception ->
-                if (exception is IOException) {
-                    exception.printStackTrace()
-                    emit(emptyPreferences())
-                } else {
-                    throw exception
-                }
-            }
-            .map { prefs ->
-                prefs[LUNCH_A_EVALUATION_S] ?: ""
-            }
-    }
-
-    override suspend fun getDinnerSEvaluation(): Flow<String> {
-        return dataStore.data //data 메서드
-            //실패 했을 대비에 예외처리
-            .catch { exception ->
-                if (exception is IOException) {
-                    exception.printStackTrace()
-                    emit(emptyPreferences())
-                } else {
-                    throw exception
-                }
-            }
-            .map { prefs ->
-                prefs[DINNER_EVALUATION_S] ?: ""
-            }
-    }
-
-    override suspend fun getLunchHEvaluation(): Flow<String> {
-        return dataStore.data //data 메서드
-            //실패 했을 대비에 예외처리
-            .catch { exception ->
-                if (exception is IOException) {
-                    exception.printStackTrace()
-                    emit(emptyPreferences())
-                } else {
-                    throw exception
-                }
-            }
-            .map { prefs ->
-                prefs[LUNCH_A_EVALUATION_H] ?: ""
-            }
-    }
-
-    override suspend fun getDinnerHEvaluation(): Flow<String> {
-        return dataStore.data //data 메서드
-            //실패 했을 대비에 예외처리
-            .catch { exception ->
-                if (exception is IOException) {
-                    exception.printStackTrace()
-                    emit(emptyPreferences())
-                } else {
-                    throw exception
-                }
-            }
-            .map { prefs ->
-                prefs[DINNER_EVALUATION_H] ?: ""
-            }
     }
 
     override suspend fun getCurrentSortType(): Flow<String> {

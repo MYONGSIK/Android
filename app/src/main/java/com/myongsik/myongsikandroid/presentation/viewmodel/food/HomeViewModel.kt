@@ -53,46 +53,8 @@ class HomeViewModel @Inject constructor(
     }
 
     //DataStore
-    fun saveLunchEvaluation(type: String, value: String) = launch {
-        foodRepository.saveLunchEvaluation(type, value)
-    }
-
     fun saveSortType(key: Preferences.Key<String>, value: String) = launch {
         foodRepository.saveSortType(key, value)
-    }
-
-    //DataStore 초기화
-    suspend fun defaultDataStore() {
-        foodRepository.defaultDataStore()
-    }
-
-    //중식 평가 불러오기
-    suspend fun getLunchEvaluation() = withContext(Dispatchers.IO) {
-        foodRepository.getLunchEvaluation().first()
-    }
-
-    suspend fun getLunchBEvaluation() = withContext(Dispatchers.IO) {
-        foodRepository.getLunchBEvaluation().first()
-    }
-
-    suspend fun getDinnerEvaluation() = withContext(Dispatchers.IO) {
-        foodRepository.getDinnerEvaluation().first()
-    }
-
-    suspend fun getLunchHEvaluation() = withContext(Dispatchers.IO) {
-        foodRepository.getLunchHEvaluation().first()
-    }
-
-    suspend fun getDinnerHEvaluation() = withContext(Dispatchers.IO) {
-        foodRepository.getDinnerHEvaluation().first()
-    }
-
-    suspend fun getLunchSEvaluation() = withContext(Dispatchers.IO) {
-        foodRepository.getLunchSEvaluation().first()
-    }
-
-    suspend fun getDinnerSEvaluation() = withContext(Dispatchers.IO) {
-        foodRepository.getDinnerSEvaluation().first()
     }
 
     suspend fun getCurrentSortType() = withContext(Dispatchers.IO) {

@@ -27,27 +27,9 @@ interface FoodRepository {
     suspend fun getOneRestaurant(storeId : Int) : Response<ResponseOneRestaurant>
 
     //DataStore
-    suspend fun saveLunchEvaluation(type: String, evaluation: String)
-
     suspend fun saveSortType(key: Preferences.Key<String>, value: String)
 
     suspend fun saveWidgetType(type : String)
-
-    suspend fun defaultDataStore()
-
-    suspend fun getLunchEvaluation(): Flow<String>
-
-    suspend fun getLunchBEvaluation(): Flow<String>
-
-    suspend fun getDinnerEvaluation(): Flow<String>
-
-    suspend fun getLunchSEvaluation(): Flow<String>
-
-    suspend fun getDinnerSEvaluation(): Flow<String>
-
-    suspend fun getLunchHEvaluation(): Flow<String>
-
-    suspend fun getDinnerHEvaluation(): Flow<String>
 
     suspend fun getCurrentSortType(): Flow<String>
 
