@@ -2,6 +2,8 @@ package com.myongsik.myongsikandroid.di
 
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl
+import com.myongsik.myongsikandroid.data.repository.love.LoveRepository
+import com.myongsik.myongsikandroid.data.repository.love.LoveRepositoryImpl
 import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepository
 import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepositoryImpl
 import com.myongsik.myongsikandroid.data.repository.user.UserRepository
@@ -33,4 +35,10 @@ abstract class RepositoryModule {
     abstract fun bindUserRepository(
         userRepositoryImpl: UserRepositoryImpl
     ): UserRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindLoveRepository(
+        loveRepositoryImpl: LoveRepositoryImpl
+    ): LoveRepository
 }

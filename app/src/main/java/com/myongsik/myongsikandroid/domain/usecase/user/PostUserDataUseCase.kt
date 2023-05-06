@@ -1,8 +1,7 @@
-package com.myongsik.myongsikandroid.domain.user
+package com.myongsik.myongsikandroid.domain.usecase.user
 
 import com.myongsik.myongsikandroid.data.repository.user.UserRepository
-import com.myongsik.myongsikandroid.domain.UserCase
-import com.myongsik.myongsikandroid.domain.model.RequestUserEntity
+import com.myongsik.myongsikandroid.domain.model.user.RequestUserEntity
 import javax.inject.Inject
 
 class PostUserDataUseCase @Inject constructor(private val userRepository: UserRepository) : UserCase {

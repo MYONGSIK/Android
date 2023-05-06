@@ -1,7 +1,7 @@
 package com.myongsik.myongsikandroid.data.repository.user
 
-import com.myongsik.myongsikandroid.domain.model.RequestUserEntity
-import com.myongsik.myongsikandroid.domain.model.ResponseUserEntity
+import com.myongsik.myongsikandroid.domain.model.user.RequestUserEntity
+import com.myongsik.myongsikandroid.domain.model.user.ResponseUserEntity
 
 interface UserRepository {
 
