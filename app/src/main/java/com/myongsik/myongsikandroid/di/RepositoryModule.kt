@@ -1,5 +1,7 @@
 package com.myongsik.myongsikandroid.di
 
+import com.myongsik.myongsikandroid.data.datasource.restaurant.RestaurantDataSource
+import com.myongsik.myongsikandroid.data.datasource.restaurant.RestaurantDataSourceImpl
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl
 import com.myongsik.myongsikandroid.domain.repository.restaurant.RestaurantRepository
@@ -18,6 +20,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
 
+    //Repository
     @Singleton
     @Binds
     abstract fun bindFoodRepository(
@@ -38,7 +41,14 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun bindLoveRepository(
+    abstract fun bindRestaurantRepository(
         restaurantRepositoryImpl: RestaurantRepositoryImpl
     ): RestaurantRepository
+
+    //DataSource
+    @Singleton
+    @Binds
+    abstract fun bindRestaurantDataSource(
+        restaurantDataSource: RestaurantDataSourceImpl
+    ): RestaurantDataSource
 }
