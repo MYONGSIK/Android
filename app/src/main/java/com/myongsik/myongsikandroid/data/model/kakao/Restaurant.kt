@@ -4,7 +4,7 @@ package com.myongsik.myongsikandroid.data.model.kakao
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.myongsik.myongsikandroid.domain.model.love.InsertFoodEntity
+import com.myongsik.myongsikandroid.domain.model.restaurant.InsertRestaurantEntity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
@@ -40,32 +40,32 @@ data class Restaurant(
     val y: String
 ) : Parcelable
 
-fun InsertFoodEntity.toInsertFoodData() = Restaurant(
-    address_name = this.address_name,
-    category_group_code = this.category_group_code,
-    category_group_name = this.category_group_name,
-    category_name = this.category_name,
+fun InsertRestaurantEntity.toInsertFoodData() = Restaurant(
+    address_name = this.addressName,
+    category_group_code = this.categoryGroupCode,
+    category_group_name = this.categoryGroupName,
+    category_name = this.categoryName,
     distance = this.distance,
     id = this.id,
     phone = this.phone,
-    place_name = this.place_name,
-    place_url = this.place_url,
-    road_address_name = this.road_address_name,
+    place_name = this.placeName,
+    place_url = this.placeUrl,
+    road_address_name = this.roadAddressName,
     x = this.x,
     y = this.y
 )
 
-fun Restaurant.toInsertFoodEntity() = InsertFoodEntity(
-    address_name = this.address_name,
-    category_group_code = this.category_group_code,
-    category_group_name = this.category_group_name,
-    category_name = this.category_name,
+fun Restaurant.toInsertFoodEntity() = InsertRestaurantEntity(
+    addressName = this.address_name,
+    categoryGroupCode = this.category_group_code,
+    categoryGroupName = this.category_group_name,
+    categoryName = this.category_name,
     distance = this.distance,
     id = this.id,
     phone = this.phone,
-    place_name = this.place_name,
-    place_url = this.place_url,
-    road_address_name = this.road_address_name,
+    placeName = this.place_name,
+    placeUrl = this.place_url,
+    roadAddressName = this.road_address_name,
     x = this.x,
     y = this.y
 )

@@ -11,7 +11,7 @@ import com.myongsik.myongsikandroid.data.model.food.ResponseScrap
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.kakao.toInsertFoodEntity
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
-import com.myongsik.myongsikandroid.domain.usecase.love.InsertFoodDataUseCase
+import com.myongsik.myongsikandroid.domain.usecase.restaurant.InsertRestaurantDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,12 +21,12 @@ import javax.inject.Inject
 @HiltViewModel
 class LoveViewModel @Inject constructor(
     private val foodRepository: FoodRepository,
-    private val insertFoodDataUseCase: InsertFoodDataUseCase
+    private val insertRestaurantDataUseCase: InsertRestaurantDataUseCase
 ) : BaseViewModel() {
 
     //Room
     fun saveFoods(restaurant: Restaurant) = launch {
-        insertFoodDataUseCase(restaurant.toInsertFoodEntity())
+        insertRestaurantDataUseCase(restaurant.toInsertFoodEntity())
     }
 
     fun deleteFoods(restaurant: Restaurant) = launch {
