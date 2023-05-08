@@ -2,11 +2,11 @@ package com.myongsik.myongsikandroid.di
 
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl
-import com.myongsik.myongsikandroid.data.repository.restaurant.RestaurantRepository
+import com.myongsik.myongsikandroid.domain.repository.restaurant.RestaurantRepository
 import com.myongsik.myongsikandroid.data.repository.restaurant.RestaurantRepositoryImpl
 import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepository
 import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepositoryImpl
-import com.myongsik.myongsikandroid.data.repository.user.UserRepository
+import com.myongsik.myongsikandroid.domain.repository.user.UserRepository
 import com.myongsik.myongsikandroid.data.repository.user.UserRepositoryImpl
 import dagger.Binds
 import dagger.Module
