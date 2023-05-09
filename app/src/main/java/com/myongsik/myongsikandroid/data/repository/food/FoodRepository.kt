@@ -52,11 +52,4 @@ interface FoodRepository {
     suspend fun getCurrentSortType(): Flow<String>
 
     suspend fun getCurrentWidgetType(): Flow<String?>
-
-    //Room PagingData
-    fun getFoods(): Flow<PagingData<Restaurant>>
-
-    fun updateLove(id: String): Boolean
-
-    fun getLoveIsFood() : Flow<List<Restaurant>>
 }

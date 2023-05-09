@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import androidx.paging.map
 import com.myongsik.myongsikandroid.BaseViewModel
 import com.myongsik.myongsikandroid.data.model.food.RequestScrap
 import com.myongsik.myongsikandroid.data.model.food.ResponseScrap
@@ -12,12 +13,9 @@ import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.kakao.toRestaurantData
 import com.myongsik.myongsikandroid.data.model.kakao.toRestaurantEntity
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
-import com.myongsik.myongsikandroid.domain.usecase.restaurant.DeleteRestaurantDataUseCase
-import com.myongsik.myongsikandroid.domain.usecase.restaurant.InsertRestaurantDataUseCase
-import com.myongsik.myongsikandroid.domain.usecase.restaurant.LoveIsRestaurantDataUseCase
+import com.myongsik.myongsikandroid.domain.usecase.restaurant.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,7 +23,9 @@ class LoveViewModel @Inject constructor(
     private val foodRepository: FoodRepository,
     private val insertRestaurantDataUseCase: InsertRestaurantDataUseCase,
     private val deleteRestaurantDataUseCase: DeleteRestaurantDataUseCase,
-    private val loveIsRestaurantDataUseCase: LoveIsRestaurantDataUseCase
+    private val loveIsRestaurantDataUseCase: LoveIsRestaurantDataUseCase,
+    private val getListRestaurantDataUseCase: GetListRestaurantDataUseCase,
+    private val getPagingRestaurantDataUseCase: GetPagingRestaurantDataUseCase
 ) : BaseViewModel() {
 
     //Room
@@ -37,23 +37,38 @@ class LoveViewModel @Inject constructor(
         deleteRestaurantDataUseCase(restaurant.toRestaurantEntity())
     }
 
-    private val _loveIs = MutableLiveData<Restaurant>()
-    val loveIs: LiveData<Restaurant>
-        get() = _loveIs
+    private val _loveIs = MutableStateFlow<Restaurant?>(null)
+    val loveIs: StateFlow<Restaurant?>
+        get() = _loveIs.asStateFlow()
 
     fun loveIs(restaurant: Restaurant) = launch {
         loveIsRestaurantDataUseCase(restaurant.id).let{
-            _loveIs.postValue(it.toRestaurantData())
+            _loveIs.value = it.toRestaurantData()
         }
     }
 
-    val loveIsFood: StateFlow<List<Restaurant>> = foodRepository.getLoveIsFood()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), listOf())
+    private val _loveListRestaurants = MutableStateFlow<List<Restaurant>>(emptyList())
+    val loveListRestaurants : StateFlow<List<Restaurant>> = _loveListRestaurants.asStateFlow()
 
-    val loveFoods: StateFlow<PagingData<Restaurant>> =
-        foodRepository.getFoods()
+    fun getLoveListRestaurant() = launch {
+        getListRestaurantDataUseCase()
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+            .collect { restaurantList ->
+                _loveListRestaurants.value = restaurantList.map { it.toRestaurantData()}
+            }
+    }
+
+    private val _loveRestaurants = MutableStateFlow<PagingData<Restaurant>>(PagingData.empty())
+    val loveRestaurants : StateFlow<PagingData<Restaurant>> = _loveRestaurants.asStateFlow()
+
+    fun getLoveRestaurant() = launch {
+        getPagingRestaurantDataUseCase()
             .cachedIn(viewModelScope)
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), PagingData.empty())
+            .collect { restaurantPagingData ->
+                _loveRestaurants.value = restaurantPagingData.map { it.toRestaurantData() }
+            }
+    }
 
     private val _scrapRestaurant = MutableLiveData<ResponseScrap>()
     val scrapRestaurant: LiveData<ResponseScrap>

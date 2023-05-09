@@ -40,6 +40,8 @@ class LoveFragment : BaseFragment<FragmentLoveBinding>(), OnSearchViewHolderClic
     }
 
     override fun initListener() {
+        loveViewModel.getLoveListRestaurant()
+        loveViewModel.getLoveRestaurant()
         getFavoriteRestaurant()
 
         settingBackPressedCallback(object : OnBackPressedCallback(true) {
@@ -53,13 +55,13 @@ class LoveFragment : BaseFragment<FragmentLoveBinding>(), OnSearchViewHolderClic
     private fun getFavoriteRestaurant(){
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                loveViewModel.loveIsFood.collectLatest {
+                loveViewModel.loveListRestaurants.collectLatest {
                     if(it.isEmpty()){
                         binding.favoriteEmptyLove.visibility = View.VISIBLE
                     } else {
                         binding.favoriteEmptyLove.visibility = View.INVISIBLE
                     }
-                    loveViewModel.loveFoods.collectLatest { pagedData ->
+                    loveViewModel.loveRestaurants.collectLatest { pagedData ->
                         loveFoodAdapter.submitData(pagedData)
                     }
                 }

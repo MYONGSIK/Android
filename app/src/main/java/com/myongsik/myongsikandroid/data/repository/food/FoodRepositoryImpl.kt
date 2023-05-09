@@ -294,29 +294,4 @@ class FoodRepositoryImpl @Inject constructor(
                 prefs[DataStoreKey.WIDGET_TYPE]
             }
     }
-
-    override fun updateLove(id: String): Boolean {
-        if (!db.restaurantDao().loveUpdate(id)) {
-            return false
-        }
-        return true
-    }
-
-    override fun getLoveIsFood(): Flow<List<Restaurant>> {
-        return db.restaurantDao().getIsLoveFood()
-    }
-
-    //음식 조회 페이징 처리
-    override fun getFoods(): Flow<PagingData<Restaurant>> {
-        val pagingSourceFactory = { db.restaurantDao().getFoods() }
-
-        return Pager(
-            config = PagingConfig(
-                pageSize = Constant.PAGING_SIZE,
-                enablePlaceholders = false,
-                maxSize = Constant.PAGING_SIZE * 3
-            ),
-            pagingSourceFactory = pagingSourceFactory
-        ).flow
-    }
 }

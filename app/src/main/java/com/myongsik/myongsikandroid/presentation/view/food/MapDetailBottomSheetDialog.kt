@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.myongsik.myongsikandroid.R
@@ -19,6 +20,8 @@ import com.myongsik.myongsikandroid.presentation.viewmodel.search.LoveViewModel
 import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MapDetailBottomSheetDialog(private val restaurantId: Int) : BottomSheetDialogFragment() {
@@ -90,13 +93,15 @@ class MapDetailBottomSheetDialog(private val restaurantId: Int) : BottomSheetDia
                 loveViewModel.loveIs(restaurant!!)
             }
 
-            loveViewModel.loveIs.observe(viewLifecycleOwner) {
-                if (it == null) {
-                    dialogBottomLoveIv.visibility = View.VISIBLE
-                    dialogBottomScrapIv.visibility = View.INVISIBLE
-                } else {
-                    dialogBottomLoveIv.visibility = View.INVISIBLE
-                    dialogBottomScrapIv.visibility = View.VISIBLE
+            viewLifecycleOwner.lifecycleScope.launch{
+                loveViewModel.loveIs.collectLatest {
+                    if (it == null) {
+                        dialogBottomLoveIv.visibility = View.VISIBLE
+                        dialogBottomScrapIv.visibility = View.INVISIBLE
+                    } else {
+                        dialogBottomLoveIv.visibility = View.INVISIBLE
+                        dialogBottomScrapIv.visibility = View.VISIBLE
+                    }
                 }
             }
 
