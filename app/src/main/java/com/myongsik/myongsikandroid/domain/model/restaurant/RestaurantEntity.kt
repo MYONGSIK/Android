@@ -1,6 +1,6 @@
 package com.myongsik.myongsikandroid.domain.model.restaurant
 
-data class InsertRestaurantEntity(
+data class RestaurantEntity(
     val addressName: String,
     val categoryGroupCode: String,
     val categoryGroupName: String,

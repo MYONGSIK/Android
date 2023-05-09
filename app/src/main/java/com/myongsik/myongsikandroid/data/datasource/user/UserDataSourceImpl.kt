@@ -1,11 +1,8 @@
 package com.myongsik.myongsikandroid.data.datasource.user
 
 import com.myongsik.myongsikandroid.data.api.UserApi
-import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
-import com.myongsik.myongsikandroid.data.model.kakao.toInsertFoodData
 import com.myongsik.myongsikandroid.data.model.user.toRequestUserData
 import com.myongsik.myongsikandroid.data.model.user.toResponseUserEntity
-import com.myongsik.myongsikandroid.domain.model.restaurant.InsertRestaurantEntity
 import com.myongsik.myongsikandroid.domain.model.user.RequestUserEntity
 import com.myongsik.myongsikandroid.domain.model.user.ResponseUserEntity
 import javax.inject.Inject

@@ -4,10 +4,10 @@ import com.myongsik.myongsikandroid.domain.repository.restaurant.RestaurantRepos
 import com.myongsik.myongsikandroid.domain.model.restaurant.RestaurantEntity
 import javax.inject.Inject
 
-class InsertRestaurantDataUseCase @Inject constructor(
+class DeleteRestaurantDataUseCase @Inject constructor(
     private val restaurantRepository : RestaurantRepository
 ) {
 
     suspend operator fun invoke(restaurantEntity: RestaurantEntity) =
-        restaurantRepository.insertRestaurant(restaurantEntity)
+        restaurantRepository.deleteRestaurant(restaurantEntity)
 }

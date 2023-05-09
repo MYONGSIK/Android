@@ -295,16 +295,6 @@ class FoodRepositoryImpl @Inject constructor(
             }
     }
 
-    //장소 찜콩리스트에서 삭제
-    override suspend fun deleteFoods(restaurant: Restaurant) {
-        db.restaurantDao().deleteBook(restaurant)
-    }
-
-    //장소 현재 찜해두었는지 판단
-    override fun loveIs(id: String): Restaurant {
-        return db.restaurantDao().loveIs(id)
-    }
-
     override fun updateLove(id: String): Boolean {
         if (!db.restaurantDao().loveUpdate(id)) {
             return false
