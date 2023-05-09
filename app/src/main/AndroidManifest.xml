@@ -49,10 +49,10 @@
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="44ba0213a21d755ef2e20b473a0ffd26" />
+            android:value="${kakaoApiKey}" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-1097074016852233~8065667944" />
+            android:value="${admobApplicationId}" />
     </application>
 
 </manifest>

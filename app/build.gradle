@@ -19,8 +19,15 @@ android {
         targetSdk 33
         versionCode 24
         versionName "2.2.9"
-
+        vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        def admobApplicationId = properties.getProperty('ADMOB_APPLICATION_ID')
+        def kakaoApiKey = properties.getProperty('kakaoApiKey')
+
+        manifestPlaceholders = [admobApplicationId:admobApplicationId, kakaoApiKey:kakaoApiKey]
     }
 
     buildTypes {
@@ -45,9 +52,6 @@ android {
     }
     defaultConfig {
         multiDexEnabled true
-    }
-    defaultConfig {
-        vectorDrawables.useSupportLibrary = true
     }
 }
 
