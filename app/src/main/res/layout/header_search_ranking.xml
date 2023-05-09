@@ -10,151 +10,194 @@
         android:id="@+id/good_cafe_drink_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="20dp"
         android:fontFamily="@font/notosans_regular"
         android:text="@string/search_restaurant_list"
         android:textColor="#0E0E0E"
         android:textFontWeight="700"
-        android:textSize="20sp"
+        android:textSize="22sp"
+        android:includeFontPadding="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <HorizontalScrollView
-        android:id="@+id/horizon_sv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+    <GridLayout
+        android:id="@+id/search_gl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="2"
+        android:padding="7dp"
+        android:rowCount="2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/good_cafe_drink_tv"
         app:layout_constraintTop_toBottomOf="@id/good_cafe_drink_tv">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/item_search_hashtag1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_row="0"
+            android:layout_rowWeight="1"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="4dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_search_hashtag1"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tag_stroke">
+                android:layout_height="82dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:paddingTop="25dp"
+                    android:src="@drawable/ic_search_rice" />
 
                 <TextView
-                    android:id="@+id/hashtag_good_food"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="8dp"
-                    android:text="@string/search_univ_good"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="집밥"
+                    android:layout_marginStart="11dp"
+                    android:gravity="center_vertical|end"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/item_search_hashtag2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_rowWeight="1"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="4dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_search_hashtag2"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/tag_stroke">
+                android:layout_height="82dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:paddingTop="33dp"
+                    android:src="@drawable/ic_search_cafe" />
 
                 <TextView
-                    android:id="@+id/week_food_afternoon_tv1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="8dp"
-                    android:text="@string/search_univ_cafe"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="카페"
+                    android:layout_marginStart="18dp"
+                    android:gravity="center_vertical|end"
+                    android:textSize="18sp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_search_hashtag3"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/item_search_hashtag3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_rowWeight="1"
+            android:layout_column="0"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/tag_stroke">
+                android:layout_height="82dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="105dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:paddingTop="35dp"
+                    android:src="@drawable/ic_search_pub" />
 
                 <TextView
-                    android:id="@+id/week_food_afternoon_tv2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="8dp"
-                    android:text="@string/search_univ_drink"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="술집"
+                    android:gravity="center_vertical|end"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_search_hashtag4"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/item_search_hashtag4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_row="1"
+            android:layout_rowWeight="1"
+            android:layout_column="1"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="4dp">
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/tag_stroke">
+                android:layout_height="82dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="88dp"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/ic_search_bread" />
 
                 <TextView
-                    android:id="@+id/week_food_afternoon_tv3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="8dp"
-                    android:text="@string/search_univ_bread"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="빵집"
+                    android:layout_marginStart="12dp"
+                    android:gravity="center_vertical|end"
+                    android:textSize="18sp" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_search_hashtag5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/tag_stroke"
-                android:visibility="invisible">
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-                <TextView
-                    android:id="@+id/week_food_afternoon_tv_plus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="12dp"
-                    android:text="#"
-                    android:textColor="#000000"
-                    android:visibility="invisible"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </HorizontalScrollView>
+    </GridLayout>
+
 
     <TextView
         android:id="@+id/good_place_myongji"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
         android:fontFamily="@font/notosans_regular"
         android:text="@string/search_already_food"
         android:textColor="#0E0E0E"
+        android:includeFontPadding="false"
+        android:layout_marginTop="18dp"
+        android:paddingBottom="14dp"
         android:textFontWeight="700"
         android:textSize="22dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horizon_sv" />
+        app:layout_constraintTop_toBottomOf="@id/search_gl" />
 
     <Spinner
         android:id="@+id/spSort"
