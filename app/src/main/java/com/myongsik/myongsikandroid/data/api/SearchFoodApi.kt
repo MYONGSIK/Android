@@ -2,6 +2,7 @@ package com.myongsik.myongsikandroid.data.api
 
 
 import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
+import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.Constant.API_KEY
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -30,37 +31,37 @@ interface SearchFoodApi {
     @Headers("Authorization: KakaoAK $API_KEY")
     @GET("/v2/local/search/keyword")
     suspend fun searchFood(
-        @Query("query") query : String,
-        @Query("category_group_code") category_group_code : String,
-        @Query("x") x : String,
-        @Query("y") y : String,
-        @Query("radius") radius : Int,
-        @Query("page") page : Int,
-        @Query("size") size : Int,
-        @Query("sort") sort : String,
-    ) : Response<SearchResponse>
+        @Query("query") query: String,
+        @Query("category_group_code") category_group_code: String,
+        @Query("x") x: String,
+        @Query("y") y: String,
+        @Query("radius") radius: Int,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
+        @Query("sort") sort: String,
+    ): Response<SearchResponse>
 
-    companion object{
-        private const val BASE_URL = "https://dapi.kakao.com"
+    companion object {
 
-        fun create() : SearchFoodApi {
-            val logger = HttpLoggingInterceptor().apply { level =
-                HttpLoggingInterceptor.Level.BODY }
+        fun create(): SearchFoodApi {
+            val logger = HttpLoggingInterceptor().apply {
+                level =
+                    HttpLoggingInterceptor.Level.BODY
+            }
 
             val client = OkHttpClient.Builder()
-                    .addInterceptor(logger)
-                    .connectTimeout(100, TimeUnit.SECONDS)
-                    .readTimeout(100, TimeUnit.SECONDS)
-                    .writeTimeout(100, TimeUnit.SECONDS)
-                    .build()
+                .addInterceptor(logger)
+                .connectTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
+                .writeTimeout(100, TimeUnit.SECONDS)
+                .build()
 
             return Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(Constant.KAKAO_BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(SearchFoodApi::class.java)
         }
     }
-
 }

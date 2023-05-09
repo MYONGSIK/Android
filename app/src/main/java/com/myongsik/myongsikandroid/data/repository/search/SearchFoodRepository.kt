@@ -6,9 +6,6 @@ import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
-/*
-Repository 패턴을 이용한 SearchFoodRepository interface
- */
 interface SearchFoodRepository {
 
     //카카오 오픈 API 장소 검색

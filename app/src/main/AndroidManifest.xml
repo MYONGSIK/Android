@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.myongsik.myongsikandroid">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+
+    <queries>
+        <package android:name="com.nhn.android.nmap" />
+    </queries>
     <application
         android:name=".util.MyongsikApplication"
         android:allowBackup="true"
@@ -15,7 +21,7 @@
         android:theme="@style/Theme.Myongsik_android"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ui.view.food.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +29,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".alarm.AlarmBroadCastReceiver"/>
+
+        <receiver android:name=".alarm.AlarmBroadCastReceiver" />
+        <receiver
+            android:name=".presentation.widget.MenuWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_menu" />
+        </receiver>
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="com.myongsik.myongsikandroid.androidx-startup"
+            tools:node="remove">
+        </provider>
+
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="44ba0213a21d755ef2e20b473a0ffd26"/>
     </application>
 
 </manifest>

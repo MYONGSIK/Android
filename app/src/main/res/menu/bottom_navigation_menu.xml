@@ -8,6 +8,11 @@
         />
 
     <item
+        android:id="@+id/fragment_map"
+        android:title="맛집지도"
+        android:icon="@drawable/ic_map"/>
+
+    <item
         android:id="@+id/fragment_home"
         android:title="오늘의학식"
         android:icon="@drawable/ic_home"/>

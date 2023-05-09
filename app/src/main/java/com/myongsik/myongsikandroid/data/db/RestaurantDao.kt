@@ -3,6 +3,7 @@ package com.myongsik.myongsikandroid.data.db
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import kotlinx.coroutines.flow.Flow
 
 /*
 장소를 찜해두는 DataBase
@@ -19,6 +20,9 @@ interface RestaurantDao {
     @Query("SELECT * FROM love_list")
     fun getFoods() : PagingSource<Int, Restaurant>
 
+    @Query("SELECT * FROM love_list")
+    fun getIsLoveFood() : Flow<List<Restaurant>>
+
     //관심목록에 담기를 클릭했을 때 이미 있는지 판단하는 쿼리
     @Query("SELECT * FROM love_list WHERE id = :id")
     fun loveIs(id : String) : Restaurant
@@ -29,7 +33,4 @@ interface RestaurantDao {
 
     @Query("select exists(SELECT * FROM love_list WHERE id = :id)")
     fun loveUpdate(id : String) : Boolean
-
-
-
 }

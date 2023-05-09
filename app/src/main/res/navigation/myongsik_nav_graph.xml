@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragment_splash"
-        android:name="com.myongsik.myongsikandroid.ui.view.food.SplashFragment"
+        android:name="com.myongsik.myongsikandroid.presentation.view.food.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
@@ -22,12 +22,13 @@
             app:destination="@id/fragment_home" />
         <action
             android:id="@+id/action_fragment_splash_to_fragment_select"
-            app:destination="@id/fragment_select" />
-
+            app:destination="@id/fragment_select"
+            app:popUpTo="@id/fragment_splash"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/fragment_select"
-        android:name="com.myongsik.myongsikandroid.ui.view.food.SelectFragment"
+        android:name="com.myongsik.myongsikandroid.presentation.view.food.SelectFragment"
         android:label="SelectFragment"
         tools:layout="@layout/fragment_select">
         <action
@@ -40,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_home"
-        android:name="com.myongsik.myongsikandroid.ui.view.food.HomeFragment"
+        android:name="com.myongsik.myongsikandroid.presentation.view.food.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -52,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_love"
-        android:name="com.myongsik.myongsikandroid.ui.view.search.LoveFragment"
+        android:name="com.myongsik.myongsikandroid.presentation.view.search.LoveFragment"
         android:label="fragment_love"
         tools:layout="@layout/fragment_love" >
         <action
@@ -68,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_search"
-        android:name="com.myongsik.myongsikandroid.ui.view.search.SearchFragment"
+        android:name="com.myongsik.myongsikandroid.presentation.view.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -86,10 +87,13 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_fragment_search_to_fragment_map"
+            app:destination="@id/fragment_map" />
     </fragment>
     <fragment
         android:id="@+id/fragment_tag"
-        android:name="com.myongsik.myongsikandroid.ui.view.search.TagFragment"
+        android:name="com.myongsik.myongsikandroid.presentation.view.search.TagFragment"
         android:label="TagFragment"
         tools:layout="@layout/fragment_tag">
         <argument
@@ -105,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_restaurant"
-        android:name="com.myongsik.myongsikandroid.ui.view.search.RestaurantFragment"
+        android:name="com.myongsik.myongsikandroid.presentation.view.search.RestaurantFragment"
         android:label="RestaurantFragment"
         tools:layout="@layout/fragment_restaurant">
         <argument
@@ -115,7 +119,7 @@
 
     <fragment
         android:id="@+id/fragment_select_home"
-        android:name="com.myongsik.myongsikandroid.ui.view.food.SelectHomeFragment"
+        android:name="com.myongsik.myongsikandroid.presentation.view.food.SelectHomeFragment"
         android:label="SelectHomeFragment"
         tools:layout="@layout/fragment_select_home">
         <action
@@ -124,5 +128,23 @@
         <action
             android:id="@+id/action_fragment_select_home_to_fragment_search"
             app:destination="@id/fragment_search" />
+        <action
+            android:id="@+id/action_fragment_select_home_to_widgetSettingFragment"
+            app:destination="@id/widgetSettingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_map"
+        android:name="com.myongsik.myongsikandroid.presentation.view.food.MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/fragment_map">
+        <action
+            android:id="@+id/action_fragment_map_to_fragment_search"
+            app:destination="@id/fragment_search" />
+    </fragment>
+    <fragment
+        android:id="@+id/widgetSettingFragment"
+        android:name="com.myongsik.myongsikandroid.presentation.view.food.WidgetSettingFragment"
+        android:label="WidgetSettingFragment"
+        tools:layout="@layout/fragment_widget_setting">
     </fragment>
 </navigation>

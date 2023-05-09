@@ -11,10 +11,11 @@ import com.myongsik.myongsikandroid.data.repository.food.SearchFoodPagingSource
 import com.myongsik.myongsikandroid.util.Constant.PAGING_SIZE
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
+import javax.inject.Inject
 
 
-class SearchFoodRepositoryImpl(
-    private val api : SearchFoodApi,
+class SearchFoodRepositoryImpl @Inject constructor(
+    private val searchFoodApi: SearchFoodApi
 ) : SearchFoodRepository {
 
     override suspend fun searchFood(
@@ -25,13 +26,13 @@ class SearchFoodRepositoryImpl(
         radius: Int,
         page: Int,
         size: Int,
-        sort : String
+        sort: String
     ): Response<SearchResponse> {
-        return api.searchFood(query, category_group_code, x, y, radius, page, size, sort)
+        return searchFoodApi.searchFood(query, category_group_code, x, y, radius, page, size, sort)
     }
 
     override fun searchPagingFood(query: String): Flow<PagingData<Restaurant>> {
-        val pagingSourceFactory = { SearchFoodPagingSource(query)}
+        val pagingSourceFactory = { SearchFoodPagingSource(query, searchFoodApi) }
 
         return Pager(
             config = PagingConfig(
@@ -45,6 +46,4 @@ class SearchFoodRepositoryImpl(
             pagingSourceFactory = pagingSourceFactory
         ).flow
     }
-
-
 }

@@ -4,9 +4,10 @@ plugins {
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs.kotlin'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
-
     id 'kotlin-parcelize'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -16,8 +17,8 @@ android {
         applicationId "com.myongsik.myongsikandroid"
         minSdk 23
         targetSdk 33
-        versionCode 12
-        versionName "2.0"
+        versionCode 25
+        versionName "2.2.10"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,15 +32,22 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures{
+    buildFeatures {
         viewBinding true
     }
     kapt {
         correctErrorTypes true
+    }
+    defaultConfig {
+        multiDexEnabled true
+    }
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
     }
 }
 
@@ -75,7 +83,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
 
     // Recyclerview
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.3.0'
 
     // Room
     implementation 'androidx.room:room-runtime:2.4.2'
@@ -121,4 +129,18 @@ dependencies {
 
     // Naver map
     implementation 'com.naver.maps:map-sdk:3.14.0'
+
+    //disugaring
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.1.5'
+
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:31.2.3')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+
+    //refresh
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    //map
+    implementation files('libs/libDaumMapAndroid.jar')
 }

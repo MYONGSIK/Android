@@ -15,5 +15,14 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 <!--        <item name="android:windowFullscreen">true</item>-->
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/PomeBottomSheetStyle</item>
+    </style>
+
+    <style name="PomeBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/myongsik_bottom_sheet_dialog_background</item>
     </style>
 </resources>

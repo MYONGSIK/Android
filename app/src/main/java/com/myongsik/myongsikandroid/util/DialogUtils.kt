@@ -2,7 +2,6 @@ package com.myongsik.myongsikandroid.util
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.text.Spannable
@@ -87,7 +86,7 @@ class DialogUtils(private val context: Context) {
         builder.setView(dialogView)
 
         val alertDialog = builder.create()
-        alertDialog.setCancelable(false)
+        alertDialog.setCancelable(true)
         alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         dialogView.findViewById<TextView>(R.id.review_confirm_btn).setOnClickListener {
@@ -134,7 +133,4 @@ class DialogUtils(private val context: Context) {
 
         alertDialog.show()
     }
-
-
-
 }

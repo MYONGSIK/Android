@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="16dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:layout_marginHorizontal="16dp">
 
     <View
         android:id="@+id/home_lunch_a_v"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/home_today_food_stroke"
+        app:layout_constraintBottom_toBottomOf="@+id/today_food_1"
         app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/today_line_iv"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/today_day_lunch_a"
@@ -33,7 +30,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="11dp"
             android:paddingVertical="4dp"
-            android:text="중식A"
+            android:text="@string/lunch_a_text"
             android:textColor="@color/sub_color"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -42,127 +39,42 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <TextView
         android:id="@+id/today_food_1"
-        android:textColor="#717171"
-        android:text="베이컨김치볶음밥 후라이 맑은우동국물 피쉬앤칩스 케찹 단무지 배추김치"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/notosans_regular"
-        android:textAlignment="center"
-        android:paddingHorizontal="32dp"
         android:layout_marginTop="3dp"
         android:breakStrategy="high_quality"
+        android:fontFamily="@font/notosans_regular"
         android:maxLines="3"
+        android:paddingHorizontal="32dp"
+        android:paddingBottom="10dp"
+        android:text="@string/food_list"
+        android:textAlignment="center"
+        android:textColor="#717171"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/today_day_lunch_a"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        />
-
-    <ImageView
-        android:id="@+id/today_line_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_line_4"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/today_food_1"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="3dp"
-        android:paddingBottom="13dp"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/today_good_cl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintRight_toLeftOf="@id/today_line_iv"
-        app:layout_constraintTop_toTopOf="@id/today_line_iv"
-        app:layout_constraintBottom_toBottomOf="@id/today_line_iv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:paddingBottom="13dp"
-        >
-
-        <TextView
-            android:id="@+id/today_lunch_a_good_tv"
-            android:text="맛있어요 "
-            android:textSize="12sp"
-            android:fontFamily="@font/notosans_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-        <ImageView
-            android:id="@+id/today_lunch_a_good_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_good"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/today_lunch_a_good_tv"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="12dp"/>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/today_hate_cl_lunch_a"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/today_line_iv"
-        app:layout_constraintTop_toTopOf="@id/today_line_iv"
-        app:layout_constraintBottom_toBottomOf="@id/today_line_iv"
-        android:paddingBottom="13dp"
-        app:layout_constraintRight_toRightOf="parent"
-        >
-
-        <TextView
-            android:id="@+id/today_lunch_a_hate_tv"
-            android:text="맛없어요 "
-            android:textSize="12sp"
-            android:fontFamily="@font/notosans_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-        <ImageView
-            android:id="@+id/today_lunch_a_hate_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_hate"
-            app:layout_constraintLeft_toRightOf="@id/today_lunch_a_hate_tv"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="12dp"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+        app:layout_constraintTop_toBottomOf="@+id/today_day_lunch_a" />
 
     <View
         android:id="@+id/home_lunch_b_v"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/home_today_food_stroke"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/today_lunch_b_line_iv"
-        app:layout_constraintTop_toBottomOf="@id/home_lunch_a_v"
         android:layout_marginTop="20dp"
+        android:background="@drawable/home_today_food_stroke"
+        app:layout_constraintBottom_toBottomOf="@+id/today_food_lunch_b"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_lunch_a_v" />
 
-         />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/today_day_lunch_b"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constrainedWidth="true"
         android:background="@drawable/home_food_stroke_category"
+        app:layout_constrainedWidth="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/home_lunch_b_v">
 
@@ -172,7 +84,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="11dp"
             android:paddingVertical="4dp"
-            android:text="중식B"
+            android:text="@string/lunch_b_text"
             android:textColor="@color/sub_color"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -181,119 +93,34 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <TextView
         android:id="@+id/today_food_lunch_b"
-        android:text="베이컨김치볶음밥 후라이 맑은우동국물 피쉬앤칩스 케찹 단무지 배추김치"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:fontFamily="@font/notosans_regular"
-        android:textColor="#717171"
-        android:textAlignment="center"
-        android:paddingHorizontal="32dp"
+        android:layout_marginTop="3dp"
         android:breakStrategy="high_quality"
+        android:fontFamily="@font/notosans_regular"
+        android:inputType="textMultiLine"
         android:maxLines="3"
-        android:layout_marginTop="3dp"
+        android:paddingHorizontal="32dp"
+        android:paddingBottom="10dp"
+        android:text="@string/food_list"
+        android:textAlignment="center"
+        android:textColor="#717171"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/today_day_lunch_b"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        />
-
-    <ImageView
-        android:id="@+id/today_lunch_b_line_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_line_4"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/today_food_lunch_b"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="3dp"
-        android:paddingBottom="13dp"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/today_good_cl_lunch_b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintRight_toLeftOf="@id/today_lunch_b_line_iv"
-        app:layout_constraintTop_toTopOf="@id/today_lunch_b_line_iv"
-        app:layout_constraintBottom_toBottomOf="@id/today_lunch_b_line_iv"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:paddingBottom="13dp"
-        >
-
-        <TextView
-            android:id="@+id/today_lunch_b_good_tv"
-            android:text="맛있어요 "
-            android:textSize="12sp"
-            android:fontFamily="@font/notosans_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-        <ImageView
-            android:id="@+id/today_lunch_b_good_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_good"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/today_lunch_b_good_tv"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="12dp"/>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/today_hate_cl_lunch_b"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/today_lunch_b_line_iv"
-        app:layout_constraintTop_toTopOf="@id/today_lunch_b_line_iv"
-        app:layout_constraintBottom_toBottomOf="@id/today_lunch_b_line_iv"
-        android:paddingBottom="13dp"
-        app:layout_constraintRight_toRightOf="parent"
-        >
-
-        <TextView
-            android:id="@+id/today_lunch_b_hate_tv"
-            android:text="맛없어요 "
-            android:textSize="12sp"
-            android:fontFamily="@font/notosans_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-        <ImageView
-            android:id="@+id/today_lunch_b_hate_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_hate"
-            app:layout_constraintLeft_toRightOf="@id/today_lunch_b_hate_tv"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="12dp"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/today_day_lunch_b" />
 
     <View
         android:id="@+id/home_afternoon_v"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/home_today_food_stroke"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/today_line_iv_afternoon"
-        app:layout_constraintTop_toBottomOf="@id/home_lunch_b_v"
         android:layout_marginTop="20dp"
-        />
-
+        android:background="@drawable/home_today_food_stroke"
+        app:layout_constraintBottom_toBottomOf="@+id/today_food_afternoon"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_lunch_b_v" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/today_day_afternoon"
@@ -309,13 +136,13 @@
             android:id="@+id/week_food_afternoon_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/notosans_regular"
+            android:includeFontPadding="false"
             android:paddingHorizontal="15dp"
             android:paddingVertical="4dp"
-            android:text="석식"
-            android:includeFontPadding="false"
-            android:fontFamily="@font/notosans_regular"
-            android:textFontWeight="500"
+            android:text="@string/dinner_text"
             android:textColor="@color/sub_color"
+            android:textFontWeight="500"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -323,106 +150,23 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <TextView
         android:id="@+id/today_food_afternoon"
-        android:text="베이컨김치볶음밥 후라이 맑은우동국물 피쉬앤칩스 케찹 단무지 배추김치"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:breakStrategy="high_quality"
-        android:maxLines="3"
-        android:layout_width="wrap_content"
-        android:textColor="#717171"
-        android:layout_height="wrap_content"
         android:fontFamily="@font/notosans_regular"
-        android:textAlignment="center"
+        android:maxLines="3"
         android:paddingHorizontal="32dp"
-        android:layout_marginTop="3dp"
+        android:paddingBottom="10dp"
+        android:text="@string/food_list"
+        android:textAlignment="center"
+        android:textColor="#717171"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@+id/today_day_afternoon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        />
-
-    <ImageView
-        android:id="@+id/today_line_iv_afternoon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_line_4"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/today_food_afternoon"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="3dp"
-        android:paddingBottom="13dp"/>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/today_good_cl_afternoon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintRight_toLeftOf="@id/today_line_iv_afternoon"
-        app:layout_constraintTop_toTopOf="@id/today_line_iv_afternoon"
-        app:layout_constraintBottom_toBottomOf="@id/today_line_iv_afternoon"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:paddingBottom="13dp"
-        >
-
-        <TextView
-            android:id="@+id/today_afternoon_good_tv"
-            android:text="맛있어요 "
-            android:textSize="12sp"
-            android:fontFamily="@font/notosans_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-        <ImageView
-            android:id="@+id/today_afternoon_good_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_good"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/today_afternoon_good_tv"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="12dp"/>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/today_hate_cl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintLeft_toRightOf="@id/today_line_iv_afternoon"
-        app:layout_constraintTop_toTopOf="@id/today_line_iv_afternoon"
-        app:layout_constraintBottom_toBottomOf="@id/today_line_iv_afternoon"
-        android:paddingBottom="13dp"
-        app:layout_constraintRight_toRightOf="parent"
-        >
-
-        <TextView
-            android:id="@+id/today_afternoon_hate_tv"
-            android:text="맛없어요 "
-            android:textSize="12sp"
-            android:fontFamily="@font/notosans_regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
-
-        <ImageView
-            android:id="@+id/today_afternoon_hate_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_hate"
-            app:layout_constraintLeft_toRightOf="@id/today_afternoon_hate_tv"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="12dp"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toBottomOf="@+id/today_day_afternoon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "525664195298",
+    "project_id": "myongsik-1667d",
+    "storage_bucket": "myongsik-1667d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525664195298:android:bfd00cf013789a86ebc4bb",
+        "android_client_info": {
+          "package_name": "com.myongsik.myongsikandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525664195298-b03vb04gd7sbj5i74l80hkttktj1p8fh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpFfQgevzxB8VZUMJwQyJbrK4hPnXcb8I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525664195298-b03vb04gd7sbj5i74l80hkttktj1p8fh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
