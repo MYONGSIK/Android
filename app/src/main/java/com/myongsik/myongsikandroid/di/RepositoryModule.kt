@@ -2,6 +2,8 @@ package com.myongsik.myongsikandroid.di
 
 import com.myongsik.myongsikandroid.data.datasource.restaurant.RestaurantDataSource
 import com.myongsik.myongsikandroid.data.datasource.restaurant.RestaurantDataSourceImpl
+import com.myongsik.myongsikandroid.data.datasource.user.UserDataSource
+import com.myongsik.myongsikandroid.data.datasource.user.UserDataSourceImpl
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl
 import com.myongsik.myongsikandroid.domain.repository.restaurant.RestaurantRepository
@@ -51,4 +53,10 @@ abstract class RepositoryModule {
     abstract fun bindRestaurantDataSource(
         restaurantDataSource: RestaurantDataSourceImpl
     ): RestaurantDataSource
+
+    @Singleton
+    @Binds
+    abstract fun bindUserDataSource(
+        userDataSourceImpl: UserDataSourceImpl
+    ): UserDataSource
 }
