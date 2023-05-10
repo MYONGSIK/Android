@@ -25,7 +25,6 @@ class MyongsikApplication : Application(), Configuration.Provider {
         prefs = Prefs(applicationContext)
         super.onCreate()
         MobileAds.initialize(this) {}
-
     }
 
     override fun getWorkManagerConfiguration(): Configuration =

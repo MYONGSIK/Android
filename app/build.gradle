@@ -29,8 +29,6 @@ android {
         def kakaoMapApiKey = properties.getProperty('kakaoMapApiKey')
 
         manifestPlaceholders = [admobApplicationId: admobApplicationId, kakaoMapApiKey: kakaoMapApiKey]
-
-        buildConfigField "String", "ADMOB_MYONGSIK_INTERSTITIAL_HOME", properties.getProperty("ADMOB_MYONGSIK_INTERSTITIAL_HOME")
     }
 
     buildTypes {
