@@ -4,16 +4,10 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.interstitial.InterstitialAd
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.myongsik.myongsikandroid.alarm.AlarmBroadCastReceiver
 import com.myongsik.myongsikandroid.databinding.ActivityMainBinding
 import com.myongsik.myongsikandroid.util.Constant
@@ -37,6 +31,10 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.myongsik_home_fragment_view) as NavHostFragment
         val navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNavigationView, navController)
+
+        binding.bottomNavigationView.setOnItemReselectedListener{
+            false
+        }
 
         binding.bottomNavigationView.setOnItemSelectedListener {
             when (it.itemId) {
@@ -62,8 +60,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.fragment_love -> {
                     navController.navigate(R.id.fragment_love)
                     return@setOnItemSelectedListener true
-                } // 다른 항목에 대한 처리 추가 가능
-                else -> { // 처리할 로직이 없을 경우에도 true를 반환하여 이벤트를 소비하도록 구현
+                }
+                // 다른 항목에 대한 처리 추가 가능
+                else -> {
+                    // 처리할 로직이 없을 경우에도 true를 반환하여 이벤트를 소비하도록 구현
                     return@setOnItemSelectedListener true
                 }
             } // 선택된 메뉴 항목에 대한 처리가 끝나고 true를 반환하여 이벤트를 소비하도록 구현

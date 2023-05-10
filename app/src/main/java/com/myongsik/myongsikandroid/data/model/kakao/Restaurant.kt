@@ -4,6 +4,7 @@ package com.myongsik.myongsikandroid.data.model.kakao
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.myongsik.myongsikandroid.domain.model.restaurant.RestaurantEntity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize
@@ -38,3 +39,33 @@ data class Restaurant(
     @field:Json(name = "y")
     val y: String
 ) : Parcelable
+
+fun RestaurantEntity.toRestaurantData() = Restaurant(
+    address_name = this.addressName,
+    category_group_code = this.categoryGroupCode,
+    category_group_name = this.categoryGroupName,
+    category_name = this.categoryName,
+    distance = this.distance,
+    id = this.id,
+    phone = this.phone,
+    place_name = this.placeName,
+    place_url = this.placeUrl,
+    road_address_name = this.roadAddressName,
+    x = this.x,
+    y = this.y
+)
+
+fun Restaurant.toRestaurantEntity() = RestaurantEntity(
+    addressName = this.address_name,
+    categoryGroupCode = this.category_group_code,
+    categoryGroupName = this.category_group_name,
+    categoryName = this.category_name,
+    distance = this.distance,
+    id = this.id,
+    phone = this.phone,
+    placeName = this.place_name,
+    placeUrl = this.place_url,
+    roadAddressName = this.road_address_name,
+    x = this.x,
+    y = this.y
+)

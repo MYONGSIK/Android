@@ -1,7 +1,5 @@
 package com.myongsik.myongsikandroid.data.db
 
-import androidx.lifecycle.LiveData
-import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import androidx.room.*
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
@@ -27,7 +25,7 @@ interface RestaurantDao {
 
     //관심목록에 담기를 클릭했을 때 이미 있는지 판단하는 쿼리
     @Query("SELECT * FROM love_list WHERE id = :id")
-    fun loveIs(id : String) : Restaurant
+    suspend fun loveIs(id : String) : Restaurant
 
     //찜꽁 리스트에서 삭제하는 쿼리
     @Delete

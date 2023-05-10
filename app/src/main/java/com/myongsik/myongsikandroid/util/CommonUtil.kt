@@ -20,7 +20,7 @@ import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.alarm.UpdateWidgetWorker
 import com.myongsik.myongsikandroid.data.type.WidgetType
 import com.myongsik.myongsikandroid.data.type.toWidgetType
-import com.myongsik.myongsikandroid.ui.widget.MenuWidget
+import com.myongsik.myongsikandroid.presentation.widget.MenuWidget
 
 object CommonUtil {
     fun hideKeyboard(activity: Activity) {

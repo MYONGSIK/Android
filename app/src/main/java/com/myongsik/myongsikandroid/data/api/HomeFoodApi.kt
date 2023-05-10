@@ -4,14 +4,8 @@ package com.myongsik.myongsikandroid.data.api
 import com.myongsik.myongsikandroid.data.model.food.*
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
-import com.myongsik.myongsikandroid.data.model.user.RequestUserData
-import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface HomeFoodApi {
 
@@ -29,21 +23,6 @@ interface HomeFoodApi {
     suspend fun postReview(
         @Body body: RequestReviewData
     ): Response<ResponseReviewData>
-
-    @POST("/api/v2/users")
-    suspend fun postUser(
-        @Body body: RequestUserData
-    ): Response<ResponseUserData>
-
-    @POST("/api/v2/meals/evaluate")
-    suspend fun postMeal(
-        @Body body: RequestMealData
-    ): Response<ResponseMealData>
-
-    @POST("/api/v2/scraps")
-    suspend fun postRestaurantScrap(
-        @Body body: RequestScrap
-    ): Response<ResponseScrap>
 
     @GET("/api/v2/scraps/store")
     suspend fun getRankRestaurant(

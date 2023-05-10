@@ -17,9 +17,9 @@ android {
         applicationId "com.myongsik.myongsikandroid"
         minSdk 23
         targetSdk 33
-        versionCode 24
-        versionName "2.2.9"
-        vectorDrawables.useSupportLibrary = true
+        versionCode 25
+        versionName "2.2.10"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         Properties properties = new Properties()

@@ -5,7 +5,7 @@
     android:id="@+id/fragment_love"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.search.LoveFragment">
+    tools:context=".presentation.view.search.LoveFragment">
 
     <View
         android:id="@+id/love_top_v"

@@ -5,7 +5,7 @@
     android:id="@+id/fragment_select_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.food.HomeFragment">
+    tools:context=".presentation.view.food.HomeFragment">
 
     <ScrollView
         android:layout_width="match_parent"

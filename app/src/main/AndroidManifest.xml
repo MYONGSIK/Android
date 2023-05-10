@@ -32,7 +32,7 @@
 
         <receiver android:name=".alarm.AlarmBroadCastReceiver" />
         <receiver
-            android:name=".ui.widget.MenuWidget"
+            android:name=".presentation.widget.MenuWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

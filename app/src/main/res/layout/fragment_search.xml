@@ -10,7 +10,7 @@
         android:id="@+id/fragment_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.view.search.SearchFragment">
+        tools:context=".presentation.view.search.SearchFragment">
 
         <View
             android:id="@+id/search_top_v"
