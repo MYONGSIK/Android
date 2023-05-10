@@ -30,7 +30,6 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".alarm.AlarmBroadCastReceiver" />
         <receiver
             android:name=".presentation.widget.MenuWidget"
             android:exported="true">
