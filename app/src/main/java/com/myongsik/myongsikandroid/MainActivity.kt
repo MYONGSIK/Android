@@ -16,6 +16,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.myongsik.myongsikandroid.alarm.AlarmBroadCastReceiver
 import com.myongsik.myongsikandroid.databinding.ActivityMainBinding
+import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
@@ -29,14 +30,9 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    private var mInterstitialAd: InterstitialAd? = null
-    private var TAG = "MainActivity"
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        initInterstitialAd()
-        setInterstitialAd()
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.myongsik_home_fragment_view) as NavHostFragment
         val navController = navHostFragment.navController
@@ -95,43 +91,10 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this@MainActivity, AlarmBroadCastReceiver::class.java)
         val pIntent = PendingIntent.getBroadcast(this@MainActivity, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime.timeInMillis, AlarmManager.INTERVAL_DAY, pIntent)
-
     }
 
-    private fun setInterstitialAd() {
-        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
-            override fun onAdClicked() { // Called when a click is recorded for an ad.
-                Log.d(TAG, "Ad was clicked.")
-            }
-
-            override fun onAdDismissedFullScreenContent() { // Called when ad is dismissed.
-                Log.d(TAG, "Ad dismissed fullscreen content.")
-                mInterstitialAd = null
-            }
-
-            override fun onAdImpression() { // Called when an impression is recorded for an ad.
-                Log.d(TAG, "Ad recorded an impression.")
-            }
-
-            override fun onAdShowedFullScreenContent() { // Called when ad is shown.
-                Log.d(TAG, "Ad showed fullscreen content.")
-            }
-        }
-    }
-
-    private fun initInterstitialAd() {
-        val adRequest = AdRequest.Builder().build()
-        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", adRequest, object : InterstitialAdLoadCallback() {
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(TAG, adError.toString())
-                mInterstitialAd = null
-            }
-
-            override fun onAdLoaded(interstitialAd: InterstitialAd) {
-                Log.d(TAG, "Ad was loaded.")
-                mInterstitialAd = interstitialAd
-                mInterstitialAd?.show(this@MainActivity)
-            }
-        })
+    override fun onDestroy() {
+        Constant.isAdAvailable = true
+        super.onDestroy()
     }
 }

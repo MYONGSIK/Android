@@ -24,10 +24,13 @@ android {
 
         Properties properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
         def admobApplicationId = properties.getProperty('ADMOB_APPLICATION_ID')
         def kakaoApiKey = properties.getProperty('kakaoApiKey')
 
-        manifestPlaceholders = [admobApplicationId:admobApplicationId, kakaoApiKey:kakaoApiKey]
+        manifestPlaceholders = [admobApplicationId: admobApplicationId, kakaoApiKey: kakaoApiKey]
+
+        buildConfigField "String", "ADMOB_MYONGSIK_INTERSTITIAL_HOME", properties.getProperty("ADMOB_MYONGSIK_INTERSTITIAL_HOME")
     }
 
     buildTypes {
