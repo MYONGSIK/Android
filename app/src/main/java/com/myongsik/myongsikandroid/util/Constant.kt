@@ -52,4 +52,7 @@ object Constant {
 
     //Paging
     const val PAGING_SIZE = 15
+
+    //Admob
+    var isAdAvailable = true
 }

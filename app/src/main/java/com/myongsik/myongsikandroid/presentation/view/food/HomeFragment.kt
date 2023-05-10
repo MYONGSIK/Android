@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +17,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.myongsik.myongsikandroid.BaseFragment
+import com.myongsik.myongsikandroid.BuildConfig
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.databinding.DialogBottomUpdateSheetBinding
@@ -51,6 +58,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private var initDate: Int = 0
 
+    private var mInterstitialAd: InterstitialAd? = null
+    private var TAG = "HomeFragment"
+
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -62,6 +72,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         if(MyongsikApplication.prefs.getString(PreferenceKey.UPDATE_KEY, getString(R.string.preference_key_see)) == getString(R.string.preference_key_see)) {
             showBottomSheetDialog()
         }
+
+        if (Constant.isAdAvailable) {
+            Constant.isAdAvailable = false
+            initInterstitialAd()
+            setInterstitialAd()
+        }
+
         initData()
         initViewPager()
         initViews()
@@ -328,6 +345,43 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
 
+            }
+        })
+    }
+
+    private fun setInterstitialAd() {
+        mInterstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+            override fun onAdClicked() { // Called when a click is recorded for an ad.
+                Log.d(TAG, "Ad was clicked.")
+            }
+
+            override fun onAdDismissedFullScreenContent() { // Called when ad is dismissed.
+                Log.d(TAG, "Ad dismissed fullscreen content.")
+                mInterstitialAd = null
+            }
+
+            override fun onAdImpression() { // Called when an impression is recorded for an ad.
+                Log.d(TAG, "Ad recorded an impression.")
+            }
+
+            override fun onAdShowedFullScreenContent() { // Called when ad is shown.
+                Log.d(TAG, "Ad showed fullscreen content.")
+            }
+        }
+    }
+
+    private fun initInterstitialAd() {
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(requireContext(), BuildConfig.ADMOB_MYONGSIK_INTERSTITIAL_HOME, adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                Log.d(TAG, adError.toString())
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                Log.d(TAG, "Ad was loaded.")
+                mInterstitialAd = interstitialAd
+                mInterstitialAd?.show(requireActivity())
             }
         })
     }

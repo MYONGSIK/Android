@@ -9,16 +9,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.myongsik.myongsikandroid.databinding.ActivityMainBinding
+import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import java.util.Calendar
 
 //DataStore 싱글톤으로 생성
 //private val Context.dataStore by preferencesDataStore(DATASTORE_NAME)
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private val binding : ActivityMainBinding by lazy {
+    private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
@@ -40,18 +41,21 @@ class MainActivity : AppCompatActivity() {
                     if (MyongsikApplication.prefs.getUserCampus() == "Y") {
                         navController.navigate(R.id.fragment_select_home)
                         return@setOnItemSelectedListener true
-                    } else{
+                    } else {
                         navController.navigate(R.id.fragment_home)
                     }
                 }
+
                 R.id.fragment_map -> {
                     navController.navigate(R.id.fragment_map)
                     return@setOnItemSelectedListener true
                 }
+
                 R.id.fragment_search -> {
                     navController.navigate(R.id.fragment_search)
                     return@setOnItemSelectedListener true
                 }
+
                 R.id.fragment_love -> {
                     navController.navigate(R.id.fragment_love)
                     return@setOnItemSelectedListener true
@@ -61,20 +65,23 @@ class MainActivity : AppCompatActivity() {
                     // 처리할 로직이 없을 경우에도 true를 반환하여 이벤트를 소비하도록 구현
                     return@setOnItemSelectedListener true
                 }
-            }
-            // 선택된 메뉴 항목에 대한 처리가 끝나고 true를 반환하여 이벤트를 소비하도록 구현
+            } // 선택된 메뉴 항목에 대한 처리가 끝나고 true를 반환하여 이벤트를 소비하도록 구현
             return@setOnItemSelectedListener true
         }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.fragment_home || destination.id == R.id.fragment_search
-                || destination.id == R.id.fragment_love || destination.id == R.id.fragment_select_home || destination.id == R.id.fragment_map) {
+            if (destination.id == R.id.fragment_home || destination.id == R.id.fragment_search || destination.id == R.id.fragment_love || destination.id == R.id.fragment_select_home || destination.id == R.id.fragment_map) {
                 binding.bottomNavigationView.visibility = View.VISIBLE
-                binding.myongsikHomeFragmentView.setPadding(0,0,0,0)}
-            else {
-                binding.bottomNavigationView.visibility= View.GONE
-                binding.myongsikHomeFragmentView.setPadding(0,0,0,0)
+                binding.myongsikHomeFragmentView.setPadding(0, 0, 0, 0)
+            } else {
+                binding.bottomNavigationView.visibility = View.GONE
+                binding.myongsikHomeFragmentView.setPadding(0, 0, 0, 0)
             }
         }
+    }
+
+    override fun onDestroy() {
+        Constant.isAdAvailable = true
+        super.onDestroy()
     }
 }
