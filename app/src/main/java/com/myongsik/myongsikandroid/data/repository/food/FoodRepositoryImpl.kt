@@ -7,10 +7,10 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
-import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
-import com.myongsik.myongsikandroid.data.model.food.*
-import com.myongsik.myongsikandroid.data.model.restaurant.RequestScrap
-import com.myongsik.myongsikandroid.data.model.restaurant.ResponseScrap
+import com.myongsik.myongsikandroid.data.model.food.DayFoodResponse
+import com.myongsik.myongsikandroid.data.model.food.RankRestaurantResponse
+import com.myongsik.myongsikandroid.data.model.food.ResponseOneRestaurant
+import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION
