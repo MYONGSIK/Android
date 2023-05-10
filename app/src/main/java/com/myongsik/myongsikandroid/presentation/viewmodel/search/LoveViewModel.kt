@@ -71,13 +71,12 @@ class LoveViewModel @Inject constructor(
             }
     }
 
-    private val _scrapRestaurant = MutableLiveData<ResponseScrap>()
-    val scrapRestaurant: LiveData<ResponseScrap>
-        get() = _scrapRestaurant
+    private val _scrapRestaurant = MutableStateFlow<ResponseScrap?>(null)
+    val scrapRestaurant: StateFlow<ResponseScrap?> = _scrapRestaurant.asStateFlow()
 
     fun scarpRestaurant(requestScrap: RequestScrap) = launch {
         postScrapRestaurantDataUseCase(requestScrap.toRequestScrapEntity())?.let{
-            _scrapRestaurant.postValue(it.toResponseScrapData())
+            _scrapRestaurant.value = it.toResponseScrapData()
         }
     }
 }
