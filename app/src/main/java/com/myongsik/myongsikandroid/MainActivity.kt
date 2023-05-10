@@ -8,7 +8,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.myongsik.myongsikandroid.alarm.AlarmBroadCastReceiver
 import com.myongsik.myongsikandroid.databinding.ActivityMainBinding
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
@@ -79,18 +78,6 @@ class MainActivity : AppCompatActivity() {
                 binding.myongsikHomeFragmentView.setPadding(0, 0, 0, 0)
             }
         }
-
-        // Background
-        val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
-        val triggerTime = Calendar.getInstance()
-        triggerTime.set(Calendar.HOUR_OF_DAY, 23)
-        triggerTime.set(Calendar.MINUTE, 59)
-        triggerTime.set(Calendar.SECOND, 0)
-        triggerTime.set(Calendar.MILLISECOND, 0)
-
-        val intent = Intent(this@MainActivity, AlarmBroadCastReceiver::class.java)
-        val pIntent = PendingIntent.getBroadcast(this@MainActivity, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerTime.timeInMillis, AlarmManager.INTERVAL_DAY, pIntent)
     }
 
     override fun onDestroy() {
