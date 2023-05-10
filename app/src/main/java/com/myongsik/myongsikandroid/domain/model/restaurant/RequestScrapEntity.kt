@@ -1,6 +1,6 @@
-package com.myongsik.myongsikandroid.data.model.food
+package com.myongsik.myongsikandroid.domain.model.restaurant
 
-data class RequestScrap(
+data class RequestScrapEntity(
     val address : String,
     val campus : String,
     val category : String,

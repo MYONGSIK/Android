@@ -8,15 +8,18 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.BaseFragment
-import com.myongsik.myongsikandroid.data.model.food.RequestScrap
+import com.myongsik.myongsikandroid.data.model.restaurant.RequestScrap
 import com.myongsik.myongsikandroid.databinding.FragmentRestaurantBinding
 import com.myongsik.myongsikandroid.presentation.viewmodel.search.LoveViewModel
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 //장소 상세화면
 @AndroidEntryPoint
@@ -75,7 +78,8 @@ class RestaurantFragment : BaseFragment<FragmentRestaurantBinding>() {
                 urlAddress = restaurant.place_url,
                 latitude = restaurant.x,
                 longitude = restaurant.y
-            ))
+            )
+            )
             Snackbar.make(binding.root, "찜 완료!", Snackbar.LENGTH_SHORT).show()
         }
 
@@ -102,14 +106,16 @@ class RestaurantFragment : BaseFragment<FragmentRestaurantBinding>() {
     }
 
     private fun favoriteRestaurantGet(){
-        loveViewModel.loveIs.observe(viewLifecycleOwner){
-            if(it == null){
-                binding.fabFavorite.visibility = View.VISIBLE
-                binding.fabFavoriteLove.visibility = View.INVISIBLE
-            }
-            else{
-                binding.fabFavorite.visibility = View.INVISIBLE
-                binding.fabFavoriteLove.visibility = View.VISIBLE
+        viewLifecycleOwner.lifecycleScope.launch{
+            loveViewModel.loveIs.collectLatest {
+                if(it == null){
+                    binding.fabFavorite.visibility = View.VISIBLE
+                    binding.fabFavoriteLove.visibility = View.INVISIBLE
+                }
+                else{
+                    binding.fabFavorite.visibility = View.INVISIBLE
+                    binding.fabFavoriteLove.visibility = View.VISIBLE
+                }
             }
         }
     }
