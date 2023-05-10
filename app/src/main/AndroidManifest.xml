@@ -48,7 +48,7 @@
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="${kakaoApiKey}" />
+            android:value="${kakaoMapApiKey}" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="${admobApplicationId}" />
