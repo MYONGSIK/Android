@@ -6,17 +6,13 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
 import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
 import com.myongsik.myongsikandroid.data.model.food.*
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.myongsikandroid.data.model.restaurant.RequestScrap
+import com.myongsik.myongsikandroid.data.model.restaurant.ResponseScrap
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
-import com.myongsik.myongsikandroid.data.model.user.RequestUserData
-import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION_H
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.DINNER_EVALUATION_S
@@ -24,7 +20,6 @@ import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.Pref
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_A_EVALUATION_S
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_B_EVALUATION
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepositoryImpl.PreferencesKeys.LUNCH_EVALUATION
-import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.DataStoreKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -36,7 +31,6 @@ import javax.inject.Singleton
 
 @Singleton
 class FoodRepositoryImpl @Inject constructor(
-    private val db: RestaurantDatabase,
     private val dataStore: DataStore<Preferences>,
     private val api: HomeFoodApi,
 ) : FoodRepository {
@@ -51,10 +45,6 @@ class FoodRepositoryImpl @Inject constructor(
 
     override suspend fun postReview(requestReviewData: RequestReviewData): Response<ResponseReviewData> {
         return api.postReview(requestReviewData)
-    }
-
-    override suspend fun postScrapRestaurant(requestScrap: RequestScrap): Response<ResponseScrap> {
-        return api.postRestaurantScrap(requestScrap)
     }
 
     override suspend fun getRankRestaurant(sort: String, campus: String, size : Int): Response<RankRestaurantResponse> {

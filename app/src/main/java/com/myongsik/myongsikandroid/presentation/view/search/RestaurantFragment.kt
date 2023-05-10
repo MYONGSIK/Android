@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.BaseFragment
-import com.myongsik.myongsikandroid.data.model.food.RequestScrap
+import com.myongsik.myongsikandroid.data.model.restaurant.RequestScrap
 import com.myongsik.myongsikandroid.databinding.FragmentRestaurantBinding
 import com.myongsik.myongsikandroid.presentation.viewmodel.search.LoveViewModel
 import com.myongsik.myongsikandroid.util.MyongsikApplication
@@ -78,7 +78,8 @@ class RestaurantFragment : BaseFragment<FragmentRestaurantBinding>() {
                 urlAddress = restaurant.place_url,
                 latitude = restaurant.x,
                 longitude = restaurant.y
-            ))
+            )
+            )
             Snackbar.make(binding.root, "찜 완료!", Snackbar.LENGTH_SHORT).show()
         }
 

@@ -1,13 +1,11 @@
 package com.myongsik.myongsikandroid.data.repository.food
 
 import androidx.datastore.preferences.core.Preferences
-import androidx.paging.PagingData
 import com.myongsik.myongsikandroid.data.model.food.*
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.myongsikandroid.data.model.restaurant.RequestScrap
+import com.myongsik.myongsikandroid.data.model.restaurant.ResponseScrap
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
-import com.myongsik.myongsikandroid.data.model.user.RequestUserData
-import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
@@ -19,8 +17,6 @@ interface FoodRepository {
     suspend fun dayGetFoodArea(area: String): Response<DayFoodResponse>
 
     suspend fun postReview(requestReviewData: RequestReviewData): Response<ResponseReviewData>
-
-    suspend fun postScrapRestaurant(requestScrap: RequestScrap): Response<ResponseScrap>
 
     suspend fun getRankRestaurant(sort : String, campus : String, size : Int) : Response<RankRestaurantResponse>
 

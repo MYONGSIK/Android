@@ -4,10 +4,14 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.myongsik.myongsikandroid.data.api.RestaurantApi
 import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.kakao.toRestaurantData
 import com.myongsik.myongsikandroid.data.model.kakao.toRestaurantEntity
+import com.myongsik.myongsikandroid.data.model.restaurant.toRequestScrapData
+import com.myongsik.myongsikandroid.data.model.restaurant.toResponseScrapEntity
+import com.myongsik.myongsikandroid.domain.model.restaurant.RequestScrapEntity
+import com.myongsik.myongsikandroid.domain.model.restaurant.ResponseScrapEntity
 import com.myongsik.myongsikandroid.domain.model.restaurant.RestaurantEntity
 import com.myongsik.myongsikandroid.util.Constant
 import kotlinx.coroutines.flow.Flow
@@ -15,7 +19,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class RestaurantDataSourceImpl @Inject constructor(
-    private val loveDb: RestaurantDatabase
+    private val loveDb: RestaurantDatabase,
+    private val restaurantApi: RestaurantApi
 ) : RestaurantDataSource {
 
     override suspend fun insertRestaurant(restaurantEntity: RestaurantEntity) {
@@ -48,6 +53,15 @@ class RestaurantDataSourceImpl @Inject constructor(
     override suspend fun getLoveListRestaurant(): Flow<List<RestaurantEntity>> {
         return loveDb.restaurantDao().getIsLoveFood()
             .map { restaurantList -> restaurantList.map { it.toRestaurantEntity() } }
+    }
+
+    override suspend fun postScrapRestaurant(requestScrapEntity: RequestScrapEntity): ResponseScrapEntity? {
+        val response = restaurantApi.postRestaurantScrap(requestScrapEntity.toRequestScrapData())
+        return if(response.isSuccessful) {
+            response.body()?.toResponseScrapEntity()
+        } else {
+            null
+        }
     }
 
 }

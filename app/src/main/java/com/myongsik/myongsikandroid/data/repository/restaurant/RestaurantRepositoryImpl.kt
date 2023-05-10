@@ -2,6 +2,8 @@ package com.myongsik.myongsikandroid.data.repository.restaurant
 
 import androidx.paging.PagingData
 import com.myongsik.myongsikandroid.data.datasource.restaurant.RestaurantDataSource
+import com.myongsik.myongsikandroid.domain.model.restaurant.RequestScrapEntity
+import com.myongsik.myongsikandroid.domain.model.restaurant.ResponseScrapEntity
 import com.myongsik.myongsikandroid.domain.model.restaurant.RestaurantEntity
 import com.myongsik.myongsikandroid.domain.repository.restaurant.RestaurantRepository
 import kotlinx.coroutines.flow.Flow
@@ -26,5 +28,9 @@ class RestaurantRepositoryImpl @Inject constructor(
 
     override suspend fun getLoveListRestaurant(): Flow<List<RestaurantEntity>>
         = restaurantDataSource.getLoveListRestaurant()
+
+    override suspend fun postRestaurantScrap(requestScrapEntity: RequestScrapEntity): ResponseScrapEntity? {
+        return restaurantDataSource.postScrapRestaurant(requestScrapEntity)
+    }
 
 }

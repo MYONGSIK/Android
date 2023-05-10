@@ -7,11 +7,13 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import com.myongsik.myongsikandroid.BaseViewModel
-import com.myongsik.myongsikandroid.data.model.food.RequestScrap
-import com.myongsik.myongsikandroid.data.model.food.ResponseScrap
+import com.myongsik.myongsikandroid.data.model.restaurant.RequestScrap
+import com.myongsik.myongsikandroid.data.model.restaurant.ResponseScrap
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.kakao.toRestaurantData
 import com.myongsik.myongsikandroid.data.model.kakao.toRestaurantEntity
+import com.myongsik.myongsikandroid.data.model.restaurant.toRequestScrapEntity
+import com.myongsik.myongsikandroid.data.model.restaurant.toResponseScrapData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.domain.usecase.restaurant.*
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,12 +22,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoveViewModel @Inject constructor(
-    private val foodRepository: FoodRepository,
     private val insertRestaurantDataUseCase: InsertRestaurantDataUseCase,
     private val deleteRestaurantDataUseCase: DeleteRestaurantDataUseCase,
     private val loveIsRestaurantDataUseCase: LoveIsRestaurantDataUseCase,
     private val getListRestaurantDataUseCase: GetListRestaurantDataUseCase,
-    private val getPagingRestaurantDataUseCase: GetPagingRestaurantDataUseCase
+    private val getPagingRestaurantDataUseCase: GetPagingRestaurantDataUseCase,
+    private val postScrapRestaurantDataUseCase: PostScrapRestaurantDataUseCase
 ) : BaseViewModel() {
 
     //Room
@@ -38,8 +40,7 @@ class LoveViewModel @Inject constructor(
     }
 
     private val _loveIs = MutableStateFlow<Restaurant?>(null)
-    val loveIs: StateFlow<Restaurant?>
-        get() = _loveIs.asStateFlow()
+    val loveIs: StateFlow<Restaurant?> = _loveIs.asStateFlow()
 
     fun loveIs(restaurant: Restaurant) = launch {
         loveIsRestaurantDataUseCase(restaurant.id).let{
@@ -75,10 +76,8 @@ class LoveViewModel @Inject constructor(
         get() = _scrapRestaurant
 
     fun scarpRestaurant(requestScrap: RequestScrap) = launch {
-        val response = foodRepository.postScrapRestaurant(requestScrap)
-
-        if (response.code() == 200) {
-            _scrapRestaurant.postValue(response.body())
+        postScrapRestaurantDataUseCase(requestScrap.toRequestScrapEntity())?.let{
+            _scrapRestaurant.postValue(it.toResponseScrapData())
         }
     }
 }

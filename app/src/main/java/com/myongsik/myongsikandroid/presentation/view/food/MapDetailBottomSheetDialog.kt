@@ -12,7 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.model.food.RequestScrap
+import com.myongsik.myongsikandroid.data.model.restaurant.RequestScrap
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.DialogBottomRestaurantSheetBinding
 import com.myongsik.myongsikandroid.presentation.viewmodel.food.HomeViewModel
