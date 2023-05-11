@@ -10,151 +10,173 @@
         android:id="@+id/good_cafe_drink_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="20dp"
         android:fontFamily="@font/notosans_regular"
         android:text="@string/search_restaurant_list"
         android:textColor="#0E0E0E"
         android:textFontWeight="700"
-        android:textSize="20sp"
+        android:textSize="22sp"
+        android:includeFontPadding="false"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <HorizontalScrollView
-        android:id="@+id/horizon_sv"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_search_hashtag_rice"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/search_header_icon"
+        android:elevation="4dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toStartOf="@id/item_search_hashtag_cafe"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/good_cafe_drink_tv">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/icon_header_rice_iv"
+            android:layout_width="120dp"
+            android:layout_height="82dp"
+            android:paddingTop="10dp"
+            android:src="@drawable/ic_search_rice"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icon_header_rice_tv"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/icon_header_rice_tv"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:text="@string/search_univ_rice"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/icon_header_rice_iv"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_search_hashtag1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/tag_stroke">
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/hashtag_good_food"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="8dp"
-                    android:text="@string/search_univ_good"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_search_hashtag_cafe"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_header_icon"
+        android:elevation="4dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_search_hashtag_rice"
+        app:layout_constraintTop_toTopOf="@+id/item_search_hashtag_rice">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/icon_header_cafe_iv"
+            android:layout_width="120dp"
+            android:layout_height="82dp"
+            android:paddingTop="13dp"
+            android:src="@drawable/ic_search_cafe"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icon_header_cafe_tv"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_search_hashtag2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/tag_stroke">
+        <TextView
+            android:id="@+id/icon_header_cafe_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/search_univ_cafe"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/icon_header_cafe_iv"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/week_food_afternoon_tv1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="8dp"
-                    android:text="@string/search_univ_cafe"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_search_hashtag_pub"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_header_icon"
+        android:elevation="4dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toStartOf="@id/item_search_hashtag_bread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_search_hashtag_cafe">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/icon_header_pub_iv"
+            android:layout_width="120dp"
+            android:layout_height="82dp"
+            android:paddingTop="8dp"
+            android:src="@drawable/ic_search_pub"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icon_header_pub_tv"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_search_hashtag3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/tag_stroke">
+        <TextView
+            android:id="@+id/icon_header_pub_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/search_univ_drink"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/icon_header_pub_iv"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/week_food_afternoon_tv2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="8dp"
-                    android:text="@string/search_univ_drink"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/item_search_hashtag_bread"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_header_icon"
+        android:elevation="4dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_search_hashtag_pub"
+        app:layout_constraintTop_toTopOf="@+id/item_search_hashtag_pub">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_search_hashtag4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/tag_stroke">
+        <ImageView
+            android:id="@+id/icon_header_bread_iv"
+            android:layout_width="120dp"
+            android:layout_height="82dp"
+            android:paddingTop="6dp"
+            android:src="@drawable/ic_search_bread"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/icon_header_bread_tv"
+            app:layout_constraintStart_toStartOf="parent" />
 
-                <TextView
-                    android:id="@+id/week_food_afternoon_tv3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="8dp"
-                    android:text="@string/search_univ_bread"
-                    android:textColor="#000000"
-                    android:textSize="16sp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/icon_header_bread_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/search_univ_bread"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/icon_header_bread_iv"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/item_search_hashtag5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:background="@drawable/tag_stroke"
-                android:visibility="invisible">
-
-                <TextView
-                    android:id="@+id/week_food_afternoon_tv_plus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingHorizontal="12dp"
-                    android:text="#"
-                    android:textColor="#000000"
-                    android:visibility="invisible"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <TextView
+        <TextView
         android:id="@+id/good_place_myongji"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
         android:fontFamily="@font/notosans_regular"
         android:text="@string/search_already_food"
         android:textColor="#0E0E0E"
+        android:includeFontPadding="false"
+        android:layout_marginTop="33dp"
+        android:paddingBottom="14dp"
         android:textFontWeight="700"
         android:textSize="22dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horizon_sv" />
+        app:layout_constraintTop_toBottomOf="@id/item_search_hashtag_pub" />
 
     <Spinner
         android:id="@+id/spSort"

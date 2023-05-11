@@ -34,11 +34,11 @@
 
     <string name="search_empty_list">검색 결과가 없습니다.</string>
     <string name="search_restaurant_text">검색어를 입력하세요.</string>
-    <string name="search_restaurant_list">#모아뒀으니 골라보세요!</string>
-    <string name="search_univ_good">#명지맛집</string>
-    <string name="search_univ_cafe">#명지카페</string>
-    <string name="search_univ_drink">#명지술집</string>
-    <string name="search_univ_bread">#명지빵집</string>
+    <string name="search_restaurant_list">#명지맛집 모음!</string>
+    <string name="search_univ_rice">집밥</string>
+    <string name="search_univ_cafe">카페</string>
+    <string name="search_univ_drink">술집</string>
+    <string name="search_univ_bread">빵집</string>
     <string name="search_already_food">#명지인이 선택한 맛집</string>
 
     <string name="select_teacher_restaurant">교직원 식당</string>

@@ -28,16 +28,16 @@ class RankHeaderViewHolder(
                 spSort.setSelection(sortType, false)
             }
 
-            itemSearchHashtag1.setOnClickListener {
+            itemSearchHashtagRice.setOnClickListener {
                 clickCallback.onHashtagGoodFoodClick()
             }
-            itemSearchHashtag2.setOnClickListener {
+            itemSearchHashtagCafe.setOnClickListener {
                 clickCallback.onHashtagGoodCafeClick()
             }
-            itemSearchHashtag3.setOnClickListener {
+            itemSearchHashtagPub.setOnClickListener {
                 clickCallback.onHashtagGoodDrinkClick()
             }
-            itemSearchHashtag4.setOnClickListener {
+            itemSearchHashtagBread.setOnClickListener {
                 clickCallback.onHashtagGoodBreadClick()
             }
             btArrow.setOnClickListener {
