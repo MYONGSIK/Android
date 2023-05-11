@@ -9,21 +9,9 @@ import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View.GONE
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.ItemHomeTodayFoodBinding
-import com.myongsik.myongsikandroid.presentation.viewmodel.food.HomeViewModel
-import com.myongsik.myongsikandroid.util.Constant.DINNER
-import com.myongsik.myongsikandroid.util.Constant.DINNER_H
-import com.myongsik.myongsikandroid.util.Constant.DINNER_S
-import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD
-import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD_H
-import com.myongsik.myongsikandroid.util.Constant.LUNCH_A_GOOD_S
-import com.myongsik.myongsikandroid.util.Constant.LUNCH_B_GOOD
-import com.myongsik.myongsikandroid.util.DialogUtils
 import com.myongsik.myongsikandroid.util.MyongsikApplication
-import java.util.*
 
 class MyPagerAdapter(
     private val itemList: List<List<List<String>>>,

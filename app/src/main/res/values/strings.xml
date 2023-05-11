@@ -35,7 +35,7 @@
     <string name="search_empty_list">검색 결과가 없습니다.</string>
     <string name="search_restaurant_text">검색어를 입력하세요.</string>
     <string name="search_restaurant_list">#명지맛집 모음!</string>
-    <string name="search_univ_rice">집밥</string>
+    <string name="search_univ_rice">맛집</string>
     <string name="search_univ_cafe">카페</string>
     <string name="search_univ_drink">술집</string>
     <string name="search_univ_bread">빵집</string>
