@@ -2,7 +2,6 @@ package com.myongsik.myongsikandroid.presentation.view.food
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.myongsik.myongsikandroid.BaseFragment
+import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentMapBinding
 import com.myongsik.myongsikandroid.presentation.viewmodel.food.HomeViewModel

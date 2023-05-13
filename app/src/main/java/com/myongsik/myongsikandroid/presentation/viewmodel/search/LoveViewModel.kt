@@ -1,12 +1,10 @@
 package com.myongsik.myongsikandroid.presentation.viewmodel.search
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
-import com.myongsik.myongsikandroid.BaseViewModel
+import com.myongsik.myongsikandroid.base.BaseViewModel
 import com.myongsik.myongsikandroid.data.model.restaurant.RequestScrap
 import com.myongsik.myongsikandroid.data.model.restaurant.ResponseScrap
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
@@ -14,7 +12,6 @@ import com.myongsik.myongsikandroid.data.model.kakao.toRestaurantData
 import com.myongsik.myongsikandroid.data.model.kakao.toRestaurantEntity
 import com.myongsik.myongsikandroid.data.model.restaurant.toRequestScrapEntity
 import com.myongsik.myongsikandroid.data.model.restaurant.toResponseScrapData
-import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.domain.usecase.restaurant.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*

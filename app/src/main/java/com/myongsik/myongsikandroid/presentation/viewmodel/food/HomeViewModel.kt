@@ -3,7 +3,8 @@ package com.myongsik.myongsikandroid.presentation.viewmodel.food
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.myongsik.myongsikandroid.BaseViewModel
+import com.myongsik.myongsikandroid.base.ApiResponse
+import com.myongsik.myongsikandroid.base.BaseViewModel
 import com.myongsik.myongsikandroid.data.model.food.RankRestaurantResponse
 import com.myongsik.myongsikandroid.data.model.food.ResponseMealData
 import com.myongsik.myongsikandroid.data.model.food.ResponseOneRestaurant
@@ -24,8 +25,8 @@ class HomeViewModel @Inject constructor(
     private val foodRepository: FoodRepository
 ) : BaseViewModel() {
 
-    private val _weekGetFoodArea = MutableLiveData<WeekFoodResponse>()
-    val weekGetFoodArea: LiveData<WeekFoodResponse>
+    private val _weekGetFoodArea = MutableLiveData<ApiResponse<WeekFoodResponse>>()
+    val weekGetFoodArea: LiveData<ApiResponse<WeekFoodResponse>>
         get() = _weekGetFoodArea
 
     private val _postReviewData = MutableLiveData<ResponseReviewData>()
@@ -37,10 +38,8 @@ class HomeViewModel @Inject constructor(
         get() = _postMealData
 
     fun weekGetFoodAreaFun(s: String) = launch {
-        val response = foodRepository.weekGetFoodArea(s)
-
-        if (response.code() == 200) {
-            _weekGetFoodArea.postValue(response.body())
+        foodRepository.weekGetFoodArea(s).collect{
+            _weekGetFoodArea.postValue(it)
         }
     }
 

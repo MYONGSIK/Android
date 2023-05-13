@@ -1,6 +1,8 @@
-package com.myongsik.myongsikandroid
+package com.myongsik.myongsikandroid.base
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +10,17 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.myongsik.myongsikandroid.databinding.ItemLoadStateBinding
+import com.myongsik.myongsikandroid.databinding.ItemLoadingProgressbarBinding
+import com.myongsik.myongsikandroid.util.ItemLoadingProgressbarDialog
 
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
     private var backPressedCallback: OnBackPressedCallback? = null
     private var _binding: T? = null
     protected val binding: T
         get() = _binding ?: throw IllegalStateException("Binding is not available")
+
+    private lateinit var loadingDialog: ItemLoadingProgressbarDialog
 
     abstract fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): T
 
@@ -31,6 +38,10 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
         initView()
         initListener()
+
+        loadingDialog = ItemLoadingProgressbarDialog(requireContext())
+        loadingDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        loadingDialog.setCancelable(false)
     }
 
     override fun onDestroyView() {
@@ -63,4 +74,12 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
 
     // Observe, 클릭리스너 작업
     protected abstract fun initListener()
+
+    protected fun showProgressBar() {
+        loadingDialog.show()
+    }
+
+    protected fun hideProgressBar() {
+        loadingDialog.dismiss()
+    }
 }

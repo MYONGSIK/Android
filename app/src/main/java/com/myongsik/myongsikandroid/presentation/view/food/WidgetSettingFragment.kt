@@ -10,7 +10,7 @@ import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.myongsik.myongsikandroid.BaseFragment
+import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.alarm.UpdateWidgetWorker
 import com.myongsik.myongsikandroid.data.type.WidgetType

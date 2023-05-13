@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid
+package com.myongsik.myongsikandroid.base
 
 import android.util.Log
 import androidx.lifecycle.LiveData
