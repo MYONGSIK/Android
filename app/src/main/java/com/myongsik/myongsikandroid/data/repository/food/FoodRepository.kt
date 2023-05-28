@@ -14,8 +14,6 @@ import retrofit2.Response
 interface FoodRepository {
 
     //API
-    suspend fun weekGetFoodArea(s: String): Flow<ApiResponse<WeekFoodResponse>>
-
     suspend fun dayGetFoodArea(area: String): Response<DayFoodResponse>
 
     suspend fun postReview(requestReviewData: RequestReviewData): Response<ResponseReviewData>

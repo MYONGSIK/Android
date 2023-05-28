@@ -29,10 +29,6 @@ class FoodRepositoryImpl @Inject constructor(
     private val api: HomeFoodApi,
 ) : FoodRepository {
 
-    override suspend fun weekGetFoodArea(s: String): Flow<ApiResponse<WeekFoodResponse>> = safeApiCall {
-        api.weekGetFoodArea(s)
-    }
-
     override suspend fun dayGetFoodArea(area: String): Response<DayFoodResponse> {
         return api.dayGetFoodArea(area)
     }
