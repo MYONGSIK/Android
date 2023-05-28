@@ -46,9 +46,9 @@ class HomeViewModel @Inject constructor(
     }
 
     fun postReview(requestReviewData: RequestReviewData) = launch {
-        postReviewDataUseCase(requestReviewData.toRequestReviewEntity()).let{
+        postReviewDataUseCase(requestReviewData.toRequestReviewEntity())?.let{
             Log.d("DebugTag", "postReviewDataUseCase result: $it")
-            _postReviewData.value = it?.toResponseReviewData()
+            _postReviewData.value = it.toResponseReviewData()
             Log.d("DebugTag", "Value emitted to _postReviewData")
         }
     }
