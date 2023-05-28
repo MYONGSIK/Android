@@ -15,7 +15,9 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.ads.AdRequest
@@ -37,6 +39,7 @@ import com.myongsik.myongsikandroid.presentation.viewmodel.food.HomeViewModel
 import com.myongsik.myongsikandroid.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -108,37 +111,31 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun initObserve() {
-        homeViewModel.weekGetFoodArea.observe(viewLifecycleOwner) {
-            when(it) {
-                is ApiResponse.Success -> {
-                    hideProgressBar()
+        viewLifecycleOwner.lifecycleScope.launch{
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                homeViewModel.weekGetFoodArea.collectLatest {
                     val list = mutableListOf<List<String>>()
 
-                    settingDate(LocalDate.parse(it.data.localDateTime.substring(0, 10)))
+                    it?.let{
+                        settingDate(LocalDate.parse(it.localDateTime.substring(0, 10)))
 
-                    it.data.data.forEach { foodResult ->
-                        list.add(foodResult.meals)
-                    }
+                        it.data.forEach { foodResult ->
+                            list.add(foodResult.meals)
+                        }
 
-                    val chunkedList = if (list.size == 15) {
-                        list.chunked(3).chunked(5).first()
-                    } else {
-                        list.chunked(2).chunked(5).first()
-                    }
+                        val chunkedList = if (list.size == 15) {
+                            list.chunked(3).chunked(5).first()
+                        } else {
+                            list.chunked(2).chunked(5).first()
+                        }
 
-                    with(binding) {
-                        viewPager2.adapter = MyPagerAdapter(chunkedList)
-                        viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                        setCurrentPage(initDate)
-                        indicator.setViewPager(viewPager2)
+                        with(binding) {
+                            viewPager2.adapter = MyPagerAdapter(chunkedList)
+                            viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                            setCurrentPage(initDate)
+                            indicator.setViewPager(viewPager2)
+                        }
                     }
-                }
-                is ApiResponse.Failure -> {
-                    hideProgressBar()
-                    Toast.makeText(requireContext(), "네트워크 에러가 발생하였습니다", Toast.LENGTH_SHORT).show()
-                }
-                is ApiResponse.Loading -> {
-                    showProgressBar()
                 }
             }
         }

@@ -5,29 +5,30 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.myongsik.myongsikandroid.base.ApiResponse
 import com.myongsik.myongsikandroid.base.BaseViewModel
-import com.myongsik.myongsikandroid.data.model.food.RankRestaurantResponse
-import com.myongsik.myongsikandroid.data.model.food.ResponseMealData
-import com.myongsik.myongsikandroid.data.model.food.ResponseOneRestaurant
-import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
+import com.myongsik.myongsikandroid.data.model.food.*
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
+import com.myongsik.myongsikandroid.domain.usecase.food.GetWeekFoodDataUseCase
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val foodRepository: FoodRepository
+    private val foodRepository: FoodRepository,
+    private val getWeekFoodDataUseCase: GetWeekFoodDataUseCase
 ) : BaseViewModel() {
 
-    private val _weekGetFoodArea = MutableLiveData<ApiResponse<WeekFoodResponse>>()
-    val weekGetFoodArea: LiveData<ApiResponse<WeekFoodResponse>>
-        get() = _weekGetFoodArea
+    private val _weekGetFoodArea = MutableStateFlow<WeekFoodResponse?>(null)
+    val weekGetFoodArea: StateFlow<WeekFoodResponse?> = _weekGetFoodArea.asStateFlow()
 
     private val _postReviewData = MutableLiveData<ResponseReviewData>()
     val postReviewData: LiveData<ResponseReviewData>
@@ -38,8 +39,8 @@ class HomeViewModel @Inject constructor(
         get() = _postMealData
 
     fun weekGetFoodAreaFun(s: String) = launch {
-        foodRepository.weekGetFoodArea(s).collect{
-            _weekGetFoodArea.postValue(it)
+        getWeekFoodDataUseCase(s)?.let{
+            _weekGetFoodArea.value = it.toWeekFoodResponse()
         }
     }
 
