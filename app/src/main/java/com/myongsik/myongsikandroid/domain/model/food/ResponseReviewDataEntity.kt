@@ -3,7 +3,7 @@ package com.myongsik.myongsikandroid.domain.model.food
 data class ResponseReviewDataEntity(
     val httpCode: Int,
     val success : Boolean,
-    val localDataTime : String?,
+    val localDateTime : String,
     val httpStatus : String,
     val message : String,
     val content: String,

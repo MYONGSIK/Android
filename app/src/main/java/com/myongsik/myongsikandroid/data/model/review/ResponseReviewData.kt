@@ -5,7 +5,7 @@ import com.myongsik.myongsikandroid.domain.model.food.ResponseReviewDataEntity
 data class ResponseReviewData(
     val httpCode: Int,
     val success : Boolean,
-    val localDataTime : String?,
+    val localDateTime : String,
     val httpStatus : String,
     val message : String,
     val data : Result
@@ -22,7 +22,7 @@ data class ResponseReviewData(
 fun ResponseReviewData.toResponseReviewEntity() = ResponseReviewDataEntity(
     httpCode = this.httpCode,
     success = this.success,
-    localDataTime = this.localDataTime,
+    localDateTime = this.localDateTime,
     httpStatus = this.httpStatus,
     message = this.message,
     content = this.data.content,
@@ -35,7 +35,7 @@ fun ResponseReviewData.toResponseReviewEntity() = ResponseReviewDataEntity(
 fun ResponseReviewDataEntity.toResponseReviewData() = ResponseReviewData(
     httpCode = this.httpCode,
     success = this.success,
-    localDataTime = this.localDataTime,
+    localDateTime = this.localDateTime,
     httpStatus = this.httpStatus,
     message = this.message,
     data = ResponseReviewData.Result(
