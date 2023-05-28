@@ -139,6 +139,32 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 }
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                homeViewModel.postReviewData.collectLatest {
+                    Log.d("gg1234", it?.success.toString())
+                    it?.let{
+                        Log.d("gg1234", it.success.toString())
+                        if (it.success) {
+                            val anotherDialogView = LayoutInflater.from(context).inflate(R.layout.item_review_dialog, null)
+                            val anotherDialog = AlertDialog.Builder(context).setView(anotherDialogView).create().apply {
+                                setCancelable(false)
+                                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                                show()
+                            }
+
+                            lifecycleScope.launch {
+                                delay(1000L)
+                                anotherDialog.dismiss()
+                            }
+                        } else {
+                            Toast.makeText(context, "네트워크 에러가 발생하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun initData() {
@@ -273,24 +299,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     if (review.isEmpty()) {
                         dialogUtils.showConfirmDialog(getString(R.string.opinion_write), getString(R.string.please_opinion_write)) {}
                     } else { // 리뷰 작성
-
                         writeMenu(review)
-
-                        homeViewModel.postReviewData.observe(viewLifecycleOwner) {
-                            if (it.success) {
-                                val anotherDialogView = LayoutInflater.from(context).inflate(R.layout.item_review_dialog, null)
-                                val anotherDialog = AlertDialog.Builder(context).setView(anotherDialogView).create().apply {
-                                    setCancelable(false)
-                                    window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-                                    show()
-                                }
-
-                                lifecycleScope.launch {
-                                    delay(1000L)
-                                    anotherDialog.dismiss()
-                                }
-                            }
-                        }
+                        Log.d("gg1234", "썼다고")
                     }
                 }
             }

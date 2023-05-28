@@ -16,8 +16,6 @@ interface FoodRepository {
     //API
     suspend fun dayGetFoodArea(area: String): Response<DayFoodResponse>
 
-    suspend fun postReview(requestReviewData: RequestReviewData): Response<ResponseReviewData>
-
     suspend fun getRankRestaurant(sort : String, campus : String, size : Int) : Response<RankRestaurantResponse>
 
     suspend fun getOneRestaurant(storeId : Int) : Response<ResponseOneRestaurant>

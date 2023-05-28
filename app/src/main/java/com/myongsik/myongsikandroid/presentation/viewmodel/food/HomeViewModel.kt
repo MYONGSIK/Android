@@ -1,5 +1,6 @@
 package com.myongsik.myongsikandroid.presentation.viewmodel.food
 
+import android.util.Log
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,31 +9,31 @@ import com.myongsik.myongsikandroid.base.BaseViewModel
 import com.myongsik.myongsikandroid.data.model.food.*
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
+import com.myongsik.myongsikandroid.data.model.review.toRequestReviewEntity
+import com.myongsik.myongsikandroid.data.model.review.toResponseReviewData
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.domain.usecase.food.GetWeekFoodDataUseCase
+import com.myongsik.myongsikandroid.domain.usecase.food.PostReviewDataUseCase
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val foodRepository: FoodRepository,
-    private val getWeekFoodDataUseCase: GetWeekFoodDataUseCase
+    private val getWeekFoodDataUseCase: GetWeekFoodDataUseCase,
+    private val postReviewDataUseCase: PostReviewDataUseCase
 ) : BaseViewModel() {
 
     private val _weekGetFoodArea = MutableStateFlow<WeekFoodResponse?>(null)
     val weekGetFoodArea: StateFlow<WeekFoodResponse?> = _weekGetFoodArea.asStateFlow()
 
-    private val _postReviewData = MutableLiveData<ResponseReviewData>()
-    val postReviewData: LiveData<ResponseReviewData>
-        get() = _postReviewData
+    private val _postReviewData = MutableStateFlow<ResponseReviewData?>(null)
+    val postReviewData: StateFlow<ResponseReviewData?> = _postReviewData.asStateFlow()
 
     private val _postMealData = MutableLiveData<ResponseMealData>()
     val postMealData: LiveData<ResponseMealData>
@@ -45,10 +46,10 @@ class HomeViewModel @Inject constructor(
     }
 
     fun postReview(requestReviewData: RequestReviewData) = launch {
-        val response = foodRepository.postReview(requestReviewData)
-
-        if (response.code() == 200) {
-            _postReviewData.postValue(response.body())
+        postReviewDataUseCase(requestReviewData.toRequestReviewEntity()).let{
+            Log.d("DebugTag", "postReviewDataUseCase result: $it")
+            _postReviewData.value = it?.toResponseReviewData()
+            Log.d("DebugTag", "Value emitted to _postReviewData")
         }
     }
 
