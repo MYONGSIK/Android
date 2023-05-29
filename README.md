@@ -23,6 +23,7 @@
 
 ## 📌 Wiki(명식이 Android 팀의 기록)
 [[Architecture] Clean Architecture 도입의 고민](https://github.com/MYONGSIK/Android/wiki/%5BArchitecture%5D-Clean-Architecture-%EB%8F%84%EC%9E%85%EC%9D%98-%EA%B3%A0%EB%AF%BC)
+[[[Android JetPack] WokerManager와 Widget 도입]](https://github.com/MYONGSIK/Android/wiki/%5BAndroid-JetPack%5D-WokerManager%EC%99%80-Widget-%EB%8F%84%EC%9E%85)
 
 ## 📌 App Architecture
 ![스크린샷 2023-04-13 오전 9 50 09](https://user-images.githubusercontent.com/83231344/231617438-0c5375d9-03dd-4b52-b97d-e8c0d83b339b.png)
