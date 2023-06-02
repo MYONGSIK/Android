@@ -17,7 +17,6 @@ class FoodV2RepositoryImpl @Inject constructor(
     }
 
     override suspend fun postReview(requestReviewDataEntity: RequestReviewDataEntity): ResponseReviewDataEntity? {
-        Log.d("gg12341234", foodDataSource.postReview(requestReviewDataEntity)!!.success.toString())
         return foodDataSource.postReview(requestReviewDataEntity)
     }
 }
