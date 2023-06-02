@@ -1,6 +1,6 @@
-package com.myongsik.myongsikandroid.presentation.adapter.food
+package com.myongsik.presentation.adapter.food
 
-import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
+import com.myongsik.data.model.food.GetRankRestaurant
 
 interface OnScrapViewHolderClick {
     fun clickRankDirectButton(getRankRestaurant: GetRankRestaurant)

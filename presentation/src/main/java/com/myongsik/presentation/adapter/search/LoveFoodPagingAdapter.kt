@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.presentation.adapter.search
+package com.myongsik.presentation.adapter.search
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +8,14 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import com.myongsik.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemLoveRestaurantBinding
 
 //관심목록 페이징 어댑터
-class LoveFoodPagingAdapter(listener : OnSearchViewHolderClick)  : PagingDataAdapter<Restaurant, LoveFoodViewHolder>(BookDiffCallback) {
+class LoveFoodPagingAdapter(listener : OnSearchViewHolderClick)  : PagingDataAdapter<Restaurant, LoveFoodViewHolder>(
+    BookDiffCallback
+) {
     private val mCallback = listener
 
     override fun onBindViewHolder(holder: LoveFoodViewHolder, position: Int) {

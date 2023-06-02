@@ -1,12 +1,12 @@
-package com.myongsik.myongsikandroid.presentation.widget
+package com.myongsik.presentation.widget
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
 import android.util.Log
 import androidx.work.*
-import com.myongsik.myongsikandroid.alarm.UpdateWidgetWorker
-import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
+import com.myongsik.data.repository.food.FoodRepository
+import com.myongsik.presentation.alarm.UpdateWidgetWorker
 import com.myongsik.myongsikandroid.util.NetworkUtils
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit

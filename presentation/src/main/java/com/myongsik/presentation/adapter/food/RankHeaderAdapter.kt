@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.presentation.adapter.food
+package com.myongsik.presentation.adapter.food
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.presentation.adapter.state
+package com.myongsik.presentation.adapter.state
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

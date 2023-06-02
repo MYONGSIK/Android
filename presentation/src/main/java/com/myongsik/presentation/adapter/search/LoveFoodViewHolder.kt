@@ -1,9 +1,9 @@
-package com.myongsik.myongsikandroid.presentation.adapter.search
+package com.myongsik.presentation.adapter.search
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemLoveRestaurantBinding
 import com.myongsik.myongsikandroid.util.CommonUtil
 

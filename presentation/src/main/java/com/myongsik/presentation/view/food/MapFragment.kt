@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.presentation.view.food
+package com.myongsik.presentation.view.food
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -12,13 +12,13 @@ import androidx.navigation.fragment.findNavController
 import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentMapBinding
-import com.myongsik.myongsikandroid.presentation.viewmodel.food.HomeViewModel
+import com.myongsik.presentation.viewmodel.food.HomeViewModel
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
+import com.naver.maps.map.MapView
 import dagger.hilt.android.AndroidEntryPoint
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
-import net.daum.mf.map.api.MapView
 
 @AndroidEntryPoint
 class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventListener {

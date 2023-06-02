@@ -1,5 +1,6 @@
-package com.myongsik.myongsikandroid.presentation.view.food
+package com.myongsik.presentation.view.food
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.graphics.BlendMode
 import android.graphics.BlendModeColorFilter
@@ -27,15 +28,15 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.myongsik.myongsikandroid.base.BaseFragment
+import com.myongsik.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.BuildConfig
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
+import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.databinding.DialogBottomUpdateSheetBinding
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
-import com.myongsik.presentation.adapter.food.MyPagerAdapter
-import com.myongsik.myongsikandroid.presentation.viewmodel.food.HomeViewModel
+import com.myongsik.presentation.viewmodel.food.HomeViewModel
 import com.myongsik.myongsikandroid.util.*
+import com.myongsik.presentation.adapter.food.MyPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -99,6 +100,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         })
     }
 
+    @SuppressLint("NewApi")
     private fun settingDate(localDateTime: LocalDate) {
         // 오늘 날짜
         localDate = localDateTime
@@ -196,6 +198,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun initViewPager() {
         binding.viewPager2.offscreenPageLimit = 5
         binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            @SuppressLint("NewApi")
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position) // 월요일
                 val monday = localDate.minusDays(((initDate - 1).toLong()))
@@ -306,6 +309,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         }
     }
 
+    @SuppressLint("NewApi")
     private fun writeMenu(review: String) {
         val currentDate = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")

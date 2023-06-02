@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.presentation.adapter.search
+package com.myongsik.presentation.adapter.search
 
 import android.content.Intent
 import android.net.Uri
@@ -8,8 +8,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import com.myongsik.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantFoodBinding
 import com.myongsik.myongsikandroid.util.CommonUtil
 

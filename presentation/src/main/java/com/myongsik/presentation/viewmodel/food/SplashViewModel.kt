@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.presentation.viewmodel.food
+package com.myongsik.presentation.viewmodel.food
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

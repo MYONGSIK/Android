@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_home"
-        android:name="com.myongsik.myongsikandroid.presentation.view.food.HomeFragment"
+        android:name="com.myongsik.presentation.view.food.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
@@ -134,7 +134,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_map"
-        android:name="com.myongsik.myongsikandroid.presentation.view.food.MapFragment"
+        android:name="com.myongsik.presentation.view.food.MapFragment"
         android:label="MapFragment"
         tools:layout="@layout/fragment_map">
         <action

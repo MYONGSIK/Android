@@ -1,19 +1,17 @@
-package com.myongsik.myongsikandroid.presentation.viewmodel.food
+package com.myongsik.presentation.viewmodel.food
 
-import android.util.Log
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.myongsik.myongsikandroid.base.ApiResponse
+import com.myongsik.data.model.food.*
+import com.myongsik.data.model.review.RequestReviewData
+import com.myongsik.data.model.review.ResponseReviewData
+import com.myongsik.data.model.review.toRequestReviewEntity
+import com.myongsik.data.model.review.toResponseReviewData
+import com.myongsik.data.repository.food.FoodRepository
+import com.myongsik.domain.usecase.food.GetWeekFoodDataUseCase
+import com.myongsik.domain.usecase.food.PostReviewDataUseCase
 import com.myongsik.myongsikandroid.base.BaseViewModel
-import com.myongsik.myongsikandroid.data.model.food.*
-import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
-import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
-import com.myongsik.myongsikandroid.data.model.review.toRequestReviewEntity
-import com.myongsik.myongsikandroid.data.model.review.toResponseReviewData
-import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
-import com.myongsik.myongsikandroid.domain.usecase.food.GetWeekFoodDataUseCase
-import com.myongsik.myongsikandroid.domain.usecase.food.PostReviewDataUseCase
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,9 +45,7 @@ class HomeViewModel @Inject constructor(
 
     fun postReview(requestReviewData: RequestReviewData) = launch {
         postReviewDataUseCase(requestReviewData.toRequestReviewEntity())?.let{
-            Log.d("DebugTag", "postReviewDataUseCase result: $it")
             _postReviewData.value = it.toResponseReviewData()
-            Log.d("DebugTag", "Value emitted to _postReviewData")
         }
     }
 

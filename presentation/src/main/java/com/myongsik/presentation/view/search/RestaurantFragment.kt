@@ -15,7 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.data.model.restaurant.RequestScrap
 import com.myongsik.myongsikandroid.databinding.FragmentRestaurantBinding
-import com.myongsik.myongsikandroid.presentation.viewmodel.search.LoveViewModel
+import com.myongsik.presentation.viewmodel.search.LoveViewModel
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

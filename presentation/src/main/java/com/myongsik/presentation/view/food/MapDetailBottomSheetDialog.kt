@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.presentation.view.food
+package com.myongsik.presentation.view.food
 
 import android.content.Intent
 import android.net.Uri
@@ -11,12 +11,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.myongsik.data.model.kakao.Restaurant
+import com.myongsik.data.model.restaurant.RequestScrap
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.model.restaurant.RequestScrap
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.DialogBottomRestaurantSheetBinding
-import com.myongsik.myongsikandroid.presentation.viewmodel.food.HomeViewModel
-import com.myongsik.myongsikandroid.presentation.viewmodel.search.LoveViewModel
+import com.myongsik.presentation.viewmodel.food.HomeViewModel
+import com.myongsik.presentation.viewmodel.search.LoveViewModel
 import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.AndroidEntryPoint

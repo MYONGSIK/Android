@@ -1,14 +1,14 @@
-package com.myongsik.myongsikandroid.presentation.viewmodel.search
+package com.myongsik.presentation.viewmodel.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.myongsik.data.model.kakao.Restaurant
+import com.myongsik.data.model.kakao.SearchResponse
+import com.myongsik.data.repository.search.SearchFoodRepository
 import com.myongsik.myongsikandroid.base.BaseViewModel
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
-import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
-import com.myongsik.myongsikandroid.data.repository.search.SearchFoodRepository
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel

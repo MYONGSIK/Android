@@ -1,14 +1,16 @@
-package com.myongsik.myongsikandroid.presentation.adapter.search
+package com.myongsik.presentation.adapter.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantFoodBinding
 
 //검색 화면 페이징 어댑터
-class SearchFoodPagingAdapter(listener : OnSearchViewHolderClick) : PagingDataAdapter<Restaurant, SearchFoodViewHolder>(BookDiffCallback) {
+class SearchFoodPagingAdapter(listener : OnSearchViewHolderClick) : PagingDataAdapter<Restaurant, SearchFoodViewHolder>(
+    BookDiffCallback
+) {
     private val mCallback = listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchFoodViewHolder {

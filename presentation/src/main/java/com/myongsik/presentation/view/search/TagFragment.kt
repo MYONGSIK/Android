@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentTagBinding
-import com.myongsik.myongsikandroid.presentation.adapter.search.OnSearchViewHolderClick
-import com.myongsik.myongsikandroid.presentation.adapter.search.SearchFoodPagingAdapter
-import com.myongsik.myongsikandroid.presentation.viewmodel.search.SearchViewModel
+import com.myongsik.presentation.adapter.search.OnSearchViewHolderClick
+import com.myongsik.presentation.adapter.search.SearchFoodPagingAdapter
+import com.myongsik.presentation.viewmodel.search.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

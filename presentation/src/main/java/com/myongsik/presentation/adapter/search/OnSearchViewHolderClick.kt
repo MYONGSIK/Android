@@ -1,6 +1,6 @@
-package com.myongsik.myongsikandroid.presentation.adapter.search
+package com.myongsik.presentation.adapter.search
 
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.data.model.kakao.Restaurant
 
 interface OnSearchViewHolderClick {
     fun addItem(restaurant : Restaurant)

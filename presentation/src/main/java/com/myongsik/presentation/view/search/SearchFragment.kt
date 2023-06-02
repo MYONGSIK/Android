@@ -21,14 +21,14 @@ import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
 import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.data.model.kakao.toRankRestaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
-import com.myongsik.myongsikandroid.presentation.adapter.food.OnScrapViewHolderClick
-import com.myongsik.myongsikandroid.presentation.adapter.food.RankHeaderAdapter
-import com.myongsik.myongsikandroid.presentation.adapter.food.RankRestaurantAdapter
-import com.myongsik.myongsikandroid.presentation.adapter.search.OnSearchViewHolderClick
-import com.myongsik.myongsikandroid.presentation.adapter.search.SearchFoodPagingAdapter
-import com.myongsik.myongsikandroid.presentation.adapter.state.SearchFoodLoadStateAdapter
-import com.myongsik.myongsikandroid.presentation.viewmodel.food.HomeViewModel
-import com.myongsik.myongsikandroid.presentation.viewmodel.search.SearchViewModel
+import com.myongsik.presentation.adapter.food.OnScrapViewHolderClick
+import com.myongsik.presentation.adapter.food.RankHeaderAdapter
+import com.myongsik.presentation.adapter.food.RankRestaurantAdapter
+import com.myongsik.presentation.adapter.search.OnSearchViewHolderClick
+import com.myongsik.presentation.adapter.search.SearchFoodPagingAdapter
+import com.myongsik.presentation.adapter.state.SearchFoodLoadStateAdapter
+import com.myongsik.presentation.viewmodel.food.HomeViewModel
+import com.myongsik.presentation.viewmodel.search.SearchViewModel
 import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
 import com.myongsik.myongsikandroid.util.DataStoreKey
@@ -38,7 +38,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
-@AndroidEntryPoint class SearchFragment : BaseFragment<FragmentSearchBinding>(), OnSearchViewHolderClick, OnScrapViewHolderClick {
+@AndroidEntryPoint class SearchFragment : BaseFragment<FragmentSearchBinding>(),
+    OnSearchViewHolderClick,
+    OnScrapViewHolderClick {
 
     //검색 뷰모델, 현재 의존성 주입 안함
     private val searchViewModel by viewModels<SearchViewModel>()

@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.presentation.adapter.food
+package com.myongsik.presentation.adapter.food
 
 import android.content.Intent
 import android.net.Uri
@@ -7,8 +7,8 @@ import android.text.style.UnderlineSpan
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.myongsik.data.model.food.GetRankRestaurant
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantRankingBinding
 import com.myongsik.myongsikandroid.util.CommonUtil
 

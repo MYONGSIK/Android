@@ -13,7 +13,7 @@ import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.databinding.FragmentSplashBinding
-import com.myongsik.myongsikandroid.presentation.viewmodel.food.SplashViewModel
+import com.myongsik.presentation.viewmodel.food.SplashViewModel
 import com.myongsik.myongsikandroid.util.DialogUtils
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import com.myongsik.myongsikandroid.util.NetworkUtils
