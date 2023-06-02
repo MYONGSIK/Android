@@ -18,7 +18,6 @@ import com.myongsik.myongsikandroid.util.MyongsikApplication
 import com.naver.maps.map.MapView
 import dagger.hilt.android.AndroidEntryPoint
 import net.daum.mf.map.api.MapPOIItem
-import net.daum.mf.map.api.MapPoint
 
 @AndroidEntryPoint
 class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventListener {

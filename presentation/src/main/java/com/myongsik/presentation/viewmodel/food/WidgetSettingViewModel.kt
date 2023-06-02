@@ -1,12 +1,12 @@
-package com.myongsik.myongsikandroid.presentation.viewmodel.food
+package com.myongsik.presentation.viewmodel.food
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.myongsik.data.repository.food.FoodRepository
+import com.myongsik.data.type.WidgetType
+import com.myongsik.data.type.toWidgetType
 import com.myongsik.myongsikandroid.base.BaseViewModel
-import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
-import com.myongsik.myongsikandroid.data.type.WidgetType
-import com.myongsik.myongsikandroid.data.type.toWidgetType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

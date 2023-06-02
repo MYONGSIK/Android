@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.presentation.view.food
+package com.myongsik.presentation.view.food
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,12 +10,12 @@ import androidx.work.Constraints
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.myongsik.data.type.WidgetType
 import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.presentation.alarm.UpdateWidgetWorker
-import com.myongsik.myongsikandroid.data.type.WidgetType
 import com.myongsik.myongsikandroid.databinding.FragmentWidgetSettingBinding
-import com.myongsik.myongsikandroid.presentation.viewmodel.food.WidgetSettingViewModel
+import com.myongsik.presentation.viewmodel.food.WidgetSettingViewModel
 import com.myongsik.myongsikandroid.util.CommonUtil
 import dagger.hilt.android.AndroidEntryPoint
 

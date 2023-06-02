@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.presentation.view.search
+package com.myongsik.presentation.view.search
 
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,11 +15,11 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import com.myongsik.data.model.food.GetRankRestaurant
+import com.myongsik.data.model.kakao.Restaurant
+import com.myongsik.data.model.kakao.toRankRestaurant
 import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
-import com.myongsik.myongsikandroid.data.model.kakao.toRankRestaurant
 import com.myongsik.myongsikandroid.databinding.FragmentSearchBinding
 import com.myongsik.presentation.adapter.food.OnScrapViewHolderClick
 import com.myongsik.presentation.adapter.food.RankHeaderAdapter

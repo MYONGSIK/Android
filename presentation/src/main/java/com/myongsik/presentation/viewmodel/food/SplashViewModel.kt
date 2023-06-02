@@ -2,12 +2,12 @@ package com.myongsik.presentation.viewmodel.food
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.myongsik.data.model.user.RequestUserData
+import com.myongsik.data.model.user.ResponseUserData
+import com.myongsik.data.model.user.toRequestUserEntity
+import com.myongsik.data.model.user.toResponseUserData
+import com.myongsik.domain.usecase.user.PostUserDataUseCase
 import com.myongsik.myongsikandroid.base.BaseViewModel
-import com.myongsik.myongsikandroid.data.model.user.RequestUserData
-import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
-import com.myongsik.myongsikandroid.data.model.user.toRequestUserEntity
-import com.myongsik.myongsikandroid.data.model.user.toResponseUserData
-import com.myongsik.myongsikandroid.domain.usecase.user.PostUserDataUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

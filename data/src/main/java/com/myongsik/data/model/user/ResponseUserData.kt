@@ -1,6 +1,6 @@
 package com.myongsik.data.model.user
 
-import com.myongsik.myongsikandroid.domain.model.user.ResponseUserEntity
+import com.myongsik.domain.model.user.ResponseUserEntity
 
 data class ResponseUserData(
     val httpCode: Int,

@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.presentation.view.search
+package com.myongsik.presentation.view.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,8 +7,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.myongsik.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.base.BaseFragment
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.FragmentTagBinding
 import com.myongsik.presentation.adapter.search.OnSearchViewHolderClick
 import com.myongsik.presentation.adapter.search.SearchFoodPagingAdapter

@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/fragment_splash"
-        android:name="com.myongsik.myongsikandroid.presentation.view.food.SplashFragment"
+        android:name="com.myongsik.presentation.view.food.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_select"
-        android:name="com.myongsik.myongsikandroid.presentation.view.food.SelectFragment"
+        android:name="com.myongsik.presentation.view.food.SelectFragment"
         android:label="SelectFragment"
         tools:layout="@layout/fragment_select">
         <action
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_love"
-        android:name="com.myongsik.myongsikandroid.presentation.view.search.LoveFragment"
+        android:name="com.myongsik.presentation.view.search.LoveFragment"
         android:label="fragment_love"
         tools:layout="@layout/fragment_love" >
         <action
@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_search"
-        android:name="com.myongsik.myongsikandroid.presentation.view.search.SearchFragment"
+        android:name="com.myongsik.presentation.view.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -93,7 +93,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_tag"
-        android:name="com.myongsik.myongsikandroid.presentation.view.search.TagFragment"
+        android:name="com.myongsik.presentation.view.search.TagFragment"
         android:label="TagFragment"
         tools:layout="@layout/fragment_tag">
         <argument
@@ -109,7 +109,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_restaurant"
-        android:name="com.myongsik.myongsikandroid.presentation.view.search.RestaurantFragment"
+        android:name="com.myongsik.presentation.view.search.RestaurantFragment"
         android:label="RestaurantFragment"
         tools:layout="@layout/fragment_restaurant">
         <argument
@@ -119,7 +119,7 @@
 
     <fragment
         android:id="@+id/fragment_select_home"
-        android:name="com.myongsik.myongsikandroid.presentation.view.food.SelectHomeFragment"
+        android:name="com.myongsik.presentation.view.food.SelectHomeFragment"
         android:label="SelectHomeFragment"
         tools:layout="@layout/fragment_select_home">
         <action
@@ -143,7 +143,7 @@
     </fragment>
     <fragment
         android:id="@+id/widgetSettingFragment"
-        android:name="com.myongsik.myongsikandroid.presentation.view.food.WidgetSettingFragment"
+        android:name="com.myongsik.presentation.view.food.WidgetSettingFragment"
         android:label="WidgetSettingFragment"
         tools:layout="@layout/fragment_widget_setting">
     </fragment>

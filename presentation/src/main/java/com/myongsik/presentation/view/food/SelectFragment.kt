@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.presentation.view.food
+package com.myongsik.presentation.view.food
 
 import android.annotation.SuppressLint
 import android.content.res.ColorStateList
