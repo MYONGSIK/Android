@@ -1,6 +1,6 @@
 package com.myongsik.data.model.restaurant
 
-import com.myongsik.myongsikandroid.domain.model.restaurant.ResponseScrapEntity
+import com.myongsik.domain.model.restaurant.ResponseScrapEntity
 
 data class ResponseScrap(
     val httpCode : Int,

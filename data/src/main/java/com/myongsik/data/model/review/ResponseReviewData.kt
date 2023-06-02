@@ -1,6 +1,6 @@
 package com.myongsik.data.model.review
 
-import com.myongsik.myongsikandroid.domain.model.food.ResponseReviewDataEntity
+import com.myongsik.domain.model.food.ResponseReviewDataEntity
 
 data class ResponseReviewData(
     val httpCode: Int,

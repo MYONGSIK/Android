@@ -2,7 +2,7 @@ package com.myongsik.data.db
 
 import androidx.paging.PagingSource
 import androidx.room.*
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.data.model.kakao.Restaurant
 import kotlinx.coroutines.flow.Flow
 
 /*

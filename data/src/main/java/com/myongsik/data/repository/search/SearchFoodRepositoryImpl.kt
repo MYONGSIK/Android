@@ -4,10 +4,9 @@ package com.myongsik.data.repository.search
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.myongsik.data.api.SearchFoodApi
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
-import com.myongsik.myongsikandroid.data.model.kakao.SearchResponse
-import com.myongsik.myongsikandroid.data.repository.food.SearchFoodPagingSource
+import com.myongsik.data.model.kakao.Restaurant
+import com.myongsik.data.model.kakao.SearchResponse
+import com.myongsik.data.repository.food.SearchFoodPagingSource
 import com.myongsik.myongsikandroid.util.Constant.PAGING_SIZE
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response

@@ -2,8 +2,7 @@ package com.myongsik.data.repository.food
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.myongsik.data.api.SearchFoodApi
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.Constant.PAGING_SIZE
 import com.myongsik.myongsikandroid.util.MyongsikApplication

@@ -4,15 +4,14 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.myongsik.data.api.RestaurantApi
-import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
-import com.myongsik.myongsikandroid.data.model.kakao.toRestaurantData
-import com.myongsik.myongsikandroid.data.model.kakao.toRestaurantEntity
-import com.myongsik.myongsikandroid.data.model.restaurant.toRequestScrapData
-import com.myongsik.myongsikandroid.data.model.restaurant.toResponseScrapEntity
-import com.myongsik.myongsikandroid.domain.model.restaurant.RequestScrapEntity
-import com.myongsik.myongsikandroid.domain.model.restaurant.ResponseScrapEntity
-import com.myongsik.myongsikandroid.domain.model.restaurant.RestaurantEntity
+import com.myongsik.data.db.RestaurantDatabase
+import com.myongsik.data.model.kakao.toRestaurantData
+import com.myongsik.data.model.kakao.toRestaurantEntity
+import com.myongsik.data.model.restaurant.toRequestScrapData
+import com.myongsik.data.model.restaurant.toResponseScrapEntity
+import com.myongsik.domain.model.restaurant.RequestScrapEntity
+import com.myongsik.domain.model.restaurant.ResponseScrapEntity
+import com.myongsik.domain.model.restaurant.RestaurantEntity
 import com.myongsik.myongsikandroid.util.Constant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -46,8 +45,7 @@ class RestaurantDataSourceImpl @Inject constructor(
                 maxSize = Constant.PAGING_SIZE * 3
             ),
             pagingSourceFactory = pagingSourceFactory
-        ).flow
-            .map { pagingData -> pagingData.map { it.toRestaurantEntity() } }
+        ).flow.map { pagingData -> pagingData.map { it.toRestaurantEntity() } }
     }
 
     override suspend fun getLoveListRestaurant(): Flow<List<RestaurantEntity>> {

@@ -1,6 +1,6 @@
 package com.myongsik.data.model.restaurant
 
-import com.myongsik.myongsikandroid.domain.model.restaurant.RequestScrapEntity
+import com.myongsik.domain.model.restaurant.RequestScrapEntity
 
 data class RequestScrap(
     val address : String,

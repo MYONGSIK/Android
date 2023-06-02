@@ -1,7 +1,7 @@
 package com.myongsik.data.model.kakao
 
 
-import com.myongsik.myongsikandroid.data.model.food.GetRankRestaurant
+import com.myongsik.data.model.food.GetRankRestaurant
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)

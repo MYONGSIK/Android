@@ -4,7 +4,7 @@ package com.myongsik.data.model.kakao
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.myongsik.myongsikandroid.domain.model.restaurant.RestaurantEntity
+import com.myongsik.domain.model.restaurant.RestaurantEntity
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.parcelize.Parcelize

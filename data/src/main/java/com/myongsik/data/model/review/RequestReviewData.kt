@@ -1,6 +1,6 @@
 package com.myongsik.data.model.review
 
-import com.myongsik.myongsikandroid.domain.model.food.RequestReviewDataEntity
+import com.myongsik.domain.model.food.RequestReviewDataEntity
 
 
 data class RequestReviewData(

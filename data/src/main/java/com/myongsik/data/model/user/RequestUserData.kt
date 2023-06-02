@@ -1,6 +1,6 @@
 package com.myongsik.data.model.user
 
-import com.myongsik.myongsikandroid.domain.model.user.RequestUserEntity
+import com.myongsik.domain.model.user.RequestUserEntity
 
 
 data class RequestUserData(

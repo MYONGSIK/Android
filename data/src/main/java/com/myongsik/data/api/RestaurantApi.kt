@@ -1,7 +1,7 @@
 package com.myongsik.data.api
 
-import com.myongsik.myongsikandroid.data.model.restaurant.RequestScrap
-import com.myongsik.myongsikandroid.data.model.restaurant.ResponseScrap
+import com.myongsik.data.model.restaurant.RequestScrap
+import com.myongsik.data.model.restaurant.ResponseScrap
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST

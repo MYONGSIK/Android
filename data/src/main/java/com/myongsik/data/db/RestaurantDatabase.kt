@@ -2,7 +2,7 @@ package com.myongsik.data.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.myongsik.myongsikandroid.data.model.kakao.Restaurant
+import com.myongsik.data.model.kakao.Restaurant
 
 @Database(
     entities = [Restaurant::class],

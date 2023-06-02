@@ -1,9 +1,12 @@
 package com.myongsik.data.api
 
 
-import com.myongsik.myongsikandroid.data.model.food.*
-import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
-import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
+import com.myongsik.data.model.food.DayFoodResponse
+import com.myongsik.data.model.food.RankRestaurantResponse
+import com.myongsik.data.model.food.ResponseOneRestaurant
+import com.myongsik.data.model.food.WeekFoodResponse
+import com.myongsik.data.model.review.RequestReviewData
+import com.myongsik.data.model.review.ResponseReviewData
 import retrofit2.Response
 import retrofit2.http.*
 

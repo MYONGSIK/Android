@@ -1,6 +1,7 @@
 package com.myongsik.data.model.food
 
-import com.myongsik.myongsikandroid.domain.model.food.ResponseWeekFoodEntity
+import com.myongsik.domain.model.food.ResponseWeekFoodEntity
+
 
 data class WeekFoodResponse(
     val success : Boolean,
