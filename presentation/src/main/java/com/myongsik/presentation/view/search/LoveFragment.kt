@@ -12,9 +12,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.myongsik.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.base.BaseFragment
-import com.myongsik.myongsikandroid.databinding.FragmentLoveBinding
 import com.myongsik.presentation.adapter.search.LoveFoodPagingAdapter
 import com.myongsik.presentation.adapter.search.OnSearchViewHolderClick
+import com.myongsik.presentation.databinding.FragmentLoveBinding
 import com.myongsik.presentation.viewmodel.search.LoveViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest

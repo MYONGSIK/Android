@@ -32,11 +32,11 @@ import com.myongsik.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.BuildConfig
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.base.BaseFragment
-import com.myongsik.myongsikandroid.databinding.DialogBottomUpdateSheetBinding
-import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
-import com.myongsik.presentation.viewmodel.food.HomeViewModel
 import com.myongsik.myongsikandroid.util.*
 import com.myongsik.presentation.adapter.food.MyPagerAdapter
+import com.myongsik.presentation.databinding.DialogBottomUpdateSheetBinding
+import com.myongsik.presentation.databinding.FragmentHomeBinding
+import com.myongsik.presentation.viewmodel.food.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -211,7 +211,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     0 -> {
                         val drawable = context?.let { it1 ->
                             ContextCompat.getDrawable(
-                                it1, R.drawable.home_arrow_left
+                                it1, com.myongsik.presentation.R.drawable.home_arrow_left
                             )
                         }
                         val color = context?.let { it1 ->
@@ -231,7 +231,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     4 -> {
                         val drawable = context?.let { it1 ->
                             ContextCompat.getDrawable(
-                                it1, R.drawable.home_arrow_right
+                                it1, com.myongsik.presentation.R.drawable.home_arrow_right
                             )
                         }
                         val color = context?.let { it1 ->
@@ -248,12 +248,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     else -> {
                         binding.homeTodayArrowLeft.setImageDrawable(context?.let {
                             ContextCompat.getDrawable(
-                                it, R.drawable.home_arrow_left
+                                it, com.myongsik.presentation.R.drawable.home_arrow_left
                             )
                         })
                         binding.homeTodayArrowRight.setImageDrawable(context?.let {
                             ContextCompat.getDrawable(
-                                it, R.drawable.home_arrow_right
+                                it, com.myongsik.presentation.R.drawable.home_arrow_right
                             )
                         })
                     }

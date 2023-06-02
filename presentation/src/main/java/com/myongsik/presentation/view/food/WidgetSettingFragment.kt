@@ -11,12 +11,12 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.myongsik.data.type.WidgetType
-import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.R
-import com.myongsik.presentation.alarm.UpdateWidgetWorker
-import com.myongsik.myongsikandroid.databinding.FragmentWidgetSettingBinding
-import com.myongsik.presentation.viewmodel.food.WidgetSettingViewModel
+import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.util.CommonUtil
+import com.myongsik.presentation.alarm.UpdateWidgetWorker
+import com.myongsik.presentation.databinding.FragmentWidgetSettingBinding
+import com.myongsik.presentation.viewmodel.food.WidgetSettingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint class WidgetSettingFragment : BaseFragment<FragmentWidgetSettingBinding>() {
