@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.domain.model.food
+package com.myongsik.domain.model.food
 
 
 data class RequestReviewDataEntity(

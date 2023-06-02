@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.domain.model.restaurant
+package com.myongsik.domain.model.restaurant
 
 data class RequestScrapEntity(
     val address : String,

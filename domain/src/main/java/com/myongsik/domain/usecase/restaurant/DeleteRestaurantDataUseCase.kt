@@ -1,7 +1,7 @@
-package com.myongsik.myongsikandroid.domain.usecase.restaurant
+package com.myongsik.domain.usecase.restaurant
 
-import com.myongsik.myongsikandroid.domain.repository.restaurant.RestaurantRepository
-import com.myongsik.myongsikandroid.domain.model.restaurant.RestaurantEntity
+import com.myongsik.domain.repository.restaurant.RestaurantRepository
+import com.myongsik.domain.model.restaurant.RestaurantEntity
 import javax.inject.Inject
 
 class DeleteRestaurantDataUseCase @Inject constructor(

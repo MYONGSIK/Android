@@ -1,6 +1,6 @@
-package com.myongsik.myongsikandroid.domain.usecase.food
+package com.myongsik.domain.usecase.food
 
-import com.myongsik.myongsikandroid.domain.repository.food.FoodV2Repository
+import com.myongsik.domain.repository.food.FoodV2Repository
 import javax.inject.Inject
 
 class GetWeekFoodDataUseCase @Inject constructor(

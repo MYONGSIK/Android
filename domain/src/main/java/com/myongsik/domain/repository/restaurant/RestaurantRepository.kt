@@ -1,9 +1,9 @@
-package com.myongsik.myongsikandroid.domain.repository.restaurant
+package com.myongsik.domain.repository.restaurant
 
 import androidx.paging.PagingData
-import com.myongsik.myongsikandroid.domain.model.restaurant.RequestScrapEntity
-import com.myongsik.myongsikandroid.domain.model.restaurant.ResponseScrapEntity
-import com.myongsik.myongsikandroid.domain.model.restaurant.RestaurantEntity
+import com.myongsik.domain.model.restaurant.RequestScrapEntity
+import com.myongsik.domain.model.restaurant.ResponseScrapEntity
+import com.myongsik.domain.model.restaurant.RestaurantEntity
 import kotlinx.coroutines.flow.Flow
 
 interface RestaurantRepository {

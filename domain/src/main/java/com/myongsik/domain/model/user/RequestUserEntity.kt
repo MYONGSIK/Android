@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.domain.model.user
+package com.myongsik.domain.model.user
 
 data class RequestUserEntity(
     val phoneId: String

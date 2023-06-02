@@ -1,6 +1,6 @@
-package com.myongsik.myongsikandroid.domain.usecase.restaurant
+package com.myongsik.domain.usecase.restaurant
 
-import com.myongsik.myongsikandroid.domain.repository.restaurant.RestaurantRepository
+import com.myongsik.domain.repository.restaurant.RestaurantRepository
 import javax.inject.Inject
 
 class GetPagingRestaurantDataUseCase @Inject constructor(
