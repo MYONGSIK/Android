@@ -27,7 +27,7 @@ sort : 정렬 -> 우리는 거리 기준으로 설정
  */
 interface SearchFoodApi {
 
-    @Headers("Authorization: KakaoAK $API_KEY")
+    @Headers("Authorization: KakaoAK 1167b82f504027f5cbddb0ba44492329")
     @GET("/v2/local/search/keyword")
     suspend fun searchFood(
         @Query("query") query: String,

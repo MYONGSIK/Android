@@ -30,11 +30,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.BuildConfig
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.base.ApiResponse
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.databinding.DialogBottomUpdateSheetBinding
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
-import com.myongsik.myongsikandroid.presentation.adapter.food.MyPagerAdapter
+import com.myongsik.presentation.adapter.food.MyPagerAdapter
 import com.myongsik.myongsikandroid.presentation.viewmodel.food.HomeViewModel
 import com.myongsik.myongsikandroid.util.*
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,6 +1,6 @@
 package com.myongsik.myongsikandroid.util
 
-import com.myongsik.myongsikandroid.BuildConfig
+//import com.myongsik.myongsikandroid.BuildConfig
 
 object Constant {
     //Retrofit Base Url
@@ -31,7 +31,7 @@ object Constant {
     const val DATASTORE_NAME = "food_evaluation_datastore"
 
     //kakao key
-    const val API_KEY = BuildConfig.kakaoApiKey
+//    const val API_KEY = BuildConfig.kakaoApiKey
 
     const val SEARCH_FOODS_TIME_DELAY = 50L
 
