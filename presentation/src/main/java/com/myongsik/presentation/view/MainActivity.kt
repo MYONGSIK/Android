@@ -1,4 +1,4 @@
-package com.myongsik.myongsikandroid.base
+package com.myongsik.presentation.view
 
 import android.os.Bundle
 import android.view.View
@@ -6,13 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.databinding.ActivityMainBinding
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
+import com.myongsik.presentation.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-
-//DataStore 싱글톤으로 생성
-//private val Context.dataStore by preferencesDataStore(DATASTORE_NAME)
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

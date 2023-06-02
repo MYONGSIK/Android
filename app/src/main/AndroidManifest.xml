@@ -21,7 +21,7 @@
         android:theme="@style/Theme.Myongsik_android"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".base.MainActivity"
+            android:name="com.myongsik.presentation.view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

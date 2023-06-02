@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.myongsik.myongsikandroid.databinding.ItemLoadStateBinding
-import com.myongsik.myongsikandroid.databinding.ItemLoadingProgressbarBinding
 import com.myongsik.myongsikandroid.util.ItemLoadingProgressbarDialog
 
 abstract class BaseFragment<T : ViewBinding> : Fragment() {
