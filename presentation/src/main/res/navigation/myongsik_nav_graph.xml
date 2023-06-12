@@ -115,7 +115,7 @@
         <argument
             android:name="restaurant"
             app:argType="com.myongsik.data.model.kakao.Restaurant"
-            app:parcelable = "true"/>
+            app:parcelable="true"/>
     </fragment>
 
     <fragment
