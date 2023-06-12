@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_select_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.view.food.HomeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/select_home_top_v"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:background="@drawable/home_background_top"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/select_home_top_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="27dp"
+                    android:background="@drawable/new_logo_top"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/select_home_setting_iv"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/ic_setting"
+                    app:layout_constraintBottom_toBottomOf="@+id/select_home_top_tv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/select_home_top_tv" />
+
+                <ImageView
+                    android:id="@+id/select_home_banner_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_marginTop="-10dp"
+                    android:background="@drawable/ic_home_banner"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/select_home_top_v" />
+
+                <View
+                    android:id="@+id/select_home_staff_v"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@drawable/home_today_food_stroke"
+                    app:layout_constraintBottom_toBottomOf="@+id/select_home_staff_time"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/select_home_top_v" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/select_home_staff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginTop="35dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/select_home_staff_v">
+
+                    <TextView
+                        android:id="@+id/select_home_staff_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_regular"
+                        android:includeFontPadding="false"
+                        android:paddingHorizontal="11dp"
+                        android:paddingVertical="4dp"
+                        android:paddingStart="0dp"
+                        android:text="@string/select_teacher_restaurant"
+                        android:textColor="@color/sub_color"
+                        android:textFontWeight="700"
+                        android:textSize="24sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/select_home_staff_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-4dp"
+                    android:paddingBottom="35dp"
+                    android:text="@string/select_teacher_restaurant_time"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/select_home_staff"
+                    app:layout_constraintTop_toBottomOf="@+id/select_home_staff" />
+
+                <ImageView
+                    android:id="@+id/select_home_staff_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="28dp"
+                    android:paddingBottom="35dp"
+                    android:src="@drawable/select_home_arrow"
+                    app:layout_constraintBottom_toBottomOf="@+id/select_home_staff_time"
+                    app:layout_constraintEnd_toEndOf="@+id/select_home_staff_v"
+                    app:layout_constraintTop_toTopOf="@+id/select_home_staff" />
+
+                <View
+                    android:id="@+id/select_home_life_v"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/home_today_food_stroke"
+                    app:layout_constraintBottom_toBottomOf="@+id/select_home_life_time"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/select_home_staff_v" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/select_home_life"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginTop="35dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/select_home_life_v">
+
+                    <TextView
+                        android:id="@+id/select_home_life_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_regular"
+                        android:includeFontPadding="false"
+                        android:paddingHorizontal="11dp"
+                        android:paddingVertical="4dp"
+                        android:paddingStart="0dp"
+                        android:text="@string/select_room_restaurant"
+                        android:textColor="@color/sub_color"
+                        android:textFontWeight="700"
+                        android:textSize="24sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <TextView
+                    android:id="@+id/select_home_life_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-4dp"
+                    android:paddingBottom="35dp"
+                    android:text="@string/select_room_restaurant_time"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/select_home_life"
+                    app:layout_constraintTop_toBottomOf="@+id/select_home_life" />
+
+                <ImageView
+                    android:id="@+id/select_home_life_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="28dp"
+                    android:paddingBottom="35dp"
+                    android:src="@drawable/select_home_arrow"
+                    app:layout_constraintBottom_toBottomOf="@+id/select_home_life_time"
+                    app:layout_constraintEnd_toEndOf="@+id/select_home_life_v"
+                    app:layout_constraintTop_toTopOf="@+id/select_home_life" />
+
+                <View
+                    android:id="@+id/select_home_hak_v"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/home_today_food_stroke"
+                    app:layout_constraintBottom_toBottomOf="@+id/select_home_hak_time"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/select_home_life_v" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/select_home_hak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginTop="35dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/select_home_hak_v">
+
+                    <TextView
+                        android:id="@+id/select_home_hak_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_regular"
+                        android:includeFontPadding="false"
+                        android:paddingHorizontal="11dp"
+                        android:paddingVertical="4dp"
+                        android:paddingStart="0dp"
+                        android:text="@string/select_student_restaurant"
+                        android:textColor="@color/sub_color"
+                        android:textFontWeight="700"
+                        android:textSize="24sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/select_home_hak_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:paddingBottom="35dp"
+                    android:text="@string/select_student_restaurant_time"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/select_home_hak"
+                    app:layout_constraintTop_toBottomOf="@+id/select_home_hak" />
+
+                <ImageView
+                    android:id="@+id/select_home_hak_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="28dp"
+                    android:paddingBottom="35dp"
+                    android:src="@drawable/select_home_arrow"
+                    app:layout_constraintBottom_toBottomOf="@+id/select_home_hak_time"
+                    app:layout_constraintEnd_toEndOf="@+id/select_home_hak_v"
+                    app:layout_constraintTop_toTopOf="@+id/select_home_hak" />
+
+                <View
+                    android:id="@+id/select_home_myong_v"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/home_today_food_stroke"
+                    app:layout_constraintBottom_toBottomOf="@+id/select_home_myong_time"
+                    app:layout_constraintStart_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/select_home_hak_v" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/select_home_myong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="44dp"
+                    android:layout_marginTop="35dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/select_home_myong_v">
+
+                    <TextView
+                        android:id="@+id/select_home_myong_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/notosans_regular"
+                        android:includeFontPadding="false"
+                        android:paddingHorizontal="11dp"
+                        android:paddingVertical="4dp"
+                        android:paddingStart="0dp"
+                        android:text="@string/select_new_restaurant"
+                        android:textColor="@color/sub_color"
+                        android:textFontWeight="700"
+                        android:textSize="24sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/select_home_myong_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:paddingBottom="35dp"
+                    android:text="@string/select_new_restaurant_time"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="@+id/select_home_myong"
+                    app:layout_constraintTop_toBottomOf="@+id/select_home_myong" />
+
+                <ImageView
+                    android:id="@+id/select_home_myong_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="28dp"
+                    android:paddingBottom="35dp"
+                    android:src="@drawable/select_home_arrow"
+                    app:layout_constraintBottom_toBottomOf="@+id/select_home_myong_time"
+                    app:layout_constraintEnd_toEndOf="@+id/select_home_myong_v"
+                    app:layout_constraintTop_toTopOf="@+id/select_home_myong" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

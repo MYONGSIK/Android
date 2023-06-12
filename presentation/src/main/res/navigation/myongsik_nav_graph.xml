@@ -114,7 +114,8 @@
         tools:layout="@layout/fragment_restaurant">
         <argument
             android:name="restaurant"
-            app:argType="com.myongsik.myongsikandroid.data.model.kakao.Restaurant" />
+            app:argType="com.myongsik.data.model.kakao.Restaurant"
+            app:parcelable = "true"/>
     </fragment>
 
     <fragment
