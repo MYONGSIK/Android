@@ -9,8 +9,6 @@ import com.myongsik.data.model.kakao.Restaurant
 import com.myongsik.data.model.kakao.SearchResponse
 import com.myongsik.data.repository.search.SearchFoodRepository
 import com.myongsik.myongsikandroid.base.BaseViewModel
-import com.myongsik.myongsikandroid.util.Constant
-import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

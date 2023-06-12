@@ -13,9 +13,6 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.myongsik.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.util.CommonUtil
-import com.myongsik.myongsikandroid.util.DateUtil
-import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers

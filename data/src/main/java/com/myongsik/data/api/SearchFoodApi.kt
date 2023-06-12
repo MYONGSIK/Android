@@ -2,7 +2,6 @@ package com.myongsik.data.api
 
 
 import com.myongsik.data.model.kakao.SearchResponse
-import com.myongsik.myongsikandroid.util.Constant
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response

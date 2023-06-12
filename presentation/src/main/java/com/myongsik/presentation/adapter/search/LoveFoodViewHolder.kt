@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.myongsik.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.databinding.ItemLoveRestaurantBinding
-import com.myongsik.myongsikandroid.util.CommonUtil
 
 //관심목록에서 사용하는 RV Holder
 class LoveFoodViewHolder(

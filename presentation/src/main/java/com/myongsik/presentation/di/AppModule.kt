@@ -10,7 +10,6 @@ import com.myongsik.data.api.HomeFoodApi
 import com.myongsik.data.api.SearchFoodApi
 import com.myongsik.data.api.UserApi
 import com.myongsik.data.db.RestaurantDatabase
-import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.Constant.DATASTORE_NAME
 import dagger.Module
 import dagger.Provides

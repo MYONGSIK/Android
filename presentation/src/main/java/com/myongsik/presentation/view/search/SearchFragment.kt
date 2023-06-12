@@ -20,10 +20,7 @@ import com.myongsik.data.model.kakao.Restaurant
 import com.myongsik.data.model.kakao.toRankRestaurant
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.base.BaseFragment
-import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.myongsikandroid.util.Constant.SEARCH_FOODS_TIME_DELAY
-import com.myongsik.myongsikandroid.util.DataStoreKey
-import com.myongsik.myongsikandroid.util.MyongsikApplication
 import com.myongsik.presentation.adapter.food.OnScrapViewHolderClick
 import com.myongsik.presentation.adapter.food.RankHeaderAdapter
 import com.myongsik.presentation.adapter.food.RankRestaurantAdapter

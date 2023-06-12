@@ -13,8 +13,6 @@ import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.FragmentMapBinding
 import com.myongsik.presentation.viewmodel.food.HomeViewModel
-import com.myongsik.myongsikandroid.util.Constant
-import com.myongsik.myongsikandroid.util.MyongsikApplication
 import com.naver.maps.map.MapView
 import dagger.hilt.android.AndroidEntryPoint
 import net.daum.mf.map.api.MapPOIItem

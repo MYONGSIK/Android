@@ -8,7 +8,6 @@ import androidx.datastore.preferences.core.emptyPreferences
 import com.myongsik.data.model.food.DayFoodResponse
 import com.myongsik.data.model.food.RankRestaurantResponse
 import com.myongsik.data.model.food.ResponseOneRestaurant
-import com.myongsik.myongsikandroid.util.DataStoreKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map

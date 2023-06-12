@@ -12,8 +12,6 @@ import com.myongsik.data.repository.food.FoodRepository
 import com.myongsik.domain.usecase.food.GetWeekFoodDataUseCase
 import com.myongsik.domain.usecase.food.PostReviewDataUseCase
 import com.myongsik.myongsikandroid.base.BaseViewModel
-import com.myongsik.myongsikandroid.util.Constant
-import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*

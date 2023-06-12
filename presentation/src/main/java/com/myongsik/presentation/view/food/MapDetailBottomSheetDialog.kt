@@ -14,8 +14,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.myongsik.data.model.kakao.Restaurant
 import com.myongsik.data.model.restaurant.RequestScrap
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.util.CommonUtil
-import com.myongsik.myongsikandroid.util.MyongsikApplication
 import com.myongsik.presentation.databinding.DialogBottomRestaurantSheetBinding
 import com.myongsik.presentation.viewmodel.food.HomeViewModel
 import com.myongsik.presentation.viewmodel.search.LoveViewModel

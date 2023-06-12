@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.util.Constant
-import com.myongsik.myongsikandroid.util.MyongsikApplication
 import com.myongsik.presentation.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

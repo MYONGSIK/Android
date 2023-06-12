@@ -11,7 +11,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.myongsik.data.model.kakao.Restaurant
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantFoodBinding
-import com.myongsik.myongsikandroid.util.CommonUtil
 
 //카카오 api 불러온 리사이클러뷰 아이템 뷰홀더
 class SearchFoodViewHolder(

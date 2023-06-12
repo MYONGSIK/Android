@@ -12,9 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.myongsik.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.base.BaseFragment
-import com.myongsik.myongsikandroid.util.DialogUtils
-import com.myongsik.myongsikandroid.util.MyongsikApplication
-import com.myongsik.myongsikandroid.util.NetworkUtils
 import com.myongsik.presentation.databinding.FragmentSplashBinding
 import com.myongsik.presentation.viewmodel.food.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint

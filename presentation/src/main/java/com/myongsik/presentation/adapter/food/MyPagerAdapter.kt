@@ -11,7 +11,6 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.myongsik.myongsikandroid.databinding.ItemHomeTodayFoodBinding
-import com.myongsik.myongsikandroid.util.MyongsikApplication
 
 class MyPagerAdapter(
     private val itemList: List<List<List<String>>>,

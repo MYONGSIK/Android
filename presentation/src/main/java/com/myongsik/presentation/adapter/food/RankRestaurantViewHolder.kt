@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.myongsik.data.model.food.GetRankRestaurant
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.databinding.ItemRestaurantRankingBinding
-import com.myongsik.myongsikandroid.util.CommonUtil
 
 class RankRestaurantViewHolder(
     private val binding: ItemRestaurantRankingBinding,

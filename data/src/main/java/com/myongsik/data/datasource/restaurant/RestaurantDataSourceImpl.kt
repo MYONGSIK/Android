@@ -12,7 +12,6 @@ import com.myongsik.data.model.restaurant.toResponseScrapEntity
 import com.myongsik.domain.model.restaurant.RequestScrapEntity
 import com.myongsik.domain.model.restaurant.ResponseScrapEntity
 import com.myongsik.domain.model.restaurant.RestaurantEntity
-import com.myongsik.myongsikandroid.util.Constant
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

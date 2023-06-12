@@ -9,9 +9,6 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.base.BaseFragment
-import com.myongsik.myongsikandroid.util.DialogUtils
-import com.myongsik.myongsikandroid.util.MyongsikApplication
-import com.myongsik.myongsikandroid.util.NetworkUtils
 import com.myongsik.presentation.databinding.FragmentSelectBinding
 
 class SelectFragment : BaseFragment<FragmentSelectBinding>(){

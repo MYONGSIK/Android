@@ -3,9 +3,7 @@ package com.myongsik.data.repository.food
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.myongsik.data.model.kakao.Restaurant
-import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.Constant.PAGING_SIZE
-import com.myongsik.myongsikandroid.util.MyongsikApplication
 import retrofit2.HttpException
 import java.io.IOException
 

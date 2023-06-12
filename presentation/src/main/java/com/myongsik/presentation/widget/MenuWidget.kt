@@ -7,7 +7,6 @@ import android.util.Log
 import androidx.work.*
 import com.myongsik.data.repository.food.FoodRepository
 import com.myongsik.presentation.alarm.UpdateWidgetWorker
-import com.myongsik.myongsikandroid.util.NetworkUtils
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

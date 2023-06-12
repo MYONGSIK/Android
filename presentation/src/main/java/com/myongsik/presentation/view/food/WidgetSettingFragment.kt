@@ -13,7 +13,6 @@ import androidx.work.WorkManager
 import com.myongsik.data.type.WidgetType
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.base.BaseFragment
-import com.myongsik.myongsikandroid.util.CommonUtil
 import com.myongsik.presentation.alarm.UpdateWidgetWorker
 import com.myongsik.presentation.databinding.FragmentWidgetSettingBinding
 import com.myongsik.presentation.viewmodel.food.WidgetSettingViewModel
