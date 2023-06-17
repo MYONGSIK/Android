@@ -19,3 +19,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "myongsik_android"
 include ':app'
+include ':data'
+include ':domain'
+include ':presentation'

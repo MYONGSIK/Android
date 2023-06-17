@@ -6,11 +6,11 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
-import com.myongsik.myongsikandroid.data.api.HomeFoodApi
-import com.myongsik.myongsikandroid.data.api.RestaurantApi
-import com.myongsik.myongsikandroid.data.api.SearchFoodApi
-import com.myongsik.myongsikandroid.data.api.UserApi
-import com.myongsik.myongsikandroid.data.db.RestaurantDatabase
+import com.myongsik.data.api.HomeFoodApi
+import com.myongsik.data.api.RestaurantApi
+import com.myongsik.data.api.SearchFoodApi
+import com.myongsik.data.api.UserApi
+import com.myongsik.data.db.RestaurantDatabase
 import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.Constant.DATASTORE_NAME
 import dagger.Module
