@@ -2,26 +2,26 @@ import java.util.Properties
 import java.io.FileInputStream
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("androidx.navigation.safeargs.kotlin")
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
-    id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    id(Plugins.ANDROID_APPLICATION)
+    id(Plugins.ANDROID_JETBRAINS)
+    id(Plugins.KOTLIN_KAPT)
+    id(Plugins.ANDROID_NAVIGATION_SAFEARGS_KOTLIN)
+    id(Plugins.GOOGLE_MAPS_SECRETS)
+    id(Plugins.KOTLIN_PARCELIZE)
+    id(Plugins.DAGGER_HILT_ANDROID_APP)
+    id(Plugins.GOOGLE_SERVICES)
+    id(Plugins.FIREBASE_CRASHLYTICS)
 }
 
 android {
-    compileSdk = 33
+    compileSdk = DefaultConfig.COMPILE_SDK_VERSION
 
     defaultConfig {
         applicationId = "com.myongsik.myongsikandroid"
-        minSdk = 23
-        targetSdk = 33
-        versionCode = 26
-        versionName = "2.2.11"
+        minSdk = DefaultConfig.MIN_SDK_VERSION
+        targetSdk = DefaultConfig.TARGET_SDK_VERSION
+        versionCode = DefaultConfig.VERSION_CODE
+        versionName = DefaultConfig.VERSION_NAME
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -60,14 +60,14 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.4.1")
-    implementation("com.google.android.material:material:1.6.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    implementation(Dependencies.CORE_TEX)
+    implementation(Dependencies.APPCOMPAT)
+    implementation(Dependencies.MATERIAL)
+    implementation(Dependencies.CONSTRAINT_LAYOUT)
+    implementation(Dependencies.LEGACY_SUPPORT)
+    testImplementation(Testing.JUNIT)
+    androidTestImplementation(Testing.JUNIT_EXT)
+    androidTestImplementation(Testing.ESPRESSO_CORE)
 
     // Google play
     implementation("com.google.android.gms:play-services-ads-identifier:17.0.0")
@@ -137,9 +137,6 @@ dependencies {
 
     // Paging
     implementation("androidx.paging:paging-runtime-ktx:3.1.1")
-
-    // Naver map
-    implementation("com.naver.maps:map-sdk:3.14.0")
 
     //disugaring
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")

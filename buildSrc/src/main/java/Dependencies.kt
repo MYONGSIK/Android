@@ -49,5 +49,20 @@ object Dependencies {
     const val VIEWMODEL_DELEAGTE = "androidx.activity:activity-ktx:${Versions.VIEWMODEL_DELEGATE}"
     const val VIEWMODEL_DELEAGTE_FRAGMENT = "androidx.fragment:fragment-ktx:1.4.1:${Versions.VIEWMODEL_FRAGMENT_KTX}"
 
+    const val HILT_EXTENSIONS = "androidx.hilt:hilt-work:1.0.0:${Versions.HILT_EXTENSION}"
+    const val HILT_EXTENSIONS_COMPILER = "androidx.hilt:hilt-compiler:${Versions.HILT_EXTENSION}"
 
+    const val PAGING3 = "androidx.paging:paging-runtime-ktx:${Versions.PAGING}"
+
+    const val DISUGARING = "com.android.tools:desugar_jdk_libs:${Versions.DESUGAR_KTS}"
+
+    const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
+    const val FIREBASE_ANALYTICS = "com.google.firebase:firebase-analytics-ktx"
+    const val FIREBASE_CRASHLYTICS = "com.google.firebase:firebase-crashlytics-ktx"
+
+    const val REFRESH_LAYOUT = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.REFRESH_LAYOUT_KTS}"
+
+    const val MAP = "libs/libDaumMapAndroid.jar"
+
+    const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
 }

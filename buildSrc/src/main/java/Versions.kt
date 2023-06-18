@@ -45,6 +45,7 @@ object Versions {
     const val VIEWMODEL_DELEGATE = "1.4.0"
     const val VIEWMODEL_FRAGMENT_KTX = "1.4.1"
     const val HILT_EXTENSION = "1.0.0"
+    const val PAGING = "3.1.1"
     const val DESUGAR_KTS = "1.1.5"
     const val FIREBASE_BOM = "31.2.3"
     const val REFRESH_LAYOUT_KTS = "1.1.0"
