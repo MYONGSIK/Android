@@ -76,7 +76,6 @@ dependencies {
     // Google Admob
     implementation(Dependencies.GOOGLE_ADMOB)
 
-
     //Moshi
     implementation(Dependencies.MOSHI)
     kapt(Dependencies.MOSHI_KOTLIN_CODEGEN)
