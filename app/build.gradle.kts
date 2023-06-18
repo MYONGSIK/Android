@@ -1,3 +1,6 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -14,7 +17,7 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        applicationId "com.myongsik.myongsikandroid"
+        applicationId = "com.myongsik.myongsikandroid"
         minSdk = 23
         targetSdk = 33
         versionCode = 26
@@ -22,25 +25,25 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+        val properties = Properties()
+        properties.load(FileInputStream(rootProject.file("local.properties")))
 
-        def admobApplicationId = properties.getProperty("ADMOB_APPLICATION_ID")
-        def kakaoMapApiKey = properties.getProperty("kakaoMapApiKey")
+        val admobApplicationId = properties.getProperty("ADMOB_APPLICATION_ID") ?: ""
+        val kakaoMapApiKey = properties.getProperty("kakaoMapApiKey") ?: ""
 
-        manifestPlaceholders = [admobApplicationId: admobApplicationId, kakaoMapApiKey: kakaoMapApiKey]
+        val manifestPlaceholders = mapOf("admobApplicationId" to admobApplicationId, "kakaoMapApiKey" to kakaoMapApiKey)
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
+        named("release") {
+            isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-        coreLibraryDesugaringEnabled = true
+//        coreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -142,7 +145,7 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
 
     //firebase
-    implementation platform("com.google.firebase:firebase-bom:31.2.3")
+    implementation("com.google.firebase:firebase-bom:31.2.3")
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
 
@@ -150,7 +153,7 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
     //map
-    implementation files("libs/libDaumMapAndroid.jar")
+    implementation(files("libs/libDaumMapAndroid.jar"))
 
     //Glide
     implementation("com.github.bumptech.glide:glide:4.13.2")
