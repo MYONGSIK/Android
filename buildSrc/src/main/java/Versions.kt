@@ -1,9 +1,52 @@
 object Versions {
     // Project
+    const val AGP = "7.1.2"
+    const val KOTLIN = "1.6.21"
+    const val SECRETS_GRADLE_GRADLE = "2.0.1"
+    const val NAVIGATION_SAFE_ARGS_KOTLIN = "2.4.1"
+    const val DAGGER_HILT_ANDROID = "2.41"
+    const val GOOGLE_SERVICES = "4.3.15"
+    const val FIREBASE_CRASHLYTICS = "2.9.4"
 
     //Androidx
+    const val CORE_KTX = "1.7.0"
+    const val APPCOMPAT = "1.4.1"
+    const val MATERIAL = "1.6.1"
+    const val CONSTRAINT_LAYOUT = "2.1.4"
+    const val LEGACY_SUPPORT = "1.0.0"
 
     //Testing
+    const val JUNIT = "4.13.2"
+    const val JUNIT_EXT = "1.1.3"
+    const val ESPRESSO_CORE = "3.4.0"
 
     //Library
+    const val GOOGLE_SERVICE = "17.0.0"
+    const val GOOGLE_ADMOB = "22.0.0"
+    const val MOSHI = "1.13.0"
+    const val RETROFIT = "2.9.0"
+    const val GSON = "2.9.0"
+    const val HTTP_LOGGING_INTERCEPTOR = "5.0.0-alpha.6"
+    const val NAVIGATION_FRAGMENT_KTX = "2.4.2"
+    const val NAVIGATION_UI_KTX = "2.4.2"
+    const val RECYCLERVIEW = "1.3.0"
+    const val ROOM = "2.4.2"
+    const val LIFECYCLE_VIEWMODEL_KTX = "2.4.1"
+    const val LIFECYCLE_RUNTIME_KTX = "2.4.1"
+    const val LIFECYCLE_VIEWMODEL_SAVEDSTATE = "2.4.1"
+    const val KOTLINX_COROUTINES_CORE = "1.6.1"
+    const val KOTLINX_COROUTINES_ANDROID = "1.6.1"
+    const val DATASTORE = "1.0.0"
+    const val WORK_RUNTIME_KTX = "2.7.1"
+    const val VIEWPAGER2 = "1.0.0"
+    const val CIRCLEINDICATOR = "2.1.6"
+    const val HILT_ANDROID = "2.41"
+    const val HILT_COMPILER = "2.41"
+    const val VIEWMODEL_DELEGATE = "1.4.0"
+    const val VIEWMODEL_FRAGMENT_KTX = "1.4.1"
+    const val HILT_EXTENSION = "1.0.0"
+    const val DESUGAR_KTS = "1.1.5"
+    const val FIREBASE_BOM = "31.2.3"
+    const val REFRESH_LAYOUT_KTS = "1.1.0"
+    const val GLIDE = "4.13.2"
 }
