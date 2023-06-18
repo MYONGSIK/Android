@@ -5,6 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
+import com.myongsik.myongsikandroid.base.ApiResponse
+import com.myongsik.myongsikandroid.base.safeApiCall
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
 import com.myongsik.myongsikandroid.data.model.food.DayFoodResponse
 import com.myongsik.myongsikandroid.data.model.food.RankRestaurantResponse
@@ -27,16 +29,8 @@ class FoodRepositoryImpl @Inject constructor(
     private val api: HomeFoodApi,
 ) : FoodRepository {
 
-    override suspend fun weekGetFoodArea(s: String): Response<WeekFoodResponse> {
-        return api.weekGetFoodArea(s)
-    }
-
     override suspend fun dayGetFoodArea(area: String): Response<DayFoodResponse> {
         return api.dayGetFoodArea(area)
-    }
-
-    override suspend fun postReview(requestReviewData: RequestReviewData): Response<ResponseReviewData> {
-        return api.postReview(requestReviewData)
     }
 
     override suspend fun getRankRestaurant(sort: String, campus: String, size : Int): Response<RankRestaurantResponse> {

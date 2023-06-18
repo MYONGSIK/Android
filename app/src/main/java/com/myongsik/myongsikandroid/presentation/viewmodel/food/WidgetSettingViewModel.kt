@@ -3,7 +3,7 @@ package com.myongsik.myongsikandroid.presentation.viewmodel.food
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.myongsik.myongsikandroid.BaseViewModel
+import com.myongsik.myongsikandroid.base.BaseViewModel
 import com.myongsik.myongsikandroid.data.repository.food.FoodRepository
 import com.myongsik.myongsikandroid.data.type.WidgetType
 import com.myongsik.myongsikandroid.data.type.toWidgetType

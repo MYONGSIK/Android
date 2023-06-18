@@ -12,10 +12,9 @@ dependencyResolutionManagement {
         mavenCentral()
         jcenter()
         maven {
-            url 'https://naver.jfrog.io/artifactory/maven/'
+            url = uri("https://naver.jfrog.io/artifactory/maven/")
         }
-
     }
 }
 rootProject.name = "myongsik_android"
-include ':app'
+include(":app")

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.myongsik.myongsikandroid.BaseFragment
+import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.R
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.databinding.FragmentSplashBinding

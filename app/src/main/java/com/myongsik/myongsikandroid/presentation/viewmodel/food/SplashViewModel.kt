@@ -2,7 +2,7 @@ package com.myongsik.myongsikandroid.presentation.viewmodel.food
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.myongsik.myongsikandroid.BaseViewModel
+import com.myongsik.myongsikandroid.base.BaseViewModel
 import com.myongsik.myongsikandroid.data.model.user.RequestUserData
 import com.myongsik.myongsikandroid.data.model.user.ResponseUserData
 import com.myongsik.myongsikandroid.data.model.user.toRequestUserEntity
