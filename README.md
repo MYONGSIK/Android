@@ -28,7 +28,8 @@
 [[Android JetPack] WokerManager와 Widget 도입](https://github.com/MYONGSIK/Android/wiki/%5BAndroid-JetPack%5D-WokerManager%EC%99%80-Widget-%EB%8F%84%EC%9E%85) Writer - <a href="https://github.com/KwakEuiJin">곽의진<a>
 
 ## 📌 App Architecture
-![스크린샷 2023-04-13 오전 9 50 09](https://user-images.githubusercontent.com/83231344/231617438-0c5375d9-03dd-4b52-b97d-e8c0d83b339b.png)
+![스크린샷 2023-04-13 오전 9 50 09](https://github.com/MYONGSIK/Android/assets/83231344/c87f7a1b-b0df-4b08-8401-3e70b017372b)
+
 
 
 ## 📌 History
@@ -44,7 +45,7 @@
 ## 📌 기술 스택(Tech Skill)
  | Category                                                   | Stack                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------- |
-| **Architecture**| MVVM        |
+| **Architecture**| MVVM, Clean Architecture   |
 | **Android Jetpack**|  ViewModel, LiveData, Navigation, Room, Paging, View Binding, ViewPager2 |
 | **Dependency Injection**| Hilt       |
 | **Networking** | Retrofit2, OkHttp3           |
