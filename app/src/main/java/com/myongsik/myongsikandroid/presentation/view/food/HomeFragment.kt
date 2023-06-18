@@ -143,9 +143,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 homeViewModel.postReviewData.collectLatest {
-                    Log.d("gg1234", it?.success.toString())
                     it?.let{
-                        Log.d("gg1234", it.success.toString())
                         if (it.success) {
                             val anotherDialogView = LayoutInflater.from(context).inflate(R.layout.item_review_dialog, null)
                             val anotherDialog = AlertDialog.Builder(context).setView(anotherDialogView).create().apply {
@@ -300,7 +298,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         dialogUtils.showConfirmDialog(getString(R.string.opinion_write), getString(R.string.please_opinion_write)) {}
                     } else { // 리뷰 작성
                         writeMenu(review)
-                        Log.d("gg1234", "썼다고")
                     }
                 }
             }

@@ -26,10 +26,8 @@ class FoodDataSourceImpl @Inject constructor(
     override suspend fun postReview(requestReviewDataEntity: RequestReviewDataEntity): ResponseReviewDataEntity? {
         val response = homeFoodApi.postReview(requestReviewDataEntity.toRequestReviewData())
         return if(response.isSuccessful) {
-            Log.d("gg1234", response.body().toString())
             response.body()?.toResponseReviewEntity()
         } else {
-            Log.d("gg1234", "Error")
             null
         }
     }
