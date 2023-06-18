@@ -31,7 +31,8 @@ android {
         val admobApplicationId = properties.getProperty("ADMOB_APPLICATION_ID") ?: ""
         val kakaoMapApiKey = properties.getProperty("kakaoMapApiKey") ?: ""
 
-        val manifestPlaceholders = mapOf("admobApplicationId" to admobApplicationId, "kakaoMapApiKey" to kakaoMapApiKey)
+        manifestPlaceholders["admobApplicationId"] = admobApplicationId
+        manifestPlaceholders["kakaoMapApiKey"] = kakaoMapApiKey
     }
 
     buildTypes {
