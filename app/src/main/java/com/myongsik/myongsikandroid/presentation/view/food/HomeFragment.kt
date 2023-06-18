@@ -27,15 +27,15 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.BuildConfig
 import com.myongsik.myongsikandroid.R
-import com.myongsik.myongsikandroid.base.ApiResponse
+import com.myongsik.myongsikandroid.base.BaseFragment
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.databinding.DialogBottomUpdateSheetBinding
 import com.myongsik.myongsikandroid.databinding.FragmentHomeBinding
 import com.myongsik.myongsikandroid.presentation.adapter.food.MyPagerAdapter
 import com.myongsik.myongsikandroid.presentation.viewmodel.food.HomeViewModel
+import com.myongsik.myongsikandroid.presentation.viewmodel.food.WeekFoodState
 import com.myongsik.myongsikandroid.util.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -76,12 +76,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             initInterstitialAd()
             setInterstitialAd()
         }
-
-        initData()
-        initViewPager()
-        initViews()
-        chekNetwork()
-        checkWeekend()
     }
 
     override fun initListener() {
@@ -113,27 +107,47 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private fun initObserve() {
         viewLifecycleOwner.lifecycleScope.launch{
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                homeViewModel.weekGetFoodArea.collectLatest {
-                    val list = mutableListOf<List<String>>()
-
-                    it?.let{
-                        settingDate(LocalDate.parse(it.localDateTime.substring(0, 10)))
-
-                        it.data.forEach { foodResult ->
-                            list.add(foodResult.meals)
+                homeViewModel.weekGetFoodArea.collect {
+                    when(it) {
+                        is WeekFoodState.UnInitialized -> {
+                            initData()
+                            initViewPager()
+                            initViews()
+                            chekNetwork()
+                            checkWeekend()
                         }
 
-                        val chunkedList = if (list.size == 15) {
-                            list.chunked(3).chunked(5).first()
-                        } else {
-                            list.chunked(2).chunked(5).first()
+                        is WeekFoodState.Loading -> {
+
                         }
 
-                        with(binding) {
-                            viewPager2.adapter = MyPagerAdapter(chunkedList)
-                            viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                            setCurrentPage(initDate)
-                            indicator.setViewPager(viewPager2)
+                        is WeekFoodState.SuccessWeekFoodGetData -> {
+                            val list = mutableListOf<List<String>>()
+
+                            it.let{
+                                settingDate(LocalDate.parse(it.getWeekFoodData.localDateTime.substring(0, 10)))
+
+                                it.getWeekFoodData.data.forEach { foodResult ->
+                                    list.add(foodResult.meals)
+                                }
+
+                                val chunkedList = if (list.size == 15) {
+                                    list.chunked(3).chunked(5).first()
+                                } else {
+                                    list.chunked(2).chunked(5).first()
+                                }
+
+                                with(binding) {
+                                    viewPager2.adapter = MyPagerAdapter(chunkedList)
+                                    viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                                    setCurrentPage(initDate)
+                                    indicator.setViewPager(viewPager2)
+                                }
+                            }
+                        }
+
+                        is WeekFoodState.Error -> {
+
                         }
                     }
                 }

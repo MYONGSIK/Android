@@ -7,12 +7,14 @@ import retrofit2.HttpException
 import retrofit2.Response
 import java.net.SocketException
 
-fun <T> safeApiCall(call: suspend () -> Response<T>): Flow<BaseResult<T>> = flow {
+fun <T, R> autoHandleApiResponse(transform: ((T) -> R)? = null, block: suspend () -> Response<T>): Flow<BaseResult<R>> = flow {
     try {
-        val response = call()
+        val response = block()
         val body = response.body()
         if (response.isSuccessful && body != null) {
-            emit(BaseResult.Success(body))
+            transform?.invoke(body)?.let {
+                emit(BaseResult.Success(it))
+            } ?: emit(BaseResult.Error(response.code()))
         } else {
             emit(BaseResult.Error(response.code()))
         }

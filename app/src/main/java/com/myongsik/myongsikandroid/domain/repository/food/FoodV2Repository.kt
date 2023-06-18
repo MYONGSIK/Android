@@ -1,12 +1,14 @@
 package com.myongsik.myongsikandroid.domain.repository.food
 
+import com.myongsik.myongsikandroid.base.BaseResult
 import com.myongsik.myongsikandroid.domain.model.food.RequestReviewDataEntity
 import com.myongsik.myongsikandroid.domain.model.food.ResponseReviewDataEntity
 import com.myongsik.myongsikandroid.domain.model.food.ResponseWeekFoodEntity
+import kotlinx.coroutines.flow.Flow
 
 interface FoodV2Repository {
 
-    suspend fun weekGetFoodArea(s: String): ResponseWeekFoodEntity?
+    suspend fun weekGetFoodArea(s: String): Flow<BaseResult<ResponseWeekFoodEntity>>
 
     suspend fun postReview(requestReviewDataEntity: RequestReviewDataEntity): ResponseReviewDataEntity?
 }
