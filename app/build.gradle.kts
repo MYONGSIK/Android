@@ -70,88 +70,88 @@ dependencies {
     androidTestImplementation(Testing.ESPRESSO_CORE)
 
     // Google play
-    implementation("com.google.android.gms:play-services-ads-identifier:17.0.0")
+    implementation(Dependencies.GOOGLE_PLAY)
 
     // Google Admob
-    implementation("com.google.android.gms:play-services-ads:22.0.0")
+    implementation(Dependencies.GOOGLE_ADMOB)
 
 
     //Moshi
-    implementation("com.squareup.moshi:moshi:1.13.0")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:1.13.0")
+    implementation(Dependencies.MOSHI)
+    kapt(Dependencies.MOSHI_KOTLIN_CODEGEN)
 
     // Retrofit2
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:retrofit-mock:2.9.0")
-    implementation("com.google.code.gson:gson:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(Dependencies.RETROFIT)
+    implementation(Dependencies.RETROFIT_MOCK)
+    implementation(Dependencies.GSON)
+    implementation(Dependencies.RETROFIT_GSON)
 
     // http 로그 확인
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.6")
+    implementation(Dependencies.OKHTTP_LOGGING_INTERCEPTOR)
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.4.2")
-    implementation("androidx.navigation:navigation-ui-ktx:2.4.2")
+    implementation(Dependencies.NAVIGATION_FRAGMENT_KTX)
+    implementation(Dependencies.NAVIGATION_UI_KTX)
 
     // Recyclerview
-    implementation("androidx.recyclerview:recyclerview:1.3.0")
+    implementation(Dependencies.RECYCLERVIEW)
 
     // Room
-    implementation("androidx.room:room-runtime:2.4.2")
-    implementation("androidx.room:room-ktx:2.4.2")
-    kapt("androidx.room:room-compiler:2.4.2")
-    implementation("androidx.room:room-paging:2.4.2")
+    implementation(Dependencies.ROOM_RUNTIME)
+    implementation(Dependencies.ROOM_KTX)
+    kapt(Dependencies.ROOM_COMPILER)
+    implementation(Dependencies.ROOM_PAGING)
 
     // Lifecycle
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.1")
+    implementation(Dependencies.LIFECYCLE_VIEWMODEL_KTX)
+    implementation(Dependencies.LIFECYCLE_RUNTIME_KTX)
+    implementation(Dependencies.LIFECYCLE_VIEWMODEL_SAVEDSTATE)
 
     // Coroutine
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
+    implementation(Dependencies.COROUTINES_CORE)
+    implementation(Dependencies.COROUTINES_ANDROID)
 
     // DataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation(Dependencies.DATASTORE)
 
     // Background
-    implementation("androidx.work:work-runtime-ktx:2.7.1")
+    implementation(Dependencies.WORK)
 
     // ViewPager2
-    implementation("androidx.viewpager2:viewpager2:1.0.0")
+    implementation(Dependencies.VIEWPAGER2)
 
     // Indicator
-    implementation("me.relex:circleindicator:2.1.6")
+    implementation(Dependencies.INDICATOR)
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.41")
-    kapt("com.google.dagger:hilt-compiler:2.41")
+    implementation(Dependencies.DAGGER_HILT)
+    kapt(Dependencies.DAGGER_HILT_COMPILER)
 
     // ViewModel delegate
-    implementation("androidx.activity:activity-ktx:1.4.0")
-    implementation("androidx.fragment:fragment-ktx:1.4.1")
+    implementation(Dependencies.VIEWMODEL_DELEAGTE)
+    implementation(Dependencies.VIEWMODEL_DELEAGTE_FRAGMENT)
 
     // Hilt extension
-    implementation("androidx.hilt:hilt-work:1.0.0")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    implementation(Dependencies.HILT_EXTENSIONS)
+    kapt(Dependencies.HILT_EXTENSIONS_COMPILER)
 
     // Paging
-    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
+    implementation(Dependencies.PAGING3)
 
     //disugaring
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+    coreLibraryDesugaring(Dependencies.DISUGARING)
 
     //firebase
-    implementation("com.google.firebase:firebase-bom:31.2.3")
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation(platform(Dependencies.FIREBASE_BOM))
+    implementation(Dependencies.FIREBASE_ANALYTICS)
+    implementation(Dependencies.FIREBASE_CRASHLYTICS)
 
     //refresh
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation(Dependencies.REFRESH_LAYOUT)
 
     //map
-    implementation(files("libs/libDaumMapAndroid.jar"))
+    implementation(files(Dependencies.MAP))
 
     //Glide
-    implementation("com.github.bumptech.glide:glide:4.13.2")
+    implementation(Dependencies.GLIDE)
 }

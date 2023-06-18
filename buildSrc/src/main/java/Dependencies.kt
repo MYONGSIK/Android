@@ -47,9 +47,9 @@ object Dependencies {
     const val DAGGER_HILT_COMPILER = "com.google.dagger:hilt-android-compiler:${Versions.HILT_COMPILER}"
 
     const val VIEWMODEL_DELEAGTE = "androidx.activity:activity-ktx:${Versions.VIEWMODEL_DELEGATE}"
-    const val VIEWMODEL_DELEAGTE_FRAGMENT = "androidx.fragment:fragment-ktx:1.4.1:${Versions.VIEWMODEL_FRAGMENT_KTX}"
+    const val VIEWMODEL_DELEAGTE_FRAGMENT = "androidx.fragment:fragment-ktx:${Versions.VIEWMODEL_FRAGMENT_KTX}"
 
-    const val HILT_EXTENSIONS = "androidx.hilt:hilt-work:1.0.0:${Versions.HILT_EXTENSION}"
+    const val HILT_EXTENSIONS = "androidx.hilt:hilt-work:${Versions.HILT_EXTENSION}"
     const val HILT_EXTENSIONS_COMPILER = "androidx.hilt:hilt-compiler:${Versions.HILT_EXTENSION}"
 
     const val PAGING3 = "androidx.paging:paging-runtime-ktx:${Versions.PAGING}"
