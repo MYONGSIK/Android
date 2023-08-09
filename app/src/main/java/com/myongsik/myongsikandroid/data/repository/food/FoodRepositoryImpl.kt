@@ -5,15 +5,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
-import com.myongsik.myongsikandroid.base.ApiResponse
-import com.myongsik.myongsikandroid.base.safeApiCall
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
 import com.myongsik.myongsikandroid.data.model.food.DayFoodResponse
 import com.myongsik.myongsikandroid.data.model.food.RankRestaurantResponse
 import com.myongsik.myongsikandroid.data.model.food.ResponseOneRestaurant
-import com.myongsik.myongsikandroid.data.model.food.WeekFoodResponse
-import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
-import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.util.DataStoreKey
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch

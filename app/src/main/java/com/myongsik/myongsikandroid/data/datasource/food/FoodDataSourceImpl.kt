@@ -1,6 +1,6 @@
 package com.myongsik.myongsikandroid.data.datasource.food
 
-import android.util.Log
+import com.myongsik.myongsikandroid.base.autoHandleApiResponse
 import com.myongsik.myongsikandroid.data.api.HomeFoodApi
 import com.myongsik.myongsikandroid.data.model.food.toWeekFoodEntity
 import com.myongsik.myongsikandroid.data.model.review.toRequestReviewData
@@ -8,19 +8,15 @@ import com.myongsik.myongsikandroid.data.model.review.toResponseReviewEntity
 import com.myongsik.myongsikandroid.domain.model.food.RequestReviewDataEntity
 import com.myongsik.myongsikandroid.domain.model.food.ResponseReviewDataEntity
 import com.myongsik.myongsikandroid.domain.model.food.ResponseWeekFoodEntity
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class FoodDataSourceImpl @Inject constructor(
     private val homeFoodApi : HomeFoodApi
 ) : FoodDataSource {
 
-    override suspend fun weekGetFoodArea(s: String): ResponseWeekFoodEntity? {
-        val response = homeFoodApi.weekGetFoodArea(s)
-        return if(response.isSuccessful) {
-            response.body()?.toWeekFoodEntity()
-        } else {
-            null
-        }
+    override suspend fun weekGetFoodArea(s: String) = autoHandleApiResponse({ it.toWeekFoodEntity() }) {
+        homeFoodApi.weekGetFoodArea(s)
     }
 
     override suspend fun postReview(requestReviewDataEntity: RequestReviewDataEntity): ResponseReviewDataEntity? {

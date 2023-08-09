@@ -1,12 +1,13 @@
 package com.myongsik.myongsikandroid.presentation.viewmodel.food
 
-import android.util.Log
 import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.myongsik.myongsikandroid.base.ApiResponse
+import com.myongsik.myongsikandroid.base.BaseResult
 import com.myongsik.myongsikandroid.base.BaseViewModel
-import com.myongsik.myongsikandroid.data.model.food.*
+import com.myongsik.myongsikandroid.data.model.food.RankRestaurantResponse
+import com.myongsik.myongsikandroid.data.model.food.ResponseMealData
+import com.myongsik.myongsikandroid.data.model.food.ResponseOneRestaurant
 import com.myongsik.myongsikandroid.data.model.review.RequestReviewData
 import com.myongsik.myongsikandroid.data.model.review.ResponseReviewData
 import com.myongsik.myongsikandroid.data.model.review.toRequestReviewEntity
@@ -18,7 +19,10 @@ import com.myongsik.myongsikandroid.util.Constant
 import com.myongsik.myongsikandroid.util.MyongsikApplication
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -29,8 +33,8 @@ class HomeViewModel @Inject constructor(
     private val postReviewDataUseCase: PostReviewDataUseCase
 ) : BaseViewModel() {
 
-    private val _weekGetFoodArea = MutableStateFlow<WeekFoodResponse?>(null)
-    val weekGetFoodArea: StateFlow<WeekFoodResponse?> = _weekGetFoodArea.asStateFlow()
+    private val _weekGetFoodArea = MutableStateFlow<WeekFoodState>(WeekFoodState.UnInitialized)
+    val weekGetFoodArea: StateFlow<WeekFoodState> = _weekGetFoodArea.asStateFlow()
 
     private val _postReviewData = MutableStateFlow<ResponseReviewData?>(null)
     val postReviewData: StateFlow<ResponseReviewData?> = _postReviewData.asStateFlow()
@@ -40,16 +44,22 @@ class HomeViewModel @Inject constructor(
         get() = _postMealData
 
     fun weekGetFoodAreaFun(s: String) = launch {
-        getWeekFoodDataUseCase(s)?.let{
-            _weekGetFoodArea.value = it.toWeekFoodResponse()
+        _weekGetFoodArea.emit(WeekFoodState.Loading)
+        getWeekFoodDataUseCase(s).collect {
+            when (it) {
+                is BaseResult.Success -> {
+                    _weekGetFoodArea.emit(WeekFoodState.SuccessWeekFoodGetData(it.data))
+                }
+                is BaseResult.Error -> {
+                    _weekGetFoodArea.emit(WeekFoodState.Error(it.errorCode))
+                }
+            }
         }
     }
 
     fun postReview(requestReviewData: RequestReviewData) = launch {
         postReviewDataUseCase(requestReviewData.toRequestReviewEntity())?.let{
-            Log.d("DebugTag", "postReviewDataUseCase result: $it")
             _postReviewData.value = it.toResponseReviewData()
-            Log.d("DebugTag", "Value emitted to _postReviewData")
         }
     }
 
@@ -89,7 +99,6 @@ class HomeViewModel @Inject constructor(
 
     private suspend fun start(sort: String, campus: String, size : Int) {
         val response = foodRepository.getRankRestaurant(sort, campus, size)
-
         if (response.isSuccessful) {
             response.body()?.let { body ->
                 _rankRestaurantResponse.postValue(body)
