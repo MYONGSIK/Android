@@ -71,11 +71,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             showBottomSheetDialog()
         }
 
-//        if (Constant.isAdAvailable) {
-//            Constant.isAdAvailable = false
-//            initInterstitialAd()
-//            setInterstitialAd()
-//        }
+        if (Constant.isAdAvailable) {
+            Constant.isAdAvailable = false
+            initInterstitialAd()
+            setInterstitialAd()
+        }
     }
 
     override fun initListener() {
@@ -124,31 +124,30 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         is WeekFoodState.SuccessWeekFoodGetData -> {
                             val list = mutableListOf<List<String>>()
 
+                            settingDate(LocalDate.parse(it.getWeekFoodData.localDateTime.substring(0, 10)))
 
-                                settingDate(LocalDate.parse(it.getWeekFoodData.localDateTime.substring(0, 10)))
+                            it.getWeekFoodData.data.forEach { foodResult ->
+                                list.add(foodResult.meals)
+                            }
 
-                                it.getWeekFoodData.data.forEach { foodResult ->
-                                    list.add(foodResult.meals)
+                            val chunkedList = when (list.size) {
+                                15 -> {
+                                    list.chunked(3).chunked(5).first()
                                 }
-
-                                val chunkedList = when (list.size) {
-                                    15 -> {
-                                        list.chunked(3).chunked(5).first()
-                                    }
-                                    5 -> {
-                                        list.chunked(1).chunked(5).first()
-                                    }
-                                    else -> {
-                                        list.chunked(2).chunked(5).first()
-                                    }
+                                5 -> {
+                                    list.chunked(1).chunked(5).first()
                                 }
-
-                                with(binding) {
-                                    viewPager2.adapter = MyPagerAdapter(chunkedList)
-                                    viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                                    setCurrentPage(initDate)
-                                    indicator.setViewPager(viewPager2)
+                                else -> {
+                                    list.chunked(2).chunked(5).first()
                                 }
+                            }
+
+                            with(binding) {
+                                viewPager2.adapter = MyPagerAdapter(chunkedList)
+                                viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                                setCurrentPage(initDate)
+                                indicator.setViewPager(viewPager2)
+                            }
                         }
 
                         is WeekFoodState.Error -> {
