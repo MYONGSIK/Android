@@ -99,7 +99,6 @@ class HomeViewModel @Inject constructor(
 
     private suspend fun start(sort: String, campus: String, size : Int) {
         val response = foodRepository.getRankRestaurant(sort, campus, size)
-
         if (response.isSuccessful) {
             response.body()?.let { body ->
                 _rankRestaurantResponse.postValue(body)
