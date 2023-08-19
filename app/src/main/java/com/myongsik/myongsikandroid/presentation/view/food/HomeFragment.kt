@@ -124,17 +124,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         is WeekFoodState.SuccessWeekFoodGetData -> {
                             val list = mutableListOf<List<String>>()
 
-                            it.let{
+
                                 settingDate(LocalDate.parse(it.getWeekFoodData.localDateTime.substring(0, 10)))
 
                                 it.getWeekFoodData.data.forEach { foodResult ->
                                     list.add(foodResult.meals)
                                 }
 
-                                val chunkedList = if (list.size == 15) {
-                                    list.chunked(3).chunked(5).first()
-                                } else {
-                                    list.chunked(2).chunked(5).first()
+                                val chunkedList = when (list.size) {
+                                    15 -> {
+                                        list.chunked(3).chunked(5).first()
+                                    }
+                                    5 -> {
+                                        list.chunked(1).chunked(5).first()
+                                    }
+                                    else -> {
+                                        list.chunked(2).chunked(5).first()
+                                    }
                                 }
 
                                 with(binding) {
@@ -143,7 +149,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                                     setCurrentPage(initDate)
                                     indicator.setViewPager(viewPager2)
                                 }
-                            }
                         }
 
                         is WeekFoodState.Error -> {
@@ -185,6 +190,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 "MCC" -> {
                     homeViewModel.weekGetFoodAreaFun("MCC식당")
                     binding.homeTimeTv.text = getString(R.string.home_time_tv)
+                }
+                "PAUL" -> {
+                    homeViewModel.weekGetFoodAreaFun("폴바셋")
                 }
             }
         } else if (MyongsikApplication.prefs.getUserCampus() == "Y") {

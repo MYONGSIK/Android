@@ -19,6 +19,7 @@ class MyPagerAdapter(
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var builderDinnerFood = SpannableStringBuilder()
+    private var builderWeekFoodB = SpannableStringBuilder()
 
     inner class ItemViewHolder(
         val binding: ItemHomeTodayFoodBinding
@@ -44,22 +45,24 @@ class MyPagerAdapter(
                 )
             }
 
-            val weekFoodB =
-                "${weekFoodResult[1][0]} ${weekFoodResult[1][1]} ${weekFoodResult[1][2]} " +
-                        "${weekFoodResult[1][3]} ${weekFoodResult[1][4]} ${weekFoodResult[1][5]}"
-            val builderWeekFoodB = SpannableStringBuilder(weekFoodB).apply {
-                setSpan(
-                    ForegroundColorSpan(Color.parseColor("#0A45CA")),
-                    0,
-                    weekFoodResult[1][0].length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-                setSpan(
-                    StyleSpan(Typeface.BOLD),
-                    0,
-                    weekFoodResult[1][0].length,
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
+            if(weekFoodResult.size >= 2) {
+                val weekFoodB =
+                    "${weekFoodResult[1][0]} ${weekFoodResult[1][1]} ${weekFoodResult[1][2]} " +
+                            "${weekFoodResult[1][3]} ${weekFoodResult[1][4]} ${weekFoodResult[1][5]}"
+                builderWeekFoodB = SpannableStringBuilder(weekFoodB).apply {
+                    setSpan(
+                        ForegroundColorSpan(Color.parseColor("#0A45CA")),
+                        0,
+                        weekFoodResult[1][0].length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                    setSpan(
+                        StyleSpan(Typeface.BOLD),
+                        0,
+                        weekFoodResult[1][0].length,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
             }
 
             if (weekFoodResult.size.toString() == "3") {
@@ -91,6 +94,9 @@ class MyPagerAdapter(
                     binding.weekFoodLunchAV.text = "백반"
                     binding.weekFoodLunchBTv.text = "샐러드"
                     binding.weekFoodAfternoonTv.text = "볶음밥"
+                }
+                if (MyongsikApplication.prefs.getUserArea() == "PAUL") {
+                    binding.weekFoodLunchAV.text = "오늘의 음식"
                 }
                 // text 설정, 자캠의 경우는 lunchB 지우기
                 binding.todayFood1.text = builderWeekFoodA
