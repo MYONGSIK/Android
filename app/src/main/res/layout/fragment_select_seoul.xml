@@ -72,6 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="44dp"
+                    android:paddingVertical="20dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/select_home_staff_v"
                     app:layout_constraintBottom_toBottomOf="@+id/select_home_staff_v">
@@ -111,7 +112,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/home_today_food_stroke"
-                    app:layout_constraintBottom_toBottomOf="@+id/select_home_life_time"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/select_home_staff_v" />
 
@@ -120,9 +121,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="44dp"
-                    android:layout_marginTop="35dp"
+                    android:paddingVertical="20dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/select_home_life_v">
+                    app:layout_constraintTop_toTopOf="@+id/select_home_life_v"
+                    app:layout_constraintBottom_toBottomOf="@+id/select_home_life_v">
 
                     <TextView
                         android:id="@+id/select_home_life_tv"
@@ -133,7 +135,7 @@
                         android:paddingHorizontal="11dp"
                         android:paddingVertical="4dp"
                         android:paddingStart="0dp"
-                        android:text="@string/select_room_restaurant"
+                        android:text="@string/select_student_paul_restaurant"
                         android:textColor="@color/sub_color"
                         android:textFontWeight="700"
                         android:textSize="24sp"
@@ -143,27 +145,13 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                <TextView
-                    android:id="@+id/select_home_life_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-4dp"
-                    android:paddingBottom="35dp"
-                    android:text="@string/select_room_restaurant_time"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="@+id/select_home_life"
-                    app:layout_constraintTop_toBottomOf="@+id/select_home_life" />
-
                 <ImageView
                     android:id="@+id/select_home_life_iv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="28dp"
-                    android:paddingBottom="35dp"
                     android:src="@drawable/select_home_arrow"
-                    app:layout_constraintBottom_toBottomOf="@+id/select_home_life_time"
+                    app:layout_constraintBottom_toBottomOf="@+id/select_home_life"
                     app:layout_constraintEnd_toEndOf="@+id/select_home_life_v"
                     app:layout_constraintTop_toTopOf="@+id/select_home_life" />
 
