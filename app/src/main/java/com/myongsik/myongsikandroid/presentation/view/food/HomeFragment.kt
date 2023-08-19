@@ -71,11 +71,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             showBottomSheetDialog()
         }
 
-        if (Constant.isAdAvailable) {
-            Constant.isAdAvailable = false
-            initInterstitialAd()
-            setInterstitialAd()
-        }
+//        if (Constant.isAdAvailable) {
+//            Constant.isAdAvailable = false
+//            initInterstitialAd()
+//            setInterstitialAd()
+//        }
     }
 
     override fun initListener() {
