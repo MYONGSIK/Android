@@ -34,7 +34,7 @@ class SelectSeoulFragment : BaseFragment<FragmentSelectSeoulBinding>() {
 
         settingBackPressedCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val action = SelectHomeFragmentDirections.actionFragmentSelectHomeToFragmentSearch()
+                val action = SelectSeoulFragmentDirections.actionFragmentSelectSeoulToFragmentSearch()
                 findNavController().navigate(action)
             }
         })
