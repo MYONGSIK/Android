@@ -50,6 +50,9 @@
         <action
             android:id="@+id/action_fragment_home_to_fragment_select_home"
             app:destination="@id/fragment_select_home" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_select_seoul"
+            app:destination="@id/fragment_select_seoul" />
     </fragment>
     <fragment
         android:id="@+id/fragment_love"
@@ -146,5 +149,17 @@
         android:name="com.myongsik.myongsikandroid.presentation.view.food.WidgetSettingFragment"
         android:label="WidgetSettingFragment"
         tools:layout="@layout/fragment_widget_setting">
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_select_seoul"
+        android:name="com.myongsik.myongsikandroid.presentation.view.food.SelectSeoulFragment"
+        android:label="SelectSeoulFragment"
+        tools:layout="@layout/fragment_select_seoul">
+        <action
+            android:id="@+id/action_fragment_select_seoul_to_fragment_home"
+            app:destination="@id/fragment_home" />
+        <action
+            android:id="@+id/action_fragment_select_seoul_to_fragment_search"
+            app:destination="@id/fragment_search" />
     </fragment>
 </navigation>

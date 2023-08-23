@@ -84,7 +84,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         settingBackPressedCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (MyongsikApplication.prefs.getUserCampus() == "S") {
-                    val action = HomeFragmentDirections.actionFragmentHomeToFragmentSearch()
+                    val action = HomeFragmentDirections.actionFragmentHomeToFragmentSelectSeoul()
                     findNavController().navigate(action)
                 } else { // 자캠은 식당 선택화면
                     val action = HomeFragmentDirections.actionFragmentHomeToFragmentSelectHome()
@@ -124,25 +124,29 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         is WeekFoodState.SuccessWeekFoodGetData -> {
                             val list = mutableListOf<List<String>>()
 
-                            it.let{
-                                settingDate(LocalDate.parse(it.getWeekFoodData.localDateTime.substring(0, 10)))
+                            settingDate(LocalDate.parse(it.getWeekFoodData.localDateTime.substring(0, 10)))
 
-                                it.getWeekFoodData.data.forEach { foodResult ->
-                                    list.add(foodResult.meals)
-                                }
+                            it.getWeekFoodData.data.forEach { foodResult ->
+                                list.add(foodResult.meals)
+                            }
 
-                                val chunkedList = if (list.size == 15) {
+                            val chunkedList = when (list.size) {
+                                15 -> {
                                     list.chunked(3).chunked(5).first()
-                                } else {
+                                }
+                                5 -> {
+                                    list.chunked(1).chunked(5).first()
+                                }
+                                else -> {
                                     list.chunked(2).chunked(5).first()
                                 }
+                            }
 
-                                with(binding) {
-                                    viewPager2.adapter = MyPagerAdapter(chunkedList)
-                                    viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-                                    setCurrentPage(initDate)
-                                    indicator.setViewPager(viewPager2)
-                                }
+                            with(binding) {
+                                viewPager2.adapter = MyPagerAdapter(chunkedList)
+                                viewPager2.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+                                setCurrentPage(initDate)
+                                indicator.setViewPager(viewPager2)
                             }
                         }
 
@@ -181,8 +185,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun initData() {
         if (MyongsikApplication.prefs.getUserCampus() == "S") {
-            homeViewModel.weekGetFoodAreaFun(CommonUtil.getAreaName(context))
-            binding.homeTimeTv.text = getString(R.string.home_time_tv)
+            when (MyongsikApplication.prefs.getUserArea()) {
+                "MCC" -> {
+                    homeViewModel.weekGetFoodAreaFun("MCC식당")
+                    binding.homeTimeTv.text = getString(R.string.home_time_tv)
+                }
+                "PAUL" -> {
+                    homeViewModel.weekGetFoodAreaFun("폴바셋")
+                }
+            }
         } else if (MyongsikApplication.prefs.getUserCampus() == "Y") {
             when (MyongsikApplication.prefs.getUserArea()) {
                 "S" -> {

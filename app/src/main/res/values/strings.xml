@@ -62,6 +62,9 @@
     <string name="select_new_rice_time">백반 운영시간 11:30~14:30</string>
     <string name="select_new_salad_time">샐러드,볶음밥 운영시간 11:00 ~ 16:00</string>
 
+    <string name="select_student_mcc_restaurant">MCC식당</string>
+    <string name="select_student_paul_restaurant">폴바셋</string>
+
     <string name="splash_myongji_title_text">명지대 학식 식단표 제공 앱</string>
     <string name="tag_myongji_good_food">#명지 맛집</string>
 
