@@ -92,7 +92,7 @@ class MyPagerAdapter(
                 }
                 if (MyongsikApplication.prefs.getUserArea() == "M"){
                     binding.weekFoodLunchAV.text = "백반"
-                    binding.weekFoodLunchBTv.text = "샐러드"
+                    binding.weekFoodLunchBTv.text = "떡볶이"
                     binding.weekFoodAfternoonTv.text = "볶음밥"
                 }
                 if (MyongsikApplication.prefs.getUserArea() == "PAUL") {
