@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.myongsik.myongsikandroid.R
@@ -94,13 +96,15 @@ class MapDetailBottomSheetDialog(private val restaurantId: Int) : BottomSheetDia
             }
 
             viewLifecycleOwner.lifecycleScope.launch{
-                loveViewModel.loveIs.collectLatest {
-                    if (it == null) {
-                        dialogBottomLoveIv.visibility = View.VISIBLE
-                        dialogBottomScrapIv.visibility = View.INVISIBLE
-                    } else {
-                        dialogBottomLoveIv.visibility = View.INVISIBLE
-                        dialogBottomScrapIv.visibility = View.VISIBLE
+                viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    loveViewModel.loveIs.collectLatest {
+                        if (it == null) {
+                            dialogBottomLoveIv.visibility = View.VISIBLE
+                            dialogBottomScrapIv.visibility = View.INVISIBLE
+                        } else {
+                            dialogBottomLoveIv.visibility = View.INVISIBLE
+                            dialogBottomScrapIv.visibility = View.VISIBLE
+                        }
                     }
                 }
             }

@@ -97,8 +97,10 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         val textView = customMarkerView.findViewById<TextView>(R.id.name)
         textView.text = name
 
-        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        customMarkerView.layout(0, 0, customMarkerView.measuredWidth, customMarkerView.measuredHeight)
+        customMarkerView.apply {
+            measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+            layout(0, 0, measuredWidth, measuredHeight)
+        }
 
         val bitmap = Bitmap.createBitmap(customMarkerView.measuredWidth, customMarkerView.measuredHeight, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
@@ -113,8 +115,10 @@ class MapFragment : BaseFragment<FragmentMapBinding>(), MapView.POIItemEventList
         val textView = customMarkerView.findViewById<TextView>(R.id.name)
         textView.text = name
 
-        customMarkerView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        customMarkerView.layout(0, 0, customMarkerView.measuredWidth, customMarkerView.measuredHeight)
+        customMarkerView.apply {
+            measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+            layout(0, 0, measuredWidth, measuredHeight)
+        }
 
         val bitmap = Bitmap.createBitmap(customMarkerView.measuredWidth, customMarkerView.measuredHeight, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
