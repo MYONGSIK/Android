@@ -50,4 +50,5 @@ object Versions {
     const val FIREBASE_BOM = "31.2.3"
     const val REFRESH_LAYOUT_KTS = "1.1.0"
     const val GLIDE = "4.13.2"
+    const val KAKAO_MAP_V2 = "2.6.0"
 }

@@ -63,6 +63,7 @@ object Dependencies {
     const val REFRESH_LAYOUT = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.REFRESH_LAYOUT_KTS}"
 
     const val MAP = "libs/libDaumMapAndroid.jar"
+    const val KAKAO_MAP_V2 = "com.kakao.maps.open:android:${Versions.KAKAO_MAP_V2}"
 
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
 }
