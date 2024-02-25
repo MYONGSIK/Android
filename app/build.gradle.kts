@@ -153,4 +153,7 @@ dependencies {
 
     //Glide
     implementation(Dependencies.GLIDE)
+
+    //kakao map
+    implementation(Dependencies.KAKAO_MAP_V2)
 }

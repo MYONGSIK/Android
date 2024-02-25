@@ -4,7 +4,7 @@ import com.myongsik.myongsikandroid.BuildConfig
 
 object Constant {
     //Retrofit Base Url
-    const val MYONG_SIK_BASE_URL = "http://13.209.50.30"
+    const val MYONG_SIK_BASE_URL = BuildConfig.MYONG_SIK_BASE_URL
     const val KAKAO_BASE_URL = "https://dapi.kakao.com"
 
     const val S = "S"
